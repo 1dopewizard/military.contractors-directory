@@ -169,7 +169,7 @@ const steps = [
 
     <!-- How It Works Section -->
     <section class="py-16 lg:py-24 bg-muted/30">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold text-foreground mb-4">
             How It Works
@@ -178,19 +178,23 @@ const steps = [
             Get started in just a few minutes.
           </p>
         </div>
-        <div class="space-y-6">
+        <div class="grid gap-6 md:grid-cols-4">
           <div 
-            v-for="step in steps" 
+            v-for="(step, index) in steps" 
             :key="step.step"
-            class="flex items-start gap-4"
+            class="relative text-center"
           >
-            <div class="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0 font-bold">
+            <!-- Connector line (hidden on mobile, visible between items on md+) -->
+            <div 
+              v-if="index < steps.length - 1" 
+              class="hidden md:block absolute top-5 left-[calc(50%+24px)] right-0 h-px bg-border -translate-y-1/2"
+            />
+            
+            <div class="relative inline-flex items-center justify-center w-10 h-10 mb-4 text-lg font-bold text-primary border-2 border-primary bg-background">
               {{ step.step }}
             </div>
-            <div class="pt-1">
-              <h3 class="font-semibold mb-1">{{ step.title }}</h3>
-              <p class="text-muted-foreground">{{ step.description }}</p>
-            </div>
+            <h3 class="font-semibold mb-2">{{ step.title }}</h3>
+            <p class="text-sm text-muted-foreground">{{ step.description }}</p>
           </div>
         </div>
       </div>
