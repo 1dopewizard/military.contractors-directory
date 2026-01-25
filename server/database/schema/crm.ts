@@ -5,7 +5,7 @@
 
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
 import { user } from './auth'
-import { company } from './companies'
+import { contractor } from './directory'
 import { job } from './jobs'
 
 export const jobAlertSubscription = sqliteTable('job_alert_subscription', {
@@ -55,7 +55,7 @@ export const placement = sqliteTable('placement', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   candidateEmail: text('candidateEmail').notNull(),
   jobId: text('jobId').references(() => job.id),
-  companyId: text('companyId').references(() => company.id),
+  contractorId: text('contractorId').references(() => contractor.id),
   status: text('status').notNull(),
   placementDate: integer('placementDate', { mode: 'timestamp' }),
   notes: text('notes'),
@@ -64,13 +64,13 @@ export const placement = sqliteTable('placement', {
 }, (table) => [
   index('placement_candidate_idx').on(table.candidateEmail),
   index('placement_job_idx').on(table.jobId),
-  index('placement_company_idx').on(table.companyId),
+  index('placement_contractor_idx').on(table.contractorId),
   index('placement_status_idx').on(table.status),
 ])
 
 export const employerContact = sqliteTable('employer_contact', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
-  companyId: text('companyId').notNull().references(() => company.id, { onDelete: 'cascade' }),
+  contractorId: text('contractorId').notNull().references(() => contractor.id, { onDelete: 'cascade' }),
   name: text('name').notNull(),
   email: text('email').notNull(),
   title: text('title'),
@@ -79,18 +79,18 @@ export const employerContact = sqliteTable('employer_contact', {
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('employer_contact_company_idx').on(table.companyId),
+  index('employer_contact_contractor_idx').on(table.contractorId),
   index('employer_contact_email_idx').on(table.email),
 ])
 
 export const employerNote = sqliteTable('employer_note', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
-  companyId: text('companyId').notNull().references(() => company.id, { onDelete: 'cascade' }),
+  contractorId: text('contractorId').notNull().references(() => contractor.id, { onDelete: 'cascade' }),
   contactId: text('contactId').references(() => employerContact.id, { onDelete: 'cascade' }),
   content: text('content').notNull(),
   createdBy: text('createdBy').references(() => user.id),
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('employer_note_company_idx').on(table.companyId),
+  index('employer_note_contractor_idx').on(table.contractorId),
   index('employer_note_contact_idx').on(table.contactId),
 ])

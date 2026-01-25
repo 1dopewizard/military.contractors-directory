@@ -6,7 +6,6 @@
  * for the frontend. Database types are the source of truth.
  */
 
-import type { Company } from '@/app/types/company.types'
 import type { MosJobFilters } from '@/app/types/app.types'
 import type { Job, MilitarySpecialty, Json } from '@/app/types/legacy-types'
 
@@ -269,11 +268,11 @@ export interface AnalyticsEvent {
 
 /**
  * View-model for the MOS detail route (/mos/[code])
+ * @deprecated MOS pages have been removed. Keep for reference.
  */
 export interface MosDetailViewModel {
   mos: MilitarySpecialty
   jobs: JobWithMosMatch[]
-  companies: Company[]
   filters: MosJobFilters
   stats?: MosStats
 }

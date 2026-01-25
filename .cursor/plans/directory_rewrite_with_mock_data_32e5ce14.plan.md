@@ -10,37 +10,37 @@ todos:
     status: completed
   - id: migration
     content: Generate and apply database migration
-    status: pending
+    status: completed
   - id: mock-script
     content: Create scripts/seed/generate-mock-contractors.ts to call GPT-5.1 for each company
-    status: pending
+    status: completed
   - id: mock-data
     content: Run mock generation script to create scripts/seed/mock-contractors.json
-    status: pending
+    status: completed
   - id: seed-script
     content: Create scripts/seed/seed-contractors.ts to import mock data
-    status: pending
+    status: completed
   - id: api-list
     content: Create server/api/contractors/index.get.ts (paginated list with filters)
-    status: pending
+    status: completed
   - id: api-single
     content: Create server/api/contractors/[slug].get.ts (single contractor)
-    status: pending
+    status: completed
   - id: api-specialties
     content: Create server/api/specialties/index.get.ts (list specialties)
-    status: pending
+    status: completed
   - id: page-profile
     content: Create app/pages/contractors/[slug].vue (company profile page)
-    status: pending
+    status: completed
   - id: page-browse
     content: Create app/pages/contractors/index.vue (browse/search page)
-    status: pending
+    status: completed
   - id: page-home
     content: Redesign app/pages/index.vue for directory model
-    status: pending
+    status: completed
   - id: cleanup
     content: Remove old MOS and company code after new system works (keep jobs for future)
-    status: pending
+    status: completed
 isProject: false
 ---
 

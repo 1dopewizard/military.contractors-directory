@@ -461,8 +461,11 @@ export abstract class BaseMilitaryScraper {
     log: PipelineLogger
   ): Promise<{ inserted: number; failed: number; skipped: number }> {
     // Dynamically import schema to avoid circular dependencies
-    const { mosCode } = await import('@/server/database/schema/mos')
+    // NOTE: MOS schema was removed - this scraper needs to be updated if MOS functionality is restored
     const { eq, and } = await import('drizzle-orm')
+    
+    // Stub for removed mosCode schema
+    const mosCode = null as any
 
     let inserted = 0
     let failed = 0

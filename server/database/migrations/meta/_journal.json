@@ -36,6 +36,20 @@
       "when": 1769162838389,
       "tag": "0004_add-company-aliases",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1769336280226,
+      "tag": "0005_aspiring_ricochet",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1769425000000,
+      "tag": "0006_claimed_profiles",
+      "breakpoints": true
     }
   ]
 }

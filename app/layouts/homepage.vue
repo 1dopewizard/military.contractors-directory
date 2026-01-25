@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * @file Minimal homepage layout - no padding, no scroll
+ * @file Homepage layout - Defense Contractor Directory
  * @usage Apply to homepage with definePageMeta({ layout: 'homepage' })
  */
 
@@ -9,11 +9,11 @@ const mobileMenuOpen = ref(false)
 
 const currentYear = new Date().getFullYear()
 
-// Navigation items - Community Intel Platform structure
+// Navigation items - Defense Contractor Directory structure
 const navItems = [
+  { name: 'Contractors', icon: 'mdi:domain', route: '/contractors', active: computed(() => route.path.startsWith('/contractors')) },
   { name: 'Salaries', icon: 'mdi:cash-multiple', route: '/salaries', active: computed(() => route.path.startsWith('/salaries')) },
-  { name: 'Interviews', icon: 'mdi:forum', route: '/interviews', active: computed(() => route.path.startsWith('/interviews')) },
-  { name: 'Companies', icon: 'mdi:domain', route: '/companies', active: computed(() => route.path.startsWith('/companies')) }
+  { name: 'Interviews', icon: 'mdi:forum', route: '/interviews', active: computed(() => route.path.startsWith('/interviews')) }
 ]
 
 watch(() => route.path, () => { 

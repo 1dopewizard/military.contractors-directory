@@ -9,17 +9,11 @@ export * from './auth'
 // Core reference tables
 export * from './core'
 
-// Companies
-export * from './companies'
-
 // Directory (contractors, specialties, locations)
 export * from './directory'
 
-// Jobs
+// Jobs (kept for future re-integration)
 export * from './jobs'
-
-// MOS (Military Occupational Specialty)
-export * from './mos'
 
 // User profiles and preferences
 export * from './users'
@@ -41,3 +35,6 @@ export * from './community'
 
 // Analytics
 export * from './analytics'
+
+// Claimed profiles and sponsored content
+export * from './claimed'

@@ -136,20 +136,14 @@ export interface CompaniesForMosOptions {
 }
 
 /**
- * Strong typing for the useCompanies composable return.
+ * @deprecated useCompanies composable has been replaced by useContractors
+ * This type is kept for backwards compatibility
  */
 export interface UseCompaniesReturn {
   allCompanies: Ref<Company[]>
-
   getAllCompanies: () => Promise<Company[]>
   getCompanyById: (id: string) => Promise<Company | undefined>
   getCompanyBySlug: (slug: string) => Promise<Company | undefined>
   searchCompanies: (query: string, limit?: number) => Promise<Company[]>
   filterCompanies: (filters?: CompanyFilters) => Promise<Company[]>
-  getCompaniesForMos: (
-    mosCode: string,
-    options?: CompaniesForMosOptions
-  ) => Promise<Company[]>
 }
-
-

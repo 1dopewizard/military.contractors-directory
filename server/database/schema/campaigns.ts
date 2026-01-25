@@ -5,7 +5,7 @@
 
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
 import { user } from './auth'
-import { company } from './companies'
+import { contractor } from './directory'
 import { job } from './jobs'
 
 export const campaign = sqliteTable('campaign', {
@@ -63,7 +63,7 @@ export const toastAdEvent = sqliteTable('toast_ad_event', {
 
 export const featuredEmployer = sqliteTable('featured_employer', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
-  companyId: text('companyId').notNull().references(() => company.id, { onDelete: 'cascade' }),
+  contractorId: text('contractorId').notNull().references(() => contractor.id, { onDelete: 'cascade' }),
   tagline: text('tagline'),
   displayOrder: integer('displayOrder'),
   startsAt: integer('startsAt', { mode: 'timestamp' }).notNull(),
@@ -74,7 +74,7 @@ export const featuredEmployer = sqliteTable('featured_employer', {
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('featured_employer_company_idx').on(table.companyId),
+  index('featured_employer_contractor_idx').on(table.contractorId),
   index('featured_employer_pinned_idx').on(table.isPinned),
 ])
 

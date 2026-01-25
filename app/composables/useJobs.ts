@@ -219,10 +219,10 @@ export const useJobs = () => {
 
   /**
    * Get MOSes mapped to a job (reverse lookup)
-   * @deprecated Use useMosJobs().getMosesForJob() instead
+   * @deprecated MOS functionality has been removed from the codebase
    */
   const getMosesForJob = (jobId: string) => {
-    logger.debug({ jobId }, 'getMosesForJob called - use useMosJobs instead')
+    logger.debug({ jobId }, 'getMosesForJob called - MOS functionality removed')
     return []
   }
 

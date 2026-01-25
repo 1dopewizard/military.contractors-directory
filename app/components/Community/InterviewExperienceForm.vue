@@ -13,7 +13,7 @@ import type {
   InterviewDifficulty,
   InterviewOutcome,
 } from '@/app/types/community.types'
-import type { Company } from '@/app/types/company.types'
+import type { Contractor } from '@/app/composables/useContractors'
 
 interface Props {
   /** Whether form submission is in progress */
@@ -113,38 +113,38 @@ const form = useForm({
 // Track form submission attempt
 const formSubmitted = ref(false)
 
-// Companies for dropdown
-const companies = ref<Company[]>([])
-const companiesLoading = ref(false)
-const companySearchQuery = ref('')
+// Contractors for dropdown
+const contractors = ref<Contractor[]>([])
+const contractorsLoading = ref(false)
+const contractorSearchQuery = ref('')
 
 // Questions management
 const newQuestion = ref('')
 const questionError = ref('')
 
-// Fetch companies
-const { getAllCompanies } = useCompanies()
+// Fetch contractors
+const { getAllContractors } = useContractors()
 
 onMounted(async () => {
-  companiesLoading.value = true
+  contractorsLoading.value = true
   try {
-    companies.value = await getAllCompanies()
+    contractors.value = await getAllContractors()
   } finally {
-    companiesLoading.value = false
+    contractorsLoading.value = false
   }
 })
 
-// Filtered companies for search
-const filteredCompanies = computed(() => {
-  if (!companySearchQuery.value) return companies.value
-  const query = companySearchQuery.value.toLowerCase()
-  return companies.value.filter((c) => c.name.toLowerCase().includes(query))
+// Filtered contractors for search
+const filteredContractors = computed(() => {
+  if (!contractorSearchQuery.value) return contractors.value
+  const query = contractorSearchQuery.value.toLowerCase()
+  return contractors.value.filter((c) => c.name.toLowerCase().includes(query))
 })
 
-// Selected company name
-const selectedCompanyName = computed(() => {
-  const company = companies.value.find((c) => c.id === form.values.companyId)
-  return company?.name || ''
+// Selected contractor name
+const selectedContractorName = computed(() => {
+  const contractor = contractors.value.find((c) => c.id === form.values.companyId)
+  return contractor?.name || ''
 })
 
 // Questions array from form
@@ -314,7 +314,7 @@ const formatDate = (date: Date | undefined) => {
           </p>
         </div>
 
-        <!-- Company Selection -->
+        <!-- Contractor Selection -->
         <div class="space-y-1.5">
           <Label class="text-xs text-muted-foreground uppercase tracking-wider">Company *</Label>
 
@@ -324,28 +324,28 @@ const formatDate = (date: Date | undefined) => {
               name="mdi:magnify"
               class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"
             />
-            <Input v-model="companySearchQuery" placeholder="Search companies..." class="pl-10 h-10" />
+            <Input v-model="contractorSearchQuery" placeholder="Search contractors..." class="pl-10 h-10" />
           </div>
 
-          <!-- Company list -->
+          <!-- Contractor list -->
           <div class="border border-border/40 max-h-48 overflow-y-auto">
-            <div v-if="companiesLoading" class="p-4 text-center text-muted-foreground">
+            <div v-if="contractorsLoading" class="p-4 text-center text-muted-foreground">
               <Spinner class="w-5 h-5 mx-auto mb-2" />
-              Loading companies...
+              Loading contractors...
             </div>
-            <div v-else-if="filteredCompanies.length === 0" class="p-4 text-center text-muted-foreground">
-              No companies found
+            <div v-else-if="filteredContractors.length === 0" class="p-4 text-center text-muted-foreground">
+              No contractors found
             </div>
             <button
-              v-for="company in filteredCompanies.slice(0, 50)"
-              :key="company.id"
+              v-for="contractor in filteredContractors.slice(0, 50)"
+              :key="contractor.id"
               type="button"
               class="w-full px-4 py-3 text-left hover:bg-muted/50 transition-colors flex items-center justify-between border-b border-border/30 last:border-0"
-              :class="{ 'bg-primary/10': form.values.companyId === company.id }"
-              @click="form.setFieldValue('companyId', company.id)"
+              :class="{ 'bg-primary/10': form.values.companyId === contractor.id }"
+              @click="form.setFieldValue('companyId', contractor.id)"
             >
-              <span class="font-medium">{{ company.name }}</span>
-              <Icon v-if="form.values.companyId === company.id" name="mdi:check" class="w-5 h-5 text-primary" />
+              <span class="font-medium">{{ contractor.name }}</span>
+              <Icon v-if="form.values.companyId === contractor.id" name="mdi:check" class="w-5 h-5 text-primary" />
             </button>
           </div>
 
@@ -353,10 +353,10 @@ const formatDate = (date: Date | undefined) => {
             {{ form.errors.value.companyId }}
           </p>
 
-          <!-- Selected company display -->
-          <div v-if="selectedCompanyName" class="flex items-center gap-2 text-sm text-primary">
+          <!-- Selected contractor display -->
+          <div v-if="selectedContractorName" class="flex items-center gap-2 text-sm text-primary">
             <Icon name="mdi:check-circle" class="w-4 h-4" />
-            Selected: <span class="font-medium">{{ selectedCompanyName }}</span>
+            Selected: <span class="font-medium">{{ selectedContractorName }}</span>
           </div>
         </div>
 
@@ -599,7 +599,7 @@ const formatDate = (date: Date | undefined) => {
           <h3 class="text-sm font-semibold text-foreground">Experience Summary</h3>
           <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
             <div class="text-muted-foreground">Company</div>
-            <div class="font-medium">{{ selectedCompanyName || '—' }}</div>
+            <div class="font-medium">{{ selectedContractorName || '—' }}</div>
 
             <div class="text-muted-foreground">Position</div>
             <div class="font-medium">{{ form.values.roleTitle || '—' }}</div>

@@ -34,11 +34,10 @@ type TabItem = {
 
 const tabs = computed<TabItem[]>(() => [
   { id: 'overview', label: 'Overview', icon: 'mdi:view-dashboard-outline' },
-  { id: 'candidates', label: 'Candidates', icon: 'mdi:account-search-outline' },
-  { id: 'hr-contacts', label: 'HR Contacts', icon: 'mdi:account-tie-outline' },
-  { id: 'recruiters', label: 'Recruiters', icon: 'mdi:account-group-outline' },
+  { id: 'claims', label: 'Claims', icon: 'mdi:shield-check-outline' },
+  { id: 'content', label: 'Content Review', icon: 'mdi:text-box-check-outline' },
+  { id: 'contractors', label: 'Contractors', icon: 'mdi:office-building-outline' },
   { id: 'featured-listings', label: 'Featured Listings', icon: 'mdi:star-outline', badge: pendingCount.value },
-  { id: 'pipeline', label: 'Pipeline', icon: 'mdi:pipe' },
   { id: 'users', label: 'Users', icon: 'mdi:account-group-outline' },
 ])
 
@@ -309,20 +308,17 @@ const { shortcuts } = useAdminShortcuts({
               @reject="handleReject"
             />
 
-            <!-- Candidates Tab -->
-            <AdminCandidates v-else-if="activeTab === 'candidates'" />
+            <!-- Claims Tab -->
+            <AdminClaimReview v-else-if="activeTab === 'claims'" />
 
-            <!-- HR Contacts Tab -->
-            <AdminHRContacts v-else-if="activeTab === 'hr-contacts'" />
+            <!-- Content Review Tab -->
+            <AdminContentReview v-else-if="activeTab === 'content'" />
 
-            <!-- Recruiters Tab -->
-            <AdminRecruitersList v-else-if="activeTab === 'recruiters'" />
+            <!-- Contractors Tab -->
+            <AdminContractorList v-else-if="activeTab === 'contractors'" />
 
             <!-- Featured Listings Tab -->
             <AdminFeaturedListings v-else-if="activeTab === 'featured-listings'" />
-
-            <!-- Pipeline Tab -->
-            <AdminPipeline v-else-if="activeTab === 'pipeline'" />
 
             <!-- Users Tab -->
             <UserManagementTable v-else-if="activeTab === 'users'" />

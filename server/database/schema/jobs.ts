@@ -4,7 +4,7 @@
  */
 
 import { sqliteTable, text, integer, real, index } from 'drizzle-orm/sqlite-core'
-import { company } from './companies'
+import { contractor } from './directory'
 import { user } from './auth'
 import { base } from './core'
 
@@ -101,7 +101,7 @@ export const job = sqliteTable('job', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   title: text('title').notNull(),
   company: text('company').notNull(),
-  companyId: text('companyId').references(() => company.id),
+  contractorId: text('contractorId').references(() => contractor.id),
   location: text('location').notNull(),
   locationType: text('locationType'), // CONUS, OCONUS, Remote, Hybrid, ONSITE, DEPLOYED
   salaryMin: integer('salaryMin'),
@@ -161,7 +161,7 @@ export const job = sqliteTable('job', {
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
   index('job_status_idx').on(table.status),
-  index('job_company_id_idx').on(table.companyId),
+  index('job_contractor_id_idx').on(table.contractorId),
   index('job_slug_idx').on(table.slug),
   index('job_active_idx').on(table.isActive, table.status),
   index('job_theater_idx').on(table.theater),
