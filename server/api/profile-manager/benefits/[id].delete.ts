@@ -1,7 +1,7 @@
 /**
- * @file Delete employer benefit
- * @route DELETE /api/employer/benefits/[id]
- * @description Deletes a benefit from the employer's profile
+ * @file Delete company benefit
+ * @route DELETE /api/profile-manager/benefits/[id]
+ * @description Deletes a benefit from the company's profile
  */
 
 import { getDb, schema } from '@/server/utils/db'
@@ -35,27 +35,27 @@ export default defineEventHandler(async (event) => {
   let profileId = claimedProfile?.id
 
   if (!profileId) {
-    const [employerAccess] = await db
+    const [contractorAccess] = await db
       .select()
-      .from(schema.employerUser)
-      .where(eq(schema.employerUser.userId, user.id))
+      .from(schema.contractorUser)
+      .where(eq(schema.contractorUser.userId, user.id))
       .limit(1)
 
-    if (!employerAccess || employerAccess.role === 'editor') {
+    if (!contractorAccess || contractorAccess.role === 'editor') {
       throw createError({
         statusCode: 403,
         statusMessage: 'You do not have permission to manage benefits',
       })
     }
-    profileId = employerAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId
   }
 
   await db
-    .delete(schema.employerBenefit)
+    .delete(schema.contractorBenefit)
     .where(
       and(
-        eq(schema.employerBenefit.id, benefitId),
-        eq(schema.employerBenefit.claimedProfileId, profileId)
+        eq(schema.contractorBenefit.id, benefitId),
+        eq(schema.contractorBenefit.claimedProfileId, profileId)
       )
     )
 

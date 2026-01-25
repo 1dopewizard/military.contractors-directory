@@ -81,11 +81,11 @@ const handleSignOut = async () => {
               </NuxtLink>
             </DropdownMenuItem>
             
-            <!-- User dashboard links -->
+            <!-- Profile Manager link -->
             <DropdownMenuItem as-child>
-              <NuxtLink to="/account" class="flex items-center gap-2 cursor-pointer">
-                <Icon name="mdi:account-cog-outline" class="size-4 text-muted-foreground" />
-                <span class="font-medium">My Account</span>
+              <NuxtLink to="/profile-manager" class="flex items-center gap-2 cursor-pointer">
+                <Icon name="mdi:office-building-cog-outline" class="size-4 text-muted-foreground" />
+                <span class="font-medium">Profile Manager</span>
               </NuxtLink>
             </DropdownMenuItem>
             

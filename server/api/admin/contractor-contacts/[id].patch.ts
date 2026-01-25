@@ -1,7 +1,7 @@
 /**
- * @file Admin update employer contact endpoint
- * @route PATCH /api/admin/employer-contacts/:id
- * @description Update an HR/employer contact (admin or recruiter) (Drizzle-backed)
+ * @file Admin update contractor contact endpoint
+ * @route PATCH /api/admin/contractor-contacts/:id
+ * @description Update an HR/contractor contact (admin or recruiter) (Drizzle-backed)
  */
 
 import { z } from 'zod'
@@ -55,19 +55,19 @@ export default defineEventHandler(async (event) => {
     if (parsed.data.isPrimary !== undefined) updateData.isPrimary = parsed.data.isPrimary
 
     await db
-      .update(schema.employerContact)
+      .update(schema.contractorContact)
       .set(updateData)
-      .where(eq(schema.employerContact.id, id))
+      .where(eq(schema.contractorContact.id, id))
 
     // Fetch updated contact with contractor info
     const [result] = await db
       .select({
-        contact: schema.employerContact,
+        contact: schema.contractorContact,
         contractor: schema.contractor,
       })
-      .from(schema.employerContact)
-      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.employerContact.contractorId))
-      .where(eq(schema.employerContact.id, id))
+      .from(schema.contractorContact)
+      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.contractorContact.contractorId))
+      .where(eq(schema.contractorContact.id, id))
       .limit(1)
 
     if (!result) {
@@ -95,7 +95,7 @@ export default defineEventHandler(async (event) => {
       }
     }
   } catch (error) {
-    console.error('Failed to update employer contact:', error)
+    console.error('Failed to update contractor contact:', error)
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to update contact'

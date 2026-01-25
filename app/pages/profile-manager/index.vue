@@ -1,9 +1,9 @@
 <!--
-  @file Employer Dashboard Page
-  @description Main employer dashboard for managing claimed profile
+  @file Company Dashboard Page
+  @description Main company dashboard for managing claimed profile
 -->
 <script setup lang="ts">
-interface EmployerProfile {
+interface CompanyProfile {
   id: string
   tier: string
   status: string
@@ -27,7 +27,7 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Employer Dashboard | military.contractors',
+  title: 'Company Dashboard | military.contractors',
   meta: [
     { name: 'robots', content: 'noindex, nofollow' }
   ]
@@ -37,8 +37,8 @@ const route = useRoute()
 const router = useRouter()
 const { isAuthReady } = useAuth()
 
-// Fetch employer profile
-const { data: profile, pending: profileLoading, error: profileError, refresh } = await useFetch<EmployerProfile>('/api/profile-manager/profile')
+// Fetch company profile
+const { data: profile, pending: profileLoading, error: profileError, refresh } = await useFetch<CompanyProfile>('/api/profile-manager/profile')
 
 // Tab management
 type TabItem = {
@@ -121,7 +121,7 @@ const tierBadgeColor = computed(() => {
         <nav class="text-sm text-muted-foreground mb-8">
           <NuxtLink to="/" class="hover:text-primary transition-colors">Home</NuxtLink>
           <span class="mx-2">/</span>
-          <span class="text-foreground">Employer Dashboard</span>
+          <span class="text-foreground">Company Dashboard</span>
         </nav>
 
         <div class="flex items-start justify-between gap-4">

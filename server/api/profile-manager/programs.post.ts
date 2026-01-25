@@ -1,7 +1,7 @@
 /**
- * @file Create/update employer program
- * @route POST /api/employer/programs
- * @description Creates or updates a program for the employer's profile
+ * @file Create/update company program
+ * @route POST /api/profile-manager/programs
+ * @description Creates or updates a program for the company's profile
  */
 
 import { getDb, schema } from '@/server/utils/db'
@@ -46,25 +46,25 @@ export default defineEventHandler(async (event) => {
   let profileId = claimedProfile?.id
 
   if (!profileId) {
-    const [employerAccess] = await db
+    const [contractorAccess] = await db
       .select()
-      .from(schema.employerUser)
-      .where(eq(schema.employerUser.userId, user.id))
+      .from(schema.contractorUser)
+      .where(eq(schema.contractorUser.userId, user.id))
       .limit(1)
 
-    if (!employerAccess || employerAccess.role === 'editor') {
+    if (!contractorAccess || contractorAccess.role === 'editor') {
       throw createError({
         statusCode: 403,
         statusMessage: 'You do not have permission to manage programs',
       })
     }
-    profileId = employerAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId
   }
 
   if (parsed.data.id) {
     // Update existing program
     await db
-      .update(schema.employerProgram)
+      .update(schema.contractorProgram)
       .set({
         name: parsed.data.name,
         category: parsed.data.category || null,
@@ -75,8 +75,8 @@ export default defineEventHandler(async (event) => {
       })
       .where(
         and(
-          eq(schema.employerProgram.id, parsed.data.id),
-          eq(schema.employerProgram.claimedProfileId, profileId)
+          eq(schema.contractorProgram.id, parsed.data.id),
+          eq(schema.contractorProgram.claimedProfileId, profileId)
         )
       )
 
@@ -85,7 +85,7 @@ export default defineEventHandler(async (event) => {
 
   // Create new program
   const [newProgram] = await db
-    .insert(schema.employerProgram)
+    .insert(schema.contractorProgram)
     .values({
       claimedProfileId: profileId,
       name: parsed.data.name,
@@ -94,7 +94,7 @@ export default defineEventHandler(async (event) => {
       imageUrl: parsed.data.imageUrl || null,
       sortOrder: parsed.data.sortOrder,
     })
-    .returning({ id: schema.employerProgram.id })
+    .returning({ id: schema.contractorProgram.id })
 
   return { success: true, id: newProgram?.id }
 })

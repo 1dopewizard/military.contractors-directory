@@ -1,6 +1,6 @@
 /**
- * @file Get employer's claimed profile
- * @route GET /api/employer/profile
+ * @file Get company's claimed profile
+ * @route GET /api/profile-manager/profile
  * @description Returns the claimed profile for the authenticated user
  */
 
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
   const db = getDb()
 
-  // Find claimed profile where user is owner or employer user
+  // Find claimed profile where user is owner or company user
   const [claimedProfile] = await db
     .select({
       id: schema.claimedProfile.id,
@@ -36,17 +36,17 @@ export default defineEventHandler(async (event) => {
     .limit(1)
 
   if (!claimedProfile) {
-    // Check if user is an employer user (not owner)
-    const [employerAccess] = await db
+    // Check if user is a contractor user (not owner)
+    const [contractorAccess] = await db
       .select({
-        claimedProfileId: schema.employerUser.claimedProfileId,
-        role: schema.employerUser.role,
+        claimedProfileId: schema.contractorUser.claimedProfileId,
+        role: schema.contractorUser.role,
       })
-      .from(schema.employerUser)
-      .where(eq(schema.employerUser.userId, user.id))
+      .from(schema.contractorUser)
+      .where(eq(schema.contractorUser.userId, user.id))
       .limit(1)
 
-    if (!employerAccess) {
+    if (!contractorAccess) {
       return null
     }
 
@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
     const [accessedProfile] = await db
       .select()
       .from(schema.claimedProfile)
-      .where(eq(schema.claimedProfile.id, employerAccess.claimedProfileId))
+      .where(eq(schema.claimedProfile.id, contractorAccess.claimedProfileId))
       .limit(1)
 
     if (!accessedProfile || accessedProfile.status !== 'active') {
@@ -71,7 +71,7 @@ export default defineEventHandler(async (event) => {
     return {
       ...accessedProfile,
       contractor,
-      userRole: employerAccess.role,
+      userRole: contractorAccess.role,
       isOwner: false,
     }
   }

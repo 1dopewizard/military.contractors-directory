@@ -4,46 +4,46 @@ overview: "Comprehensive update: SEO browse pages, claimed profiles system, spon
 todos:
   - id: claimed-schema
     content: Create claimed profiles and sponsored content database schema
-    status: pending
+    status: completed
   - id: employer-dashboard
     content: Build employer dashboard for profile claiming and content management
-    status: pending
+    status: completed
   - id: admin-dashboard
     content: Overhaul admin dashboard for site management and claim approvals
-    status: pending
+    status: completed
   - id: profile-enhancements
     content: Update contractor profile page to display claimed/sponsored content sections
-    status: pending
+    status: completed
   - id: seed-sponsored
     content: Seed 3 companies with demo sponsored content
-    status: pending
+    status: completed
   - id: structured-data
     content: Add useOrganizationSchema and useBreadcrumbSchema to contractor profile page
-    status: pending
+    status: completed
   - id: specialty-pages
     content: Create /contractors/specialty/[slug] pages with API endpoint
-    status: pending
+    status: completed
   - id: location-pages
     content: Create /contractors/location/[state] pages with API endpoints
-    status: pending
+    status: completed
   - id: top-list-page
     content: Create /top-defense-contractors SEO list page
-    status: pending
+    status: completed
   - id: logo-integration
     content: Configure logoUrl to use public/logos/companies/ and display in UI
-    status: pending
+    status: completed
   - id: cleanup-dashboards
     content: Remove recruiter, advertiser, jobs pages and unused dashboard components
-    status: pending
+    status: completed
   - id: remove-community
     content: Remove community pages, components, composables, and APIs (salaries, interviews, community)
-    status: pending
+    status: completed
   - id: employer-landing
     content: Repurpose /advertise as /for-employers landing page for claimed profiles
-    status: pending
+    status: completed
   - id: internal-linking
     content: Add related contractors section and cross-link specialty badges
-    status: pending
+    status: completed
 isProject: false
 ---
 

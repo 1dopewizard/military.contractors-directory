@@ -1,6 +1,6 @@
 /**
  * @file Claimed profiles and sponsored content schema
- * @description Tables for employer profile claiming and sponsored content management
+ * @description Tables for company profile claiming and sponsored content management
  */
 
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
@@ -35,9 +35,9 @@ export const claimedProfile = sqliteTable('claimedProfile', {
 ])
 
 /**
- * Employer users - Users who can manage claimed profiles
+ * Contractor users - Users who can manage claimed profiles
  */
-export const employerUser = sqliteTable('employerUser', {
+export const contractorUser = sqliteTable('contractorUser', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   userId: text('userId')
     .notNull()
@@ -49,8 +49,8 @@ export const employerUser = sqliteTable('employerUser', {
   invitedBy: text('invitedBy').references(() => user.id),
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('employerUser_user_idx').on(table.userId),
-  index('employerUser_profile_idx').on(table.claimedProfileId),
+  index('contractorUser_user_idx').on(table.userId),
+  index('contractorUser_profile_idx').on(table.claimedProfileId),
 ])
 
 /**
@@ -81,7 +81,7 @@ export const sponsoredContent = sqliteTable('sponsoredContent', {
 /**
  * "Why Work Here" benefits
  */
-export const employerBenefit = sqliteTable('employerBenefit', {
+export const contractorBenefit = sqliteTable('contractorBenefit', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   claimedProfileId: text('claimedProfileId')
     .notNull()
@@ -93,13 +93,13 @@ export const employerBenefit = sqliteTable('employerBenefit', {
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('employerBenefit_profile_idx').on(table.claimedProfileId),
+  index('contractorBenefit_profile_idx').on(table.claimedProfileId),
 ])
 
 /**
  * Notable programs/products
  */
-export const employerProgram = sqliteTable('employerProgram', {
+export const contractorProgram = sqliteTable('contractorProgram', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   claimedProfileId: text('claimedProfileId')
     .notNull()
@@ -112,13 +112,13 @@ export const employerProgram = sqliteTable('employerProgram', {
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('employerProgram_profile_idx').on(table.claimedProfileId),
+  index('contractorProgram_profile_idx').on(table.claimedProfileId),
 ])
 
 /**
- * Employee testimonials
+ * Contractor testimonials
  */
-export const employerTestimonial = sqliteTable('employerTestimonial', {
+export const contractorTestimonial = sqliteTable('contractorTestimonial', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   claimedProfileId: text('claimedProfileId')
     .notNull()
@@ -131,8 +131,8 @@ export const employerTestimonial = sqliteTable('employerTestimonial', {
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('employerTestimonial_profile_idx').on(table.claimedProfileId),
-  index('employerTestimonial_status_idx').on(table.status),
+  index('contractorTestimonial_profile_idx').on(table.claimedProfileId),
+  index('contractorTestimonial_status_idx').on(table.status),
 ])
 
 // Relations
@@ -145,24 +145,24 @@ export const claimedProfileRelations = relations(claimedProfile, ({ one, many })
     fields: [claimedProfile.userId],
     references: [user.id],
   }),
-  employerUsers: many(employerUser),
+  contractorUsers: many(contractorUser),
   sponsoredContent: many(sponsoredContent),
-  benefits: many(employerBenefit),
-  programs: many(employerProgram),
-  testimonials: many(employerTestimonial),
+  benefits: many(contractorBenefit),
+  programs: many(contractorProgram),
+  testimonials: many(contractorTestimonial),
 }))
 
-export const employerUserRelations = relations(employerUser, ({ one }) => ({
+export const contractorUserRelations = relations(contractorUser, ({ one }) => ({
   user: one(user, {
-    fields: [employerUser.userId],
+    fields: [contractorUser.userId],
     references: [user.id],
   }),
   claimedProfile: one(claimedProfile, {
-    fields: [employerUser.claimedProfileId],
+    fields: [contractorUser.claimedProfileId],
     references: [claimedProfile.id],
   }),
   inviter: one(user, {
-    fields: [employerUser.invitedBy],
+    fields: [contractorUser.invitedBy],
     references: [user.id],
   }),
 }))
@@ -178,23 +178,23 @@ export const sponsoredContentRelations = relations(sponsoredContent, ({ one }) =
   }),
 }))
 
-export const employerBenefitRelations = relations(employerBenefit, ({ one }) => ({
+export const contractorBenefitRelations = relations(contractorBenefit, ({ one }) => ({
   claimedProfile: one(claimedProfile, {
-    fields: [employerBenefit.claimedProfileId],
+    fields: [contractorBenefit.claimedProfileId],
     references: [claimedProfile.id],
   }),
 }))
 
-export const employerProgramRelations = relations(employerProgram, ({ one }) => ({
+export const contractorProgramRelations = relations(contractorProgram, ({ one }) => ({
   claimedProfile: one(claimedProfile, {
-    fields: [employerProgram.claimedProfileId],
+    fields: [contractorProgram.claimedProfileId],
     references: [claimedProfile.id],
   }),
 }))
 
-export const employerTestimonialRelations = relations(employerTestimonial, ({ one }) => ({
+export const contractorTestimonialRelations = relations(contractorTestimonial, ({ one }) => ({
   claimedProfile: one(claimedProfile, {
-    fields: [employerTestimonial.claimedProfileId],
+    fields: [contractorTestimonial.claimedProfileId],
     references: [claimedProfile.id],
   }),
 }))

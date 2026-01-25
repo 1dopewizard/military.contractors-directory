@@ -1,7 +1,7 @@
 /**
- * @file Employer middleware
- * @description Ensures only users with employer access can reach employer routes
- * @usage Use with auth middleware: middleware: ['auth', 'employer']
+ * @file Profile manager middleware
+ * @description Ensures only users with company access can reach profile manager routes
+ * @usage Use with auth middleware: middleware: ['auth', 'profile-manager']
  */
 
 export default defineNuxtRouteMiddleware(async (to) => {
@@ -11,7 +11,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   const { isAuthenticated, isAuthReady, userId } = useAuth()
-  const logger = useLogger('EmployerMiddleware')
+  const logger = useLogger('ProfileManagerMiddleware')
 
   // Wait for auth to be ready
   if (!isAuthReady.value) {
@@ -25,29 +25,29 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   // Auth middleware runs first, so user should be available on client
   if (!isAuthenticated.value) {
-    logger.warn({ path: to.path }, 'Unauthorized employer access attempt - not authenticated')
+    logger.warn({ path: to.path }, 'Unauthorized profile manager access attempt - not authenticated')
     return navigateTo('/auth/login?redirect=' + encodeURIComponent(to.fullPath))
   }
 
-  // Check if user has employer access (has a claimed profile)
+  // Check if user has contractor access (has a claimed profile)
   try {
-    const { data } = await useFetch('/api/profile-manager/profile', {
+    const data = await $fetch('/api/profile-manager/profile', {
       headers: useRequestHeaders(['cookie']),
     })
 
-    if (!data.value) {
+    if (!data) {
       // User doesn't have a claimed profile, redirect to claim flow
-      if (to.path !== '/employer/claim') {
+      if (to.path !== '/profile-manager/claim') {
         logger.info({ userId: userId.value }, 'User has no claimed profile, redirecting to claim flow')
-        return navigateTo('/employer/claim')
+        return navigateTo('/profile-manager/claim')
       }
     }
   } catch (error) {
     // If checking fails, allow access to claim page
-    if (to.path !== '/employer/claim') {
-      return navigateTo('/employer/claim')
+    if (to.path !== '/profile-manager/claim') {
+      return navigateTo('/profile-manager/claim')
     }
   }
 
-  logger.info({ userId: userId.value, path: to.path }, 'Employer access granted')
+  logger.info({ userId: userId.value, path: to.path }, 'Profile manager access granted')
 })

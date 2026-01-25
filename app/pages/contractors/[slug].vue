@@ -214,7 +214,7 @@ watchEffect(() => {
               </Badge>
               <Badge v-if="contractor.claimedProfile" variant="outline" class="text-green-600 border-green-600/30 shrink-0">
                 <Icon name="mdi:check-decagram" class="w-3 h-3 mr-1" />
-                Verified Employer
+                Verified
               </Badge>
             </div>
 
@@ -401,7 +401,7 @@ watchEffect(() => {
           <!-- Claim CTA (Unclaimed Profiles) -->
           <div v-if="!contractor.claimedProfile" class="mb-8 p-4 border-2 border-dashed rounded-lg text-center">
             <p class="text-muted-foreground mb-2">Is this your company?</p>
-            <NuxtLink to="/for-employers" class="text-primary hover:underline">
+            <NuxtLink to="/for-companies" class="text-primary hover:underline">
               Claim this profile to update information and add content
               <Icon name="mdi:arrow-right" class="w-4 h-4 inline ml-1" />
             </NuxtLink>

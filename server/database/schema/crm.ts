@@ -68,7 +68,7 @@ export const placement = sqliteTable('placement', {
   index('placement_status_idx').on(table.status),
 ])
 
-export const employerContact = sqliteTable('employer_contact', {
+export const contractorContact = sqliteTable('contractor_contact', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   contractorId: text('contractorId').notNull().references(() => contractor.id, { onDelete: 'cascade' }),
   name: text('name').notNull(),
@@ -79,18 +79,18 @@ export const employerContact = sqliteTable('employer_contact', {
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('employer_contact_contractor_idx').on(table.contractorId),
-  index('employer_contact_email_idx').on(table.email),
+  index('contractor_contact_contractor_idx').on(table.contractorId),
+  index('contractor_contact_email_idx').on(table.email),
 ])
 
-export const employerNote = sqliteTable('employer_note', {
+export const contractorNote = sqliteTable('contractor_note', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   contractorId: text('contractorId').notNull().references(() => contractor.id, { onDelete: 'cascade' }),
-  contactId: text('contactId').references(() => employerContact.id, { onDelete: 'cascade' }),
+  contactId: text('contactId').references(() => contractorContact.id, { onDelete: 'cascade' }),
   content: text('content').notNull(),
   createdBy: text('createdBy').references(() => user.id),
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('employer_note_contractor_idx').on(table.contractorId),
-  index('employer_note_contact_idx').on(table.contactId),
+  index('contractor_note_contractor_idx').on(table.contractorId),
+  index('contractor_note_contact_idx').on(table.contactId),
 ])

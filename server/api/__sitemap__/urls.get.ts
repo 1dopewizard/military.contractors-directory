@@ -65,7 +65,7 @@ export default defineEventHandler(async () => {
     })
 
     urls.push({
-      loc: `${baseUrl}/for-employers`,
+      loc: `${baseUrl}/for-companies`,
       changefreq: 'monthly',
       priority: 0.6,
     })

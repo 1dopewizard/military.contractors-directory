@@ -245,11 +245,11 @@ async function seed() {
 
     // Clear existing benefits and add new ones
     await db
-      .delete(schema.employerBenefit)
-      .where(eq(schema.employerBenefit.claimedProfileId, claimedProfileId))
+      .delete(schema.contractorBenefit)
+      .where(eq(schema.contractorBenefit.claimedProfileId, claimedProfileId))
 
     for (let i = 0; i < data.benefits.length; i++) {
-      await db.insert(schema.employerBenefit).values({
+      await db.insert(schema.contractorBenefit).values({
         claimedProfileId,
         icon: data.benefits[i].icon,
         title: data.benefits[i].title,
@@ -261,11 +261,11 @@ async function seed() {
 
     // Clear existing programs and add new ones
     await db
-      .delete(schema.employerProgram)
-      .where(eq(schema.employerProgram.claimedProfileId, claimedProfileId))
+      .delete(schema.contractorProgram)
+      .where(eq(schema.contractorProgram.claimedProfileId, claimedProfileId))
 
     for (let i = 0; i < data.programs.length; i++) {
-      await db.insert(schema.employerProgram).values({
+      await db.insert(schema.contractorProgram).values({
         claimedProfileId,
         name: data.programs[i].name,
         category: data.programs[i].category,
@@ -298,11 +298,11 @@ async function seed() {
     // Add testimonials if premium
     if (data.testimonials.length > 0 && (data.tier === 'premium' || data.tier === 'enterprise')) {
       await db
-        .delete(schema.employerTestimonial)
-        .where(eq(schema.employerTestimonial.claimedProfileId, claimedProfileId))
+        .delete(schema.contractorTestimonial)
+        .where(eq(schema.contractorTestimonial.claimedProfileId, claimedProfileId))
 
       for (const testimonial of data.testimonials) {
-        await db.insert(schema.employerTestimonial).values({
+        await db.insert(schema.contractorTestimonial).values({
           claimedProfileId,
           quote: testimonial.quote,
           employeeName: testimonial.employeeName,

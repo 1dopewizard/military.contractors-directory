@@ -1,7 +1,7 @@
 /**
- * @file Delete employer program
- * @route DELETE /api/employer/programs/[id]
- * @description Deletes a program from the employer's profile
+ * @file Delete company program
+ * @route DELETE /api/profile-manager/programs/[id]
+ * @description Deletes a program from the company's profile
  */
 
 import { getDb, schema } from '@/server/utils/db'
@@ -35,27 +35,27 @@ export default defineEventHandler(async (event) => {
   let profileId = claimedProfile?.id
 
   if (!profileId) {
-    const [employerAccess] = await db
+    const [contractorAccess] = await db
       .select()
-      .from(schema.employerUser)
-      .where(eq(schema.employerUser.userId, user.id))
+      .from(schema.contractorUser)
+      .where(eq(schema.contractorUser.userId, user.id))
       .limit(1)
 
-    if (!employerAccess || employerAccess.role === 'editor') {
+    if (!contractorAccess || contractorAccess.role === 'editor') {
       throw createError({
         statusCode: 403,
         statusMessage: 'You do not have permission to manage programs',
       })
     }
-    profileId = employerAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId
   }
 
   await db
-    .delete(schema.employerProgram)
+    .delete(schema.contractorProgram)
     .where(
       and(
-        eq(schema.employerProgram.id, programId),
-        eq(schema.employerProgram.claimedProfileId, profileId)
+        eq(schema.contractorProgram.id, programId),
+        eq(schema.contractorProgram.claimedProfileId, profileId)
       )
     )
 

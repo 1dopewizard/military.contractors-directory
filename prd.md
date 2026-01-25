@@ -9,15 +9,15 @@
 **Positioning:** military.contractors is to defense contractors what Crunchbase is to startups — the reference destination for company intelligence.
 
 **Business Model:**
-1. Advertising (display ads, contextual)
-2. Claimed/verified employer profiles (future)
-3. Featured company placements (future)
+1. Claimed employer profiles ($149-399/month)
+2. Featured company placements (Premium tier)
+3. Display advertising (future)
 
 **Key Differentiators:**
 1. **Domain authority** — `military.contractors` is memorable and SEO-powerful
 2. **Defense-focused** — Not diluted by non-defense companies
 3. **Structured data** — Clean, consistent profiles optimized for search and AI citations
-4. **Contract intelligence** — USAspending data that general directories don't have
+4. **Claimed profiles** — Employers can verify and enhance their company pages
 
 ---
 
@@ -31,7 +31,7 @@
 | **Maintenance** | Low (annual refresh) | High (moderation, verification) | High (constant scraping) |
 | **SEO potential** | High (company pages rank) | Medium | Low |
 | **Execution complexity** | Low | High | High |
-| **Revenue path** | Clear (ads, sponsorship) | Complex (access tiers) | Competitive |
+| **Revenue path** | Clear (claimed profiles) | Complex (access tiers) | Competitive |
 
 ### The Insight
 
@@ -43,7 +43,7 @@ People search for defense contractors by name constantly:
 
 There's no authoritative, defense-focused directory. Wikipedia covers the big players; everyone else is scattered across press releases, LinkedIn, and paywalled databases.
 
-**military.contractors can own this search intent** with structured, SEO-optimized company profiles.
+**military.contractors owns this search intent** with structured, SEO-optimized company profiles.
 
 ### Why Not Community Intel?
 
@@ -69,7 +69,7 @@ The directory model provides immediate value from day one — no chicken-and-egg
 - Domain authority (`military.contractors`)
 - SEO position (first-mover on "[company] defense contractor" queries)
 - Structured data (clean, consistent profiles)
-- Defense-specific enrichment (contract data, specialties)
+- Defense-specific enrichment (specialties, verified profiles)
 
 ---
 
@@ -93,14 +93,14 @@ The directory model provides immediate value from day one — no chicken-and-egg
 | **Goal** | Quick reference on company basics |
 | **Behavior** | Direct company lookups, browse by specialty |
 
-### Tertiary: Journalist / Analyst
+### Tertiary: Employer / HR
 
 | Attribute | Detail |
 |-----------|--------|
-| **Profile** | Defense reporter, market analyst, academic researcher |
-| **Situation** | Writing about defense industry |
-| **Goal** | Factual company information, rankings, context |
-| **Behavior** | Uses site as reference; may cite in articles |
+| **Profile** | Defense contractor HR or marketing team |
+| **Situation** | Managing company's public profile for recruiting |
+| **Goal** | Control company narrative, showcase culture |
+| **Behavior** | Claims profile, adds benefits/programs, monitors analytics |
 
 ---
 
@@ -112,10 +112,11 @@ The directory model provides immediate value from day one — no chicken-and-egg
 - Become the go-to reference for defense contractor information
 - Rank on first page for "[company name] contractor" searches
 - Provide structured, accurate, up-to-date company data
+- Enable employers to claim and enhance their profiles
 
 **Business:**
 - Build SEO authority that generates sustainable organic traffic
-- Establish foundation for future monetization (ads, sponsorship)
+- Generate revenue through claimed profile subscriptions
 - Create asset that compounds in value over time
 
 **Technical:**
@@ -123,14 +124,13 @@ The directory model provides immediate value from day one — no chicken-and-egg
 - Structured data (schema.org) for rich search results
 - Simple architecture with low maintenance burden
 
-### Non-Goals (v1)
+### Non-Goals
 
-- Community features (reviews, salary reports, forums)
 - Job listings or job board functionality
-- User accounts or authentication
+- Community features (reviews, salary reports, forums)
 - Real-time data updates
 - Mobile app
-- API access
+- Public API access
 
 ---
 
@@ -143,49 +143,45 @@ The directory model provides immediate value from day one — no chicken-and-egg
 │  HOMEPAGE (/)                                                   │
 │  └── Value prop: "The definitive directory of defense contractors" │
 │  └── Search bar (company name search)                           │
-│  └── Browse by: Specialty, Location, Size                       │
-│  └── Featured/Top contractors                                   │
+│  └── Browse by: Specialty, Location                             │
+│  └── Top contractors grid                                       │
 ├─────────────────────────────────────────────────────────────────┤
-│  COMPANY PAGES (/companies/[slug])                              │
+│  CONTRACTOR PAGES (/contractors/[slug])                         │
 │  └── Company overview (description, founding, HQ)               │
 │  └── Key facts (employees, revenue, stock ticker)               │
 │  └── Specialties / capabilities                                 │
 │  └── Locations                                                  │
-│  └── Contract highlights (from USAspending)                     │
 │  └── External links (website, LinkedIn, Wikipedia)              │
+│  └── [Claimed] Why Work Here, Programs, Spotlight, Testimonials │
 ├─────────────────────────────────────────────────────────────────┤
 │  BROWSE PAGES                                                   │
-│  └── /companies (all companies, paginated)                      │
-│  └── /companies/specialty/[specialty] (by capability)           │
-│  └── /companies/location/[state] (by location)                  │
-│  └── /companies/size/[size] (by employee count)                 │
+│  └── /contractors (all contractors, paginated)                  │
+│  └── /contractors/specialty/[slug] (by capability)              │
+│  └── /contractors/location/[state] (by location)                │
 ├─────────────────────────────────────────────────────────────────┤
-│  LIST PAGES (SEO)                                               │
+│  SEO LIST PAGES                                                 │
 │  └── /top-defense-contractors                                   │
-│  └── /top-[specialty]-contractors                               │
-│  └── /defense-contractors-in-[state]                            │
+├─────────────────────────────────────────────────────────────────┤
+│  EMPLOYER PAGES                                                 │
+│  └── /for-employers (marketing landing page)                    │
+│  └── /profile-manager (employer dashboard)                      │
+│  └── /profile-manager/claim (claim flow)                        │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                       Data Layer (libSQL/Drizzle)               │
 ├─────────────────────────────────────────────────────────────────┤
-│  companies — Company profiles (200-300 rows)                    │
-│  companySpecialties — Company-to-specialty mappings             │
-│  companyLocations — Company office locations                    │
-│  contracts — USAspending contract summaries                     │
-│  specialties — Specialty/capability taxonomy                    │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    Data Pipeline (TypeScript)                   │
-├─────────────────────────────────────────────────────────────────┤
-│  1. Seed from Defense News Top 100                              │
-│  2. Enrich with People Data Labs / Wikipedia                    │
-│  3. Add USAspending contract data                               │
-│  4. LLM categorization for specialties                          │
-│  5. Annual refresh cycle                                        │
+│  contractor — Contractor profiles (48+ rows)                    │
+│  contractorSpecialty — Contractor-to-specialty mappings         │
+│  contractorLocation — Contractor office locations               │
+│  specialty — Specialty/capability taxonomy                      │
+│  claimedProfile — Employer-claimed profile records              │
+│  employerUser — Users linked to claimed profiles                │
+│  employerBenefit — "Why Work Here" benefits                     │
+│  employerProgram — Notable programs/products                    │
+│  employerTestimonial — Employee testimonials                    │
+│  sponsoredContent — Spotlight content blocks                    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -193,33 +189,32 @@ The directory model provides immediate value from day one — no chicken-and-egg
 
 ## 7. Core Data Model
 
-### companies
+### contractor
 
 | Field | Type | Source | Purpose |
 |-------|------|--------|---------|
 | `id` | string | Generated | Primary key |
 | `slug` | string | Generated | URL-friendly identifier |
-| `name` | string | Defense News / PDL | Company name |
-| `description` | text | Wikipedia / PDL | Company overview |
-| `founded` | integer | Wikipedia / PDL | Founding year |
-| `headquarters` | string | PDL | HQ city, state |
-| `employeeCount` | integer | PDL | Current employee count |
-| `employeeCountSource` | string | — | Data source for employee count |
-| `revenue` | integer | SEC / Defense News | Annual revenue (if public) |
-| `stockTicker` | string | PDL | Stock symbol (if public) |
-| `isPublic` | boolean | PDL | Public vs. private |
-| `website` | string | PDL | Company website URL |
-| `linkedinUrl` | string | PDL | LinkedIn company page |
-| `wikipediaUrl` | string | Manual | Wikipedia article URL |
-| `logoUrl` | string | Clearbit / Manual | Company logo |
-| `defenseNewsRank` | integer | Defense News | Rank in Top 100 (if applicable) |
-| `totalContractValue` | integer | USAspending | Total federal contract dollars |
-| `contractCount` | integer | USAspending | Number of federal contracts |
-| `topAgencies` | json | USAspending | Top contracting agencies |
+| `name` | string | Defense News | Company name |
+| `description` | text | GPT / Manual | Company overview |
+| `founded` | integer | Public data | Founding year |
+| `headquarters` | string | Public data | HQ city, state |
+| `employeeCount` | string | Public data | Approximate headcount |
+| `defenseNewsRank` | integer | Defense News | Rank in Top 100 |
+| `totalRevenue` | real | Defense News | Total revenue (billions) |
+| `defenseRevenue` | real | Defense News | Defense revenue (billions) |
+| `defenseRevenuePercent` | real | Calculated | Percentage of defense revenue |
+| `stockTicker` | string | Public data | Stock symbol (if public) |
+| `isPublic` | boolean | Public data | Public vs. private |
+| `website` | string | Public data | Company website URL |
+| `careersUrl` | string | Public data | Careers page URL |
+| `linkedinUrl` | string | Public data | LinkedIn company page |
+| `wikipediaUrl` | string | Public data | Wikipedia article URL |
+| `logoUrl` | string | Manual | Company logo path |
 | `createdAt` | timestamp | — | Record creation |
 | `updatedAt` | timestamp | — | Last update |
 
-### specialties
+### specialty
 
 | Field | Type | Purpose |
 |-------|------|---------|
@@ -227,72 +222,80 @@ The directory model provides immediate value from day one — no chicken-and-egg
 | `slug` | string | URL-friendly identifier |
 | `name` | string | Display name (e.g., "Cybersecurity") |
 | `description` | text | What this specialty includes |
+| `icon` | string | Iconify icon identifier |
 
 **Specialty Taxonomy:**
-- IT Services & Cybersecurity
+- Aerospace & Defense
+- Cybersecurity & IT
 - Intelligence & Analytics
-- Logistics & Supply Chain
-- Engineering & Technical Services
-- Aerospace & Defense Systems
-- Professional Services & Consulting
-- Facilities & Base Operations
-- Communications & Electronics
+- Land Systems
+- Naval & Maritime
+- Space Systems
+- Professional Services
+- Logistics & Support
+- Electronics & Sensors
 - Research & Development
-- Training & Simulation
 
-### companySpecialties
-
-| Field | Type | Purpose |
-|-------|------|---------|
-| `id` | string | Primary key |
-| `companyId` | string | FK to companies |
-| `specialtyId` | string | FK to specialties |
-| `isPrimary` | boolean | Is this a primary specialty? |
-
-### companyLocations
+### claimedProfile
 
 | Field | Type | Purpose |
 |-------|------|---------|
 | `id` | string | Primary key |
-| `companyId` | string | FK to companies |
-| `city` | string | City name |
-| `state` | string | State code |
-| `isHeadquarters` | boolean | Is this the HQ? |
+| `contractorId` | string | FK to contractor (unique) |
+| `userId` | string | FK to user who claimed |
+| `tier` | enum | 'claimed' / 'premium' / 'enterprise' |
+| `status` | enum | 'pending' / 'active' / 'suspended' |
+| `verifiedAt` | timestamp | When claim was verified |
+| `verificationMethod` | enum | 'email_domain' / 'manual' / 'document' |
+
+### employerBenefit / employerProgram / employerTestimonial
+
+Structured content tables for claimed profiles. See schema for full details.
 
 ---
 
-## 8. Data Sources & Pipeline
+## 8. Claimed Profiles System
 
-### Phase 1: Seed Data (Top 100)
+### Overview
 
-| Source | Data | Access |
-|--------|------|--------|
-| **Defense News Top 100** | Company names, ranks, revenue | Free, published annually |
-| **Wikipedia** | Descriptions, founding dates, HQ | Free, CC-licensed |
-| **Company websites** | Basic info, logos | Free, manual collection |
+Employers can claim their company profile to:
+- Display a "Verified Employer" badge
+- Edit profile content (description, links, locations)
+- Add "Why Work Here" benefits
+- Showcase notable programs/products
+- Add spotlight content and testimonials (Premium)
+- View profile analytics
 
-### Phase 2: Enrichment
+### Tier Structure
 
-| Source | Data | Cost |
-|--------|------|------|
-| **People Data Labs** | Employee count, locations, social links | ~$0.10-0.20/company |
-| **Clearbit Logo API** | Company logos | Free tier available |
-| **OpenAI/Claude** | Specialty categorization from descriptions | ~$0.01/company |
+| Feature | Free | Claimed ($149/mo) | Premium ($399/mo) |
+|---------|------|-------------------|-------------------|
+| Basic profile | Yes | Yes | Yes |
+| Edit description, links | No | Yes | Yes |
+| Upload logo | No | Yes | Yes |
+| Verified badge | No | Yes | Yes |
+| Add locations | No | Yes | Yes |
+| "Why Work Here" section | No | Yes | Yes |
+| Notable programs | No | Yes | Yes |
+| Analytics dashboard | No | Yes | Yes |
+| Spotlight content | No | No | Yes |
+| Employee testimonials | No | No | Yes |
+| Priority in search | No | No | Yes |
 
-### Phase 3: Contract Intelligence
+### Claim Flow
 
-| Source | Data | Access |
-|--------|------|--------|
-| **USAspending.gov** | Contract awards, values, agencies | Free API |
+1. Employer visits `/for-employers` landing page
+2. Clicks "Claim Your Profile" → `/profile-manager/claim`
+3. Searches for their company
+4. Verifies identity (email domain match or manual review)
+5. Selects tier and completes payment
+6. Gains access to `/profile-manager` dashboard
 
-### Refresh Cycle
+### Content Moderation
 
-| Data Type | Frequency | Method |
-|-----------|-----------|--------|
-| Employee counts | Quarterly | People Data Labs re-pull |
-| Contract data | Quarterly | USAspending API |
-| Defense News rankings | Annually | Manual update |
-| Company descriptions | As needed | Manual review |
+- Basic profile edits publish immediately
+- Spotlight content and testimonials require admin approval
+- Admin dashboard at `/admin` for reviewing claims and content
 
 ---
 
@@ -311,77 +314,59 @@ The directory model provides immediate value from day one — no chicken-and-egg
 
 | Page Type | URL Pattern | SEO Target | Count |
 |-----------|-------------|------------|-------|
-| Company profile | `/companies/[slug]` | "[Company] contractor" | 200-300 |
-| Specialty browse | `/companies/specialty/[slug]` | "[Specialty] defense contractors" | 10 |
-| Location browse | `/companies/location/[state]` | "defense contractors in [State]" | 50 |
-| Top lists | `/top-defense-contractors` | "top defense contractors" | 1+ |
+| Contractor profile | `/contractors/[slug]` | "[Company] contractor" | 48+ |
+| Specialty browse | `/contractors/specialty/[slug]` | "[Specialty] defense contractors" | 10 |
+| Location browse | `/contractors/location/[state]` | "defense contractors in [State]" | 50 |
+| Top list | `/top-defense-contractors` | "top defense contractors" | 1 |
 
 ### Technical SEO
 
-- **Structured data:** Organization schema on company pages
-- **Internal linking:** Cross-link companies by specialty, location
-- **Fast loading:** Static generation, edge caching
+- **Structured data:** Organization schema on contractor pages
+- **Internal linking:** Cross-link contractors by specialty, location
+- **Fast loading:** Server-side rendering, edge caching
 - **Mobile-first:** Responsive design
 
 ---
 
 ## 10. Roadmap
 
-### Phase 1: Foundation (Current)
+### Phase 1: Foundation (Complete)
 
 | Task | Status |
 |------|--------|
-| New PRD (this document) | ✅ Done |
-| Schema design for directory model | ⏳ Pending |
-| Compile target company list (200-300) | ⏳ Pending |
-| Seed data from Defense News Top 100 | ⏳ Pending |
-| Basic company profile page | ⏳ Pending |
-| Company browse/search | ⏳ Pending |
-| Homepage redesign | ⏳ Pending |
+| Directory schema design | ✅ Done |
+| Seed data from Defense News Top 100 (48 US companies) | ✅ Done |
+| Contractor profile page | ✅ Done |
+| Contractor browse/search | ✅ Done |
+| Homepage redesign | ✅ Done |
+| Specialty browse pages | ✅ Done |
+| Location browse pages | ✅ Done |
+| Top contractors page | ✅ Done |
 
-### Phase 2: Enrichment
-
-| Task | Status |
-|------|--------|
-| People Data Labs integration | 🔮 Future |
-| USAspending contract data | 🔮 Future |
-| Specialty categorization (LLM) | 🔮 Future |
-| Location pages | 🔮 Future |
-| Top lists pages | 🔮 Future |
-
-### Phase 3: Growth
+### Phase 2: Monetization (Complete)
 
 | Task | Status |
 |------|--------|
-| Claimed employer profiles | 🔮 Future |
-| Advertising integration | 🔮 Future |
-| Featured company placements | 🔮 Future |
-| API access (paid) | 🔮 Future |
+| Claimed profiles schema | ✅ Done |
+| Employer dashboard | ✅ Done |
+| For-employers landing page | ✅ Done |
+| Admin claim review | ✅ Done |
+| Admin content review | ✅ Done |
+| Profile enhancements (benefits, programs, spotlight) | ✅ Done |
+
+### Phase 3: Growth (Future)
+
+| Task | Status |
+|------|--------|
+| Expand to 200-300 contractors | 🔮 Future |
+| USAspending contract data integration | 🔮 Future |
+| Payment integration (Stripe) | 🔮 Future |
+| Email verification for claims | 🔮 Future |
+| Display advertising | 🔮 Future |
 
 ---
 
-## 11. Monetization
-
-### Core Principle
-
-**The directory is free.** Revenue comes from optional visibility upgrades and advertising.
-
-### Revenue Streams (Future)
-
-| Product | Model | Description |
-|---------|-------|-------------|
-| **Display Advertising** | CPM | Programmatic ads on high-traffic pages |
-| **Claimed Profiles** | $99-299/month | Employers update their own profile, add jobs link |
-| **Featured Placement** | $199-499/month | Top position in browse/search results |
-| **Sponsored Content** | Per placement | "Sponsored by [Company]" sections |
-
-### Phase 1 Focus
-
-No monetization in Phase 1. Focus on building traffic and SEO authority. Monetization starts once site has consistent organic traffic (target: 10K+ monthly visitors).
-
----
-
-## 12. Success Metrics
+## 11. Success Metrics
 
 ### Traffic
 
@@ -395,117 +380,41 @@ No monetization in Phase 1. Focus on building traffic and SEO authority. Monetiz
 
 | Metric | Target |
 |--------|--------|
-| Company pages indexed | 200+ |
-| Top 10 rankings for "[company] contractor" | 50+ companies |
+| Contractor pages indexed | 50+ |
+| Top 10 rankings for "[company] contractor" | 25+ companies |
 | Domain authority (Moz/Ahrefs) | 30+ |
 
-### Content
+### Revenue
 
-| Metric | Phase 1 Target | Scale Target |
-|--------|----------------|--------------|
-| Company profiles | 100 | 300+ |
-| Profiles with full data | 80% | 95% |
-| Data freshness (< 6 months old) | 90% | 95% |
+| Metric | Target |
+|--------|--------|
+| Claimed profiles | 10+ |
+| Monthly recurring revenue | $1,500+ |
+| Premium tier adoption | 30% of claimed |
 
 ---
 
-## 13. Risks & Mitigations
+## 12. Risks & Mitigations
 
 | Risk | Impact | Mitigation |
 |------|--------|------------|
 | **SEO competition** | Hard to rank | Focus on long-tail "[company] contractor" queries first |
 | **Data accuracy** | User distrust | Multiple sources, clear "last updated" dates |
-| **Data staleness** | Outdated info | Quarterly refresh cycle, user feedback mechanism |
-| **Low traffic** | No revenue path | Focus on SEO fundamentals, be patient |
-| **Competitor copies** | Reduced differentiation | Move fast, build domain authority, add unique data |
+| **Low claim adoption** | No revenue | Focus on traffic first, then outreach to employers |
+| **Competitor copies** | Reduced differentiation | Move fast, build domain authority |
 
 ---
 
-## 14. Sister Site: mos.directory
+## 13. Technical Stack
 
-**Relationship:** Simplified from previous model.
-
-| Site | Intent | Content |
-|------|--------|---------|
-| **mos.directory** | "What is MOS 25B?" | MOS encyclopedia, branch navigation |
-| **military.contractors** | "Who is Leidos?" | Company directory, contractor profiles |
-
-**Cross-linking (optional):**
-- Company pages could show "Common MOSes hired" if data exists
-- MOS pages could link to "Companies that hire this MOS"
-
-**Shared Infrastructure:**
-- Same database (libSQL)
-- Same deployment (Coolify)
-- Separate Nuxt apps
-
-**Note:** MOS integration is optional. The directory model works standalone without MOS data. If MOS integration adds value later, it can be added, but it's not required for v1.
-
----
-
-## 15. Migration from Previous Model
-
-### What to Keep
-
-- Nuxt 4 + libSQL/Drizzle infrastructure
-- Basic deployment setup (Coolify)
-- Domain and hosting
-
-### What to Remove/Archive
-
-- Community tables (salaryReports, interviewExperiences)
-- Community UI components
-- Access tier logic
-- Contributor features
-
-### What to Rebuild
-
-- Company schema (expanded from existing)
-- Company pages (redesigned for directory model)
-- Homepage (new focus)
-- Browse/search functionality
-
----
-
-## Appendix A: Company List Sources
-
-### Defense News Top 100 (2024)
-
-Primary source for initial company list. Published annually with:
-- Company name
-- Rank by defense revenue
-- Total revenue
-- Headquarters location
-
-### Additional Sources
-
-- Washington Technology Top 100 (government IT focus)
-- BGOV 200 (broader federal contractors)
-- Manual additions (notable specialists not on lists)
-
----
-
-## Appendix B: Previous Model History
-
-### Community Intel Platform (January 2026)
-
-Planned community-driven salary and interview data platform. Pivoted due to:
-- Cold-start problem (no data → no users → no data)
-- High execution complexity
-- Long time to value
-
-### Career Intelligence Platform (Earlier)
-
-Company-MOS mapping focus. Pivoted due to:
-- Low retention
-- Weak revenue model
-
-### Job Aggregator (Original Concept)
-
-Rejected due to:
-- Scraping complexity
-- Legal risk
-- Competition with funded players
+| Layer | Technology |
+|-------|------------|
+| Framework | Nuxt 4, Vue 3 |
+| UI | TailwindCSS, shadcn-vue |
+| Database | libSQL (SQLite), Drizzle ORM |
+| Auth | Better Auth |
+| Deployment | Coolify (VPS) |
+| Testing | Vitest |
 
 ---
 
@@ -513,6 +422,6 @@ Rejected due to:
 
 | Doc | Purpose |
 |-----|---------|
-| `.cursor/plans/directory_implementation.plan.md` | Implementation plan (to be created) |
-| `apps/contractors/docs/database-schema.md` | Table definitions |
+| `.cursor/plans/` | Implementation plans |
 | `AGENTS.md` | Cursor/agent conventions |
+| `docs/` | Feature documentation |

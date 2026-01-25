@@ -66,8 +66,8 @@ export default defineEventHandler(async (event) => {
       })
       .where(eq(schema.claimedProfile.id, claimId))
 
-    // Also create an employer user record for the claimant as owner
-    await db.insert(schema.employerUser).values({
+    // Also create a contractor user record for the claimant as owner
+    await db.insert(schema.contractorUser).values({
       userId: claim.userId,
       claimedProfileId: claimId,
       role: 'owner',

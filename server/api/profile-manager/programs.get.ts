@@ -1,7 +1,7 @@
 /**
- * @file Get employer programs
- * @route GET /api/employer/programs
- * @description Returns programs for the employer's claimed profile
+ * @file Get company programs
+ * @route GET /api/profile-manager/programs
+ * @description Returns programs for the company's claimed profile
  */
 
 import { getDb, schema } from '@/server/utils/db'
@@ -27,23 +27,23 @@ export default defineEventHandler(async (event) => {
   let profileId = claimedProfile?.id
 
   if (!profileId) {
-    const [employerAccess] = await db
-      .select({ claimedProfileId: schema.employerUser.claimedProfileId })
-      .from(schema.employerUser)
-      .where(eq(schema.employerUser.userId, user.id))
+    const [contractorAccess] = await db
+      .select({ claimedProfileId: schema.contractorUser.claimedProfileId })
+      .from(schema.contractorUser)
+      .where(eq(schema.contractorUser.userId, user.id))
       .limit(1)
 
-    if (!employerAccess) {
+    if (!contractorAccess) {
       return []
     }
-    profileId = employerAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId
   }
 
   const programs = await db
     .select()
-    .from(schema.employerProgram)
-    .where(eq(schema.employerProgram.claimedProfileId, profileId))
-    .orderBy(asc(schema.employerProgram.sortOrder))
+    .from(schema.contractorProgram)
+    .where(eq(schema.contractorProgram.claimedProfileId, profileId))
+    .orderBy(asc(schema.contractorProgram.sortOrder))
 
   return programs
 })

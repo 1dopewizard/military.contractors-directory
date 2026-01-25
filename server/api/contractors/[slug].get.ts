@@ -105,9 +105,9 @@ export default defineEventHandler(async (event) => {
     if (claimedProfile) {
       const benefitsData = await db
         .select()
-        .from(schema.employerBenefit)
-        .where(eq(schema.employerBenefit.claimedProfileId, claimedProfile.id))
-        .orderBy(asc(schema.employerBenefit.sortOrder))
+        .from(schema.contractorBenefit)
+        .where(eq(schema.contractorBenefit.claimedProfileId, claimedProfile.id))
+        .orderBy(asc(schema.contractorBenefit.sortOrder))
 
       benefits = benefitsData.map(b => ({
         id: b.id,
@@ -127,9 +127,9 @@ export default defineEventHandler(async (event) => {
     if (claimedProfile) {
       const programsData = await db
         .select()
-        .from(schema.employerProgram)
-        .where(eq(schema.employerProgram.claimedProfileId, claimedProfile.id))
-        .orderBy(asc(schema.employerProgram.sortOrder))
+        .from(schema.contractorProgram)
+        .where(eq(schema.contractorProgram.claimedProfileId, claimedProfile.id))
+        .orderBy(asc(schema.contractorProgram.sortOrder))
 
       programs = programsData.map(p => ({
         id: p.id,
@@ -176,11 +176,11 @@ export default defineEventHandler(async (event) => {
     if (claimedProfile && (claimedProfile.tier === 'premium' || claimedProfile.tier === 'enterprise')) {
       const testimonialsData = await db
         .select()
-        .from(schema.employerTestimonial)
+        .from(schema.contractorTestimonial)
         .where(
           and(
-            eq(schema.employerTestimonial.claimedProfileId, claimedProfile.id),
-            eq(schema.employerTestimonial.status, 'approved')
+            eq(schema.contractorTestimonial.claimedProfileId, claimedProfile.id),
+            eq(schema.contractorTestimonial.status, 'approved')
           )
         )
 

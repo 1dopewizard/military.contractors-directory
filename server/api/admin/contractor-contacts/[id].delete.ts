@@ -1,7 +1,7 @@
 /**
- * @file Admin delete employer contact endpoint
- * @route DELETE /api/admin/employer-contacts/:id
- * @description Delete an HR/employer contact (admin only) (Drizzle-backed)
+ * @file Admin delete contractor contact endpoint
+ * @route DELETE /api/admin/contractor-contacts/:id
+ * @description Delete an HR/contractor contact (admin only) (Drizzle-backed)
  */
 
 import { requireAdmin } from '@/server/utils/better-auth'
@@ -24,14 +24,14 @@ export default defineEventHandler(async (event) => {
 
   try {
     await db
-      .delete(schema.employerContact)
-      .where(eq(schema.employerContact.id, id))
+      .delete(schema.contractorContact)
+      .where(eq(schema.contractorContact.id, id))
 
     return {
       success: true
     }
   } catch (error) {
-    console.error('Failed to delete employer contact:', error)
+    console.error('Failed to delete contractor contact:', error)
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to delete contact'

@@ -1,12 +1,12 @@
 <!--
-  @file Employer Landing Page
-  @route /for-employers
+  @file Company Landing Page
+  @route /for-companies
   @description Marketing landing page for claimed profiles
 -->
 
 <script setup lang="ts">
 useHead({
-  title: 'For Employers - Claim Your Company Profile | military.contractors',
+  title: 'For Companies - Claim Your Company Profile | military.contractors',
   meta: [
     {
       name: 'description',

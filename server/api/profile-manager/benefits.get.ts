@@ -1,7 +1,7 @@
 /**
- * @file Get employer benefits
- * @route GET /api/employer/benefits
- * @description Returns benefits for the employer's claimed profile
+ * @file Get company benefits
+ * @route GET /api/profile-manager/benefits
+ * @description Returns benefits for the company's claimed profile
  */
 
 import { getDb, schema } from '@/server/utils/db'
@@ -27,24 +27,24 @@ export default defineEventHandler(async (event) => {
   let profileId = claimedProfile?.id
 
   if (!profileId) {
-    // Check employer user access
-    const [employerAccess] = await db
-      .select({ claimedProfileId: schema.employerUser.claimedProfileId })
-      .from(schema.employerUser)
-      .where(eq(schema.employerUser.userId, user.id))
+    // Check contractor user access
+    const [contractorAccess] = await db
+      .select({ claimedProfileId: schema.contractorUser.claimedProfileId })
+      .from(schema.contractorUser)
+      .where(eq(schema.contractorUser.userId, user.id))
       .limit(1)
 
-    if (!employerAccess) {
+    if (!contractorAccess) {
       return []
     }
-    profileId = employerAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId
   }
 
   const benefits = await db
     .select()
-    .from(schema.employerBenefit)
-    .where(eq(schema.employerBenefit.claimedProfileId, profileId))
-    .orderBy(asc(schema.employerBenefit.sortOrder))
+    .from(schema.contractorBenefit)
+    .where(eq(schema.contractorBenefit.claimedProfileId, profileId))
+    .orderBy(asc(schema.contractorBenefit.sortOrder))
 
   return benefits
 })

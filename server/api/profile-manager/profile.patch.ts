@@ -1,6 +1,6 @@
 /**
- * @file Update employer's contractor profile
- * @route PATCH /api/employer/profile
+ * @file Update company's contractor profile
+ * @route PATCH /api/profile-manager/profile
  * @description Updates the contractor profile for a claimed profile owner/admin
  */
 
@@ -45,23 +45,23 @@ export default defineEventHandler(async (event) => {
     .limit(1)
 
   if (!claimedProfile) {
-    // Check if user is an employer admin
-    const [employerAccess] = await db
+    // Check if user is a contractor admin
+    const [contractorAccess] = await db
       .select()
-      .from(schema.employerUser)
+      .from(schema.contractorUser)
       .innerJoin(
         schema.claimedProfile,
-        eq(schema.employerUser.claimedProfileId, schema.claimedProfile.id)
+        eq(schema.contractorUser.claimedProfileId, schema.claimedProfile.id)
       )
       .where(
         and(
-          eq(schema.employerUser.userId, user.id),
+          eq(schema.contractorUser.userId, user.id),
           eq(schema.claimedProfile.status, 'active')
         )
       )
       .limit(1)
 
-    if (!employerAccess || employerAccess.employerUser.role === 'editor') {
+    if (!contractorAccess || contractorAccess.contractorUser.role === 'editor') {
       throw createError({
         statusCode: 403,
         statusMessage: 'You do not have permission to edit this profile',
@@ -83,7 +83,7 @@ export default defineEventHandler(async (event) => {
     await db
       .update(schema.contractor)
       .set(updateData)
-      .where(eq(schema.contractor.id, employerAccess.claimedProfile.contractorId))
+      .where(eq(schema.contractor.id, contractorAccess.claimedProfile.contractorId))
 
     return { success: true }
   }

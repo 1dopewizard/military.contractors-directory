@@ -1,7 +1,7 @@
 /**
- * @file Admin get employer contact endpoint
- * @route GET /api/admin/employer-contacts/:id
- * @description Get a single HR/employer contact (admin or recruiter) (Drizzle-backed)
+ * @file Admin get contractor contact endpoint
+ * @route GET /api/admin/contractor-contacts/:id
+ * @description Get a single HR/contractor contact (admin or recruiter) (Drizzle-backed)
  */
 
 import { requireAdminOrRecruiter } from '@/server/utils/better-auth'
@@ -26,12 +26,12 @@ export default defineEventHandler(async (event) => {
     // Get contact with contractor info
     const [result] = await db
       .select({
-        contact: schema.employerContact,
+        contact: schema.contractorContact,
         contractor: schema.contractor,
       })
-      .from(schema.employerContact)
-      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.employerContact.contractorId))
-      .where(eq(schema.employerContact.id, id))
+      .from(schema.contractorContact)
+      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.contractorContact.contractorId))
+      .where(eq(schema.contractorContact.id, id))
       .limit(1)
 
     if (!result) {
@@ -61,7 +61,7 @@ export default defineEventHandler(async (event) => {
     const err = error as { statusCode?: number }
     if (err.statusCode) throw error
     
-    console.error('Failed to fetch employer contact:', error)
+    console.error('Failed to fetch contractor contact:', error)
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to fetch contact'

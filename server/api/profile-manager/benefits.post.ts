@@ -1,7 +1,7 @@
 /**
- * @file Create/update employer benefit
- * @route POST /api/employer/benefits
- * @description Creates or updates a benefit for the employer's profile
+ * @file Create/update company benefit
+ * @route POST /api/profile-manager/benefits
+ * @description Creates or updates a benefit for the company's profile
  */
 
 import { getDb, schema } from '@/server/utils/db'
@@ -45,26 +45,26 @@ export default defineEventHandler(async (event) => {
   let profileId = claimedProfile?.id
 
   if (!profileId) {
-    // Check employer user access (admin or owner role required)
-    const [employerAccess] = await db
+    // Check contractor user access (admin or owner role required)
+    const [contractorAccess] = await db
       .select()
-      .from(schema.employerUser)
-      .where(eq(schema.employerUser.userId, user.id))
+      .from(schema.contractorUser)
+      .where(eq(schema.contractorUser.userId, user.id))
       .limit(1)
 
-    if (!employerAccess || employerAccess.role === 'editor') {
+    if (!contractorAccess || contractorAccess.role === 'editor') {
       throw createError({
         statusCode: 403,
         statusMessage: 'You do not have permission to manage benefits',
       })
     }
-    profileId = employerAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId
   }
 
   if (parsed.data.id) {
     // Update existing benefit
     await db
-      .update(schema.employerBenefit)
+      .update(schema.contractorBenefit)
       .set({
         icon: parsed.data.icon,
         title: parsed.data.title,
@@ -74,8 +74,8 @@ export default defineEventHandler(async (event) => {
       })
       .where(
         and(
-          eq(schema.employerBenefit.id, parsed.data.id),
-          eq(schema.employerBenefit.claimedProfileId, profileId)
+          eq(schema.contractorBenefit.id, parsed.data.id),
+          eq(schema.contractorBenefit.claimedProfileId, profileId)
         )
       )
 
@@ -84,7 +84,7 @@ export default defineEventHandler(async (event) => {
 
   // Create new benefit
   const [newBenefit] = await db
-    .insert(schema.employerBenefit)
+    .insert(schema.contractorBenefit)
     .values({
       claimedProfileId: profileId,
       icon: parsed.data.icon,
@@ -92,7 +92,7 @@ export default defineEventHandler(async (event) => {
       description: parsed.data.description,
       sortOrder: parsed.data.sortOrder,
     })
-    .returning({ id: schema.employerBenefit.id })
+    .returning({ id: schema.contractorBenefit.id })
 
   return { success: true, id: newBenefit?.id }
 })

@@ -1,7 +1,7 @@
 /**
- * @file Admin create employer contact endpoint
- * @route POST /api/admin/employer-contacts
- * @description Create a new HR/employer contact (admin or recruiter) (Drizzle-backed)
+ * @file Admin create contractor contact endpoint
+ * @route POST /api/admin/contractor-contacts
+ * @description Create a new HR/contractor contact (admin or recruiter) (Drizzle-backed)
  */
 
 import { z } from 'zod'
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
     const id = randomUUID()
     const now = new Date()
 
-    await db.insert(schema.employerContact).values({
+    await db.insert(schema.contractorContact).values({
       id,
       contractorId: parsed.data.contractorId,
       name: parsed.data.name,
@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
       }
     }
   } catch (error) {
-    console.error('Failed to create employer contact:', error)
+    console.error('Failed to create contractor contact:', error)
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to create contact'

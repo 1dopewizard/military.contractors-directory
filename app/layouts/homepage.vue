@@ -110,7 +110,7 @@ watch(() => route.path, () => {
         <div class="flex sm:flex-row flex-col justify-between items-center gap-2 text-muted-foreground text-xs">
           <p>© {{ currentYear }} military.contractors</p>
           <div class="flex items-center gap-4">
-            <NuxtLink to="/for-employers" class="hover:text-primary transition-colors">For Employers</NuxtLink>
+            <NuxtLink to="/for-companies" class="hover:text-primary transition-colors">For Companies</NuxtLink>
             <NuxtLink to="/about" class="hover:text-primary transition-colors">About</NuxtLink>
             <NuxtLink to="/privacy" class="hover:text-primary transition-colors">Privacy</NuxtLink>
             <NuxtLink to="/terms" class="hover:text-primary transition-colors">Terms</NuxtLink>

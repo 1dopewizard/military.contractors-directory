@@ -1,7 +1,7 @@
 /**
- * @file Admin employer contacts list endpoint
- * @route GET /api/admin/employer-contacts
- * @description List HR/employer contacts with optional filters (admin or recruiter) (Drizzle-backed)
+ * @file Admin contractor contacts list endpoint
+ * @route GET /api/admin/contractor-contacts
+ * @description List HR/contractor contacts with optional filters (admin or recruiter) (Drizzle-backed)
  */
 
 import { requireAdminOrRecruiter } from '@/server/utils/better-auth'
@@ -17,12 +17,12 @@ export default defineEventHandler(async (event) => {
     // Get contacts with contractor info
     const contacts = await db
       .select({
-        contact: schema.employerContact,
+        contact: schema.contractorContact,
         contractor: schema.contractor,
       })
-      .from(schema.employerContact)
-      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.employerContact.contractorId))
-      .orderBy(desc(schema.employerContact.createdAt))
+      .from(schema.contractorContact)
+      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.contractorContact.contractorId))
+      .orderBy(desc(schema.contractorContact.createdAt))
 
     // Transform to expected format
     const transformed = contacts.map(({ contact, contractor }) => ({
@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
       contacts: transformed
     }
   } catch (error) {
-    console.error('Failed to fetch employer contacts:', error)
+    console.error('Failed to fetch contractor contacts:', error)
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to fetch contacts'

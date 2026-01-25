@@ -61,7 +61,7 @@ export const toastAdEvent = sqliteTable('toast_ad_event', {
   index('toast_event_type_idx').on(table.eventType),
 ])
 
-export const featuredEmployer = sqliteTable('featured_employer', {
+export const featuredContractor = sqliteTable('featured_contractor', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   contractorId: text('contractorId').notNull().references(() => contractor.id, { onDelete: 'cascade' }),
   tagline: text('tagline'),
@@ -74,8 +74,8 @@ export const featuredEmployer = sqliteTable('featured_employer', {
   createdAt: integer('createdAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
   updatedAt: integer('updatedAt', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 }, (table) => [
-  index('featured_employer_contractor_idx').on(table.contractorId),
-  index('featured_employer_pinned_idx').on(table.isPinned),
+  index('featured_contractor_contractor_idx').on(table.contractorId),
+  index('featured_contractor_pinned_idx').on(table.isPinned),
 ])
 
 interface FeaturedListingRequestData {
