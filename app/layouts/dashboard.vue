@@ -80,7 +80,7 @@ logger.info('Dashboard layout loaded')
           <!-- Mobile/Tablet Menu Button -->
           <Button 
             variant="ghost" 
-            class="lg:hidden h-9 w-9 p-0"
+            class="lg:hidden h-9 w-9 p-0 hover:bg-transparent"
             @click="mobileMenuOpen = true"
           >
             <Icon name="mdi:menu" class="w-5 h-5" />

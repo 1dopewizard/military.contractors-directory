@@ -27,6 +27,7 @@
 **UI/Design**
 - Use shadcn-vue (auto-imported, no manual imports)
 - Iconify MDI icons only, use sparingly for functional value
+- Icons should not have a background color nor any hover effect
 - No `rounded-*` or `shadow-*` utility classes
 - Clean, minimal, flat, mobile responsive
 

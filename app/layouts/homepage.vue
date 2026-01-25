@@ -59,7 +59,7 @@ watch(() => route.path, () => {
           <div class="hidden lg:block">
             <AuthButton />
           </div>
-          <Button variant="ghost" class="lg:hidden p-0 w-9 h-9" @click="mobileMenuOpen = true">
+          <Button variant="ghost" class="lg:hidden p-0 w-9 h-9 hover:bg-transparent" @click="mobileMenuOpen = true">
             <Icon name="mdi:menu" class="w-5 h-5" />
             <span class="sr-only">Open menu</span>
           </Button>

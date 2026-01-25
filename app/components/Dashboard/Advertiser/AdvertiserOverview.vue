@@ -101,9 +101,9 @@ const formatDate = (dateString: string) => {
           View All Ads
         </Button>
         <Button variant="ghost" size="sm" as-child>
-          <NuxtLink to="/advertise">
+          <NuxtLink to="/for-companies">
             <Icon name="mdi:information-outline" class="w-4 h-4 mr-2" />
-            Advertising Info
+            For Companies
           </NuxtLink>
         </Button>
       </div>

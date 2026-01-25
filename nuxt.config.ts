@@ -86,7 +86,6 @@ export default defineNuxtConfig({
     '/advertiser/**': { ssr: false },
     '/admin/**': { ssr: false },
     '/auth/login': { ssr: false },
-    '/advertise': { redirect: '/employers' },
   },
   components: [
     { 
