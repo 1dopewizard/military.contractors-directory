@@ -85,21 +85,14 @@ const handleSignOut = async () => {
             <DropdownMenuItem as-child>
               <NuxtLink to="/account" class="flex items-center gap-2 cursor-pointer">
                 <Icon name="mdi:account-cog-outline" class="size-4 text-muted-foreground" />
-                <span class="font-medium">My Profile</span>
+                <span class="font-medium">My Account</span>
               </NuxtLink>
             </DropdownMenuItem>
             
             <DropdownMenuItem as-child>
-              <NuxtLink to="/account/saved-jobs" class="flex items-center gap-2 cursor-pointer">
-                <Icon name="mdi:bookmark-outline" class="size-4 text-muted-foreground" />
-                <span class="font-medium">Saved Jobs</span>
-              </NuxtLink>
-            </DropdownMenuItem>
-            
-            <DropdownMenuItem as-child>
-              <NuxtLink to="/account/job-alerts" class="flex items-center gap-2 cursor-pointer">
-                <Icon name="mdi:bell-outline" class="size-4 text-muted-foreground" />
-                <span class="font-medium">Job Alerts</span>
+              <NuxtLink to="/contractors" class="flex items-center gap-2 cursor-pointer">
+                <Icon name="mdi:domain" class="size-4 text-muted-foreground" />
+                <span class="font-medium">Browse Contractors</span>
               </NuxtLink>
             </DropdownMenuItem>
           </DropdownMenuGroup>

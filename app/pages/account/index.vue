@@ -21,67 +21,17 @@ const route = useRoute()
 const router = useRouter()
 const { isAuthReady } = useAuth()
 const { displayName, email, userId } = useUserProfile()
-const { getFavoriteJobIds } = useUserPreferences()
 
 // Tab management with URL persistence
 type TabItem = {
   id: string
   label: string
   icon: string
-  badge?: number
 }
-
-// Fetch counts for badges using API endpoints
-const { data: savedJobsData } = useAsyncData(
-  'account-saved-jobs-count',
-  async () => {
-    // Use localStorage-backed favorites
-    return getFavoriteJobIds()
-  },
-  {
-    watch: [userId],
-    default: () => [],
-  }
-)
-
-const { data: jobAlertsData } = useAsyncData(
-  'account-job-alerts-count',
-  async () => {
-    if (!email.value) return []
-    return await $fetch<any[]>('/api/users/job-alerts', {
-      query: { email: email.value },
-    })
-  },
-  {
-    watch: [email],
-    default: () => [],
-  }
-)
-
-const { data: viewedMosData } = useAsyncData(
-  'account-viewed-mos-count',
-  async () => {
-    if (!userId.value) return []
-    return await $fetch<any[]>('/api/users/viewed-mos', {
-      query: { limit: 20 },
-    })
-  },
-  {
-    watch: [userId],
-    default: () => [],
-  }
-)
-
-const savedJobsCount = computed(() => savedJobsData.value?.length ?? 0)
-const jobAlertsCount = computed(() => jobAlertsData.value?.length ?? 0)
-const mosInterestsCount = computed(() => viewedMosData.value?.length ?? 0)
 
 const tabs = computed<TabItem[]>(() => [
   { id: 'overview', label: 'Overview', icon: 'mdi:view-dashboard-outline' },
   { id: 'profile', label: 'Profile', icon: 'mdi:account-outline' },
-  { id: 'saved-jobs', label: 'Saved Jobs', icon: 'mdi:bookmark-outline', badge: savedJobsCount.value },
-  { id: 'job-alerts', label: 'Job Alerts', icon: 'mdi:bell-outline', badge: jobAlertsCount.value },
-  { id: 'mos-interests', label: 'MOS Interests', icon: 'mdi:badge-account-outline', badge: mosInterestsCount.value },
 ])
 
 const validTabIds = computed(() => tabs.value.map(t => t.id))
@@ -192,17 +142,9 @@ onUnmounted(() => {
                 <Icon :name="tab.icon" class="w-4 h-4" />
                 {{ tab.label }}
               </div>
-              <div class="flex items-center gap-1.5">
-                <span 
-                  v-if="tab.badge && tab.badge > 0" 
-                  class="px-1.5 py-0.5 text-[10px] font-medium bg-muted text-muted-foreground"
-                >
-                  {{ tab.badge }}
-                </span>
-                <kbd class="hidden lg:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-muted text-muted-foreground">
-                  {{ index + 1 }}
-                </kbd>
-              </div>
+              <kbd class="hidden lg:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-muted text-muted-foreground">
+                {{ index + 1 }}
+              </kbd>
             </button>
           </nav>
 
@@ -229,25 +171,11 @@ onUnmounted(() => {
           <!-- Quick Links -->
           <div class="hidden lg:block mt-4 pt-4 border-t border-border space-y-1">
             <NuxtLink 
-              to="/jobs" 
-              class="flex items-center gap-2 px-3 py-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Icon name="mdi:briefcase-search-outline" class="w-4 h-4" />
-              Browse Jobs
-            </NuxtLink>
-            <NuxtLink 
-              to="/salaries" 
-              class="flex items-center gap-2 px-3 py-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Icon name="mdi:cash-multiple" class="w-4 h-4" />
-              Salary Data
-            </NuxtLink>
-            <NuxtLink 
-              to="/companies" 
+              to="/contractors" 
               class="flex items-center gap-2 px-3 py-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               <Icon name="mdi:domain" class="w-4 h-4" />
-              Companies
+              Contractors
             </NuxtLink>
           </div>
         </aside>
@@ -257,23 +185,11 @@ onUnmounted(() => {
           <!-- Overview Tab -->
           <AccountOverview
             v-if="activeTab === 'overview'"
-            :saved-jobs-count="savedJobsCount"
-            :job-alerts-count="jobAlertsCount"
-            :mos-interests-count="mosInterestsCount"
             @set-tab="setActiveTab"
           />
 
           <!-- Profile Tab -->
           <AccountProfile v-else-if="activeTab === 'profile'" />
-
-          <!-- Saved Jobs Tab -->
-          <AccountSavedJobs v-else-if="activeTab === 'saved-jobs'" />
-
-          <!-- Job Alerts Tab -->
-          <AccountJobAlerts v-else-if="activeTab === 'job-alerts'" />
-
-          <!-- MOS Interests Tab -->
-          <AccountMosInterests v-else-if="activeTab === 'mos-interests'" />
         </main>
       </div>
     </div>

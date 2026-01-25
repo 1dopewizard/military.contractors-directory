@@ -306,8 +306,6 @@ watchEffect(() => {
           </div>
         </div>
 
-        <!-- Right Column: Sidebar -->
-        <SearchSidebar />
       </div>
     </div>
   </div>

@@ -12,8 +12,7 @@ const currentYear = new Date().getFullYear()
 // Navigation items - Defense Contractor Directory structure
 const navItems = [
   { name: 'Contractors', icon: 'mdi:domain', route: '/contractors', active: computed(() => route.path.startsWith('/contractors')) },
-  { name: 'Salaries', icon: 'mdi:cash-multiple', route: '/salaries', active: computed(() => route.path.startsWith('/salaries')) },
-  { name: 'Interviews', icon: 'mdi:forum', route: '/interviews', active: computed(() => route.path.startsWith('/interviews')) }
+  { name: 'Top 100', icon: 'mdi:trophy-outline', route: '/top-defense-contractors', active: computed(() => route.path === '/top-defense-contractors') }
 ]
 
 watch(() => route.path, () => { 
@@ -111,7 +110,7 @@ watch(() => route.path, () => {
         <div class="flex sm:flex-row flex-col justify-between items-center gap-2 text-muted-foreground text-xs">
           <p>© {{ currentYear }} military.contractors</p>
           <div class="flex items-center gap-4">
-            <NuxtLink to="/employers" class="hover:text-primary transition-colors">For Employers</NuxtLink>
+            <NuxtLink to="/for-employers" class="hover:text-primary transition-colors">For Employers</NuxtLink>
             <NuxtLink to="/about" class="hover:text-primary transition-colors">About</NuxtLink>
             <NuxtLink to="/privacy" class="hover:text-primary transition-colors">Privacy</NuxtLink>
             <NuxtLink to="/terms" class="hover:text-primary transition-colors">Terms</NuxtLink>

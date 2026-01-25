@@ -13,25 +13,19 @@ const mobileMenuOpen = ref(false)
 
 const currentYear = new Date().getFullYear()
 
-// Navigation items - Community Intel Platform structure
+// Navigation items - Defense Contractor Directory
 const navItems = [
     {
-        name: 'Salaries',
-        icon: 'mdi:cash-multiple',
-        route: '/salaries',
-        active: computed(() => route.path.startsWith('/salaries'))
-    },
-    {
-        name: 'Interviews',
-        icon: 'mdi:forum',
-        route: '/interviews',
-        active: computed(() => route.path.startsWith('/interviews'))
-    },
-    {
-        name: 'Companies',
+        name: 'Contractors',
         icon: 'mdi:domain',
-        route: '/companies',
-        active: computed(() => route.path.startsWith('/companies'))
+        route: '/contractors',
+        active: computed(() => route.path.startsWith('/contractors'))
+    },
+    {
+        name: 'Top 100',
+        icon: 'mdi:trophy-outline',
+        route: '/top-defense-contractors',
+        active: computed(() => route.path === '/top-defense-contractors')
     }
 ]
 

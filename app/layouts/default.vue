@@ -12,25 +12,19 @@ const mobileMenuOpen = ref(false)
 
 const currentYear = new Date().getFullYear()
 
-// Navigation items - Community Intel Platform structure
+// Navigation items - Defense Contractor Directory
 const navItems = [
     {
-        name: 'Salaries',
-        icon: 'mdi:cash-multiple',
-        route: '/salaries',
-        active: computed(() => route.path.startsWith('/salaries'))
-    },
-    {
-        name: 'Interviews',
-        icon: 'mdi:forum',
-        route: '/interviews',
-        active: computed(() => route.path.startsWith('/interviews'))
-    },
-    {
-        name: 'Companies',
+        name: 'Contractors',
         icon: 'mdi:domain',
-        route: '/companies',
-        active: computed(() => route.path.startsWith('/companies'))
+        route: '/contractors',
+        active: computed(() => route.path.startsWith('/contractors'))
+    },
+    {
+        name: 'Top 100',
+        icon: 'mdi:trophy-outline',
+        route: '/top-defense-contractors',
+        active: computed(() => route.path === '/top-defense-contractors')
     }
 ]
 
@@ -144,7 +138,7 @@ watch(() => route.path, () => {
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
                         <p>© {{ currentYear }} military.contractors</p>
                         <div class="flex items-center gap-4">
-                            <NuxtLink to="/employers" class="hover:text-primary transition-colors">For Employers</NuxtLink>
+                            <NuxtLink to="/for-employers" class="hover:text-primary transition-colors">For Employers</NuxtLink>
                             <NuxtLink to="/about" class="hover:text-primary transition-colors">About</NuxtLink>
                             <NuxtLink to="/privacy" class="hover:text-primary transition-colors">Privacy</NuxtLink>
                             <NuxtLink to="/terms" class="hover:text-primary transition-colors">Terms</NuxtLink>
