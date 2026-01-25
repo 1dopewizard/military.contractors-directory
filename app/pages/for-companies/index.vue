@@ -116,22 +116,22 @@ const steps = [
 <template>
   <div class="min-h-full">
     <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-16 lg:py-24">
-        <div class="text-center max-w-3xl mx-auto">
+    <section class="relative bg-linear-to-b from-primary/5 to-background overflow-hidden">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 max-w-6xl container">
+        <div class="mx-auto max-w-3xl text-center">
           <Badge variant="outline" class="mb-6">For Defense Contractors</Badge>
-          <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight">
+          <h1 class="mb-6 font-bold text-foreground text-4xl md:text-5xl tracking-tight">
             Claim Your Company Profile
           </h1>
-          <p class="text-xl text-muted-foreground mb-8 leading-relaxed">
+          <p class="mb-8 text-muted-foreground text-xl leading-relaxed">
             Stand out to veteran job seekers researching defense contractors. 
             Control your narrative and showcase what makes your company a great place to work.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <div class="flex sm:flex-row flex-col justify-center gap-4">
             <Button size="lg" as-child>
               <NuxtLink to="/profile-manager/claim">
                 Get Started
-                <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+                <Icon name="mdi:arrow-right" class="ml-2 w-5 h-5" />
               </NuxtLink>
             </Button>
             <Button size="lg" variant="outline" as-child>
@@ -146,39 +146,39 @@ const steps = [
 
     <!-- Benefits Section -->
     <section class="py-16 lg:py-24">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-foreground mb-4">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl container">
+        <div class="mb-12 text-center">
+          <h2 class="mb-4 font-bold text-foreground text-3xl">
             Why Claim Your Profile?
           </h2>
-          <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p class="mx-auto max-w-2xl text-muted-foreground text-lg">
             Take control of how your company appears to job seekers researching defense contractors.
           </p>
         </div>
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div class="gap-8 grid md:grid-cols-2 lg:grid-cols-4">
           <Card v-for="benefit in benefits" :key="benefit.title" class="p-6 text-center">
-            <div class="flex items-center justify-center mx-auto mb-4">
+            <div class="flex justify-center items-center mx-auto mb-4">
               <Icon :name="benefit.icon" class="w-8 h-8 text-primary" />
             </div>
-            <h3 class="font-semibold mb-2">{{ benefit.title }}</h3>
-            <p class="text-sm text-muted-foreground">{{ benefit.description }}</p>
+            <h3 class="mb-2 font-semibold">{{ benefit.title }}</h3>
+            <p class="text-muted-foreground text-sm">{{ benefit.description }}</p>
           </Card>
         </div>
       </div>
     </section>
 
     <!-- How It Works Section -->
-    <section class="py-16 lg:py-24 bg-muted/30">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-foreground mb-4">
+    <section class="bg-muted/30 py-16 lg:py-24">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl container">
+        <div class="mb-12 text-center">
+          <h2 class="mb-4 font-bold text-foreground text-3xl">
             How It Works
           </h2>
-          <p class="text-lg text-muted-foreground">
+          <p class="text-muted-foreground text-lg">
             Get started in just a few minutes.
           </p>
         </div>
-        <div class="grid gap-6 md:grid-cols-4">
+        <div class="gap-6 grid md:grid-cols-4">
           <div 
             v-for="(step, index) in steps" 
             :key="step.step"
@@ -187,14 +187,14 @@ const steps = [
             <!-- Connector line (hidden on mobile, visible between items on md+) -->
             <div 
               v-if="index < steps.length - 1" 
-              class="hidden md:block absolute top-5 left-[calc(50%+24px)] right-0 h-px bg-border -translate-y-1/2"
+              class="hidden md:block top-5 right-0 left-[calc(50%+24px)] absolute bg-border h-px -translate-y-1/2"
             />
             
-            <div class="relative inline-flex items-center justify-center w-10 h-10 mb-4 text-lg font-bold text-primary border-2 border-primary bg-background">
+            <Card class="inline-flex justify-center items-center mb-4 w-10 h-10 font-medium text-primary text-lg">
               {{ step.step }}
-            </div>
-            <h3 class="font-semibold mb-2">{{ step.title }}</h3>
-            <p class="text-sm text-muted-foreground">{{ step.description }}</p>
+            </Card>
+            <h3 class="mb-2 font-semibold">{{ step.title }}</h3>
+            <p class="text-muted-foreground text-sm">{{ step.description }}</p>
           </div>
         </div>
       </div>
@@ -202,16 +202,16 @@ const steps = [
 
     <!-- Pricing Section -->
     <section id="pricing" class="py-16 lg:py-24">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-foreground mb-4">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl container">
+        <div class="mb-12 text-center">
+          <h2 class="mb-4 font-bold text-foreground text-3xl">
             Simple, Transparent Pricing
           </h2>
-          <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p class="mx-auto max-w-2xl text-muted-foreground text-lg">
             Choose the plan that fits your recruitment needs. Cancel anytime.
           </p>
         </div>
-        <div class="grid gap-8 md:grid-cols-3">
+        <div class="gap-8 grid md:grid-cols-3">
           <Card 
             v-for="tier in tiers" 
             :key="tier.name"
@@ -220,16 +220,16 @@ const steps = [
               tier.popular ? 'border-primary shadow-lg' : ''
             ]"
           >
-            <Badge v-if="tier.popular" class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary">
+            <Badge v-if="tier.popular" class="-top-3 left-1/2 absolute bg-primary -translate-x-1/2">
               Most Popular
             </Badge>
-            <div class="text-center mb-6">
-              <h3 class="text-xl font-bold mb-2">{{ tier.name }}</h3>
-              <div class="flex items-baseline justify-center gap-1">
-                <span class="text-4xl font-bold">{{ tier.price }}</span>
+            <div class="mb-6 text-center">
+              <h3 class="mb-2 font-bold text-xl">{{ tier.name }}</h3>
+              <div class="flex justify-center items-baseline gap-1">
+                <span class="font-bold text-4xl">{{ tier.price }}</span>
                 <span v-if="tier.period" class="text-muted-foreground">{{ tier.period }}</span>
               </div>
-              <p class="text-sm text-muted-foreground mt-2">{{ tier.description }}</p>
+              <p class="mt-2 text-muted-foreground text-sm">{{ tier.description }}</p>
             </div>
             <ul class="space-y-3 mb-6">
               <li 
@@ -257,7 +257,7 @@ const steps = [
                 {{ tier.cta }}
               </NuxtLink>
             </Button>
-            <p v-else class="text-center text-sm text-muted-foreground">
+            <p v-else class="text-muted-foreground text-sm text-center">
               Default listing
             </p>
           </Card>
@@ -266,18 +266,18 @@ const steps = [
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 lg:py-24 bg-primary">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
-        <h2 class="text-3xl font-bold text-primary-foreground mb-4">
+    <section class="bg-primary py-16 lg:py-24">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center container">
+        <h2 class="mb-4 font-bold text-primary-foreground text-3xl">
           Ready to Stand Out?
         </h2>
-        <p class="text-xl text-primary-foreground/80 mb-8">
+        <p class="mb-8 text-primary-foreground/80 text-xl">
           Join companies like Lockheed Martin and Booz Allen Hamilton who have claimed their profiles.
         </p>
         <Button size="lg" variant="secondary" as-child>
           <NuxtLink to="/profile-manager/claim">
             Claim Your Profile Today
-            <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+            <Icon name="mdi:arrow-right" class="ml-2 w-5 h-5" />
           </NuxtLink>
         </Button>
       </div>
