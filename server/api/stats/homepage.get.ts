@@ -4,36 +4,23 @@
  */
 
 import { getDb, schema } from '@/server/utils/db'
-import { eq, and, sql } from 'drizzle-orm'
+import { sql } from 'drizzle-orm'
 
 export interface HomepageStatsResponse {
-  activeJobs: number
-  companies: number
+  contractors: number
 }
 
 export default defineEventHandler(async (): Promise<HomepageStatsResponse> => {
   const db = getDb()
 
   try {
-    // Count active jobs
-    const [jobsResult] = await db
+    // Count contractors
+    const [contractorsResult] = await db
       .select({ count: sql<number>`count(*)` })
-      .from(schema.job)
-      .where(
-        and(
-          eq(schema.job.isActive, true),
-          eq(schema.job.status, 'ACTIVE')
-        )
-      )
-
-    // Count companies
-    const [companiesResult] = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(schema.company)
+      .from(schema.contractor)
 
     return {
-      activeJobs: jobsResult?.count ?? 0,
-      companies: companiesResult?.count ?? 0,
+      contractors: contractorsResult?.count ?? 0,
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error'

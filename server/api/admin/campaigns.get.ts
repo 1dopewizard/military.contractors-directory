@@ -25,8 +25,8 @@ export default defineEventHandler(async (event) => {
       status: c.status,
       budget: c.budget,
       spent: c.spent,
-      starts_at: c.startsAt?.toISOString() ?? null,
-      ends_at: c.endsAt?.toISOString() ?? null,
+      starts_at: c.startDate?.toISOString() ?? null,
+      ends_at: c.endDate?.toISOString() ?? null,
       created_at: c.createdAt?.toISOString() ?? null,
       updated_at: c.updatedAt?.toISOString() ?? null,
     }))

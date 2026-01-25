@@ -14,21 +14,21 @@ export default defineEventHandler(async (event) => {
   const db = getDb()
 
   try {
-    // Get contacts with company info
+    // Get contacts with contractor info
     const contacts = await db
       .select({
         contact: schema.employerContact,
-        company: schema.company,
+        contractor: schema.contractor,
       })
       .from(schema.employerContact)
-      .leftJoin(schema.company, eq(schema.company.id, schema.employerContact.companyId))
+      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.employerContact.contractorId))
       .orderBy(desc(schema.employerContact.createdAt))
 
     // Transform to expected format
-    const transformed = contacts.map(({ contact, company }) => ({
+    const transformed = contacts.map(({ contact, contractor }) => ({
       id: contact.id,
-      company_id: contact.companyId,
-      company_name: company?.name ?? null,
+      contractor_id: contact.contractorId,
+      contractor_name: contractor?.name ?? null,
       name: contact.name,
       email: contact.email,
       title: contact.title,

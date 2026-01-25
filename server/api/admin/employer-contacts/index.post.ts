@@ -7,10 +7,10 @@
 import { z } from 'zod'
 import { requireAdminOrRecruiter } from '@/server/utils/better-auth'
 import { getDb, schema } from '@/server/utils/db'
-import { nanoid } from 'nanoid'
+import { randomUUID } from 'crypto'
 
 const createSchema = z.object({
-  companyId: z.string(),
+  contractorId: z.string(),
   name: z.string().min(2, 'Contact name is required'),
   email: z.string().email(),
   title: z.string().optional(),
@@ -35,12 +35,12 @@ export default defineEventHandler(async (event) => {
   const db = getDb()
 
   try {
-    const id = nanoid()
+    const id = randomUUID()
     const now = new Date()
 
     await db.insert(schema.employerContact).values({
       id,
-      companyId: parsed.data.companyId,
+      contractorId: parsed.data.contractorId,
       name: parsed.data.name,
       email: parsed.data.email,
       title: parsed.data.title ?? null,

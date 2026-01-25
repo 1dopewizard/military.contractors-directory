@@ -44,7 +44,7 @@ const tiers = [
       { text: 'Basic analytics', included: true },
     ],
     cta: 'Get Started',
-    ctaLink: '/employer/claim',
+    ctaLink: '/profile-manager/claim',
     popular: false,
   },
   {
@@ -61,7 +61,7 @@ const tiers = [
       { text: 'Dedicated support', included: true },
     ],
     cta: 'Get Premium',
-    ctaLink: '/employer/claim',
+    ctaLink: '/profile-manager/claim',
     popular: true,
   },
 ]
@@ -129,7 +129,7 @@ const steps = [
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" as-child>
-              <NuxtLink to="/employer/claim">
+              <NuxtLink to="/profile-manager/claim">
                 Get Started
                 <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
               </NuxtLink>
@@ -271,7 +271,7 @@ const steps = [
           Join companies like Lockheed Martin and Booz Allen Hamilton who have claimed their profiles.
         </p>
         <Button size="lg" variant="secondary" as-child>
-          <NuxtLink to="/employer/claim">
+          <NuxtLink to="/profile-manager/claim">
             Claim Your Profile Today
             <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
           </NuxtLink>

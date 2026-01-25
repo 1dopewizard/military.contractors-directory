@@ -5,7 +5,7 @@
 import { requireAdmin } from '@/server/utils/better-auth'
 import { getDb, schema } from '@/server/utils/db'
 import { eq } from 'drizzle-orm'
-import { nanoid } from 'nanoid'
+import { randomUUID } from 'crypto'
 
 interface ActivityLogInput {
   action: string
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event): Promise<{ success: boolean; err
     }
 
     await db.insert(schema.adminActivityLog).values({
-      id: nanoid(),
+      id: randomUUID(),
       adminId: dbUser.id,
       action: body.action,
       entityType: body.entity_type,

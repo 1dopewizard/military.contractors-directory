@@ -1,14 +1,14 @@
 /**
  * @file Update user profile API endpoint
- * @description Creates or updates user profile
+ * @description Creates or updates user profile (requires authentication)
  */
 
 import { z } from 'zod'
 import { db, schema } from '@/server/utils/db'
 import { eq } from 'drizzle-orm'
+import { requireAuth } from '@/server/utils/better-auth'
 
 const profileSchema = z.object({
-  email: z.string().email(),
   name: z.string().optional(),
   branch: z.string().optional(),
   mosCode: z.string().optional(),
@@ -22,6 +22,7 @@ const profileSchema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
+  const authUser = await requireAuth(event)
   const body = await readBody(event)
 
   const parsed = profileSchema.safeParse(body)
@@ -36,23 +37,20 @@ export default defineEventHandler(async (event) => {
   const data = parsed.data
 
   try {
-    // Get or create user
-    let user = await db.query.user.findFirst({
-      where: eq(schema.user.email, data.email.toLowerCase()),
+    // Get authenticated user from database
+    const user = await db.query.user.findFirst({
+      where: eq(schema.user.id, authUser.id),
     })
 
     if (!user) {
-      // Create user
-      const [newUser] = await db.insert(schema.user).values({
-        email: data.email.toLowerCase(),
-        name: data.name || data.email.split('@')[0],
-        emailVerified: false,
-        role: 'user',
-      }).returning()
+      throw createError({
+        statusCode: 404,
+        statusMessage: 'User not found',
+      })
+    }
 
-      user = newUser
-    } else if (data.name && data.name !== user.name) {
-      // Update user name if provided
+    // Update user name if provided
+    if (data.name && data.name !== user.name) {
       await db.update(schema.user)
         .set({ name: data.name, updatedAt: new Date() })
         .where(eq(schema.user.id, user.id))

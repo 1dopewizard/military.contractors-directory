@@ -23,14 +23,14 @@ export default defineEventHandler(async (event) => {
   const db = getDb()
 
   try {
-    // Get contact with company info
+    // Get contact with contractor info
     const [result] = await db
       .select({
         contact: schema.employerContact,
-        company: schema.company,
+        contractor: schema.contractor,
       })
       .from(schema.employerContact)
-      .leftJoin(schema.company, eq(schema.company.id, schema.employerContact.companyId))
+      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.employerContact.contractorId))
       .where(eq(schema.employerContact.id, id))
       .limit(1)
 
@@ -41,13 +41,13 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const { contact, company } = result
+    const { contact, contractor } = result
 
     return {
       contact: {
         id: contact.id,
-        company_id: contact.companyId,
-        company_name: company?.name ?? null,
+        contractor_id: contact.contractorId,
+        contractor_name: contractor?.name ?? null,
         name: contact.name,
         email: contact.email,
         title: contact.title,

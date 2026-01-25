@@ -220,8 +220,6 @@ export const auth = betterAuth({
       },
       // Token expires in 15 minutes
       expiresIn: 60 * 15,
-      // Disable auto sign-in to let client handle the redirect
-      disableCredentialOnVerify: false,
     }),
   ],
   

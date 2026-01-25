@@ -6,7 +6,7 @@
 
 import { getDb, schema } from '@/server/utils/db'
 import { eq } from 'drizzle-orm'
-import { requireAdmin } from '@/server/utils/auth'
+import { requireAdmin } from '@/server/utils/better-auth'
 import { z } from 'zod'
 
 const actionSchema = z.object({
@@ -15,7 +15,7 @@ const actionSchema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAdmin(event)
+  const user = await requireAdmin(event)
   const db = getDb()
   const contentId = getRouterParam(event, 'id')
   const body = await readBody(event)
@@ -61,7 +61,7 @@ export default defineEventHandler(async (event) => {
       .update(schema.sponsoredContent)
       .set({
         status: 'approved',
-        reviewedBy: session.user.id,
+        reviewedBy: user.id,
         reviewedAt: new Date(),
         updatedAt: new Date(),
       })
@@ -73,7 +73,7 @@ export default defineEventHandler(async (event) => {
       .update(schema.sponsoredContent)
       .set({
         status: 'rejected',
-        reviewedBy: session.user.id,
+        reviewedBy: user.id,
         reviewedAt: new Date(),
         rejectionReason: parsed.data.reason || null,
         updatedAt: new Date(),

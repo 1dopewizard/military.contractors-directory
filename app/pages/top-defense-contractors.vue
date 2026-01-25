@@ -5,7 +5,26 @@
 -->
 
 <script setup lang="ts">
-const { data, pending: isLoading, error } = useFetch('/api/contractors', {
+interface ContractorsResponse {
+  contractors: Array<{
+    id: string
+    slug: string
+    name: string
+    description: string | null
+    defenseNewsRank: number | null
+    headquarters: string | null
+    employeeCount: number | null
+    defenseRevenue: number | null
+    totalRevenue: number | null
+    logoUrl: string | null
+    country: string | null
+  }>
+  total: number
+  limit: number
+  offset: number
+}
+
+const { data, pending: isLoading, error } = useFetch<ContractorsResponse>('/api/contractors', {
   params: {
     limit: 100,
     sortBy: 'rank',
@@ -22,15 +41,6 @@ useHead({
     },
   ],
 })
-
-// Structured data for ItemList
-useSchemaOrg([
-  defineWebPage({
-    '@type': 'CollectionPage',
-    name: 'Top Defense Contractors 2025',
-    description: 'Complete ranked list of the top 100 defense contractors by revenue',
-  }),
-])
 
 const formatRevenue = (revenue: number | null | undefined): string => {
   if (revenue == null) return 'N/A'

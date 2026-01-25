@@ -6,7 +6,7 @@
 
 import { getDb, schema } from '@/server/utils/db'
 import { eq, desc } from 'drizzle-orm'
-import { requireAdmin } from '@/server/utils/auth'
+import { requireAdmin } from '@/server/utils/better-auth'
 
 export default defineEventHandler(async (event) => {
   await requireAdmin(event)

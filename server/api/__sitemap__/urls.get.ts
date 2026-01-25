@@ -1,7 +1,7 @@
 /**
  * @file Dynamic sitemap URL source
  * @route GET /api/__sitemap__/urls
- * @description Generates dynamic sitemap URLs for companies, jobs, and MOS codes (Drizzle-backed)
+ * @description Generates dynamic sitemap URLs for contractors, specialties, and static pages
  */
 
 import { getDb, schema } from '@/server/utils/db'
@@ -21,82 +21,76 @@ export default defineEventHandler(async () => {
   try {
     const urls: SitemapUrl[] = []
 
-    // Add companies
-    const companies = await db
+    // Add contractors
+    const contractors = await db
       .select({
-        slug: schema.company.slug,
-        updatedAt: schema.company.updatedAt,
+        slug: schema.contractor.slug,
+        updatedAt: schema.contractor.updatedAt,
       })
-      .from(schema.company)
-      .orderBy(desc(schema.company.updatedAt))
+      .from(schema.contractor)
+      .orderBy(desc(schema.contractor.updatedAt))
 
-    for (const company of companies) {
+    for (const contractor of contractors) {
       urls.push({
-        loc: `${baseUrl}/contractors/${company.slug}`,
-        lastmod: company.updatedAt?.toISOString() ?? null,
+        loc: `${baseUrl}/contractors/${contractor.slug}`,
+        lastmod: contractor.updatedAt?.toISOString() ?? null,
         changefreq: 'weekly',
         priority: 0.8,
       })
     }
 
-    // Add active jobs
-    const jobs = await db
+    // Add specialties
+    const specialties = await db
       .select({
-        id: schema.job.id,
-        slug: schema.job.slug,
-        updatedAt: schema.job.updatedAt,
+        slug: schema.specialty.slug,
+        updatedAt: schema.specialty.updatedAt,
       })
-      .from(schema.job)
-      .where(eq(schema.job.isActive, true))
-      .orderBy(desc(schema.job.updatedAt))
-      .limit(5000) // Limit to keep sitemap manageable
+      .from(schema.specialty)
+      .orderBy(desc(schema.specialty.updatedAt))
 
-    for (const job of jobs) {
-      const jobPath = job.slug || job.id
+    for (const specialty of specialties) {
       urls.push({
-        loc: `${baseUrl}/jobs/${jobPath}`,
-        lastmod: job.updatedAt?.toISOString() ?? null,
-        changefreq: 'daily',
+        loc: `${baseUrl}/contractors/specialty/${specialty.slug}`,
+        lastmod: specialty.updatedAt?.toISOString() ?? null,
+        changefreq: 'monthly',
         priority: 0.7,
       })
     }
 
-    // Add MOS codes
-    const mosCodes = await db
-      .select({
-        code: schema.mosCode.code,
-        branch: schema.mosCode.branch,
-        updatedAt: schema.mosCode.updatedAt,
-      })
-      .from(schema.mosCode)
-      .orderBy(desc(schema.mosCode.updatedAt))
+    // Add static SEO pages
+    urls.push({
+      loc: `${baseUrl}/top-defense-contractors`,
+      changefreq: 'monthly',
+      priority: 0.9,
+    })
 
-    for (const mos of mosCodes) {
-      urls.push({
-        loc: `${baseUrl}/mos/${mos.code}`,
-        lastmod: mos.updatedAt?.toISOString() ?? null,
-        changefreq: 'monthly',
-        priority: 0.6,
-      })
-    }
+    urls.push({
+      loc: `${baseUrl}/for-employers`,
+      changefreq: 'monthly',
+      priority: 0.6,
+    })
 
-    // Add bases
-    const bases = await db
-      .select({
-        slug: schema.base.slug,
-        updatedAt: schema.base.updatedAt,
-      })
-      .from(schema.base)
-      .where(eq(schema.base.isActive, true))
-      .orderBy(desc(schema.base.updatedAt))
+    // Add bases (if they exist)
+    try {
+      const bases = await db
+        .select({
+          slug: schema.base.slug,
+          updatedAt: schema.base.updatedAt,
+        })
+        .from(schema.base)
+        .where(eq(schema.base.isActive, true))
+        .orderBy(desc(schema.base.updatedAt))
 
-    for (const base of bases) {
-      urls.push({
-        loc: `${baseUrl}/bases/${base.slug}`,
-        lastmod: base.updatedAt?.toISOString() ?? null,
-        changefreq: 'monthly',
-        priority: 0.5,
-      })
+      for (const base of bases) {
+        urls.push({
+          loc: `${baseUrl}/bases/${base.slug}`,
+          lastmod: base.updatedAt?.toISOString() ?? null,
+          changefreq: 'monthly',
+          priority: 0.5,
+        })
+      }
+    } catch {
+      // Bases table may not exist, skip
     }
 
     return urls

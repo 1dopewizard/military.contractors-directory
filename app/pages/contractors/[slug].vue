@@ -5,6 +5,83 @@
 -->
 
 <script setup lang="ts">
+interface ContractorResponse {
+  id: string
+  slug: string
+  name: string
+  description: string | null
+  defenseNewsRank: number | null
+  country: string | null
+  headquarters: string | null
+  founded: number | null
+  employeeCount: number | null
+  website: string | null
+  careersUrl: string | null
+  linkedinUrl: string | null
+  wikipediaUrl: string | null
+  stockTicker: string | null
+  isPublic: boolean
+  totalRevenue: number | null
+  defenseRevenue: number | null
+  defenseRevenuePercent: number | null
+  logoUrl: string | null
+  specialties: Array<{
+    id: string
+    slug: string
+    name: string
+    description: string | null
+    icon: string | null
+    isPrimary: boolean
+  }>
+  primarySpecialty: {
+    id: string
+    slug: string
+    name: string
+    description: string | null
+    icon: string | null
+    isPrimary: boolean
+  } | null
+  locations: Array<{
+    id: string
+    city: string | null
+    state: string | null
+    country: string
+    isHeadquarters: boolean
+  }>
+  claimedProfile: {
+    tier: string
+    verifiedAt: string | null
+  } | null
+  benefits: Array<{
+    id: string
+    icon: string
+    title: string
+    description: string
+  }>
+  programs: Array<{
+    id: string
+    name: string
+    category: string | null
+    description: string | null
+  }>
+  spotlight: {
+    title: string
+    content: string
+    mediaUrl: string | null
+    ctaText: string | null
+    ctaUrl: string | null
+  } | null
+  testimonials: Array<{
+    id: string
+    quote: string
+    employeeName: string
+    employeeTitle: string
+    employeePhotoUrl: string | null
+  }>
+  createdAt: string | null
+  updatedAt: string | null
+}
+
 const route = useRoute()
 const logger = useLogger('ContractorProfilePage')
 
@@ -12,9 +89,8 @@ const logger = useLogger('ContractorProfilePage')
 const slug = computed(() => route.params.slug as string)
 
 // Fetch contractor data
-const { data: contractor, pending: isLoading, error } = useFetch(() => `/api/contractors/${slug.value}`, {
+const { data: contractor, pending: isLoading, error } = useFetch<ContractorResponse | null>(() => `/api/contractors/${slug.value}`, {
   lazy: true,
-  default: () => null,
   watch: [slug],
 })
 

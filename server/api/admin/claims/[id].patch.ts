@@ -6,7 +6,7 @@
 
 import { getDb, schema } from '@/server/utils/db'
 import { eq } from 'drizzle-orm'
-import { requireAdmin } from '@/server/utils/auth'
+import { requireAdmin } from '@/server/utils/better-auth'
 import { z } from 'zod'
 
 const actionSchema = z.object({

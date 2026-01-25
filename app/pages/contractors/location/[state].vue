@@ -5,13 +5,29 @@
 -->
 
 <script setup lang="ts">
+interface LocationResponse {
+  state: string
+  contractorCount: number
+  contractors: Array<{
+    id: string
+    slug: string
+    name: string
+    description: string | null
+    defenseNewsRank: number | null
+    headquarters: string | null
+    employeeCount: number | null
+    logoUrl: string | null
+    city: string | null
+    isHeadquarters: boolean
+  }>
+}
+
 const route = useRoute()
 
 const state = computed(() => route.params.state as string)
 
-const { data: locationData, pending: isLoading, error } = useFetch(() => `/api/contractors/by-location/${state.value}`, {
+const { data: locationData, pending: isLoading, error } = useFetch<LocationResponse | null>(() => `/api/contractors/by-location/${state.value}`, {
   lazy: true,
-  default: () => null,
   watch: [state],
 })
 
@@ -28,14 +44,6 @@ useHead(() => {
     ],
   }
 })
-
-// Structured data for CollectionPage
-useSchemaOrg([
-  defineWebPage({
-    '@type': 'CollectionPage',
-    name: `Defense Contractors in ${locationData.value?.state}`,
-  }),
-])
 </script>
 
 <template>

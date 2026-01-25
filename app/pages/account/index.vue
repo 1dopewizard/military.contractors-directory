@@ -113,7 +113,10 @@ const handleKeydown = (e: KeyboardEvent) => {
     if (target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA' || target?.isContentEditable) {
       return
     }
-    setActiveTab(tabs.value[num - 1].id)
+    const tab = tabs.value[num - 1]
+    if (tab) {
+      setActiveTab(tab.id)
+    }
   }
 }
 

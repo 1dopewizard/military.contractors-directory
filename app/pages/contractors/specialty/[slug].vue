@@ -5,13 +5,38 @@
 -->
 
 <script setup lang="ts">
+interface SpecialtyResponse {
+  id: string
+  slug: string
+  name: string
+  description: string | null
+  icon: string | null
+  contractorCount: number
+  contractors: Array<{
+    id: string
+    slug: string
+    name: string
+    description: string | null
+    defenseNewsRank: number | null
+    headquarters: string | null
+    employeeCount: number | null
+    logoUrl: string | null
+    isPrimary: boolean
+  }>
+  relatedSpecialties?: Array<{
+    id: string
+    slug: string
+    name: string
+    icon: string | null
+  }>
+}
+
 const route = useRoute()
 
 const slug = computed(() => route.params.slug as string)
 
-const { data: specialty, pending: isLoading, error } = useFetch(() => `/api/specialties/${slug.value}`, {
+const { data: specialty, pending: isLoading, error } = useFetch<SpecialtyResponse | null>(() => `/api/specialties/${slug.value}`, {
   lazy: true,
-  default: () => null,
   watch: [slug],
 })
 
@@ -29,14 +54,7 @@ useHead(() => {
   }
 })
 
-// Structured data for CollectionPage
-useSchemaOrg([
-  defineWebPage({
-    '@type': 'CollectionPage',
-    name: `${specialty.value?.name} Defense Contractors`,
-    description: specialty.value?.description || undefined,
-  }),
-])
+
 </script>
 
 <template>
