@@ -36,13 +36,12 @@ onMounted(() => {
 
 <template>
   <Button 
-    variant="ghost" 
-    size="icon" 
-    class="relative border-border"
-    @click="toggleColorMode"
+      variant="ghost" 
+      size="icon" 
+      class="hover:bg-transparent"
+      @click="toggleColorMode"
   >
-    <Icon :name="currentIcon" class="size-4 transition-all" />
-    <span class="sr-only">Toggle theme</span>
+      <Icon :name="currentIcon" class="size-4 transition-all" />
+      <span class="sr-only">Toggle theme</span>
   </Button>
 </template>
-

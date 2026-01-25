@@ -118,7 +118,7 @@ const handleSignOut = async () => {
       </DropdownMenu>
 
       <!-- Sign In button -->
-      <Button v-else variant="ghost" size="sm" as-child>
+    <Button v-else variant="ghost" class="hover:bg-transparent" size="sm" as-child>
         <NuxtLink :to="loginUrl">Sign In</NuxtLink>
       </Button>
     </div>
