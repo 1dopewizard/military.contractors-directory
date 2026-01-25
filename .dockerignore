@@ -1,5 +1,5 @@
 # =============================================================================
-# .dockerignore - Root level (for monorepo builds)
+# .dockerignore - military.contractors standalone app
 # =============================================================================
 
 # Git
@@ -74,4 +74,3 @@ mock_data/
 # Backup files
 *.bak
 *.backup
-
