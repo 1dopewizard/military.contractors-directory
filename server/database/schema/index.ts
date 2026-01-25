@@ -12,6 +12,9 @@ export * from './core'
 // Companies
 export * from './companies'
 
+// Directory (contractors, specialties, locations)
+export * from './directory'
+
 // Jobs
 export * from './jobs'
 

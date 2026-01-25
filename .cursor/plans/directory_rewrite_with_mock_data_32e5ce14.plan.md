@@ -4,10 +4,10 @@ overview: Complete rewrite of military.contractors as a U.S. defense contractor 
 todos:
   - id: schema
     content: Create server/database/schema/directory.ts with contractor, specialty, contractorSpecialty, contractorLocation tables
-    status: pending
+    status: completed
   - id: schema-index
     content: Update server/database/schema/index.ts to export new directory tables
-    status: pending
+    status: completed
   - id: migration
     content: Generate and apply database migration
     status: pending
