@@ -138,8 +138,8 @@ const quickActions = [
           class="flex items-start gap-3 p-4 border rounded-lg hover:bg-muted/50 transition-colors text-left"
           @click="emit('navigate', action.id)"
         >
-          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-            <Icon :name="action.icon" class="w-5 h-5 text-primary" />
+          <div class="flex items-center justify-center shrink-0">
+            <Icon :name="action.icon" class="w-6 h-6 text-primary" />
           </div>
           <div>
             <p class="font-medium">{{ action.label }}</p>
@@ -186,8 +186,8 @@ const quickActions = [
     <!-- Tier Info -->
     <Card v-if="profile.tier === 'claimed'" class="p-6 border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20">
       <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center shrink-0">
-          <Icon name="mdi:star-outline" class="w-5 h-5 text-amber-600" />
+        <div class="flex items-center justify-center shrink-0">
+          <Icon name="mdi:star-outline" class="w-6 h-6 text-amber-600" />
         </div>
         <div class="flex-1">
           <h3 class="font-semibold mb-1">Upgrade to Premium</h3>

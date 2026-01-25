@@ -114,9 +114,9 @@ useHead(() => {
       <!-- Hero Section -->
       <div class="mb-8">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            <Icon v-if="specialty.icon" :name="specialty.icon" class="w-6 h-6 text-primary" />
-            <Icon v-else name="mdi:tag-outline" class="w-6 h-6 text-primary" />
+          <div class="flex items-center justify-center">
+            <Icon v-if="specialty.icon" :name="specialty.icon" class="w-8 h-8 text-primary" />
+            <Icon v-else name="mdi:tag-outline" class="w-8 h-8 text-primary" />
           </div>
           <div>
             <h1 class="text-2xl md:text-3xl font-bold text-foreground">

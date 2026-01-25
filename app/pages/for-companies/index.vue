@@ -157,8 +157,8 @@ const steps = [
         </div>
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <Card v-for="benefit in benefits" :key="benefit.title" class="p-6 text-center">
-            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Icon :name="benefit.icon" class="w-6 h-6 text-primary" />
+            <div class="flex items-center justify-center mx-auto mb-4">
+              <Icon :name="benefit.icon" class="w-8 h-8 text-primary" />
             </div>
             <h3 class="font-semibold mb-2">{{ benefit.title }}</h3>
             <p class="text-sm text-muted-foreground">{{ benefit.description }}</p>

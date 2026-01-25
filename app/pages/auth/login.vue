@@ -111,8 +111,8 @@ const benefits = [
             :key="benefit.title"
             class="flex gap-4"
           >
-            <div class="shrink-0 w-10 h-10 bg-primary/10 flex items-center justify-center rounded">
-              <Icon :name="benefit.icon" class="w-5 h-5 text-primary" />
+            <div class="shrink-0 flex items-center justify-center">
+              <Icon :name="benefit.icon" class="w-6 h-6 text-primary" />
             </div>
             <div>
               <h3 class="font-semibold text-foreground text-sm">{{ benefit.title }}</h3>

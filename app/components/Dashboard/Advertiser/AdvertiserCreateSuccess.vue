@@ -34,8 +34,8 @@ const getTierLabel = (tier: AdPlacementTier) => {
   <section class="max-w-lg mx-auto">
     <Card class="border-primary/30 bg-primary/[0.02]">
       <CardContent class="py-12 text-center">
-        <div class="w-16 h-16 bg-green-500/10 flex items-center justify-center mx-auto mb-6 border border-green-500/30">
-          <Icon name="mdi:check-bold" class="w-8 h-8 text-green-600" />
+        <div class="flex items-center justify-center mx-auto mb-6">
+          <Icon name="mdi:check-bold" class="w-10 h-10 text-green-600" />
         </div>
         <h2 class="text-2xl font-bold font-mono uppercase mb-2">Ad Created</h2>
         <p class="text-muted-foreground mb-2">

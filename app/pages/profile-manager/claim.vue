@@ -320,8 +320,8 @@ const emailDomain = computed(() => {
 
       <!-- Step 3: Success -->
       <Card v-else-if="step === 'success'" class="p-8 text-center">
-        <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
-          <Icon name="mdi:check" class="w-8 h-8 text-green-600" />
+        <div class="flex items-center justify-center mx-auto mb-4">
+          <Icon name="mdi:check" class="w-10 h-10 text-green-600" />
         </div>
         <h2 class="text-2xl font-bold mb-2">Claim Submitted!</h2>
         <p class="text-muted-foreground mb-6">

@@ -113,8 +113,8 @@ onMounted(() => {
       <!-- Success State -->
       <div v-if="submitted" class="py-2">
         <div class="flex flex-col items-center text-center gap-4 py-4">
-          <div class="size-12 flex items-center justify-center bg-primary/10">
-            <Icon name="mdi:email-check-outline" class="size-6 text-primary" />
+          <div class="flex items-center justify-center">
+            <Icon name="mdi:email-check-outline" class="size-8 text-primary" />
           </div>
           <div class="space-y-2">
             <p class="text-base font-semibold text-foreground">Check your inbox</p>
