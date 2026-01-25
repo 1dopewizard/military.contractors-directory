@@ -25,7 +25,6 @@ useHead({
 const searchQuery = ref((route.query.q as string) || '')
 const selectedSpecialty = ref((route.query.specialty as string) || '')
 const sortBy = ref((route.query.sort as string) || 'rank')
-const isLoading = ref(true)
 
 // Contractor response type
 interface ContractorResponse {
@@ -104,10 +103,7 @@ const hasActiveFilters = computed(() =>
   !!searchQuery.value || !!selectedSpecialty.value || sortBy.value !== 'rank'
 )
 
-// Update loading state
-watchEffect(() => {
-  isLoading.value = contractorsPending.value
-})
+
 
 // Sort options
 const sortOptions = [
@@ -261,7 +257,7 @@ watchEffect(() => {
           </div>
 
           <!-- Loading State -->
-          <ContractorResultSkeleton v-if="isLoading" :count="6" />
+          <ContractorResultSkeleton v-if="contractorsPending" :count="6" />
 
           <!-- Error State -->
           <Empty v-else-if="contractorsError">

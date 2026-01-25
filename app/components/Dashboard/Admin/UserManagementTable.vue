@@ -1,18 +1,11 @@
 <script setup lang="ts">
-/**
- * TODO: This component needs full Convex migration.
- * Currently using API route fallback for user management.
- */
-
-// Standalone profile type (maps to Convex users + profiles)
-interface Profile {
+interface User {
   user_id: string
   email: string | null
   display_name: string | null
   avatar_url: string | null
   branch: string | null
   clearance_level: string | null
-  user_type: 'candidate' | 'employer' | 'both' | null
   oconus_preference: boolean | null
   preferred_regions: string[] | null
   preferred_theaters: string[] | null
@@ -20,19 +13,16 @@ interface Profile {
   updated_at: string | null
 }
 
-type UserTypeValue = Profile['user_type']
-
 const logger = useLogger('UserManagementTable')
 
-const users = ref<Profile[]>([])
+const users = ref<User[]>([])
 const isLoading = ref(true)
 const searchQuery = ref('')
 
 const loadUsers = async () => {
   try {
     isLoading.value = true
-    // Use API route for admin user listing
-    const response = await $fetch<{ users: Profile[] }>('/api/admin/users')
+    const response = await $fetch<{ users: User[] }>('/api/admin/users')
     users.value = response.users || []
     logger.info({ count: users.value.length }, 'Users loaded')
   } catch (err) {
@@ -51,32 +41,6 @@ const filteredUsers = computed(() => {
     user.display_name?.toLowerCase().includes(query)
   )
 })
-
-const allowedUserTypes = new Set<NonNullable<UserTypeValue>>(['candidate', 'employer', 'both'])
-
-const updateUserType = async (userId: string, userType: UserTypeValue) => {
-  try {
-    // Use API route for admin user updates
-    await $fetch(`/api/admin/users/${userId}`, {
-      method: 'PATCH',
-      body: { user_type: userType }
-    })
-    logger.info({ userId, userType }, 'User type updated')
-    await loadUsers()
-  } catch (err) {
-    logger.error({ error: err }, 'Failed to update user type')
-  }
-}
-
-const handleUserTypeChange = (userId: string, value: unknown) => {
-  if (typeof value !== 'string') return
-  if (value === 'none') {
-    updateUserType(userId, null)
-    return
-  }
-  if (!allowedUserTypes.has(value as NonNullable<UserTypeValue>)) return
-  updateUserType(userId, value as UserTypeValue)
-}
 
 const formatDate = (dateStr: string | null) => {
   if (!dateStr) return 'N/A'
@@ -136,22 +100,6 @@ onMounted(() => {
             </div>
             <p class="text-xs text-muted-foreground">{{ user.email }}</p>
           </div>
-
-          <!-- Type Select -->
-          <Select
-            :model-value="user.user_type || 'none'"
-            @update:model-value="(val) => handleUserTypeChange(user.user_id, val)"
-          >
-            <SelectTrigger class="h-7 text-xs w-28">
-              <SelectValue placeholder="Not set" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="candidate">Candidate</SelectItem>
-              <SelectItem value="employer">Employer</SelectItem>
-              <SelectItem value="both">Both</SelectItem>
-              <SelectItem value="none">Not set</SelectItem>
-            </SelectContent>
-          </Select>
 
           <!-- Date -->
           <span class="text-xs text-muted-foreground shrink-0 w-20 text-right">

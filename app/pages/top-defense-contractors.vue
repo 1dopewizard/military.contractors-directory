@@ -99,11 +99,6 @@ const formatRevenue = (revenue: number | null | undefined): string => {
           class="hover:border-primary/30 transition-colors"
         >
           <NuxtLink :to="`/contractors/${contractor.slug}`" class="flex items-center gap-4 p-4">
-            <!-- Rank -->
-            <div class="w-12 h-12 rounded-lg bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-              <span class="text-lg font-bold">#{{ contractor.defenseNewsRank }}</span>
-            </div>
-
             <!-- Logo -->
             <div class="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0">
               <img 
@@ -119,7 +114,10 @@ const formatRevenue = (revenue: number | null | undefined): string => {
 
             <!-- Info -->
             <div class="flex-1 min-w-0">
-              <h2 class="font-semibold text-lg truncate">{{ contractor.name }}</h2>
+              <div class="flex items-center gap-2">
+                <h2 class="font-semibold text-lg truncate">{{ contractor.name }}</h2>
+                <span class="text-sm text-muted-foreground shrink-0">#{{ contractor.defenseNewsRank }}</span>
+              </div>
               <p class="text-sm text-muted-foreground truncate">
                 {{ contractor.headquarters || contractor.country || 'Unknown location' }}
               </p>

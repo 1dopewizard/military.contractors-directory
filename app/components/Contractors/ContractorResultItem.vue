@@ -64,9 +64,9 @@ const formatRevenue = (revenue: number | null | undefined): string => {
             <h3 class="text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors leading-snug truncate">
               {{ contractor.name }}
             </h3>
-            <Badge v-if="contractor.defenseNewsRank" variant="default" class="text-xs font-bold shrink-0">
+            <span v-if="contractor.defenseNewsRank" class="text-xs text-muted-foreground shrink-0">
               #{{ contractor.defenseNewsRank }}
-            </Badge>
+            </span>
           </div>
         </div>
 

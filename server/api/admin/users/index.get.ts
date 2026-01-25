@@ -22,7 +22,6 @@ export default defineEventHandler(async (event) => {
       avatar_url: schema.user.image,
       branch: schema.profile.branch,
       clearance_level: schema.profile.clearanceLevel,
-      user_type: schema.profile.mosCode, // Using mosCode as a proxy since userType doesn't exist
       oconus_preference: schema.profile.openToOconus,
       preferred_regions: schema.profile.preferredLocations,
       preferred_theaters: schema.profile.preferredTheaters,

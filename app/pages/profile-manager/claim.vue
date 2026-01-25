@@ -48,13 +48,13 @@ const debouncedSearch = useDebounceFn(async () => {
 
   isSearching.value = true
   try {
-    const { data } = await useFetch<ContractorsResponse>('/api/contractors', {
+    const response = await $fetch<ContractorsResponse>('/api/contractors', {
       params: {
         q: searchQuery.value,
         limit: 10,
       },
     })
-    searchResults.value = data.value?.contractors || []
+    searchResults.value = response?.contractors || []
   } catch (error) {
     console.error('Search failed:', error)
   } finally {
@@ -74,7 +74,7 @@ const submitClaim = async () => {
 
   isSubmitting.value = true
   try {
-    const { data, error } = await useFetch('/api/profile-manager/claim', {
+    await $fetch('/api/profile-manager/claim', {
       method: 'POST',
       body: {
         contractorId: selectedContractor.value.id,
@@ -82,10 +82,6 @@ const submitClaim = async () => {
         tier: selectedTier.value,
       },
     })
-
-    if (error.value) {
-      throw new Error(error.value.message || 'Failed to submit claim')
-    }
 
     step.value = 'success'
     toast.success('Claim submitted successfully!')
@@ -113,15 +109,16 @@ const emailDomain = computed(() => {
 </script>
 
 <template>
-  <!-- Auth loading state -->
-  <div v-if="!isAuthReady" class="min-h-screen flex items-center justify-center">
-    <div class="flex flex-col items-center gap-4">
-      <Spinner class="w-8 h-8 text-muted-foreground" />
-      <p class="text-sm text-muted-foreground">Loading...</p>
+  <ClientOnly>
+    <!-- Auth loading state -->
+    <div v-if="!isAuthReady" class="min-h-screen flex items-center justify-center">
+      <div class="flex flex-col items-center gap-4">
+        <Spinner class="w-8 h-8 text-muted-foreground" />
+        <p class="text-sm text-muted-foreground">Loading...</p>
+      </div>
     </div>
-  </div>
 
-  <div v-else class="min-h-screen py-12">
+    <div v-else class="min-h-screen py-12">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
       <!-- Header -->
       <div class="text-center mb-8">
@@ -345,4 +342,5 @@ const emailDomain = computed(() => {
       </Card>
     </div>
   </div>
+  </ClientOnly>
 </template>
