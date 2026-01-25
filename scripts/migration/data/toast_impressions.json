@@ -1,0 +1,5182 @@
+[
+  {
+    "id": "7454dfee-ad27-46df-bc10-0127c9701a4e",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T19:22:59.792142+00:00"
+  },
+  {
+    "id": "59a583bd-1fb6-42b1-89df-e2daed455db4",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T19:23:48.771129+00:00"
+  },
+  {
+    "id": "d007eceb-f862-4fb7-a36c-8deab26af1ac",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T19:23:57.309321+00:00"
+  },
+  {
+    "id": "499cbb12-4e45-46a3-8c17-e8be73e8ffc3",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T19:24:12.872527+00:00"
+  },
+  {
+    "id": "efa6a310-d2b2-42b0-b6d9-0d4cdff18806",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T19:24:44.580673+00:00"
+  },
+  {
+    "id": "f14bcf45-c652-4ba7-b973-0a2809aa8f10",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T19:24:49.84712+00:00"
+  },
+  {
+    "id": "feb6d11b-e749-45d6-ade9-5d50281d9ef5",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T19:25:07.070125+00:00"
+  },
+  {
+    "id": "426250b6-1c1d-4a9f-800c-e673cbea23c8",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763757073928-e4yq8rbxi",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T20:31:16.460934+00:00"
+  },
+  {
+    "id": "1d606a01-6166-478b-8803-d99bab9ece28",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763757152974-3nbfe641h",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T20:32:35.362247+00:00"
+  },
+  {
+    "id": "cbee289d-974b-49f9-9d30-5a0930670ecf",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763757152974-3nbfe641h",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T20:32:47.446352+00:00"
+  },
+  {
+    "id": "e9e266eb-a180-49ae-8793-b592fe171fa1",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763757152974-3nbfe641h",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T20:32:52.429552+00:00"
+  },
+  {
+    "id": "70aa10a3-189b-4b48-858e-cd991b4ad3a2",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763757859408-3nag4ied4",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T20:44:21.822425+00:00"
+  },
+  {
+    "id": "a9e2c66e-a092-4aca-abf2-801dad443053",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763757859408-3nag4ied4",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T20:47:52.973383+00:00"
+  },
+  {
+    "id": "d811d166-130f-48d9-864e-dcc66ccdac4b",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T20:49:36.007907+00:00"
+  },
+  {
+    "id": "deaa6698-cad6-4aff-90c9-bcaabe305b68",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-21T21:09:08.878531+00:00"
+  },
+  {
+    "id": "b5fdeaa7-7739-4486-b6c7-adbfd403e212",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-21T21:09:10.542789+00:00"
+  },
+  {
+    "id": "59ba7ae6-7f52-456e-9717-7d256d2888cc",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:10:26.619596+00:00"
+  },
+  {
+    "id": "59149258-7b65-415d-bb6a-4e9cc78686ed",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "page_path": "post-a-job",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:10:37.51746+00:00"
+  },
+  {
+    "id": "07c18ff1-545a-481a-9f55-50b8a689c5f2",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "page_path": "post-a-job",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:10:55.524781+00:00"
+  },
+  {
+    "id": "7bf154c3-a51d-4601-9533-32d33a3129c6",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:14:16.042726+00:00"
+  },
+  {
+    "id": "19ddbb07-91f3-4b7f-be1e-0b2fd73df2c0",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:38:45.777195+00:00"
+  },
+  {
+    "id": "2e9f9ded-ca4a-400b-a74b-6812c6b9adfc",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "page_path": "admin",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:39:17.990138+00:00"
+  },
+  {
+    "id": "64d706bb-0b86-4c94-8401-09735daeeb88",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:43:06.731658+00:00"
+  },
+  {
+    "id": "4d3e0f17-8b32-4890-a2b8-1946045b9497",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:43:33.824305+00:00"
+  },
+  {
+    "id": "63a4a212-21f4-493c-ab7d-995e428d21ca",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:44:30.03413+00:00"
+  },
+  {
+    "id": "700c9537-1ace-4c53-ac49-ee4319800a0e",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:44:54.867168+00:00"
+  },
+  {
+    "id": "f357f43e-b461-4b23-8546-d16b9f85e54c",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:55:07.322309+00:00"
+  },
+  {
+    "id": "ca8873d5-ad82-47e0-b31b-bf8847b0189c",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T21:55:42.275931+00:00"
+  },
+  {
+    "id": "41b24a01-cb0f-42ee-add7-245d0074d09a",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T22:21:45.097526+00:00"
+  },
+  {
+    "id": "b342c552-2192-4a83-9f0f-53ca5618aeb0",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T22:33:50.163117+00:00"
+  },
+  {
+    "id": "5b2535a4-ad23-4086-9d0e-16c70b8eebcc",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T22:34:03.802976+00:00"
+  },
+  {
+    "id": "663f83c1-ecdd-4846-a6a1-2533d51df77d",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T22:35:28.214535+00:00"
+  },
+  {
+    "id": "81b3e5a0-0ee5-42dc-852a-837a94601238",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T22:36:25.486198+00:00"
+  },
+  {
+    "id": "1b34b261-cd8e-4519-b064-37d31e2fb83b",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T22:36:31.754652+00:00"
+  },
+  {
+    "id": "cdcbf9b9-ee02-447e-8932-6bd8f87a196b",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T22:36:34.46514+00:00"
+  },
+  {
+    "id": "db56d660-4313-4854-b300-818d11eb5521",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-21T22:36:36.975655+00:00"
+  },
+  {
+    "id": "90f37d77-0c2a-442f-84de-70f2e042581d",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T22:36:49.034119+00:00"
+  },
+  {
+    "id": "c129f448-6e5e-4de3-b37d-bdd202017af7",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1763764427367-3iqrb4ngm",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-11-21T23:04:40.680794+00:00"
+  },
+  {
+    "id": "4956b3e5-5ce0-4cd5-9f27-4f766817c552",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763766462603-v90o8rpzh",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:07:44.979711+00:00"
+  },
+  {
+    "id": "a27292a9-8078-4fca-95da-eadf8e753f2d",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763766462603-v90o8rpzh",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:08:58.474073+00:00"
+  },
+  {
+    "id": "0308eab9-a38b-4131-a137-415a1488151d",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763766462603-v90o8rpzh",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:12:53.66687+00:00"
+  },
+  {
+    "id": "db559851-aa0c-466f-8e71-c64378dc74d2",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763766462603-v90o8rpzh",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:13:57.594313+00:00"
+  },
+  {
+    "id": "3d11bdbe-823c-4a84-bccb-77d3753b03c9",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763766462603-v90o8rpzh",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:14:03.335363+00:00"
+  },
+  {
+    "id": "a5fd9541-9ed6-4622-ae63-68708cf9617b",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763767064002-2tuig7dzi",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:17:46.331656+00:00"
+  },
+  {
+    "id": "b30c34a6-884e-46bb-9b63-8374cfef78cb",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763767064002-2tuig7dzi",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:19:40.599879+00:00"
+  },
+  {
+    "id": "269df24f-3489-4f8a-840f-d4862550e5b6",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763767064002-2tuig7dzi",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:20:02.567395+00:00"
+  },
+  {
+    "id": "8f9820d7-bafa-4a28-b289-86ebf48917e5",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763767064002-2tuig7dzi",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:43:02.659604+00:00"
+  },
+  {
+    "id": "c9eeb48c-aceb-458b-aae3-7bbb240c505d",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763767064002-2tuig7dzi",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:47:55.131441+00:00"
+  },
+  {
+    "id": "8bae07fc-38b1-41e1-b473-adfe7a406245",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763769088830-w7xxyikei",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:51:31.199048+00:00"
+  },
+  {
+    "id": "52665bf8-8d76-4314-8329-3cd14e05c222",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763769088830-w7xxyikei",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-21T23:51:37.589948+00:00"
+  },
+  {
+    "id": "4a8fe3b3-f279-41a9-a421-493d910bc658",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763799617128-tl323wpvk",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T08:20:19.478171+00:00"
+  },
+  {
+    "id": "8b391e79-9030-48f5-b91d-c1695b227639",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763799617128-tl323wpvk",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T08:21:41.298122+00:00"
+  },
+  {
+    "id": "9464754e-a55b-4f15-9132-ce821e1ce9cd",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T08:23:30.047272+00:00"
+  },
+  {
+    "id": "159364b3-a828-4ffa-9414-3623c8118067",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763799856751-c9pod86ol",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T08:24:19.662317+00:00"
+  },
+  {
+    "id": "db048d75-1ba0-4eff-bba8-b2d9e1da6462",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763799856751-c9pod86ol",
+    "page_path": "admin",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T08:25:01.137439+00:00"
+  },
+  {
+    "id": "62321b61-1930-44ad-966d-ee9abd150915",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T15:35:06.271641+00:00"
+  },
+  {
+    "id": "0dc92e17-8f56-48d7-b6c6-401fdd61d777",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "admin",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T15:35:57.103064+00:00"
+  },
+  {
+    "id": "c38efabe-09f4-4fdc-acb9-0af2ffe58ddd",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763799617128-tl323wpvk",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T15:37:14.619378+00:00"
+  },
+  {
+    "id": "cf139829-3bb4-43af-8ebb-7e698deee7cf",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T17:58:19.924013+00:00"
+  },
+  {
+    "id": "36d98a6a-7a23-4d82-9d71-fe1cb2961994",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "mos-code",
+    "mos_code": "25U",
+    "company_slug": null,
+    "created_at": "2025-11-22T17:58:27.777988+00:00"
+  },
+  {
+    "id": "e6dc355e-8a26-4e88-8bd1-8eb3b32bb36b",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-22T17:58:38.311157+00:00"
+  },
+  {
+    "id": "d6d4d3c0-2fe7-42d8-98db-7bb0e9ccf9c5",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "mos-code",
+    "mos_code": "11B",
+    "company_slug": null,
+    "created_at": "2025-11-22T17:58:44.906793+00:00"
+  },
+  {
+    "id": "0a7bd5c7-6579-40f4-ab5a-d57139d0b707",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "mos-code",
+    "mos_code": "11B",
+    "company_slug": null,
+    "created_at": "2025-11-22T17:58:46.706714+00:00"
+  },
+  {
+    "id": "3f573dcc-ffcb-4615-abe1-a28982f88b87",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T17:58:51.739715+00:00"
+  },
+  {
+    "id": "547e2314-fea6-4cbf-a8ab-dba64906dab0",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "mos-code",
+    "mos_code": "CTN",
+    "company_slug": null,
+    "created_at": "2025-11-22T17:59:37.813563+00:00"
+  },
+  {
+    "id": "2b9d63a4-503a-4d12-a885-d9af3f26a24f",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-11-22T18:00:05.83151+00:00"
+  },
+  {
+    "id": "688540f2-7426-4e98-8531-0d9613b06d3b",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-11-22T18:00:08.208489+00:00"
+  },
+  {
+    "id": "49bf91df-6b81-41e2-bec5-ff7d6d2b326c",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T19:19:06.792361+00:00"
+  },
+  {
+    "id": "722100a9-d4e5-496c-ad92-65322971b2c2",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos-code",
+    "mos_code": "25U",
+    "company_slug": null,
+    "created_at": "2025-11-22T19:19:10.291134+00:00"
+  },
+  {
+    "id": "840abec6-cdaa-4fa2-8bdc-6d1222dd6e99",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-22T19:19:17.562866+00:00"
+  },
+  {
+    "id": "50513809-5cd3-49bd-a1fb-ef7052936e64",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos-code",
+    "mos_code": "25U",
+    "company_slug": null,
+    "created_at": "2025-11-22T19:21:01.441902+00:00"
+  },
+  {
+    "id": "049e0c31-bd4c-4867-96b6-28b2fb9663b6",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-22T19:21:11.978422+00:00"
+  },
+  {
+    "id": "f07dbc0e-2479-4e47-b794-111542cba433",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T19:21:16.762595+00:00"
+  },
+  {
+    "id": "03e1c009-4827-438a-8fce-d208e27763b9",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos-code",
+    "mos_code": "35N",
+    "company_slug": null,
+    "created_at": "2025-11-22T19:21:20.780265+00:00"
+  },
+  {
+    "id": "401d86c2-d0e0-4e29-94b1-69cc2023906c",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos-code",
+    "mos_code": "35N",
+    "company_slug": null,
+    "created_at": "2025-11-22T19:21:46.450199+00:00"
+  },
+  {
+    "id": "1cc442cf-bcf7-49e6-92a6-fbfab6317d97",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos-code",
+    "mos_code": "12B",
+    "company_slug": null,
+    "created_at": "2025-11-22T19:21:57.171336+00:00"
+  },
+  {
+    "id": "1eb8baa0-1b83-44a0-b984-8058b9069bf3",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T19:21:54.602764+00:00"
+  },
+  {
+    "id": "1d3650d3-6f14-4f39-a62e-936d60795f4b",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T19:41:53.935301+00:00"
+  },
+  {
+    "id": "628ce492-52f1-44b1-963b-8f1d99f64900",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T19:45:56.003294+00:00"
+  },
+  {
+    "id": "7a6fdc2f-0568-4dc5-af90-c77887d4eb0f",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T19:46:12.425469+00:00"
+  },
+  {
+    "id": "673eec42-a878-4c78-b3e4-50741b69051b",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T19:47:33.261042+00:00"
+  },
+  {
+    "id": "81cb38cb-82d3-413d-bf7d-70351fb13acb",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:02:45.63644+00:00"
+  },
+  {
+    "id": "e1ffaa28-b68e-4afd-8e11-02bfb72d4adb",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:29:02.092667+00:00"
+  },
+  {
+    "id": "7ea49b64-8462-48d1-bf7d-ac1c3da57941",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:31:22.272082+00:00"
+  },
+  {
+    "id": "10dfd7e7-9ff9-4ed0-8657-081382915845",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:31:42.998698+00:00"
+  },
+  {
+    "id": "7b597574-4b43-43d0-8c2e-84ad516bdec3",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-22T20:31:45.413746+00:00"
+  },
+  {
+    "id": "e27e2795-2463-4cbf-ac24-75af2e83e188",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:33:02.687049+00:00"
+  },
+  {
+    "id": "0b841423-8d90-47f0-84c4-32dbf8ca045c",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:33:04.129239+00:00"
+  },
+  {
+    "id": "a19846b7-f3b8-4272-82d2-b6c3030f4f77",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:44:13.466011+00:00"
+  },
+  {
+    "id": "32801dc9-f8bf-4c60-98e1-075d356b87f3",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:44:28.419101+00:00"
+  },
+  {
+    "id": "41ff9e2d-0567-4ce0-b6a5-5521a5aa3269",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:44:58.131656+00:00"
+  },
+  {
+    "id": "744b8122-97c6-4da1-a22b-0a839e9cfb09",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:45:16.256019+00:00"
+  },
+  {
+    "id": "a72fcde2-3bf6-417e-883c-aa0ccfbdccd8",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:45:40.530547+00:00"
+  },
+  {
+    "id": "7d38eecf-8103-4f66-8e91-90419e7b9ad3",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:45:50.062336+00:00"
+  },
+  {
+    "id": "4562b631-5aa4-4294-886a-cae91c9a7c1d",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:45:59.688652+00:00"
+  },
+  {
+    "id": "ddca6bb2-5283-4286-80af-962868d0626c",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-22T20:46:04.196061+00:00"
+  },
+  {
+    "id": "1084393c-9443-416e-a44e-15a6ad04b25a",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-22T20:46:05.942025+00:00"
+  },
+  {
+    "id": "96b50887-bd26-4fc4-a49b-2c12277aa6c5",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T20:47:20.587742+00:00"
+  },
+  {
+    "id": "471cd57e-2664-4879-b475-ad8597575239",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:24:09.84467+00:00"
+  },
+  {
+    "id": "ce9acf1a-c345-4807-b562-761b1d2262c0",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:49:31.061074+00:00"
+  },
+  {
+    "id": "8767ec22-3713-4065-aef4-9f0183695c41",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:49:31.598149+00:00"
+  },
+  {
+    "id": "a2c23ee5-1b33-4266-9e99-5f630a7fde47",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:49:31.894539+00:00"
+  },
+  {
+    "id": "5b79ac2f-4c4f-46e7-aafb-2a05ea585bbc",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:50:37.074823+00:00"
+  },
+  {
+    "id": "a0ff394e-ead5-4a19-930d-a40b5e0dd843",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:50:37.866181+00:00"
+  },
+  {
+    "id": "ba5fb799-25df-475c-a20b-f71a410ec0d2",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:50:37.877307+00:00"
+  },
+  {
+    "id": "a9124ff9-6dfb-442c-bd4b-4251108c8d21",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:51:37.29731+00:00"
+  },
+  {
+    "id": "16b2bd98-95f2-444c-872d-439e7f4a6d83",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:51:37.692043+00:00"
+  },
+  {
+    "id": "ee412b15-7b0f-4022-8f25-a27670a9e5a0",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:51:37.694843+00:00"
+  },
+  {
+    "id": "31db9b88-dc1a-4066-957e-3ade792733fb",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:51:49.818967+00:00"
+  },
+  {
+    "id": "a82a34e1-09a0-43ca-be29-f57824fe268b",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T21:52:27.343636+00:00"
+  },
+  {
+    "id": "4dbef13a-88ea-4204-b18e-3d77c01a90b5",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:05:33.208156+00:00"
+  },
+  {
+    "id": "97aea852-554a-48cf-ab42-edabc519b0e6",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:05:34.580882+00:00"
+  },
+  {
+    "id": "7254824a-4e03-4729-ad6a-d06027ecae9c",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:05:59.9212+00:00"
+  },
+  {
+    "id": "59bfae86-009d-4af3-bdfe-d9a70f19dd14",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:06:10.407683+00:00"
+  },
+  {
+    "id": "787ae071-ad7e-4ef8-98da-8d57eaefc727",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:06:18.350406+00:00"
+  },
+  {
+    "id": "3c1d7e54-f8c1-459f-bba8-9b59274a85b6",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:10:56.431951+00:00"
+  },
+  {
+    "id": "10ca001d-dc90-4703-b5ae-02b3af3d7d2c",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763825703905-34ow25xqn",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:10:58.519566+00:00"
+  },
+  {
+    "id": "b7e9b32e-641a-401b-aa67-63b602dba0ca",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:12:16.691122+00:00"
+  },
+  {
+    "id": "8bf7a849-31fa-41b5-84ee-b28690c82564",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:13:48.602051+00:00"
+  },
+  {
+    "id": "bca8e19f-9c8e-4497-84e8-c400b8f042d4",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:13:52.444904+00:00"
+  },
+  {
+    "id": "63e72ba1-7f38-4a71-85ef-93051f200405",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:13:53.984207+00:00"
+  },
+  {
+    "id": "320431b3-71b4-41b9-9a30-e0b622c36e96",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:13:57.533813+00:00"
+  },
+  {
+    "id": "b912e5ba-99fb-476c-ae4f-0bb5d103f754",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:54:44.738118+00:00"
+  },
+  {
+    "id": "6f368a25-8283-4a66-b218-9224db24f5a8",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:56:25.085197+00:00"
+  },
+  {
+    "id": "af7f2840-d919-4a45-9006-6975c8bdb50c",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:56:33.313523+00:00"
+  },
+  {
+    "id": "3c42900e-b072-438d-9824-1626fcc1d273",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:56:37.80552+00:00"
+  },
+  {
+    "id": "c26042fb-c716-4cb7-a62f-3b552b58556c",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763799807803-vst13wt4p",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T22:56:49.265871+00:00"
+  },
+  {
+    "id": "55104f4b-ce8b-4c3f-a958-b17fa9f168ec",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-11-22T23:27:20.713059+00:00"
+  },
+  {
+    "id": "202025f6-928c-4129-ad18-e2b2fe12c858",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763854219344-ymz11v7xf",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T23:30:22.067905+00:00"
+  },
+  {
+    "id": "d4671fba-ce1b-4a89-afe0-a7fe6b53c2c9",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763854219344-ymz11v7xf",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T23:35:13.664605+00:00"
+  },
+  {
+    "id": "b6d18136-73ef-4293-b839-889e71dec81d",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763854219344-ymz11v7xf",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T23:37:08.345362+00:00"
+  },
+  {
+    "id": "fded4054-71c1-4233-bc3a-0570330cd469",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1763854219344-ymz11v7xf",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T23:41:18.171932+00:00"
+  },
+  {
+    "id": "aee9b5b6-bc5a-40cc-8352-906a91de18c0",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1763854219344-ymz11v7xf",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-22T23:41:25.604538+00:00"
+  },
+  {
+    "id": "44ac82c6-ce75-4e37-bcdc-d3d81cef5ee5",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-11-23T19:10:32.576871+00:00"
+  },
+  {
+    "id": "abc8a2a1-c099-4f25-af98-550e3e8cb439",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-23T19:32:44.206335+00:00"
+  },
+  {
+    "id": "78d15ad2-113e-4b37-b23c-1f4c1bdc1e2a",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1763931405345-jkk5xnj6t",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-23T20:56:47.723918+00:00"
+  },
+  {
+    "id": "7f338153-cffc-4fb7-a641-0fb849301990",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-24T18:39:47.803991+00:00"
+  },
+  {
+    "id": "c8bd9097-7300-44e1-a34b-aff002fbbffe",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764198991141-yp4aml2vu",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-26T23:16:33.422551+00:00"
+  },
+  {
+    "id": "2c93d864-1094-48b0-aed8-251d4e6659ad",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764198991141-yp4aml2vu",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-26T23:17:25.113248+00:00"
+  },
+  {
+    "id": "b7594565-2112-4c25-8e83-da9ee6a44103",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T00:22:35.972029+00:00"
+  },
+  {
+    "id": "9ab0f524-f384-4bbf-b4dc-c9ee159d62c5",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T06:38:34.857461+00:00"
+  },
+  {
+    "id": "d124f8ce-ec32-4f29-8b28-55a0f9d7a679",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T06:38:44.48849+00:00"
+  },
+  {
+    "id": "8725ed94-6d82-479c-8548-6ed83c24b5aa",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:12:27.700643+00:00"
+  },
+  {
+    "id": "cf71b546-1e1c-4747-85ce-84591c9d4384",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:12:39.286115+00:00"
+  },
+  {
+    "id": "f84d29f0-9d1c-4b29-8f17-016a9c9dd93d",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:12:44.615737+00:00"
+  },
+  {
+    "id": "10e6f8a3-8169-45df-b9cf-42cb7350d323",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:12:48.943673+00:00"
+  },
+  {
+    "id": "26f3e2b2-8529-488c-a1fe-27b8288a1a38",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:13:01.919697+00:00"
+  },
+  {
+    "id": "dcfb065c-a52e-4b29-b653-bd88470d0bfe",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-27T07:13:05.472365+00:00"
+  },
+  {
+    "id": "e91fb0a3-5d37-4250-9add-94349f75744c",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:13:31.907115+00:00"
+  },
+  {
+    "id": "3952b003-a06b-4f55-9a9a-3c05f77c6271",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:17:36.901901+00:00"
+  },
+  {
+    "id": "bb52e2fc-eabd-4dfd-b2bb-0ba56a2ee501",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:17:38.503473+00:00"
+  },
+  {
+    "id": "b50ca725-d84e-4f46-8757-ff1d5b1a5ef0",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:17:39.386044+00:00"
+  },
+  {
+    "id": "ac052575-900b-4e7b-8715-0acf220a3389",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:17:40.881429+00:00"
+  },
+  {
+    "id": "10a524b9-67c5-4bd3-93f9-e4167682c151",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:17:45.241533+00:00"
+  },
+  {
+    "id": "1ad5296c-7276-4f7b-89d6-ab600b6e0882",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:17:45.335853+00:00"
+  },
+  {
+    "id": "3d619599-e6bc-4f4a-aa0c-c8282d43445d",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T07:17:40.11687+00:00"
+  },
+  {
+    "id": "6af23d5c-7449-4171-a81f-81fbf25eddd8",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-27T08:13:36.869094+00:00"
+  },
+  {
+    "id": "dc28a55c-78fd-4567-8cfc-72826b8fed0c",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764465388730-1y9c8jp7z",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-30T01:16:30.978404+00:00"
+  },
+  {
+    "id": "b9bb70fe-34e8-4b48-a612-cefdf1305109",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764465569580-z6nwvdbh2",
+    "page_path": "mos-code-jobs",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-30T01:19:31.825229+00:00"
+  },
+  {
+    "id": "34b097ba-8898-4fb2-9c65-4b540d4a13ec",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764465569580-z6nwvdbh2",
+    "page_path": "mos-code-jobs",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-30T01:20:13.33061+00:00"
+  },
+  {
+    "id": "7d69c2b4-6b2b-4c56-b3b7-b925111d7dbe",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764465569580-z6nwvdbh2",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-30T01:20:21.913165+00:00"
+  },
+  {
+    "id": "eb4c4a8b-284c-4e4d-ba55-55ec2bc70009",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764465569580-z6nwvdbh2",
+    "page_path": "mos-code-jobs",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-30T01:24:55.743786+00:00"
+  },
+  {
+    "id": "eeef1349-c40d-47cb-952d-dcb609b9d7b2",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764465569580-z6nwvdbh2",
+    "page_path": "mos-code-jobs",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-30T01:28:07.501868+00:00"
+  },
+  {
+    "id": "841c23f4-7ee0-4123-8b02-f56e384d45bd",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764465569580-z6nwvdbh2",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-11-30T01:30:02.307628+00:00"
+  },
+  {
+    "id": "6c6ba288-e525-4779-a98a-dda479dc9b30",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764465569580-z6nwvdbh2",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-30T02:08:01.968077+00:00"
+  },
+  {
+    "id": "8a052258-b994-4974-88c9-509fc2b9ad5e",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764465569580-z6nwvdbh2",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-11-30T02:24:56.88164+00:00"
+  },
+  {
+    "id": "28b14e5f-fedd-4190-9d99-1580b97bbe88",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "mos-code",
+    "mos_code": "CTN",
+    "company_slug": null,
+    "created_at": "2025-11-30T04:30:09.366944+00:00"
+  },
+  {
+    "id": "b7cd1a11-3219-4c27-af05-d7253b51f88d",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "page_path": "mos-code",
+    "mos_code": "CTN",
+    "company_slug": null,
+    "created_at": "2025-11-30T04:30:45.887514+00:00"
+  },
+  {
+    "id": "c72a1a06-432a-4537-99d5-b67d88439a36",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:33:58.45781+00:00"
+  },
+  {
+    "id": "7768ccfa-36b5-47b3-9011-bd6e0636835d",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:33:58.696773+00:00"
+  },
+  {
+    "id": "2b0353ec-a9e5-4da6-8027-909834b16973",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:34:01.48522+00:00"
+  },
+  {
+    "id": "af94d4c9-c47b-4294-9a99-8054300cdd88",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:34:45.798796+00:00"
+  },
+  {
+    "id": "941f5c44-43f2-40b2-b05b-a108d15a4ba0",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:34:54.505915+00:00"
+  },
+  {
+    "id": "09a97c53-9b34-48e4-950f-42990fe3c374",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:34:58.930366+00:00"
+  },
+  {
+    "id": "0bf11479-c7b8-4172-8b5b-5679a8519b6a",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:35:02.285913+00:00"
+  },
+  {
+    "id": "accca347-8905-4d59-94af-5750d197e3b1",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:35:03.602934+00:00"
+  },
+  {
+    "id": "1bac45e7-b77f-42b2-ab38-bec06835ae5b",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764574436084-4iugimqk0",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T07:35:05.876001+00:00"
+  },
+  {
+    "id": "e1443b30-60d4-4281-b0fd-3e83691c1543",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764576764696-a57p55eh6",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T08:12:46.925072+00:00"
+  },
+  {
+    "id": "826677ca-383e-45dd-96e3-c73bfeb0391c",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764576764696-a57p55eh6",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T08:14:12.45456+00:00"
+  },
+  {
+    "id": "faae6ec7-4a5a-498c-be45-7e568b08ffae",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764576764696-a57p55eh6",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T08:26:57.466525+00:00"
+  },
+  {
+    "id": "9d42c477-e162-49fd-bc85-ee832e9caeb6",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764576764696-a57p55eh6",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T08:28:22.995885+00:00"
+  },
+  {
+    "id": "36499b72-7eb4-44b8-9bf2-0698bbd7bae7",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764576764696-a57p55eh6",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T08:29:00.327847+00:00"
+  },
+  {
+    "id": "e71125f3-b523-469f-812a-922a7849a3dc",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764576764696-a57p55eh6",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T08:29:03.907741+00:00"
+  },
+  {
+    "id": "67e1ad75-bd2a-4ce3-9fc8-bec6a44573f3",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764576764696-a57p55eh6",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T08:29:06.04889+00:00"
+  },
+  {
+    "id": "cf3dfd30-41a3-4695-8894-df3799b06935",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764576764696-a57p55eh6",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T08:29:08.912296+00:00"
+  },
+  {
+    "id": "9621e46b-f785-4ee7-86c0-fad0e015578e",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764616120121-1srq3adv1",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T19:08:42.662896+00:00"
+  },
+  {
+    "id": "2327d5a5-ce52-4ed8-94fb-2e1bdfca1124",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764616120121-1srq3adv1",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T20:22:19.066037+00:00"
+  },
+  {
+    "id": "d498d500-0ea3-4b6f-afb7-969a87708460",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764616120121-1srq3adv1",
+    "page_path": "advertise",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T20:28:14.275195+00:00"
+  },
+  {
+    "id": "e8c1b7d6-bb71-4819-93ec-e6c0794fcf8a",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764616120121-1srq3adv1",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T21:13:59.825662+00:00"
+  },
+  {
+    "id": "e05dab22-6afa-4dcb-a540-0c8d418562d8",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764616120121-1srq3adv1",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T21:15:58.240933+00:00"
+  },
+  {
+    "id": "e1568ca7-20e3-4935-88e5-81203ba563b5",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764616120121-1srq3adv1",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T21:16:18.118466+00:00"
+  },
+  {
+    "id": "e7a7711b-5ea0-4a65-b006-0a059c1dfe78",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764616120121-1srq3adv1",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T21:16:58.593764+00:00"
+  },
+  {
+    "id": "bed7138d-37a9-4744-8fdb-3338835d50ca",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764627997882-0ghw7nbk0",
+    "page_path": "admin",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T22:26:40.216335+00:00"
+  },
+  {
+    "id": "b740d6c1-5d7c-4176-985e-f60bf81da064",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764627997882-0ghw7nbk0",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T22:27:11.119513+00:00"
+  },
+  {
+    "id": "82ffc810-979d-48a7-bb08-52b149a35b89",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764627997882-0ghw7nbk0",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T22:27:15.646579+00:00"
+  },
+  {
+    "id": "27c8c2e9-649d-4a7f-85b7-b70312978443",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764627997882-0ghw7nbk0",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T22:28:50.631913+00:00"
+  },
+  {
+    "id": "2a4450ad-7d87-4dbe-99d9-ed81853f1829",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764627997882-0ghw7nbk0",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T22:28:59.330487+00:00"
+  },
+  {
+    "id": "9cb52c22-34fb-404f-879b-8bf47b5fb8d3",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764627997882-0ghw7nbk0",
+    "page_path": "mos",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T22:34:34.059314+00:00"
+  },
+  {
+    "id": "9f291012-ee66-4495-94a1-66b6b6fd37a3",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764632475804-ef0ck63ka",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-01T23:41:18.354223+00:00"
+  },
+  {
+    "id": "c55d9e74-a750-4d78-9218-81c5a4c28410",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-02T11:32:44.40539+00:00"
+  },
+  {
+    "id": "fee72d96-38b0-42d5-873d-f379ff6dfe3e",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-02T16:26:16.46642+00:00"
+  },
+  {
+    "id": "95d50528-aaa6-4250-ba69-80f247871962",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-02T16:26:45.843692+00:00"
+  },
+  {
+    "id": "a8ce6644-d2cc-4cb4-b5ec-dc475faf1d8f",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-02T22:04:55.669432+00:00"
+  },
+  {
+    "id": "cf845b96-6847-421a-b652-3233fe3a4e0c",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-02T22:05:03.567697+00:00"
+  },
+  {
+    "id": "1141e1f1-7ea9-4f29-b750-cd57c34dd8f4",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-02T22:05:05.43379+00:00"
+  },
+  {
+    "id": "5f8a9361-cfaa-405d-a7b8-39bc5b84f3d7",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-02T22:05:07.416278+00:00"
+  },
+  {
+    "id": "7f216242-5efa-4688-8b40-46d26021ea02",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764632475804-ef0ck63ka",
+    "page_path": "admin",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-02T22:19:17.968763+00:00"
+  },
+  {
+    "id": "28a5a827-f179-46bd-912f-1182d46a4515",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764632475804-ef0ck63ka",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-02T22:20:01.828252+00:00"
+  },
+  {
+    "id": "63bcaa48-79c2-46ca-beca-27c10c15b829",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764732032478-gvhqtipmj",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T03:20:34.874341+00:00"
+  },
+  {
+    "id": "706bc656-93c2-427a-8816-89ace966e417",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764732370699-j7nuj59n8",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T03:26:13.147043+00:00"
+  },
+  {
+    "id": "b5825f56-c1a3-4382-a2df-3d03b7df9d89",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764732370699-j7nuj59n8",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T03:26:49.842826+00:00"
+  },
+  {
+    "id": "a364a310-1b09-4af6-ae51-bab85357a412",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "mos-code",
+    "mos_code": "CTN",
+    "company_slug": null,
+    "created_at": "2025-12-03T05:00:05.166554+00:00"
+  },
+  {
+    "id": "eb4de6dc-7630-4597-bcc4-0d6cc63b1a8d",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "mos-code",
+    "mos_code": "CTN",
+    "company_slug": null,
+    "created_at": "2025-12-03T05:00:06.266486+00:00"
+  },
+  {
+    "id": "e48bdb45-22b5-44a7-954a-25688e8b6e92",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-03T05:00:14.039006+00:00"
+  },
+  {
+    "id": "8db49e52-d46d-4014-816f-48100ebdf1e5",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764675161939-pfw3o345r",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-03T05:00:15.311895+00:00"
+  },
+  {
+    "id": "8d33a197-0b15-4fea-aece-d71124a137e1",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T06:10:44.230571+00:00"
+  },
+  {
+    "id": "47e7da46-d281-46db-a4ab-67784d470624",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T06:10:49.128031+00:00"
+  },
+  {
+    "id": "d85c1e59-be97-4907-841a-8a819c399376",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T06:11:05.207997+00:00"
+  },
+  {
+    "id": "73fbc016-322a-4426-a945-a7ccce28ecc3",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "northrop-grumman",
+    "created_at": "2025-12-03T06:11:15.005585+00:00"
+  },
+  {
+    "id": "7e77f9a5-81ca-4258-a858-c819a63ac22c",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T06:33:28.435563+00:00"
+  },
+  {
+    "id": "58b7f9a5-1264-4d66-a838-51e0499d385c",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-03T06:33:30.21428+00:00"
+  },
+  {
+    "id": "22963ef8-f89d-4ce1-9d19-f281b87511c3",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-03T07:38:51.454392+00:00"
+  },
+  {
+    "id": "cf5144f6-a26b-4655-ad23-5d2b78a89da6",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-03T07:38:52.911081+00:00"
+  },
+  {
+    "id": "f9d09506-9de2-4ae9-8d6b-4a4c8d238fc4",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T07:39:04.862592+00:00"
+  },
+  {
+    "id": "31bddb4c-eaeb-4540-a26b-5655035b48bf",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-03T08:30:32.411708+00:00"
+  },
+  {
+    "id": "517af35e-0be7-466d-8210-72f5072a4679",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-03T08:30:33.935399+00:00"
+  },
+  {
+    "id": "e3937842-06c6-4620-830f-8629329e1195",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-03T08:39:12.635533+00:00"
+  },
+  {
+    "id": "5f7cfa84-c5a5-428c-8bd4-b9078060c3bb",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764751466015-50w3kx20h",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T08:44:28.295652+00:00"
+  },
+  {
+    "id": "888cb4b0-a09b-4b5b-9894-5a0a69aefc45",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764751466015-50w3kx20h",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T08:44:33.556391+00:00"
+  },
+  {
+    "id": "c87d2803-2628-48cb-903d-b7e482faca12",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764751466015-50w3kx20h",
+    "page_path": "mos-code",
+    "mos_code": "1B371",
+    "company_slug": null,
+    "created_at": "2025-12-03T08:44:39.08278+00:00"
+  },
+  {
+    "id": "8aced9e2-257b-48f4-9cd4-26cdaa41121e",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764751466015-50w3kx20h",
+    "page_path": "mos-code",
+    "mos_code": "1B371",
+    "company_slug": null,
+    "created_at": "2025-12-03T08:48:28.763535+00:00"
+  },
+  {
+    "id": "1f030d4a-f0c4-4260-a2b7-fb858123c774",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764742240895-m1htl9ram",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-03T08:57:47.438322+00:00"
+  },
+  {
+    "id": "e1015a40-40b0-435f-ae11-3823186696d8",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764751466015-50w3kx20h",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-03T08:59:42.567156+00:00"
+  },
+  {
+    "id": "92d6930e-1445-40f3-bc46-11fe8308f33e",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T20:56:05.327845+00:00"
+  },
+  {
+    "id": "99a867f2-77a2-43ff-872f-9001ae1a21b3",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-04T20:56:16.130005+00:00"
+  },
+  {
+    "id": "36b66769-525c-4696-bc65-63d76e148238",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T20:56:20.073289+00:00"
+  },
+  {
+    "id": "feb2e9d8-3cd1-41ee-8013-39ddfdf12010",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T20:56:26.217704+00:00"
+  },
+  {
+    "id": "2673bdd7-33ff-4be5-a3d4-862003e2faf0",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T20:56:28.235168+00:00"
+  },
+  {
+    "id": "8a3e4389-7514-45cc-9e96-36173ed5326f",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T20:56:30.437131+00:00"
+  },
+  {
+    "id": "cf02fde9-0e97-4bc7-942f-71667bf120af",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T20:56:33.021035+00:00"
+  },
+  {
+    "id": "f3837930-0813-4a07-be6d-da68617e1eb6",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T20:56:34.453891+00:00"
+  },
+  {
+    "id": "d1fab5aa-6346-4d11-954d-c41c50392f26",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-04T21:01:39.654515+00:00"
+  },
+  {
+    "id": "fddb9427-0790-4104-a2ee-ca0e6e49d7e5",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764883649013-8co40k11n",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T21:27:31.830223+00:00"
+  },
+  {
+    "id": "76724aff-924b-48ae-ace9-f9fc17e87a8a",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764883649013-8co40k11n",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T21:29:01.203605+00:00"
+  },
+  {
+    "id": "6a2c484b-32db-450c-92f6-5aaa54c35ca6",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764884482257-f5fi5gk5a",
+    "page_path": "admin",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T21:41:24.888075+00:00"
+  },
+  {
+    "id": "098623bd-955f-4d1a-93fe-efd6e3faa5d7",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764884772282-fmknn6gma",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T21:46:15.647948+00:00"
+  },
+  {
+    "id": "2f77f356-66dc-46e3-981d-5f1c4ff22c09",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764884772282-fmknn6gma",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T21:46:24.692228+00:00"
+  },
+  {
+    "id": "6f26abdc-ac7b-4acc-86df-8c24b69c684f",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-04T22:21:18.373681+00:00"
+  },
+  {
+    "id": "ae96d144-73be-49d2-aacf-caaaadd815eb",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-04T22:30:06.066862+00:00"
+  },
+  {
+    "id": "32fa8e79-5b0c-41ee-968a-1bd17ee62420",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "CTN",
+    "company_slug": null,
+    "created_at": "2025-12-04T22:30:16.586784+00:00"
+  },
+  {
+    "id": "cfa10dd5-663e-4b6b-b37c-03b485b52019",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764888674154-do6zmqi8l",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "booz-allen",
+    "created_at": "2025-12-04T22:51:17.131334+00:00"
+  },
+  {
+    "id": "e7802791-6439-409e-8991-509e05cc8192",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764888730935-8hqdvobjo",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "booz-allen",
+    "created_at": "2025-12-04T22:52:13.350136+00:00"
+  },
+  {
+    "id": "c8f68a21-dab1-4347-87f3-d012fef18e81",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764888730935-8hqdvobjo",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T22:52:35.235507+00:00"
+  },
+  {
+    "id": "84a7ef8a-c217-40e8-a6b1-3719cda91cd9",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764888730935-8hqdvobjo",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T22:55:34.907757+00:00"
+  },
+  {
+    "id": "3b3df904-ed4f-402a-84dd-9b5cd5c00f0e",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764888730935-8hqdvobjo",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "booz-allen",
+    "created_at": "2025-12-04T22:59:09.621741+00:00"
+  },
+  {
+    "id": "bac663f0-fac6-4237-8e6f-20d5d4a2142f",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764888730935-8hqdvobjo",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T22:59:28.378942+00:00"
+  },
+  {
+    "id": "7f00eaa7-c171-415c-94d2-a02e330d9400",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764889231477-0cbemtv6z",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "booz-allen",
+    "created_at": "2025-12-04T23:00:34.058163+00:00"
+  },
+  {
+    "id": "6fb21c31-50f1-42da-90ec-2efd03559e07",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764889231477-0cbemtv6z",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "booz-allen",
+    "created_at": "2025-12-04T23:01:20.068157+00:00"
+  },
+  {
+    "id": "c2d68086-715b-450a-b898-bf387e2e532a",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764883649013-8co40k11n",
+    "page_path": "dashboard",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T23:03:19.584317+00:00"
+  },
+  {
+    "id": "a51b7542-fb28-4d0a-979b-18dc04e48350",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764888674154-do6zmqi8l",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T23:04:09.233612+00:00"
+  },
+  {
+    "id": "5f867a43-8ec9-4e46-9371-55906a93824f",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764888674154-do6zmqi8l",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-04T23:04:13.54094+00:00"
+  },
+  {
+    "id": "d362cada-b2e1-4e50-ad9d-3f25cb9d58d6",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-04T23:06:44.948776+00:00"
+  },
+  {
+    "id": "9ef72cc1-5b1d-4882-87ae-61901040c15c",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-04T23:07:42.777825+00:00"
+  },
+  {
+    "id": "302fb11e-f43c-4678-8c55-e86720c21022",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764888674154-do6zmqi8l",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "booz-allen",
+    "created_at": "2025-12-04T23:26:29.591325+00:00"
+  },
+  {
+    "id": "a3833489-f590-452b-9324-54c58cae69d6",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764888674154-do6zmqi8l",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "booz-allen",
+    "created_at": "2025-12-04T23:27:37.228954+00:00"
+  },
+  {
+    "id": "732e9820-d55b-4fc6-af82-6509daad16e4",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764948136302-3arydz2vw",
+    "page_path": "admin",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:22:18.775474+00:00"
+  },
+  {
+    "id": "fe0ff8ca-180c-4f77-8929-765d714c76d7",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764948554351-quv25zq4j",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:29:17.642025+00:00"
+  },
+  {
+    "id": "99ed80fa-8011-470f-96d8-f6f53dcc2b72",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764948554351-quv25zq4j",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:29:21.764375+00:00"
+  },
+  {
+    "id": "0720d1f6-41fd-46c1-ac59-4908d7dc05f8",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764948554351-quv25zq4j",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:29:34.523326+00:00"
+  },
+  {
+    "id": "1e475a45-90d4-4b3e-95cd-ea9eaa732529",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764948554351-quv25zq4j",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:29:38.286857+00:00"
+  },
+  {
+    "id": "4144b1f8-f892-4429-9369-72c81fb2defa",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764948554351-quv25zq4j",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:29:44.032751+00:00"
+  },
+  {
+    "id": "decb13c3-6a8e-40db-9ddb-3703d63481b3",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764948554351-quv25zq4j",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:29:49.609757+00:00"
+  },
+  {
+    "id": "85436f84-6684-4f84-bf53-43346d0a3d6a",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764948728828-4epcu2eqe",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:32:12.475841+00:00"
+  },
+  {
+    "id": "80630609-e84a-48d2-b87d-3a46b91d3ef5",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764948728828-4epcu2eqe",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:33:21.391435+00:00"
+  },
+  {
+    "id": "04cc04ae-f40b-44f8-b638-e9ec908e273d",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764948728828-4epcu2eqe",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:33:23.109792+00:00"
+  },
+  {
+    "id": "245f6694-d49f-4976-92b6-e5afdcfb79ec",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764948728828-4epcu2eqe",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:33:25.762548+00:00"
+  },
+  {
+    "id": "3f360590-ff99-4ae3-9151-91210874e692",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764948728828-4epcu2eqe",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:33:27.990826+00:00"
+  },
+  {
+    "id": "4e8dbb1d-6ecd-4b4b-bf03-815bec4f0aad",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764948728828-4epcu2eqe",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:57:14.252381+00:00"
+  },
+  {
+    "id": "0963726d-7438-422a-bb89-d38ec739066f",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764948728828-4epcu2eqe",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T15:57:17.524368+00:00"
+  },
+  {
+    "id": "bbf32ce7-0af1-4873-9f53-9a25816004b7",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764953319648-a27fz4sjs",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T16:48:42.452265+00:00"
+  },
+  {
+    "id": "6e2573d6-bb96-485b-836e-edd97d8effb0",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764953327446-cllh6h31a",
+    "page_path": "about",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T16:48:50.009963+00:00"
+  },
+  {
+    "id": "6637f139-ea73-4a9b-b653-58d43f80186a",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764953327446-cllh6h31a",
+    "page_path": "about",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T16:49:06.199002+00:00"
+  },
+  {
+    "id": "d927e39c-1411-49f1-bd68-e3c294e94cf5",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764953319648-a27fz4sjs",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T16:49:33.86016+00:00"
+  },
+  {
+    "id": "d3b42dcd-491c-4a36-89b1-1d7025050898",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764953417895-p6l5le8ky",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T16:50:20.439502+00:00"
+  },
+  {
+    "id": "d033472d-0906-42a8-80af-f72947c53801",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764953417895-p6l5le8ky",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T16:50:40.726518+00:00"
+  },
+  {
+    "id": "5d2d20aa-203d-44df-9721-ffaff4e68e34",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764953458387-1c0tisnpe",
+    "page_path": "about",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T16:51:00.74665+00:00"
+  },
+  {
+    "id": "605fd56f-b0e0-4601-ac04-49655ffc9b76",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764948728828-4epcu2eqe",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T17:31:30.89987+00:00"
+  },
+  {
+    "id": "ee80110b-49c5-446f-99ec-105a686e3b4f",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764955901458-ot39v2w23",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T17:31:43.748989+00:00"
+  },
+  {
+    "id": "28041dd6-cda1-4992-950f-f83d66699777",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764955901458-ot39v2w23",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T17:31:47.488017+00:00"
+  },
+  {
+    "id": "5b39a5a2-8367-4209-a073-99c409397122",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764955901458-ot39v2w23",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T17:32:00.358884+00:00"
+  },
+  {
+    "id": "26d794aa-d0e2-48a1-b4a1-3957bce0f218",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764955901458-ot39v2w23",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T17:32:03.878728+00:00"
+  },
+  {
+    "id": "9df57edd-fa3f-4003-a61b-3fa2991178a2",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1764955901458-ot39v2w23",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T17:32:14.688406+00:00"
+  },
+  {
+    "id": "df5760ac-9610-4080-a292-8d03bce1f2ff",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764955901458-ot39v2w23",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T17:32:17.548985+00:00"
+  },
+  {
+    "id": "dea81bf5-1dc7-4284-909f-c72b03eb4bce",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "admin",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T17:36:52.472063+00:00"
+  },
+  {
+    "id": "249914bb-b527-4044-92c7-3f0731aa9c0b",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "post-a-job",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:00:59.452348+00:00"
+  },
+  {
+    "id": "608b4389-3f6c-4a82-bd25-94cb486d7181",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:03:34.894265+00:00"
+  },
+  {
+    "id": "6fd51b54-8229-4a35-95f3-6b58cc4c01e2",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:01.915289+00:00"
+  },
+  {
+    "id": "f0ce3651-4efc-4914-bc4b-13a245018ebf",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:09.924414+00:00"
+  },
+  {
+    "id": "6aa096ce-d6c8-46b0-89c4-a7bd2433b2a0",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:10.834588+00:00"
+  },
+  {
+    "id": "136eccff-901e-40a5-8669-5daad37274fc",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:12.116705+00:00"
+  },
+  {
+    "id": "9e957b6c-4a67-4943-b0e4-6da87ee17cfc",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:13.36683+00:00"
+  },
+  {
+    "id": "f8c0c922-508e-4694-bc43-057300ddf265",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:15.14912+00:00"
+  },
+  {
+    "id": "72592699-2b23-4429-b8b5-76cc77ab94a9",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:17.173201+00:00"
+  },
+  {
+    "id": "6ea5d497-d462-4b27-9cf3-c211a6658d25",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:15.942424+00:00"
+  },
+  {
+    "id": "5604c8d1-a56c-445c-952a-18f1f54a77f4",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "employer",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:18.622591+00:00"
+  },
+  {
+    "id": "87da1460-ce5c-4d35-a90c-528268743e25",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "post-a-job",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T18:05:31.61536+00:00"
+  },
+  {
+    "id": "85101924-bf1f-4a2d-8c47-aebd273ee19d",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764955901458-ot39v2w23",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T20:31:36.014601+00:00"
+  },
+  {
+    "id": "b477afe4-31dd-41f6-99f2-2d3a47706478",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "post-a-job",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T21:00:14.169866+00:00"
+  },
+  {
+    "id": "1eb4e132-c89d-428a-a987-dfca36f80713",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "post-a-job",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T21:01:38.159839+00:00"
+  },
+  {
+    "id": "3564244a-98b6-438b-ae43-20c18641bf0b",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1764956210041-1tft6d3n5",
+    "page_path": "post-a-job",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-05T21:02:07.276533+00:00"
+  },
+  {
+    "id": "eddd005d-18df-4bac-80d5-c9a56712c917",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765010055133-3kqcjwzmu",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T08:34:17.467558+00:00"
+  },
+  {
+    "id": "a04cb999-6d92-4ad0-9278-4a8cf81b5420",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765010199005-s8pjbw8jg",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T08:36:41.272779+00:00"
+  },
+  {
+    "id": "2c7eb4cd-4a52-445c-81b2-d7b95ac39290",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765010429909-amdx8xcrf",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T08:40:32.16196+00:00"
+  },
+  {
+    "id": "6549da81-0051-453e-8527-d87aab026ba4",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765010429909-amdx8xcrf",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T08:42:41.164871+00:00"
+  },
+  {
+    "id": "3eef994c-86c6-4c65-bf44-c168cb550bef",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765010429909-amdx8xcrf",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T08:46:57.856004+00:00"
+  },
+  {
+    "id": "8c9b40ee-b6e7-4c00-8baf-e9175401ba32",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765027592528-72kr2jfek",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T13:26:35.282175+00:00"
+  },
+  {
+    "id": "6fbe4208-d2cc-4d20-be05-1fd88b6f3351",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765027592528-72kr2jfek",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T13:26:40.060873+00:00"
+  },
+  {
+    "id": "9982df9c-ac00-4eaf-9c92-6066688c3e3f",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765010429909-amdx8xcrf",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T13:31:37.990222+00:00"
+  },
+  {
+    "id": "19ddb6ce-3eac-49ee-995e-f11f1806926e",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765010429909-amdx8xcrf",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T14:07:27.291564+00:00"
+  },
+  {
+    "id": "89618e43-db19-4247-bcc0-caf342100b50",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765027592528-72kr2jfek",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T14:07:28.70539+00:00"
+  },
+  {
+    "id": "25b85010-b1f7-42b5-82b6-b49891dabced",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765063545482-flnn78d35",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T23:25:47.837913+00:00"
+  },
+  {
+    "id": "7bf1d5d5-b27e-40e4-b90b-e630bde21148",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765063545482-flnn78d35",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T23:26:00.406899+00:00"
+  },
+  {
+    "id": "e10848e8-1a22-42e3-b106-9d91b059505a",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765063545482-flnn78d35",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T23:26:00.478097+00:00"
+  },
+  {
+    "id": "35e3c053-8ef3-4ce3-99ee-c86cf78101ed",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765063545482-flnn78d35",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T23:26:15.969153+00:00"
+  },
+  {
+    "id": "2687f681-c03b-4ab6-a7e0-22e1fe43f9a0",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765065539757-5jh7oxcl3",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-06T23:59:02.733218+00:00"
+  },
+  {
+    "id": "02b2ffe8-cbf1-4632-8212-639b852fc6c2",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765065539757-5jh7oxcl3",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:01:36.901062+00:00"
+  },
+  {
+    "id": "02a4eb74-e753-4e8f-b708-b5b59087b151",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765065941758-mfy9x7vzu",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:05:44.079228+00:00"
+  },
+  {
+    "id": "db4a91ee-10e9-4ad8-a680-7b3e3a55ec72",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765066484256-673pa2fu3",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:14:46.656544+00:00"
+  },
+  {
+    "id": "32869010-2e1d-4bf2-b8c0-bd9fa7ca7f05",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765066502618-jjd3591hq",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:15:04.867477+00:00"
+  },
+  {
+    "id": "8408f2fd-8a00-42f2-b3c4-5eb54b9b7d93",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765066502618-jjd3591hq",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:15:32.944064+00:00"
+  },
+  {
+    "id": "19b0f809-b4a5-419e-9085-8b92613dd295",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765066502618-jjd3591hq",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:17:58.502724+00:00"
+  },
+  {
+    "id": "2e64404a-587f-4942-b0b1-f6f944ffe017",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765066502618-jjd3591hq",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:18:01.04959+00:00"
+  },
+  {
+    "id": "1a8a422e-baeb-4614-9c20-b203d572b0b4",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765066502618-jjd3591hq",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:18:13.891246+00:00"
+  },
+  {
+    "id": "681d940b-2cb9-465f-b92f-3d234a810082",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765066502618-jjd3591hq",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:18:46.004912+00:00"
+  },
+  {
+    "id": "f9e061a5-8c4c-45b0-9fb7-497b10ca0cf0",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765066502618-jjd3591hq",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T00:19:45.722155+00:00"
+  },
+  {
+    "id": "eb651717-b70a-4c56-a664-c223ca6201d9",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765070013793-n3cj9t2yh",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:14:01.807812+00:00"
+  },
+  {
+    "id": "0481c7f9-648f-450c-a597-66f530e43f51",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765070013793-n3cj9t2yh",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:15:23.760251+00:00"
+  },
+  {
+    "id": "b67fba78-2b84-497f-8a95-4c126bf45d16",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765070013793-n3cj9t2yh",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-07T01:17:09.846161+00:00"
+  },
+  {
+    "id": "ed246616-4f8c-4455-a0d7-9045811a4540",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765070013793-n3cj9t2yh",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:17:18.194517+00:00"
+  },
+  {
+    "id": "43683a36-d4f9-41b8-bf4d-e776ad26cdb9",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765070013793-n3cj9t2yh",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:17:30.757519+00:00"
+  },
+  {
+    "id": "ffd55ac1-0fcd-4326-96ae-d0a22ff4aaf3",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765070013793-n3cj9t2yh",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:19:30.828084+00:00"
+  },
+  {
+    "id": "034ab364-ba14-417b-9f51-cf6fb9bf788d",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765070395367-hbnad7b1s",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:20:09.947378+00:00"
+  },
+  {
+    "id": "cf4b6cfa-3826-4419-b261-e6de6fba7543",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765070395367-hbnad7b1s",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:20:48.082934+00:00"
+  },
+  {
+    "id": "774dc523-32f4-45c0-87f4-e48a9a0c4c97",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765070395367-hbnad7b1s",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:23:42.041142+00:00"
+  },
+  {
+    "id": "527e5e4c-6d9b-437c-b69e-41b1e9d9084e",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765070395367-hbnad7b1s",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-07T01:23:54.898626+00:00"
+  },
+  {
+    "id": "c3f74255-e9ff-494b-b9d4-1542d95a3697",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765163031972-976ggqige",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T03:03:56.794502+00:00"
+  },
+  {
+    "id": "04b9fa70-68ef-48fd-ae85-1de666307692",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765163031972-976ggqige",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T03:04:38.163532+00:00"
+  },
+  {
+    "id": "a98771a9-6abd-4125-9623-2367381d842d",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765163031972-976ggqige",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T03:04:42.608196+00:00"
+  },
+  {
+    "id": "dec32215-f11b-40f5-a7db-b84383aa7950",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T19:58:12.619351+00:00"
+  },
+  {
+    "id": "faf8d75a-d48d-4689-8c50-ca741e9f1c9b",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T19:58:59.688768+00:00"
+  },
+  {
+    "id": "aecb0efa-3007-430a-846c-98be966a9bf2",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T19:59:47.567525+00:00"
+  },
+  {
+    "id": "f78b3958-9353-4505-a134-c528881beab5",
+    "campaign_id": "2225bf4f-d935-4088-a6b2-1a514d67bc52",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "33S3",
+    "company_slug": null,
+    "created_at": "2025-12-08T20:00:14.666005+00:00"
+  },
+  {
+    "id": "acf15f6f-151c-4e08-94bb-f23339623ecd",
+    "campaign_id": "2225bf4f-d935-4088-a6b2-1a514d67bc52",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "mos-code",
+    "mos_code": "1C6X1",
+    "company_slug": null,
+    "created_at": "2025-12-08T20:08:31.037827+00:00"
+  },
+  {
+    "id": "551ae38f-45cf-4617-845e-b80e1d5023a8",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T22:44:16.645123+00:00"
+  },
+  {
+    "id": "6e1c403f-42b2-455c-81a9-aa1a99a50a64",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T22:44:32.530231+00:00"
+  },
+  {
+    "id": "444435f3-21dd-4f87-a9da-b2fca867d678",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T22:44:37.409622+00:00"
+  },
+  {
+    "id": "3699dc91-7f51-4c88-acc0-2d78ec58d712",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T22:44:43.605751+00:00"
+  },
+  {
+    "id": "3e17ff0c-507b-4858-badf-640001451b56",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "2E0X3",
+    "company_slug": null,
+    "created_at": "2025-12-08T22:44:52.222043+00:00"
+  },
+  {
+    "id": "f853692f-4d75-4794-b363-b0b46d136536",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "0231",
+    "company_slug": null,
+    "created_at": "2025-12-08T22:46:38.815031+00:00"
+  },
+  {
+    "id": "829a6437-03f4-40d3-a36e-a94a4934925f",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T22:46:41.198556+00:00"
+  },
+  {
+    "id": "74ad30e5-45e8-4ba7-969f-1fa435341613",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T22:46:43.187656+00:00"
+  },
+  {
+    "id": "ee54cdf5-e1b0-4441-8adb-16ded1cc7901",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "CTN",
+    "company_slug": null,
+    "created_at": "2025-12-08T22:46:46.368301+00:00"
+  },
+  {
+    "id": "b4abafc6-3c1f-4574-a4ec-ad5657bcac35",
+    "campaign_id": "2225bf4f-d935-4088-a6b2-1a514d67bc52",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "3D1X2",
+    "company_slug": null,
+    "created_at": "2025-12-08T22:47:22.713781+00:00"
+  },
+  {
+    "id": "e5e5a81e-4f5e-4c6f-a6b8-aded2c509cc0",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T22:47:34.079746+00:00"
+  },
+  {
+    "id": "39bd06cc-875e-4267-8a5b-dcef065fd578",
+    "campaign_id": "1739ebf3-9ce3-4e6c-9f2e-2fe9e03c6e71",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "leidos",
+    "created_at": "2025-12-08T23:42:15.173396+00:00"
+  },
+  {
+    "id": "1b04c583-9596-4a07-afa1-78701ded2d51",
+    "campaign_id": "1739ebf3-9ce3-4e6c-9f2e-2fe9e03c6e71",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "leidos",
+    "created_at": "2025-12-08T23:49:04.973822+00:00"
+  },
+  {
+    "id": "ebcf5402-6201-4650-b687-0b4db9782d54",
+    "campaign_id": "d88b2d24-c333-4a7f-9427-57a32321cc0c",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-08T23:49:56.140485+00:00"
+  },
+  {
+    "id": "3bc7aa1b-270c-4ab4-8dfe-1d691597db30",
+    "campaign_id": "2225bf4f-d935-4088-a6b2-1a514d67bc52",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "IT-CG",
+    "company_slug": null,
+    "created_at": "2025-12-08T23:50:12.010595+00:00"
+  },
+  {
+    "id": "d5e602ac-fe72-4ad9-adc4-d71c191e5611",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T23:53:55.637119+00:00"
+  },
+  {
+    "id": "a39f6813-46e5-4a74-8015-33a5a48bb08a",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T23:54:03.046188+00:00"
+  },
+  {
+    "id": "847d0a7e-800f-4724-8d24-3bc65f5e3551",
+    "campaign_id": "a8b89b21-8acc-4b32-8f76-7fa88580843c",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T23:54:15.588578+00:00"
+  },
+  {
+    "id": "74d53795-b772-48e4-99cb-3d676455ab04",
+    "campaign_id": "a8b89b21-8acc-4b32-8f76-7fa88580843c",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-08T23:54:39.624771+00:00"
+  },
+  {
+    "id": "bb07613b-761a-4b50-9f15-6031af3d10f5",
+    "campaign_id": "d88b2d24-c333-4a7f-9427-57a32321cc0c",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-09T00:04:04.682945+00:00"
+  },
+  {
+    "id": "3194b9d3-d4ee-4ddc-897f-a9e992c0ad0c",
+    "campaign_id": "d88b2d24-c333-4a7f-9427-57a32321cc0c",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-09T00:06:48.509782+00:00"
+  },
+  {
+    "id": "bc0930d6-9638-47aa-9ab5-d826ea1615db",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765239638609-rbw4d1c3i",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T00:20:41.868151+00:00"
+  },
+  {
+    "id": "b20ebec7-43b2-4dd8-8a0f-9e5ba856aca6",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765239638609-rbw4d1c3i",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T00:20:46.346987+00:00"
+  },
+  {
+    "id": "1f9e1644-dcd0-4aaa-a709-8d5b2855153d",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765239638609-rbw4d1c3i",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T00:20:57.235671+00:00"
+  },
+  {
+    "id": "0bea4b0f-1011-4b70-aa58-f19af176007f",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765239638609-rbw4d1c3i",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T00:24:51.562147+00:00"
+  },
+  {
+    "id": "f29e828e-60fc-462e-927a-ed71d635a612",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765239638609-rbw4d1c3i",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T00:26:11.011951+00:00"
+  },
+  {
+    "id": "93bd8e99-4a6e-4af1-83d1-9ce40066aad1",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765239638609-rbw4d1c3i",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T00:53:50.147532+00:00"
+  },
+  {
+    "id": "dbb73059-d1a7-4e71-b23f-efdf5502843b",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T03:12:02.652466+00:00"
+  },
+  {
+    "id": "df901606-73c4-4ea9-9ff5-cadbbe3484a6",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T03:12:03.658244+00:00"
+  },
+  {
+    "id": "64201002-9d82-490c-a984-2839ff966131",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765249936049-0czwpprgn",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T03:12:18.270055+00:00"
+  },
+  {
+    "id": "2aaa79c1-e432-4419-ab28-8ac1e1161f62",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765254296288-mls920kk4",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T04:24:58.866794+00:00"
+  },
+  {
+    "id": "3753df2b-8d39-445a-8d54-3542b7486500",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765239638609-rbw4d1c3i",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:35:09.164015+00:00"
+  },
+  {
+    "id": "5a7e03ee-692d-4fac-8171-02e7b9e74aa2",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765239638609-rbw4d1c3i",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:35:15.348952+00:00"
+  },
+  {
+    "id": "d283f9b7-9c41-48ca-9e01-f475cd7cb967",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:35:56.772378+00:00"
+  },
+  {
+    "id": "3ce3adb9-558e-46bb-b04d-c5c286bb02e8",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:36:03.353597+00:00"
+  },
+  {
+    "id": "2dcf71d4-aeb2-48f7-947c-bb36fb6c191c",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:36:09.430473+00:00"
+  },
+  {
+    "id": "398d7b35-27f2-4d1a-b73e-96a3e007fb45",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:36:10.964564+00:00"
+  },
+  {
+    "id": "94813635-32e8-413f-afdb-821cc6774e3e",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:36:46.031774+00:00"
+  },
+  {
+    "id": "dc2c0f65-c9fc-4bac-90b3-5093a902ce35",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:36:49.586707+00:00"
+  },
+  {
+    "id": "1684150b-5035-4185-b19e-255f0eaefc57",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:36:51.166127+00:00"
+  },
+  {
+    "id": "1128f44c-5e24-49d7-bb54-e815af15b536",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T19:36:52.634615+00:00"
+  },
+  {
+    "id": "034abef6-4279-4e2a-9d32-1eee0b10317a",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-09T19:40:21.733468+00:00"
+  },
+  {
+    "id": "59adb29d-b0cc-4ee0-a795-f08b244ce19a",
+    "campaign_id": "2225bf4f-d935-4088-a6b2-1a514d67bc52",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "mos-code",
+    "mos_code": "33S",
+    "company_slug": null,
+    "created_at": "2025-12-09T19:40:43.188936+00:00"
+  },
+  {
+    "id": "a57acdeb-fbe5-4d87-8e29-07fadcb3e240",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:08.860511+00:00"
+  },
+  {
+    "id": "61d97c5c-4cde-4783-b45a-90e0dad629fc",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:17.366697+00:00"
+  },
+  {
+    "id": "f554d5fc-24b3-409f-8bb6-2d54ebfedb67",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:19.768965+00:00"
+  },
+  {
+    "id": "127acee4-4dc9-4b44-b137-1505a74b8b18",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:21.072874+00:00"
+  },
+  {
+    "id": "1146b26d-0c5d-4232-8059-5d77eb2a55b4",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:23.50974+00:00"
+  },
+  {
+    "id": "c0711976-5f4f-46cc-bc28-b5a45b1b07cb",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:25.223812+00:00"
+  },
+  {
+    "id": "3f817720-5dd4-44e5-a424-327696819a56",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:38.317056+00:00"
+  },
+  {
+    "id": "81ff5fa4-cfab-4fd9-9bba-3e2235996406",
+    "campaign_id": "a8b89b21-8acc-4b32-8f76-7fa88580843c",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:42.535197+00:00"
+  },
+  {
+    "id": "bd7fd454-03d6-43df-a19d-e46ff6bacb6f",
+    "campaign_id": "a8b89b21-8acc-4b32-8f76-7fa88580843c",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T21:33:44.254705+00:00"
+  },
+  {
+    "id": "478a5e03-ce50-4df0-85f4-de0ae6b7a7a3",
+    "campaign_id": "d88b2d24-c333-4a7f-9427-57a32321cc0c",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-09T23:19:37.579888+00:00"
+  },
+  {
+    "id": "079bc82e-c7ca-439f-9c73-624330d47abf",
+    "campaign_id": "2225bf4f-d935-4088-a6b2-1a514d67bc52",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "mos-code",
+    "mos_code": "1N4X1",
+    "company_slug": null,
+    "created_at": "2025-12-09T23:20:06.948408+00:00"
+  },
+  {
+    "id": "31e022dc-0c3c-4fca-a742-14b2a76c3650",
+    "campaign_id": "d88b2d24-c333-4a7f-9427-57a32321cc0c",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-09T23:20:33.006497+00:00"
+  },
+  {
+    "id": "d6552f48-37ff-4a21-86ba-d7e983c20f82",
+    "campaign_id": "f6eb3908-ce8c-4ac9-9927-752ddc5f5b2b",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "general-dynamics",
+    "created_at": "2025-12-09T23:31:11.740139+00:00"
+  },
+  {
+    "id": "2891d84c-5662-4e3f-8940-954ac1123732",
+    "campaign_id": "a8b89b21-8acc-4b32-8f76-7fa88580843c",
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T23:33:02.381522+00:00"
+  },
+  {
+    "id": "57184e31-d6c7-4a95-9e94-9036bff2ca08",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765249936049-0czwpprgn",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-09T23:34:42.021893+00:00"
+  },
+  {
+    "id": "bf955a24-ad09-483e-89ab-c433bb7c4708",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765339024240-8c34v3i00",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T03:57:06.556294+00:00"
+  },
+  {
+    "id": "cb0df452-40ea-4a00-9ed9-ee506159610d",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765339024240-8c34v3i00",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T03:57:13.499007+00:00"
+  },
+  {
+    "id": "2adc3882-1910-4ce5-ae90-d072d1e68af9",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765249936049-0czwpprgn",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T03:58:02.811355+00:00"
+  },
+  {
+    "id": "badfe91a-5d6a-402f-a4b7-b1e2a1544c64",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765339093523-r1yeikn5i",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T03:58:15.760264+00:00"
+  },
+  {
+    "id": "2e02b94e-6311-4538-80f2-3b91044e0944",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765339093523-r1yeikn5i",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T03:59:18.326596+00:00"
+  },
+  {
+    "id": "421d8c5a-6a2f-4476-92ff-ab5c8f5d5e9e",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765249936049-0czwpprgn",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T04:03:57.89081+00:00"
+  },
+  {
+    "id": "d827bbca-57b6-4f2b-97a2-c5eb264d8b77",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T16:05:47.877501+00:00"
+  },
+  {
+    "id": "b21410ea-9bb5-4310-a6c2-971c9c9f678f",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T16:05:52.864749+00:00"
+  },
+  {
+    "id": "39225121-d8af-450b-80e9-d77cadc62efd",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T16:06:14.483259+00:00"
+  },
+  {
+    "id": "0a4258e3-14a3-4691-a2f5-2f613e0e4255",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T16:06:17.114497+00:00"
+  },
+  {
+    "id": "f47123a3-9fa7-4fd4-bf8e-79ff36fb0415",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T16:06:26.176245+00:00"
+  },
+  {
+    "id": "204cfd75-486c-4269-aebe-90ff4523d01d",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T16:06:29.160145+00:00"
+  },
+  {
+    "id": "4c6e97a5-c3c8-4237-b066-ae2b44148ebb",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "jobs",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T16:06:30.642227+00:00"
+  },
+  {
+    "id": "bf4176ed-e8bc-455f-97c9-0bd50fd789ef",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-10T16:06:45.670004+00:00"
+  },
+  {
+    "id": "6443bef8-3479-4bce-8fea-2b3d6d0cfe5b",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1765382744923-ztq5edlxz",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-10T16:07:12.473295+00:00"
+  },
+  {
+    "id": "aca04b93-0f1b-4111-a78b-8eec0e489e06",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-10T16:14:53.671369+00:00"
+  },
+  {
+    "id": "a4333b4e-0978-441f-a784-a672af9f492b",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "mos-code",
+    "mos_code": "17C",
+    "company_slug": null,
+    "created_at": "2025-12-10T16:23:54.982696+00:00"
+  },
+  {
+    "id": "ebe565eb-7fcc-4fd3-9ca2-bf5c62ca7f68",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765388415011-s7xcqffsw",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T17:40:55.73273+00:00"
+  },
+  {
+    "id": "7a90ed5d-d9e2-4cd8-a688-87109f96b9a8",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765388415011-s7xcqffsw",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T17:40:57.506913+00:00"
+  },
+  {
+    "id": "c0cfbde7-1fb5-49db-9bdc-933379d44443",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765388415011-s7xcqffsw",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T17:40:59.236793+00:00"
+  },
+  {
+    "id": "f884e6a3-163c-4ad1-a0e2-0d6e85449107",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765388415011-s7xcqffsw",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T17:42:02.866259+00:00"
+  },
+  {
+    "id": "7b6e9ebd-8b2f-476a-b7e4-b1eab9980e5d",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765249936049-0czwpprgn",
+    "page_path": "dev",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T17:42:04.975818+00:00"
+  },
+  {
+    "id": "0f418541-a9fb-40d4-86ca-0cc153d63aff",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765388987175-s2qg548hp",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T17:49:49.396022+00:00"
+  },
+  {
+    "id": "a9862f55-b762-403a-9aa0-fb4325f7ab83",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765388415011-s7xcqffsw",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-10T19:36:22.788936+00:00"
+  },
+  {
+    "id": "3fadbed3-8ecc-4273-b7e5-a8a33682d6e4",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765498250613-zq8d0i8wa",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T00:10:52.869645+00:00"
+  },
+  {
+    "id": "7c6165e2-0385-454d-b091-178b96cc3559",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765502474264-7so39fxlo",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T01:21:17.395261+00:00"
+  },
+  {
+    "id": "e4dd8851-da8a-4750-9e90-f38503bb91de",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T01:36:05.641288+00:00"
+  },
+  {
+    "id": "1348aa30-775b-4d22-93e5-aa70007a5e04",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T01:36:09.954176+00:00"
+  },
+  {
+    "id": "a04c76c7-1dd6-4823-8a0c-02c410eef14e",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T01:36:14.857476+00:00"
+  },
+  {
+    "id": "2d4cc217-5513-4b77-99b1-1ffecffb337f",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T01:36:30.490822+00:00"
+  },
+  {
+    "id": "c077fc07-7117-49a3-a527-ed5d5156b305",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T01:36:39.168476+00:00"
+  },
+  {
+    "id": "cf3d18eb-68d9-4675-91f9-1a4d2e1b354c",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T01:36:49.399302+00:00"
+  },
+  {
+    "id": "87fa2292-90f4-4e49-b42c-97dc1288c0d7",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T02:16:43.742535+00:00"
+  },
+  {
+    "id": "1011d273-d741-45fa-9c6d-9e0fbf949466",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T02:16:43.747056+00:00"
+  },
+  {
+    "id": "52565c24-1ef6-4c3e-a117-c07b5d44a6ba",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T02:17:04.80335+00:00"
+  },
+  {
+    "id": "b6402a39-41c3-4f76-b2dd-a2b27df30228",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765503363327-4i1g9yeqg",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T02:18:07.340231+00:00"
+  },
+  {
+    "id": "d7e902a7-ef66-4a6b-a66e-05516d71f674",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765557041682-p4490yqam",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-12T16:30:44.134999+00:00"
+  },
+  {
+    "id": "1de72761-356f-4d7e-844d-5ebd39aa20ec",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-13T19:05:48.702052+00:00"
+  },
+  {
+    "id": "f3ad52e9-cdef-408f-8610-7be8f004c049",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-13T19:08:13.428687+00:00"
+  },
+  {
+    "id": "0bfa5928-66b3-4d20-b943-c0c5fd1e1514",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-13T19:08:15.037707+00:00"
+  },
+  {
+    "id": "e427c2e8-1d86-4a6a-9727-e42061e47b05",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-13T19:08:16.68729+00:00"
+  },
+  {
+    "id": "a84886cf-969c-4e1a-93f5-59784c4bf7e8",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-13T19:08:18.534951+00:00"
+  },
+  {
+    "id": "6d89160b-18f3-4b46-a351-2625ddf9f574",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-13T19:08:20.621729+00:00"
+  },
+  {
+    "id": "47496ee5-fa26-48fe-a95d-90177efcfe36",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-13T19:08:28.450949+00:00"
+  },
+  {
+    "id": "45608822-b87d-413f-b3b7-9238dad4f891",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-13T19:08:29.404761+00:00"
+  },
+  {
+    "id": "6d417310-1333-4294-8cb4-744b275b9347",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T00:11:08.910509+00:00"
+  },
+  {
+    "id": "320455fc-995c-4b7b-9433-c036105aa184",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765674495044-wgi03iimb",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T01:08:17.253623+00:00"
+  },
+  {
+    "id": "dd31f5fb-e2f3-418a-9723-8805e73966d5",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765674767715-q9cjpaeaw",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T01:12:49.916685+00:00"
+  },
+  {
+    "id": "2b0870fa-9c82-48e3-844c-5bb85fb71d1a",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T01:44:36.366863+00:00"
+  },
+  {
+    "id": "479491ed-2e33-461b-bc60-9b1e115e7fad",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T01:50:48.797675+00:00"
+  },
+  {
+    "id": "c6afe763-12fa-4cb7-b269-498a4750b549",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T02:49:19.116404+00:00"
+  },
+  {
+    "id": "a60c35f1-f217-4b8d-8ec4-4460c82daf8a",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T02:49:32.10992+00:00"
+  },
+  {
+    "id": "749be759-6c2e-4c97-89f1-a6039275a2ba",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T02:49:33.371617+00:00"
+  },
+  {
+    "id": "2baa450d-066d-437f-a8af-fb8d6fdf29b5",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765680713134-78zwkvdb9",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T02:51:55.347385+00:00"
+  },
+  {
+    "id": "5f4b8c1b-c295-44a0-9bf0-510d03833f67",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765680713134-78zwkvdb9",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T02:51:57.679735+00:00"
+  },
+  {
+    "id": "2269ba40-673e-4365-8ed8-46eb935ced4c",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765680713134-78zwkvdb9",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T02:58:38.830278+00:00"
+  },
+  {
+    "id": "3e4d1c45-8bb1-49df-96bb-155fc7580ed9",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765680713134-78zwkvdb9",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T02:58:40.152501+00:00"
+  },
+  {
+    "id": "e7521acb-5d0d-4201-bfad-bc8c6ee788fb",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765680713134-78zwkvdb9",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T03:00:53.630011+00:00"
+  },
+  {
+    "id": "67d8186e-436e-4dce-a490-482c7a5dd826",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765680713134-78zwkvdb9",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T03:12:11.302501+00:00"
+  },
+  {
+    "id": "0659ca40-572d-495c-8741-801277df8370",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765680713134-78zwkvdb9",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T03:12:12.636945+00:00"
+  },
+  {
+    "id": "de34bac5-51b3-4562-ad85-ffcf3d5cf697",
+    "campaign_id": "a8b89b21-8acc-4b32-8f76-7fa88580843c",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T03:39:48.010492+00:00"
+  },
+  {
+    "id": "84134d61-e41c-4c10-a6a0-e3ae9a92c88f",
+    "campaign_id": "a8b89b21-8acc-4b32-8f76-7fa88580843c",
+    "user_id": null,
+    "session_id": "session-1765652745096-9u4b7giax",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-14T03:39:52.397806+00:00"
+  },
+  {
+    "id": "e352b05d-e27a-4cb3-9100-a11eaa3d7c38",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765771559081-bpqw72lzj",
+    "page_path": "companies",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:06:01.352426+00:00"
+  },
+  {
+    "id": "d2b78186-40f2-4a5c-a7f7-1fce12e00c7f",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765771559081-bpqw72lzj",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:06:48.034478+00:00"
+  },
+  {
+    "id": "3b8a7e09-a9ca-4205-b1ad-18b5ca19fbf9",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765771559081-bpqw72lzj",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:06:49.465724+00:00"
+  },
+  {
+    "id": "e9bfcd8c-75af-45c1-95b5-6a61813fbfdf",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765771559081-bpqw72lzj",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:24:59.437661+00:00"
+  },
+  {
+    "id": "d3571501-b5ad-467d-ad67-e1b602b0aff3",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-15T04:30:04.752041+00:00"
+  },
+  {
+    "id": "6fd13a16-3178-4f17-a1ef-348da6c0db1f",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "mos-code",
+    "mos_code": "25B",
+    "company_slug": null,
+    "created_at": "2025-12-15T04:30:45.291266+00:00"
+  },
+  {
+    "id": "737b4af1-ecb5-42af-87a1-14bc18b2685c",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:32:30.55576+00:00"
+  },
+  {
+    "id": "2965ae0c-feff-4727-b3dd-b307f08e4d5b",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:32:32.372905+00:00"
+  },
+  {
+    "id": "b197c4b0-d848-4259-9615-fdad1fc7ad27",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:32:50.037853+00:00"
+  },
+  {
+    "id": "72b52e09-796d-44eb-a1b0-e14f9c6de641",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:32:52.182366+00:00"
+  },
+  {
+    "id": "efc90dc8-e74a-4986-9f74-0705b6a3a85f",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:36:51.075011+00:00"
+  },
+  {
+    "id": "9e11a98c-8b91-4b1e-9e69-2b4b626a9164",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:36:52.100765+00:00"
+  },
+  {
+    "id": "cd197a5c-e6c1-431a-b50d-f55b29f40ecc",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765773002560-6yjgvf6h1",
+    "page_path": "jobs-id",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T04:36:57.655577+00:00"
+  },
+  {
+    "id": "3316d9c8-9285-4e8a-ae9b-5db70563f506",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:35:49.402719+00:00"
+  },
+  {
+    "id": "c0fed232-ec1c-41c6-8c4f-237ac4466f4a",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:35:57.72972+00:00"
+  },
+  {
+    "id": "938ea07b-d01a-4d6d-b335-c8c393ddfb1d",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:39:36.034812+00:00"
+  },
+  {
+    "id": "301d9e25-2fcc-42d2-8f7d-2f210618f738",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:39:45.910383+00:00"
+  },
+  {
+    "id": "d60eba36-b46d-4f85-93ea-4a786cbe1400",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:40:27.804607+00:00"
+  },
+  {
+    "id": "ffafa79a-37e4-4e61-ab51-fb9a60062360",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:42:16.279544+00:00"
+  },
+  {
+    "id": "45a6870e-096e-4d15-a35f-caf2fe5a6970",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:42:27.115721+00:00"
+  },
+  {
+    "id": "71218b95-c8be-4576-b6cd-c95f4795beeb",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:42:34.637359+00:00"
+  },
+  {
+    "id": "6675cbfd-dafc-4fdb-8726-d37a616387bd",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765776946509-ftzvou5bj",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T05:46:54.188401+00:00"
+  },
+  {
+    "id": "4c15fd17-2327-4429-bc71-2cb81e0c7bc3",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765821893505-aqjw02d8m",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:04:55.908535+00:00"
+  },
+  {
+    "id": "88f35251-a1bb-4b78-8ef9-5aa4764f7de8",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765822128262-i5lyfdu33",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:08:50.840147+00:00"
+  },
+  {
+    "id": "468b2e40-db65-47f8-a403-e2b3eeab923a",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765822128262-i5lyfdu33",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:10:01.216142+00:00"
+  },
+  {
+    "id": "cd2a4301-c8d5-418f-8b27-5edbc31f35bc",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765821893505-aqjw02d8m",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:10:01.7041+00:00"
+  },
+  {
+    "id": "2692bd59-3c6f-41f6-bdb6-3274c4f5d6cd",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765822128262-i5lyfdu33",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:10:10.351524+00:00"
+  },
+  {
+    "id": "f58d87f7-77ad-49ba-a8bc-ca508c2181bc",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765822128262-i5lyfdu33",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:10:34.28093+00:00"
+  },
+  {
+    "id": "7d35a68a-7f9e-4578-8aac-7c02b471fa57",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765821893505-aqjw02d8m",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:10:34.493746+00:00"
+  },
+  {
+    "id": "d25d879e-8e9a-491f-8f01-bdbd3b99d223",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765821893505-aqjw02d8m",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:11:00.119503+00:00"
+  },
+  {
+    "id": "40d72dc3-377d-44da-a7dd-0ac86c7eceba",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765821893505-aqjw02d8m",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:11:04.110975+00:00"
+  },
+  {
+    "id": "70a3265d-bf4b-4218-926f-681cfd337ded",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765822128262-i5lyfdu33",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:31:52.672494+00:00"
+  },
+  {
+    "id": "2413d53c-8d88-4c39-af6f-4c61fe77b8a6",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765822128262-i5lyfdu33",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:31:58.414542+00:00"
+  },
+  {
+    "id": "fc17e737-3361-4462-ad1b-51a792169f84",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765822128262-i5lyfdu33",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T18:56:00.859681+00:00"
+  },
+  {
+    "id": "ec16d1bf-86e9-4d5b-b6d5-c633ae15e1a1",
+    "campaign_id": "f6eb3908-ce8c-4ac9-9927-752ddc5f5b2b",
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "page_path": "companies-slug",
+    "mos_code": null,
+    "company_slug": "booz-allen",
+    "created_at": "2025-12-15T19:32:15.970885+00:00"
+  },
+  {
+    "id": "99af53ad-c84d-4e3b-becd-3dd40898f1f5",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765821893505-aqjw02d8m",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T19:32:52.98884+00:00"
+  },
+  {
+    "id": "b9005449-2cb4-4f63-8e37-10451ab9478c",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765821893505-aqjw02d8m",
+    "page_path": "auth-callback",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T20:52:17.411087+00:00"
+  },
+  {
+    "id": "3a3d125b-dcaf-4125-9a19-56a4b45a32e8",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "user_id": null,
+    "session_id": "session-1765821893505-aqjw02d8m",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T21:49:14.980022+00:00"
+  },
+  {
+    "id": "407ebfc5-34d4-42d0-9ae8-4c2f509005ad",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765836354308-y5kzquy4w",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T22:05:56.470757+00:00"
+  },
+  {
+    "id": "1f552395-f93c-4c13-9097-98548ff87d80",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765836354308-y5kzquy4w",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T22:06:35.234807+00:00"
+  },
+  {
+    "id": "b62ca1e4-db75-42c0-9ba5-8eb8a7c9d9b1",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765836354308-y5kzquy4w",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T22:10:38.310165+00:00"
+  },
+  {
+    "id": "0c4cd218-8ff3-4d39-945c-4f98c9801f2b",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765836354308-y5kzquy4w",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T22:10:58.421784+00:00"
+  },
+  {
+    "id": "33de525c-a900-46ab-9811-40c294d75849",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "user_id": null,
+    "session_id": "session-1765836354308-y5kzquy4w",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T22:11:11.777079+00:00"
+  },
+  {
+    "id": "b2ca5b78-6b86-46b6-aaee-df115d76f362",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "user_id": null,
+    "session_id": "session-1765836354308-y5kzquy4w",
+    "page_path": "index",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-15T23:24:58.95488+00:00"
+  },
+  {
+    "id": "fa3b36ff-86df-4d64-84ea-96cc6882805b",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "user_id": null,
+    "session_id": "session-1765861114297-w4uepcrfo",
+    "page_path": "search",
+    "mos_code": null,
+    "company_slug": null,
+    "created_at": "2025-12-16T04:58:36.49104+00:00"
+  }
+]

@@ -1,0 +1,77 @@
+# =============================================================================
+# .dockerignore - Root level (for monorepo builds)
+# =============================================================================
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+.cursor
+*.swp
+*.swo
+
+# Node
+node_modules
+.pnpm-store
+
+# Nuxt build outputs (we build fresh in Docker)
+.nuxt
+.output
+dist
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+ENV/
+*.egg-info/
+.eggs/
+
+# Environment files (use Coolify env vars instead)
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Test & coverage
+coverage/
+.nyc_output/
+.pytest_cache/
+htmlcov/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (not needed in runtime)
+*.md
+!README.md
+docs/
+
+# Development scripts (not needed in production)
+scripts/
+
+# Cursor/AI files
+.cursor/
+*.plan.md
+
+# Mock data (development only)
+mock_data/
+
+# Backup files
+*.bak
+*.backup
+

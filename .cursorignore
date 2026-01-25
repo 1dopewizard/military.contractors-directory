@@ -1,0 +1,88 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+
+# Build outputs
+.nuxt/
+.output/
+dist/
+build/
+out/
+
+# Environment files
+!.env
+!.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Lock files (optional - uncomment if you want to ignore)
+# pnpm-lock.yaml
+# package-lock.json
+# yarn.lock
+
+# Generated types (if auto-generated)
+*.generated.ts
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Supabase local (if using local development)
+.supabase/
+
+# Misc
+.git/
+.hg/
+.svn/
+.genkit
+
+# Folders
+apps/contractors/app/components/ui/
+apps/directory/app/components/ui/

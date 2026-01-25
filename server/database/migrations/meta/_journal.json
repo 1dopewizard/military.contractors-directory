@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1768754116942,
+      "tag": "0000_free_vargas",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1768755525430,
+      "tag": "0001_good_impossible_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1769117560606,
+      "tag": "0002_spooky_ozymandias",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1769122070496,
+      "tag": "0003_handy_king_bedlam",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1769162838389,
+      "tag": "0004_add-company-aliases",
+      "breakpoints": true
+    }
+  ]
+}

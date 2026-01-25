@@ -1,0 +1,934 @@
+[
+  {
+    "id": "6c435e6c-e75e-4963-a785-aeb7a8f2d147",
+    "slug": "mantech",
+    "name": "ManTech",
+    "summary": "Cyber, analytics, and mission IT solutions integrator supporting DoD and IC clients.",
+    "description": "ManTech provides mission-focused technology solutions for defense, intelligence, and federal civilian agencies, specializing in cyber, data analytics, and IT modernization.",
+    "logo_url": null,
+    "website_url": "https://www.mantech.com",
+    "careers_url": "https://www.mantech.com/careers",
+    "headquarters": "Herndon, VA",
+    "employee_count": "10,000+",
+    "founded_year": 1968,
+    "stock_symbol": null,
+    "domains": [
+      "Cyber",
+      "Intel",
+      "IT/Comms",
+      "Analytics"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:09:40.769959+00:00",
+    "updated_at": "2025-12-10T16:06:36.550012+00:00"
+  },
+  {
+    "id": "06645d58-b8f3-4b06-a864-2b9466783293",
+    "slug": "saic",
+    "name": "SAIC",
+    "summary": "Technology integrator delivering IT modernization, engineering, and mission solutions for defense and intelligence.",
+    "description": "SAIC is a premier Fortune 500 technology integrator solving complex problems in defense, space, intelligence, and civilian markets through systems integration and IT services.",
+    "logo_url": null,
+    "website_url": "https://www.saic.com",
+    "careers_url": "https://jobs.saic.com",
+    "headquarters": "Reston, VA",
+    "employee_count": "26,000+",
+    "founded_year": 2013,
+    "stock_symbol": "SAIC",
+    "domains": [
+      "IT/Comms",
+      "Engineering",
+      "Intel",
+      "Space"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:09:41.121902+00:00",
+    "updated_at": "2025-12-10T16:06:36.550012+00:00"
+  },
+  {
+    "id": "e50a4754-3ecb-43a9-b465-7c900337e4dd",
+    "slug": "peraton",
+    "name": "Peraton",
+    "summary": "Mission capability integrator specializing in space, intel, cyber, and mission support.",
+    "description": "Peraton is a national security company that delivers mission-critical solutions across defense, intelligence, space, homeland security, and federal civilian markets.",
+    "logo_url": null,
+    "website_url": "https://www.peraton.com",
+    "careers_url": "https://careers.peraton.com",
+    "headquarters": "Herndon, VA",
+    "employee_count": "14,000+",
+    "founded_year": 2017,
+    "stock_symbol": null,
+    "domains": [
+      "Intel",
+      "Cyber",
+      "Space",
+      "Mission Support"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:09:40.982387+00:00",
+    "updated_at": "2025-12-10T16:06:36.550012+00:00"
+  },
+  {
+    "id": "11111111-1111-1111-1111-111111111111",
+    "slug": "lockheed-martin",
+    "name": "Lockheed Martin",
+    "summary": "Global aerospace, defense, and security leader",
+    "description": "Lockheed Martin is a global security and aerospace company principally engaged in the research, design, development, manufacture, integration, and sustainment of advanced technology systems.",
+    "logo_url": "/logos/companies/lockheed-martin.svg",
+    "website_url": "https://www.lockheedmartin.com",
+    "careers_url": "https://www.lockheedmartin.com/careers",
+    "headquarters": "Bethesda, MD",
+    "employee_count": "100,000+",
+    "founded_year": 1995,
+    "stock_symbol": "LMT",
+    "domains": [
+      "Aerospace",
+      "Cyber",
+      "Missiles",
+      "Space"
+    ],
+    "theaters": [
+      "CONUS",
+      "EUCOM",
+      "PACOM",
+      "CENTCOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-11-21T19:20:39.6049+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "22222222-2222-2222-2222-222222222222",
+    "slug": "raytheon",
+    "name": "Raytheon Technologies",
+    "summary": "Defense and intelligence solutions provider",
+    "description": "Raytheon Technologies Corporation is an aerospace and defense conglomerate providing advanced systems and services for commercial, military, and government customers worldwide.",
+    "logo_url": "/logos/companies/raytheon.svg",
+    "website_url": "https://www.rtx.com",
+    "careers_url": "https://careers.rtx.com",
+    "headquarters": "Arlington, VA",
+    "employee_count": "180,000+",
+    "founded_year": 2020,
+    "stock_symbol": "RTX",
+    "domains": [
+      "Missiles",
+      "Cyber",
+      "Intelligence",
+      "Space"
+    ],
+    "theaters": [
+      "CONUS",
+      "EUCOM",
+      "CENTCOM",
+      "PACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-11-21T19:20:39.6049+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "33333333-3333-3333-3333-333333333333",
+    "slug": "northrop-grumman",
+    "name": "Northrop Grumman",
+    "summary": "Aerospace and defense technology company",
+    "description": "Northrop Grumman is a leading global aerospace and defense technology company providing innovative systems, products and solutions in autonomous systems, cyber, C4ISR, space, strike, and logistics.",
+    "logo_url": "/logos/companies/northrop-grumman.svg",
+    "website_url": "https://www.northropgrumman.com",
+    "careers_url": "https://www.northropgrumman.com/careers",
+    "headquarters": "Falls Church, VA",
+    "employee_count": "90,000+",
+    "founded_year": 1994,
+    "stock_symbol": "NOC",
+    "domains": [
+      "Aerospace",
+      "Cyber",
+      "Space",
+      "Intelligence"
+    ],
+    "theaters": [
+      "CONUS",
+      "EUCOM",
+      "PACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-11-21T19:20:39.6049+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "44444444-4444-4444-4444-444444444444",
+    "slug": "general-dynamics",
+    "name": "General Dynamics",
+    "summary": "Defense and aerospace systems manufacturer",
+    "description": "General Dynamics is a global aerospace and defense company offering a broad portfolio of products and services in business aviation, combat vehicles, weapons systems, munitions, and shipbuilding.",
+    "logo_url": "/logos/companies/general-dynamics.jpg",
+    "website_url": "https://www.gd.com",
+    "careers_url": "https://www.gd.com/careers",
+    "headquarters": "Reston, VA",
+    "employee_count": "100,000+",
+    "founded_year": 1952,
+    "stock_symbol": "GD",
+    "domains": [
+      "IT",
+      "Combat Systems",
+      "Shipbuilding",
+      "Aviation"
+    ],
+    "theaters": [
+      "CONUS",
+      "EUCOM",
+      "CENTCOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-11-21T19:20:39.6049+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "55555555-5555-5555-5555-555555555555",
+    "slug": "booz-allen",
+    "name": "Booz Allen Hamilton",
+    "summary": "Management and technology consulting firm",
+    "description": "Booz Allen Hamilton provides management and technology consulting services to the U.S. government in defense, intelligence, and civil markets, as well as to major corporations, institutions, and not-for-profit organizations.",
+    "logo_url": "/logos/companies/booz-allen.png",
+    "website_url": "https://www.boozallen.com",
+    "careers_url": "https://careers.boozallen.com",
+    "headquarters": "McLean, VA",
+    "employee_count": "30,000+",
+    "founded_year": 1914,
+    "stock_symbol": "BAH",
+    "domains": [
+      "Cyber",
+      "Intelligence",
+      "Analytics",
+      "Engineering"
+    ],
+    "theaters": [
+      "CONUS",
+      "CENTCOM",
+      "EUCOM",
+      "PACOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-11-21T19:20:39.6049+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "66666666-6666-6666-6666-666666666666",
+    "slug": "leidos",
+    "name": "Leidos",
+    "summary": "Science and technology solutions leader",
+    "description": "Leidos is a Fortune 500 information technology, engineering, and science solutions and services leader working to solve the world's toughest challenges in the defense, intelligence, civil, and health markets.",
+    "logo_url": "/logos/companies/leidos.png",
+    "website_url": "https://www.leidos.com",
+    "careers_url": "https://careers.leidos.com",
+    "headquarters": "Reston, VA",
+    "employee_count": "45,000+",
+    "founded_year": 2013,
+    "stock_symbol": "LDOS",
+    "domains": [
+      "IT",
+      "Cyber",
+      "Engineering",
+      "Intelligence"
+    ],
+    "theaters": [
+      "CONUS",
+      "CENTCOM",
+      "EUCOM",
+      "AFRICOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-11-21T19:20:39.6049+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "0e5bc771-4387-47a8-916a-1396bae0a69e",
+    "slug": "parsons",
+    "name": "Parsons Corporation",
+    "summary": "Technology-focused defense contractor providing cyber, intel, space, and infrastructure solutions.",
+    "description": "Parsons Corporation is a disruptive technology provider in the national security and critical infrastructure markets. The company delivers cyber and intelligence solutions, space and missile defense systems, and complex infrastructure projects for defense and intelligence customers. Parsons combines deep domain expertise with advanced technology capabilities to solve complex challenges across the defense enterprise.",
+    "logo_url": null,
+    "website_url": "https://www.parsons.com",
+    "careers_url": "https://www.parsons.com/careers",
+    "headquarters": "Centreville, VA",
+    "employee_count": "16,000+",
+    "founded_year": 1944,
+    "stock_symbol": "PSN",
+    "domains": [
+      "Cyber",
+      "Intel",
+      "Infrastructure",
+      "Space"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:33.212587+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "6bf162ac-a964-426d-9b75-70a8301bcc81",
+    "slug": "caci",
+    "name": "CACI International",
+    "summary": "Large defense contractor spanning intel, EW, cyber, and mission support with both CONUS and OCONUS operations.",
+    "description": "CACI International provides information solutions and services in support of national security missions and government transformation, specializing in intelligence, cyber, and IT.",
+    "logo_url": null,
+    "website_url": "https://www.caci.com",
+    "careers_url": "https://careers.caci.com",
+    "headquarters": "Reston, VA",
+    "employee_count": "23,000+",
+    "founded_year": 1962,
+    "stock_symbol": "CACI",
+    "domains": [
+      "Intel",
+      "Cyber",
+      "Mission Support",
+      "EW"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "EUCOM",
+      "NORTHCOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:09:40.416382+00:00",
+    "updated_at": "2025-12-10T16:06:36.550012+00:00"
+  },
+  {
+    "id": "7e9f795c-11ce-4325-85d0-a8c2e917c376",
+    "slug": "boeing-defense",
+    "name": "Boeing Defense",
+    "summary": "Boeing Defense, Space & Security provides military aircraft, satellites, weapons, and cybersecurity solutions for DoD and allied nations.",
+    "description": "Boeing Defense, Space & Security designs, builds, and supports military aircraft, satellites, weapons, and advanced technology systems for global defense customers.",
+    "logo_url": null,
+    "website_url": "https://www.boeing.com/defense",
+    "careers_url": "https://jobs.boeing.com",
+    "headquarters": "Arlington, VA",
+    "employee_count": "140,000+",
+    "founded_year": 1916,
+    "stock_symbol": "BA",
+    "domains": [
+      "Aerospace",
+      "Defense Systems",
+      "Cybersecurity"
+    ],
+    "theaters": [
+      "CONUS",
+      "EUCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T23:40:27.083839+00:00",
+    "updated_at": "2025-12-10T16:06:26.522772+00:00"
+  },
+  {
+    "id": "ac83f9da-1a99-41eb-aa62-816b0634fd35",
+    "slug": "amentum",
+    "name": "Amentum",
+    "summary": "Large government services contractor supporting logistics, aviation, intel, and technical operations worldwide.",
+    "description": "Amentum is a global leader in advanced engineering and technology solutions, providing mission-critical services across defense, intelligence, and civilian markets.",
+    "logo_url": null,
+    "website_url": "https://www.amentum.com",
+    "careers_url": "https://careers.amentum.com",
+    "headquarters": "Germantown, MD",
+    "employee_count": "50,000+",
+    "founded_year": 2020,
+    "stock_symbol": null,
+    "domains": [
+      "IT/Comms",
+      "Aviation",
+      "Logistics",
+      "Intel"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "EUCOM",
+      "INDOPACOM",
+      "AFRICOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:09:40.031482+00:00",
+    "updated_at": "2025-12-10T16:06:36.550012+00:00"
+  },
+  {
+    "id": "038cd49f-7d06-4a55-bd7c-17df9871850e",
+    "slug": "jacobs",
+    "name": "Jacobs",
+    "summary": "Global solutions company providing engineering, technical, and professional services to government clients.",
+    "description": "Jacobs is a global professional services firm providing engineering, technical, scientific, and project management solutions to government and commercial clients. In the defense sector, Jacobs supports environmental remediation, infrastructure modernization, and technical services for military installations. The company brings deep expertise in energy, water, and environmental programs critical to DoD sustainability initiatives.",
+    "logo_url": null,
+    "website_url": "https://www.jacobs.com",
+    "careers_url": "https://careers.jacobs.com",
+    "headquarters": "Dallas, TX",
+    "employee_count": "60,000+",
+    "founded_year": 1947,
+    "stock_symbol": "J",
+    "domains": [
+      "Engineering",
+      "IT/Comms",
+      "Environmental",
+      "Intel"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:33.304265+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "0729f457-96bb-426e-a060-21b5ecb9215b",
+    "slug": "accenture-federal",
+    "name": "Accenture Federal Services",
+    "summary": "Federal arm of Accenture providing consulting, technology, and operations services to defense agencies.",
+    "description": "Accenture Federal Services is the U.S. federal subsidiary of Accenture, providing strategy, consulting, technology, and operations services exclusively to federal agencies. The company helps defense and national security clients modernize IT systems, implement cloud solutions, and leverage emerging technologies including AI and machine learning to improve mission outcomes and operational efficiency.",
+    "logo_url": null,
+    "website_url": "https://www.accenture.com/us-en/industries/afs-index",
+    "careers_url": "https://www.accenture.com/us-en/careers",
+    "headquarters": "Arlington, VA",
+    "employee_count": "12,000+",
+    "founded_year": 2002,
+    "stock_symbol": "ACN",
+    "domains": [
+      "IT/Comms",
+      "Consulting",
+      "Cloud",
+      "Analytics"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:33.47919+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "b67d49e1-99fb-4dde-95d4-7fc8c5915a6f",
+    "slug": "aar-corp",
+    "name": "AAR Corp",
+    "summary": "Aviation services company providing MRO, parts supply, and integrated solutions for military aircraft.",
+    "description": "AAR Corp is a leading provider of aviation services to commercial and government customers worldwide. The company delivers maintenance, repair, and overhaul (MRO) services, parts supply chain solutions, and integrated fleet management for military rotary and fixed-wing aircraft. AAR supports Army, Air Force, and Navy aviation programs at locations across CENTCOM, EUCOM, and INDOPACOM.",
+    "logo_url": null,
+    "website_url": "https://www.aarcorp.com",
+    "careers_url": "https://www.aarcorp.com/careers",
+    "headquarters": "Wood Dale, IL",
+    "employee_count": "6,000+",
+    "founded_year": 1951,
+    "stock_symbol": "AIR",
+    "domains": [
+      "Aviation",
+      "Logistics",
+      "MRO"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "EUCOM",
+      "INDOPACOM",
+      "AFRICOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:33.682271+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "f2210986-c4ca-4b54-9115-81359c79f62b",
+    "slug": "sierra-nevada",
+    "name": "Sierra Nevada Corporation",
+    "summary": "Aerospace and defense company developing aircraft, space systems, and electronic warfare solutions.",
+    "description": "Sierra Nevada Corporation (SNC) is a privately held aerospace and defense company that develops and manufactures aircraft, spacecraft, propulsion systems, and electronics. SNC is known for the Dream Chaser spaceplane and provides electronic warfare systems, aircraft modifications, and ISR solutions to the U.S. military. The company supports special operations aviation programs and space-based national security missions.",
+    "logo_url": null,
+    "website_url": "https://www.sncorp.com",
+    "careers_url": "https://www.sncorp.com/careers",
+    "headquarters": "Sparks, NV",
+    "employee_count": "4,500+",
+    "founded_year": 1963,
+    "stock_symbol": null,
+    "domains": [
+      "Aviation",
+      "Space",
+      "EW",
+      "ISR"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:33.863339+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "195a52f4-d73b-45b4-9c42-9b93a63da86c",
+    "slug": "l3harris",
+    "name": "L3Harris Technologies",
+    "summary": "Defense technology company delivering communications, sensors, and ISR systems for military customers.",
+    "description": "L3Harris Technologies is a global aerospace and defense technology company delivering end-to-end solutions that meet customers' mission-critical needs. The company provides advanced defense and commercial technologies across air, land, sea, space, and cyber domains. L3Harris is known for tactical radios, night vision systems, ISR platforms, and space-based sensors deployed with U.S. and allied forces worldwide.",
+    "logo_url": null,
+    "website_url": "https://www.l3harris.com",
+    "careers_url": "https://careers.l3harris.com",
+    "headquarters": "Melbourne, FL",
+    "employee_count": "47,000+",
+    "founded_year": 2019,
+    "stock_symbol": "LHX",
+    "domains": [
+      "Communications",
+      "ISR",
+      "Space",
+      "Aviation"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM",
+      "INDOPACOM",
+      "AFRICOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:34.05528+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "76b8fc72-cdd6-41e8-8fd1-dd580257aeb6",
+    "slug": "viasat",
+    "name": "Viasat Government",
+    "summary": "Satellite communications company providing secure, high-capacity connectivity for military operations.",
+    "description": "Viasat Government Systems provides secure satellite communications, cybersecurity, and information assurance solutions to military and government customers. The company delivers high-capacity bandwidth for tactical operations, including Ka-band satellite services and encrypted communications terminals. Viasat supports deployed forces with mobile SATCOM solutions enabling real-time video, voice, and data connectivity in austere environments.",
+    "logo_url": null,
+    "website_url": "https://www.viasat.com/government",
+    "careers_url": "https://careers.viasat.com",
+    "headquarters": "Carlsbad, CA",
+    "employee_count": "6,000+",
+    "founded_year": 1986,
+    "stock_symbol": "VSAT",
+    "domains": [
+      "Communications",
+      "Space",
+      "Cyber",
+      "ISR"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "EUCOM",
+      "INDOPACOM",
+      "AFRICOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:34.258789+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "5bb7ec2e-0e95-4234-a4bf-04f4400fc05d",
+    "slug": "palantir",
+    "name": "Palantir Technologies",
+    "summary": "Software company providing data analytics and AI platforms for defense and intelligence operations.",
+    "description": "Palantir Technologies builds software platforms for data integration, analysis, and operations management used by defense and intelligence organizations worldwide. The company's Gotham platform supports intelligence analysis and counterterrorism operations, while Foundry enables operational decision-making. Palantir deploys forward personnel and provides mission support to U.S. and allied forces conducting operations in contested environments.",
+    "logo_url": null,
+    "website_url": "https://www.palantir.com",
+    "careers_url": "https://www.palantir.com/careers",
+    "headquarters": "Denver, CO",
+    "employee_count": "3,500+",
+    "founded_year": 2003,
+    "stock_symbol": "PLTR",
+    "domains": [
+      "Analytics",
+      "AI/ML",
+      "Intel",
+      "C2"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:34.480018+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "97bcee92-dec7-4cf5-8fbd-58c0f92c9651",
+    "slug": "v2x",
+    "name": "V2X",
+    "summary": "Mission solutions provider specializing in base operations, aviation services, and technical support for DoD customers.",
+    "description": "V2X is a leading provider of critical mission solutions formed from the merger of Vectrus and Vertex. The company delivers comprehensive base operations support, aviation maintenance, supply chain management, and IT services across all geographic combatant commands. V2X supports military installations worldwide with life support services, facilities management, and technical expertise essential to sustaining forward-deployed forces.",
+    "logo_url": null,
+    "website_url": "https://www.gov2x.com",
+    "careers_url": "https://careers.gov2x.com",
+    "headquarters": "Colorado Springs, CO",
+    "employee_count": "14,000+",
+    "founded_year": 2022,
+    "stock_symbol": "VVX",
+    "domains": [
+      "LOGCAP/Base Ops",
+      "Aviation",
+      "IT/Comms",
+      "Logistics"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "EUCOM",
+      "INDOPACOM",
+      "AFRICOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:32.992738+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "8d9b7c79-3a2d-449a-93d4-fd87e04d1a3e",
+    "slug": "fluor",
+    "name": "Fluor Corporation",
+    "summary": "Global engineering and construction company with significant defense contracts including LOGCAP and base operations.",
+    "description": "Fluor Corporation is one of the world's largest publicly traded engineering, procurement, construction, and maintenance companies. In the defense sector, Fluor holds major LOGCAP contracts providing base operations support, construction, and logistics services at military installations across the Middle East, Europe, and Asia. The company employs thousands of personnel in contingency operations supporting U.S. and coalition forces.",
+    "logo_url": null,
+    "website_url": "https://www.fluor.com",
+    "careers_url": "https://careers.fluor.com",
+    "headquarters": "Irving, TX",
+    "employee_count": "40,000+",
+    "founded_year": 1912,
+    "stock_symbol": "FLR",
+    "domains": [
+      "Engineering",
+      "LOGCAP/Base Ops",
+      "Construction",
+      "Logistics"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "EUCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:33.120119+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "6a146a27-47d1-4ac8-9b25-0ae16cf90d5f",
+    "slug": "gdit",
+    "name": "General Dynamics IT",
+    "summary": "IT and mission support arm of General Dynamics delivering enterprise IT, cloud, and cyber solutions.",
+    "description": "General Dynamics Information Technology (GDIT) is one of the largest IT services providers to the U.S. government. The company delivers enterprise IT modernization, cloud migration, artificial intelligence, and cybersecurity solutions across defense, intelligence, and federal civilian agencies. GDIT supports critical national security missions with secure communications, data analytics, and mission applications deployed worldwide.",
+    "logo_url": null,
+    "website_url": "https://www.gdit.com",
+    "careers_url": "https://www.gdit.com/careers",
+    "headquarters": "Falls Church, VA",
+    "employee_count": "30,000+",
+    "founded_year": 1952,
+    "stock_symbol": "GD",
+    "domains": [
+      "IT/Comms",
+      "Cyber",
+      "Cloud",
+      "Mission Support"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:33.395903+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "5ad6912b-faa6-4331-9693-70536b097975",
+    "slug": "cgi-federal",
+    "name": "CGI Federal",
+    "summary": "IT and business consulting services provider supporting defense, intel, and civilian federal agencies.",
+    "description": "CGI Federal is the U.S. federal arm of CGI Group, delivering IT and business consulting services to defense, intelligence, and civilian agencies. The company provides systems integration, managed services, and business process solutions that help federal clients modernize operations. CGI Federal supports critical defense programs with secure application development, data management, and cloud services.",
+    "logo_url": null,
+    "website_url": "https://www.cgi.com/us/en-us/federal",
+    "careers_url": "https://www.cgi.com/us/en-us/careers",
+    "headquarters": "Fairfax, VA",
+    "employee_count": "8,000+",
+    "founded_year": 1976,
+    "stock_symbol": "GIB",
+    "domains": [
+      "IT/Comms",
+      "Consulting",
+      "Cyber",
+      "Analytics"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:33.583239+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "bd0b158c-6d42-40ca-aedb-c36d76cec48c",
+    "slug": "mag-aerospace",
+    "name": "MAG Aerospace",
+    "summary": "ISR and aviation services company providing manned and unmanned aircraft operations and mission support.",
+    "description": "MAG Aerospace is a leader in providing manned and unmanned ISR services, aviation operations, and technical services to defense and intelligence customers. The company operates intelligence, surveillance, and reconnaissance platforms worldwide, delivering full-motion video, signals intelligence, and tactical overwatch capabilities. MAG supports special operations and conventional forces with deployed aviation assets and mission support personnel.",
+    "logo_url": null,
+    "website_url": "https://www.magaero.com",
+    "careers_url": "https://www.magaero.com/careers",
+    "headquarters": "Fairfax, VA",
+    "employee_count": "2,500+",
+    "founded_year": 1994,
+    "stock_symbol": null,
+    "domains": [
+      "Aviation",
+      "ISR",
+      "Training",
+      "Mission Support"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "AFRICOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:33.770607+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "e8e36290-7567-40a3-94a5-2e4db6ecc211",
+    "slug": "bae-systems",
+    "name": "BAE Systems",
+    "summary": "Global defense company providing combat vehicles, electronics, and cyber solutions.",
+    "description": "BAE Systems, Inc. is the U.S. subsidiary of BAE Systems plc, one of the world's largest defense contractors. The company designs, develops, and manufactures combat vehicles, naval ships, munitions, and electronic systems. BAE Systems provides field service representatives and technical support for major weapons programs worldwide, including the M109 Paladin, Bradley Fighting Vehicle, and various naval combat systems.",
+    "logo_url": null,
+    "website_url": "https://www.baesystems.com",
+    "careers_url": "https://jobs.baesystems.com",
+    "headquarters": "Falls Church, VA",
+    "employee_count": "35,000+",
+    "founded_year": 1999,
+    "stock_symbol": "BAESY",
+    "domains": [
+      "Combat Systems",
+      "Cyber",
+      "Electronics",
+      "Intel"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "CENTCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:18:33.968215+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "6d657a48-8a25-47f9-8b0f-29a12a760369",
+    "slug": "leonardo-drs",
+    "name": "Leonardo DRS",
+    "summary": "Defense electronics company providing sensing, network computing, and force protection solutions.",
+    "description": "Leonardo DRS is a prime contractor and supplier of integrated products, services, and support to military forces, intelligence agencies, and defense contractors worldwide. The company specializes in advanced sensing, network computing, force protection, and electric power and propulsion systems. Leonardo DRS provides critical components and systems for ground combat vehicles, naval vessels, and tactical communications.",
+    "logo_url": null,
+    "website_url": "https://www.leonardodrs.com",
+    "careers_url": "https://www.leonardodrs.com/careers",
+    "headquarters": "Arlington, VA",
+    "employee_count": "7,500+",
+    "founded_year": 1968,
+    "stock_symbol": "DRS",
+    "domains": [
+      "Electronics",
+      "Sensors",
+      "Force Protection",
+      "Naval"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "EUCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:34.156133+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "9208d40f-3ea3-4408-9cde-6f1bc8440270",
+    "slug": "anduril",
+    "name": "Anduril Industries",
+    "summary": "Defense technology company building autonomous systems, AI-powered sensors, and C2 platforms.",
+    "description": "Anduril Industries is a defense technology company that builds advanced autonomous systems and AI-powered solutions for national security. The company's products include the Lattice AI platform for command and control, autonomous sentry towers, counter-drone systems, and underwater autonomous vehicles. Anduril represents a new generation of defense contractors focused on software-defined capabilities and rapid technology iteration.",
+    "logo_url": null,
+    "website_url": "https://www.anduril.com",
+    "careers_url": "https://www.anduril.com/careers",
+    "headquarters": "Costa Mesa, CA",
+    "employee_count": "2,500+",
+    "founded_year": 2017,
+    "stock_symbol": null,
+    "domains": [
+      "Autonomous Systems",
+      "AI/ML",
+      "C2",
+      "Counter-UAS"
+    ],
+    "theaters": [
+      "NORTHCOM",
+      "INDOPACOM",
+      "CENTCOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:34.36401+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "a928db88-ecde-43f3-a684-15697c222c96",
+    "slug": "constellis",
+    "name": "Constellis",
+    "summary": "Security services company providing protective security, training, and risk management.",
+    "description": "Constellis is a leading provider of risk management, protective security, and mission support services to government and commercial clients operating in complex and high-threat environments. The company was formed through the merger of Triple Canopy and Academi (formerly Blackwater). Constellis provides static and mobile security, training, and advisory services supporting diplomatic facilities, military bases, and critical infrastructure worldwide.",
+    "logo_url": null,
+    "website_url": "https://www.constellis.com",
+    "careers_url": "https://www.constellis.com/careers",
+    "headquarters": "Herndon, VA",
+    "employee_count": "5,000+",
+    "founded_year": 2010,
+    "stock_symbol": null,
+    "domains": [
+      "Security",
+      "Training",
+      "Risk Management",
+      "Force Protection"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "AFRICOM",
+      "EUCOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:34.58064+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "321bfd8b-d06c-4182-8e72-d5106dc9d764",
+    "slug": "sosi",
+    "name": "SOSi",
+    "summary": "Mission support company providing linguist services, intel support, and IT solutions.",
+    "description": "SOS International LLC (SOSi) provides language services, intelligence analysis, and IT solutions to defense and intelligence customers. The company is one of the largest providers of linguist and cultural advisor services to the U.S. military, supporting operations across CENTCOM, AFRICOM, and other theaters. SOSi delivers document and media exploitation, human intelligence support, and technical translation services essential to military and intelligence operations.",
+    "logo_url": null,
+    "website_url": "https://www.sosi.com",
+    "careers_url": "https://www.sosi.com/careers",
+    "headquarters": "Reston, VA",
+    "employee_count": "3,000+",
+    "founded_year": 1989,
+    "stock_symbol": null,
+    "domains": [
+      "Linguist Services",
+      "Intel",
+      "IT/Comms",
+      "Mission Support"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "AFRICOM",
+      "EUCOM",
+      "INDOPACOM"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T19:18:34.670113+00:00",
+    "updated_at": "2025-12-10T16:06:13.303777+00:00"
+  },
+  {
+    "id": "51ec6e3e-240c-42f6-a594-448a980abc01",
+    "slug": "aws",
+    "name": "Amazon Web Services",
+    "summary": "AWS GovCloud provides secure cloud computing services to US government agencies, contractors, and DoD with FedRAMP High and IL5 authorization.",
+    "description": "Amazon Web Services provides cloud computing services to government and defense customers through its AWS GovCloud regions, supporting classified and unclassified workloads.",
+    "logo_url": null,
+    "website_url": "https://aws.amazon.com/government-education/",
+    "careers_url": "https://www.amazon.jobs/en/teams/aws-government",
+    "headquarters": "Seattle, WA",
+    "employee_count": "1,500,000+",
+    "founded_year": 2006,
+    "stock_symbol": "AMZN",
+    "domains": [
+      "Cloud Computing",
+      "IT Infrastructure",
+      "Cybersecurity"
+    ],
+    "theaters": [
+      "CONUS"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T23:40:27.083839+00:00",
+    "updated_at": "2025-12-10T16:06:26.522772+00:00"
+  },
+  {
+    "id": "0a8443ed-126b-4bcd-a579-cce360b7efbe",
+    "slug": "microsoft-federal",
+    "name": "Microsoft Federal",
+    "summary": "Microsoft Federal delivers Azure Government cloud, Microsoft 365, and AI/ML solutions to defense and federal agencies with high security compliance.",
+    "description": "Microsoft Federal provides secure cloud, AI, and enterprise solutions to federal agencies and defense organizations through Azure Government and Microsoft 365 GCC.",
+    "logo_url": null,
+    "website_url": "https://www.microsoft.com/en-us/federal",
+    "careers_url": "https://careers.microsoft.com",
+    "headquarters": "Redmond, WA",
+    "employee_count": "220,000+",
+    "founded_year": 2018,
+    "stock_symbol": "MSFT",
+    "domains": [
+      "Cloud Computing",
+      "Enterprise Software",
+      "AI/ML"
+    ],
+    "theaters": [
+      "CONUS"
+    ],
+    "is_prime_contractor": false,
+    "created_at": "2025-12-08T23:40:27.083839+00:00",
+    "updated_at": "2025-12-10T16:06:26.522772+00:00"
+  },
+  {
+    "id": "ba98ccad-0ac9-4733-b824-a40cfad63ea4",
+    "slug": "kbr",
+    "name": "KBR",
+    "summary": "Global engineering, construction, and government services contractor with extensive OCONUS base operations and technical support.",
+    "description": "KBR delivers science, technology, and engineering solutions to governments and companies around the world, supporting defense, space, and energy programs.",
+    "logo_url": null,
+    "website_url": "https://www.kbr.com",
+    "careers_url": "https://careers.kbr.com",
+    "headquarters": "Houston, TX",
+    "employee_count": "25,000+",
+    "founded_year": 1901,
+    "stock_symbol": "KBR",
+    "domains": [
+      "IT/Comms",
+      "LOGCAP/Base Ops",
+      "Engineering",
+      "Logistics"
+    ],
+    "theaters": [
+      "CENTCOM",
+      "EUCOM",
+      "INDOPACOM",
+      "AFRICOM"
+    ],
+    "is_prime_contractor": true,
+    "created_at": "2025-12-08T19:09:39.699699+00:00",
+    "updated_at": "2025-12-10T16:06:36.550012+00:00"
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "id": "8a88fc32-0542-4bc0-82dc-f998f4e2994b",
+    "company_id": "55555555-5555-5555-5555-555555555555",
+    "tagline": "Empowering people to change the world",
+    "display_order": 3,
+    "starts_at": "2026-01-03T23:31:52.753418+00:00",
+    "ends_at": "2026-04-03T23:31:52.753418+00:00",
+    "is_pinned": false,
+    "impressions": 45,
+    "clicks": 0,
+    "created_at": "2026-01-03T23:31:52.753418+00:00",
+    "updated_at": "2026-01-04T18:59:14.424199+00:00"
+  },
+  {
+    "id": "b1b48b29-034b-49c1-8d8d-933fa4f14ccc",
+    "company_id": "11111111-1111-1111-1111-111111111111",
+    "tagline": "Pioneering the future of aerospace and defense",
+    "display_order": 1,
+    "starts_at": "2026-01-03T23:31:52.753418+00:00",
+    "ends_at": "2026-04-03T23:31:52.753418+00:00",
+    "is_pinned": true,
+    "impressions": 45,
+    "clicks": 1,
+    "created_at": "2026-01-03T23:31:52.753418+00:00",
+    "updated_at": "2026-01-04T18:59:14.425901+00:00"
+  },
+  {
+    "id": "d44792f2-e7b6-44ea-8eff-fd27c0f7d951",
+    "company_id": "66666666-6666-6666-6666-666666666666",
+    "tagline": "Making the world safer, healthier, and more efficient",
+    "display_order": 4,
+    "starts_at": "2026-01-03T23:31:52.753418+00:00",
+    "ends_at": "2026-04-03T23:31:52.753418+00:00",
+    "is_pinned": false,
+    "impressions": 45,
+    "clicks": 0,
+    "created_at": "2026-01-03T23:31:52.753418+00:00",
+    "updated_at": "2026-01-04T18:59:14.437226+00:00"
+  },
+  {
+    "id": "4f67a138-cb24-48fc-aec6-612dcebcb9c6",
+    "company_id": "22222222-2222-2222-2222-222222222222",
+    "tagline": "Making the world safer through innovation",
+    "display_order": 2,
+    "starts_at": "2026-01-03T23:31:52.753418+00:00",
+    "ends_at": "2026-04-03T23:31:52.753418+00:00",
+    "is_pinned": true,
+    "impressions": 45,
+    "clicks": 0,
+    "created_at": "2026-01-03T23:31:52.753418+00:00",
+    "updated_at": "2026-01-04T18:59:14.433546+00:00"
+  }
+]

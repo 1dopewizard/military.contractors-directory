@@ -1,0 +1,175 @@
+{
+  "jobs": {
+    "list": {
+      "data": [
+        {
+          "id": "job-001",
+          "title": "Senior Security Analyst",
+          "company": "Booz Allen Hamilton",
+          "location": "McLean, VA",
+          "location_type": "CONUS",
+          "salary_min": 120000,
+          "salary_max": 180000,
+          "currency": "USD",
+          "clearance_required": "TS/SCI",
+          "description": "Lead critical infrastructure protection assessments with TS/SCI clearance. Mentor junior analysts and coordinate with mission partners on defensive posture improvements.",
+          "snippet": "TS/SCI + sponsor-ready role focused on critical infrastructure protection.",
+          "requirements": ["TS/SCI eligible", "8570 IAT II", "5+ years cyber defense"],
+          "posted_at": "2024-01-15T10:00:00Z",
+          "formatted_salary": "$120K - $180K USD",
+          "formatted_date": "2 days ago"
+        },
+        {
+          "id": "job-002",
+          "title": "Mission Systems Software Engineer",
+          "company": "Lockheed Martin",
+          "location": "Fort Worth, TX",
+          "location_type": "CONUS",
+          "salary_min": 95000,
+          "salary_max": 142000,
+          "currency": "USD",
+          "clearance_required": "Secret",
+          "description": "Develop avionics mission software for fifth-generation airframes. Collaborate with cross-functional teams to deliver flight-certified capabilities with strict security controls.",
+          "snippet": "Secret clearance and C++/ADA stack on next-gen fighter platforms.",
+          "requirements": ["Secret clearance", "C++/Ada", "Agile delivery"],
+          "posted_at": "2024-01-13T10:00:00Z",
+          "formatted_salary": "$95K - $142K USD",
+          "formatted_date": "4 days ago"
+        },
+        {
+          "id": "job-003",
+          "title": "OCONUS Program Manager — Integrated Defense",
+          "company": "Northrop Grumman",
+          "location": "Riyadh, Saudi Arabia",
+          "location_type": "OCONUS",
+          "salary_min": 150000,
+          "salary_max": 205000,
+          "currency": "USD",
+          "clearance_required": "Secret",
+          "description": "Oversee international defense portfolio delivery with multinational stakeholders. Own contract execution, risk management, and in-country partner coordination.",
+          "snippet": "International assignment with rotational travel and premium allowances.",
+          "requirements": ["Secret clearance", "PMP or DAWIA III", "OCONUS experience"],
+          "posted_at": "2024-01-11T10:00:00Z",
+          "formatted_salary": "$150K - $205K USD",
+          "formatted_date": "6 days ago"
+        },
+        {
+          "id": "job-004",
+          "title": "Remote DoD Systems Administrator",
+          "company": "CACI",
+          "location": "Remote — United States",
+          "location_type": "Remote",
+          "salary_min": 82000,
+          "salary_max": 110000,
+          "currency": "USD",
+          "clearance_required": "Secret",
+          "description": "Maintain distributed DoD network enclaves with zero trust tooling. Schedule patch cycles, respond to HBSS events, and support accreditation packages.",
+          "snippet": "Remote-friendly role with Security+ and ITIL bonus.",
+          "requirements": ["Security+ CE", "Linux/Windows hardening", "HBSS experience"],
+          "posted_at": "2024-01-14T10:00:00Z",
+          "formatted_salary": "$82K - $110K USD",
+          "formatted_date": "3 days ago"
+        },
+        {
+          "id": "job-005",
+          "title": "Intelligence Analyst",
+          "company": "General Dynamics",
+          "location": "Fort Meade, MD",
+          "location_type": "CONUS",
+          "salary_min": 100000,
+          "salary_max": 145000,
+          "currency": "USD",
+          "clearance_required": "TS/SCI",
+          "description": "Support intelligence operations with analysis and reporting. TS/SCI with poly required. Work with cutting-edge tools and collaborate with interagency partners.",
+          "snippet": "Analytical role supporting national security missions.",
+          "requirements": ["TS/SCI with poly", "Intelligence analysis experience", "Strong analytical skills"],
+          "posted_at": "2024-01-10T10:00:00Z",
+          "formatted_salary": "$100K - $145K USD",
+          "formatted_date": "7 days ago"
+        }
+      ],
+      "error": null,
+      "count": 5
+    },
+    "single": {
+      "data": {
+        "id": "job-001",
+        "title": "Senior Security Analyst",
+        "company": "Booz Allen Hamilton",
+        "location": "McLean, VA",
+        "location_type": "CONUS",
+        "salary_min": 120000,
+        "salary_max": 180000,
+        "currency": "USD",
+        "clearance_required": "TS/SCI",
+        "description": "Lead critical infrastructure protection assessments with TS/SCI clearance. Mentor junior analysts and coordinate with mission partners on defensive posture improvements. Drive proactive hunt missions with DHS and interagency stakeholders. Design detection analytics and validation plans for emerging threats. Deliver executive-ready briefings with mission-aligned recommendations.",
+        "snippet": "TS/SCI + sponsor-ready role focused on critical infrastructure protection.",
+        "requirements": ["TS/SCI eligible", "8570 IAT II", "5+ years cyber defense", "Experience with MITRE ATT&CK", "Prior DHS or DoD hunt support"],
+        "responsibilities": [
+          "Drive proactive hunt missions with DHS and interagency stakeholders",
+          "Design detection analytics and validation plans for emerging threats",
+          "Deliver executive-ready briefings with mission-aligned recommendations"
+        ],
+        "tools_tech": ["Splunk", "Elastic", "MITRE Caldera", "Recorded Future"],
+        "posted_at": "2024-01-15T10:00:00Z",
+        "formatted_salary": "$120K - $180K USD",
+        "formatted_date": "2 days ago"
+      },
+      "error": null
+    },
+    "search": {
+      "data": [
+        {
+          "id": "job-001",
+          "title": "Senior Security Analyst",
+          "company": "Booz Allen Hamilton",
+          "location": "McLean, VA",
+          "location_type": "CONUS",
+          "salary_min": 120000,
+          "salary_max": 180000,
+          "currency": "USD",
+          "clearance_required": "TS/SCI",
+          "description": "Lead critical infrastructure protection assessments...",
+          "posted_at": "2024-01-15T10:00:00Z",
+          "formatted_salary": "$120K - $180K USD",
+          "formatted_date": "2 days ago"
+        },
+        {
+          "id": "job-005",
+          "title": "Intelligence Analyst",
+          "company": "General Dynamics",
+          "location": "Fort Meade, MD",
+          "location_type": "CONUS",
+          "salary_min": 100000,
+          "salary_max": 145000,
+          "currency": "USD",
+          "clearance_required": "TS/SCI",
+          "description": "Support intelligence operations with analysis and reporting...",
+          "posted_at": "2024-01-10T10:00:00Z",
+          "formatted_salary": "$100K - $145K USD",
+          "formatted_date": "7 days ago"
+        }
+      ],
+      "error": null,
+      "count": 2
+    }
+  },
+  "ingest": {
+    "success": {
+      "data": {
+        "id": "job-new-001",
+        "title": "Senior Security Analyst",
+        "company": "Booz Allen Hamilton",
+        "location": "McLean, VA",
+        "status": "pending_review",
+        "created_at": "2024-01-17T10:00:00Z"
+      },
+      "error": null
+    },
+    "error": {
+      "data": null,
+      "error": "Unauthorized: Invalid or missing API key"
+    }
+  }
+}
+

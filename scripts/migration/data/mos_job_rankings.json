@@ -1,0 +1,254 @@
+[
+  {
+    "mos_code": "2621",
+    "job_id": "3b83d537-f4aa-47d5-b2c9-849d8919c396",
+    "rank": 1,
+    "score": 0.6948,
+    "created_at": "2026-01-04T23:50:00.375231+00:00"
+  },
+  {
+    "mos_code": "2651",
+    "job_id": "70529ba4-a205-4bba-8f96-bb1073f44429",
+    "rank": 1,
+    "score": 0.6684,
+    "created_at": "2026-01-04T23:50:00.543803+00:00"
+  },
+  {
+    "mos_code": "184X",
+    "job_id": "a1ce7463-2caf-47a1-ad43-1f841f976a54",
+    "rank": 1,
+    "score": 0.7157,
+    "created_at": "2026-01-04T23:50:00.703068+00:00"
+  },
+  {
+    "mos_code": "CTR",
+    "job_id": "97d170be-9a3c-4428-a0a8-8fd751df5ca7",
+    "rank": 1,
+    "score": 0.641,
+    "created_at": "2026-01-04T23:50:00.868992+00:00"
+  },
+  {
+    "mos_code": "17SX",
+    "job_id": "cc059f6e-4255-4b6a-a9cc-01536ba67bac",
+    "rank": 1,
+    "score": 0.7279,
+    "created_at": "2026-01-04T23:50:01.005414+00:00"
+  },
+  {
+    "mos_code": "17SX",
+    "job_id": "a1ce7463-2caf-47a1-ad43-1f841f976a54",
+    "rank": 2,
+    "score": 0.6707,
+    "created_at": "2026-01-04T23:50:01.075863+00:00"
+  },
+  {
+    "mos_code": "17SX",
+    "job_id": "a42b1b13-d3d7-40dc-82f3-b5983bac6fc9",
+    "rank": 3,
+    "score": 0.6589,
+    "created_at": "2026-01-04T23:50:01.158663+00:00"
+  },
+  {
+    "mos_code": "17SX",
+    "job_id": "b3f30464-427c-4b91-baf5-333560c66ec0",
+    "rank": 4,
+    "score": 0.6307,
+    "created_at": "2026-01-04T23:50:01.231293+00:00"
+  },
+  {
+    "mos_code": "1B4X1",
+    "job_id": "a42b1b13-d3d7-40dc-82f3-b5983bac6fc9",
+    "rank": 1,
+    "score": 0.6589,
+    "created_at": "2026-01-04T23:50:01.399845+00:00"
+  },
+  {
+    "mos_code": "1B4X1",
+    "job_id": "29e8d9ed-7f4b-4c4c-8c30-58468ef97f52",
+    "rank": 2,
+    "score": 0.6372,
+    "created_at": "2026-01-04T23:50:01.48822+00:00"
+  },
+  {
+    "mos_code": "1C",
+    "job_id": "70529ba4-a205-4bba-8f96-bb1073f44429",
+    "rank": 1,
+    "score": 0.7584,
+    "created_at": "2026-01-04T23:50:01.685942+00:00"
+  },
+  {
+    "mos_code": "1720",
+    "job_id": "cc059f6e-4255-4b6a-a9cc-01536ba67bac",
+    "rank": 1,
+    "score": 0.7234,
+    "created_at": "2026-01-04T23:50:01.849882+00:00"
+  },
+  {
+    "mos_code": "CWT",
+    "job_id": "a42b1b13-d3d7-40dc-82f3-b5983bac6fc9",
+    "rank": 1,
+    "score": 0.6589,
+    "created_at": "2026-01-04T23:50:01.993413+00:00"
+  },
+  {
+    "mos_code": "R3",
+    "job_id": "3b83d537-f4aa-47d5-b2c9-849d8919c396",
+    "rank": 1,
+    "score": 0.6498,
+    "created_at": "2026-01-04T23:50:02.139637+00:00"
+  },
+  {
+    "mos_code": "781X",
+    "job_id": "3b83d537-f4aa-47d5-b2c9-849d8919c396",
+    "rank": 1,
+    "score": 0.6948,
+    "created_at": "2026-01-04T23:50:02.281574+00:00"
+  },
+  {
+    "mos_code": "1D7X1",
+    "job_id": "cc059f6e-4255-4b6a-a9cc-01536ba67bac",
+    "rank": 1,
+    "score": 0.7144,
+    "created_at": "2026-01-04T23:50:02.442533+00:00"
+  },
+  {
+    "mos_code": "1D7X1",
+    "job_id": "a42b1b13-d3d7-40dc-82f3-b5983bac6fc9",
+    "rank": 2,
+    "score": 0.6589,
+    "created_at": "2026-01-04T23:50:02.52225+00:00"
+  },
+  {
+    "mos_code": "1D7X1",
+    "job_id": "5474bb40-a0fe-4950-b373-9d3c26cefd26",
+    "rank": 3,
+    "score": 0.6547,
+    "created_at": "2026-01-04T23:50:02.593391+00:00"
+  },
+  {
+    "mos_code": "1D7X1",
+    "job_id": "29e8d9ed-7f4b-4c4c-8c30-58468ef97f52",
+    "rank": 4,
+    "score": 0.6507,
+    "created_at": "2026-01-04T23:50:02.67988+00:00"
+  },
+  {
+    "mos_code": "17A",
+    "job_id": "cc059f6e-4255-4b6a-a9cc-01536ba67bac",
+    "rank": 1,
+    "score": 0.7324,
+    "created_at": "2026-01-04T23:50:02.826602+00:00"
+  },
+  {
+    "mos_code": "17A",
+    "job_id": "5474bb40-a0fe-4950-b373-9d3c26cefd26",
+    "rank": 2,
+    "score": 0.6592,
+    "created_at": "2026-01-04T23:50:02.896359+00:00"
+  },
+  {
+    "mos_code": "1705",
+    "job_id": "a1ce7463-2caf-47a1-ad43-1f841f976a54",
+    "rank": 1,
+    "score": 0.8057,
+    "created_at": "2026-01-04T23:50:03.047176+00:00"
+  },
+  {
+    "mos_code": "1702",
+    "job_id": "cc059f6e-4255-4b6a-a9cc-01536ba67bac",
+    "rank": 1,
+    "score": 0.7234,
+    "created_at": "2026-01-04T23:50:03.216288+00:00"
+  },
+  {
+    "mos_code": "1702",
+    "job_id": "b3f30464-427c-4b91-baf5-333560c66ec0",
+    "rank": 2,
+    "score": 0.6307,
+    "created_at": "2026-01-04T23:50:03.283942+00:00"
+  },
+  {
+    "mos_code": "CG-CYB10",
+    "job_id": "a1ce7463-2caf-47a1-ad43-1f841f976a54",
+    "rank": 1,
+    "score": 0.7157,
+    "created_at": "2026-01-04T23:50:03.430922+00:00"
+  },
+  {
+    "mos_code": "255S",
+    "job_id": "a1ce7463-2caf-47a1-ad43-1f841f976a54",
+    "rank": 1,
+    "score": 0.7157,
+    "created_at": "2026-01-04T23:50:03.565228+00:00"
+  },
+  {
+    "mos_code": "T5",
+    "job_id": "3b83d537-f4aa-47d5-b2c9-849d8919c396",
+    "rank": 1,
+    "score": 0.6948,
+    "created_at": "2026-01-04T23:50:03.700141+00:00"
+  },
+  {
+    "mos_code": "CYBER_OPERATIONS",
+    "job_id": "29e8d9ed-7f4b-4c4c-8c30-58468ef97f52",
+    "rank": 1,
+    "score": 0.6372,
+    "created_at": "2026-01-04T23:50:03.859049+00:00"
+  },
+  {
+    "mos_code": "3D1X2",
+    "job_id": "734c512a-5460-4265-a986-9f0014dee0d4",
+    "rank": 1,
+    "score": 0.6445,
+    "created_at": "2026-01-04T23:50:04.021813+00:00"
+  },
+  {
+    "mos_code": "C2",
+    "job_id": "3b83d537-f4aa-47d5-b2c9-849d8919c396",
+    "rank": 1,
+    "score": 0.7848,
+    "created_at": "2026-01-04T23:50:04.155139+00:00"
+  },
+  {
+    "mos_code": "C2",
+    "job_id": "97d170be-9a3c-4428-a0a8-8fd751df5ca7",
+    "rank": 2,
+    "score": 0.686,
+    "created_at": "2026-01-04T23:50:04.222387+00:00"
+  },
+  {
+    "mos_code": "C2",
+    "job_id": "a42b1b13-d3d7-40dc-82f3-b5983bac6fc9",
+    "rank": 3,
+    "score": 0.6589,
+    "created_at": "2026-01-04T23:50:04.29743+00:00"
+  },
+  {
+    "mos_code": "C2",
+    "job_id": "5474bb40-a0fe-4950-b373-9d3c26cefd26",
+    "rank": 4,
+    "score": 0.6547,
+    "created_at": "2026-01-04T23:50:04.364756+00:00"
+  },
+  {
+    "mos_code": "170A",
+    "job_id": "a42b1b13-d3d7-40dc-82f3-b5983bac6fc9",
+    "rank": 1,
+    "score": 0.6589,
+    "created_at": "2026-01-04T23:50:04.513403+00:00"
+  },
+  {
+    "mos_code": "13SX",
+    "job_id": "70529ba4-a205-4bba-8f96-bb1073f44429",
+    "rank": 1,
+    "score": 0.6234,
+    "created_at": "2026-01-04T23:50:04.68205+00:00"
+  },
+  {
+    "mos_code": "17C",
+    "job_id": "a42b1b13-d3d7-40dc-82f3-b5983bac6fc9",
+    "rank": 1,
+    "score": 0.6589,
+    "created_at": "2026-01-04T23:50:04.809344+00:00"
+  }
+]

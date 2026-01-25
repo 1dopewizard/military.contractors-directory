@@ -1,0 +1,36 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Large binary files
+*.pdf
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Factory AI MCP config (contains secrets)
+.factory/mcp.json
+
+# SQLite databases (Better Auth)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm

@@ -1,0 +1,202 @@
+[
+  {
+    "id": "6e5a719b-8058-4aa0-ab41-44549354fda2",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "created_at": "2025-11-21T19:23:55.09126+00:00"
+  },
+  {
+    "id": "e7c745e0-1ef5-43ce-9344-252231f58efa",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "created_at": "2025-11-21T19:24:18.123061+00:00"
+  },
+  {
+    "id": "13d6131c-6f97-4efe-ba36-22b601ffb9e9",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763757152974-3nbfe641h",
+    "created_at": "2025-11-21T20:32:45.443693+00:00"
+  },
+  {
+    "id": "1791fd60-c997-45be-aa69-06703379afca",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763757152974-3nbfe641h",
+    "created_at": "2025-11-21T20:32:50.242916+00:00"
+  },
+  {
+    "id": "65c50ff3-fb45-4ac6-ba95-a1c5b9884ff8",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763757152974-3nbfe641h",
+    "created_at": "2025-11-21T20:33:07.258185+00:00"
+  },
+  {
+    "id": "839cbcb3-4d0c-4c79-a73d-bc910aa31e32",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "created_at": "2025-11-21T21:10:24.336365+00:00"
+  },
+  {
+    "id": "1be2b9ed-cd39-4bdf-8e7c-8ed8b78aa3c3",
+    "campaign_id": "c4444444-4444-4444-4444-444444444444",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "created_at": "2025-11-21T21:10:53.247471+00:00"
+  },
+  {
+    "id": "a92574a6-7581-4250-b938-b3bbae03c949",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763758173665-8aqtvbr6z",
+    "created_at": "2025-11-21T21:14:28.527792+00:00"
+  },
+  {
+    "id": "5e81fc37-ebed-46cf-94f8-a77dd1082c45",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "created_at": "2025-11-21T21:44:27.889694+00:00"
+  },
+  {
+    "id": "8fcd51ff-e5ef-4654-8586-8feb646d92b3",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763761123365-83eg6d4kb",
+    "created_at": "2025-11-21T21:44:52.603248+00:00"
+  },
+  {
+    "id": "ce4e361e-4ec3-438d-afe8-9605ced76261",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763769088830-w7xxyikei",
+    "created_at": "2025-11-21T23:51:35.430922+00:00"
+  },
+  {
+    "id": "77430bdf-6f90-4760-afa9-96560d902a9f",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763834297567-fg02zfcgm",
+    "created_at": "2025-11-22T17:59:48.038007+00:00"
+  },
+  {
+    "id": "35593a5c-76cb-4c0b-a121-bd2f4b1b46a7",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "created_at": "2025-11-22T19:21:41.306069+00:00"
+  },
+  {
+    "id": "e11d8c33-61d0-4b6c-8271-abbdcaedf24f",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "created_at": "2025-11-22T19:47:19.028118+00:00"
+  },
+  {
+    "id": "4e211950-422e-4399-bb22-30bd91b8404c",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763839144438-krs2t7ydn",
+    "created_at": "2025-11-22T23:27:25.153739+00:00"
+  },
+  {
+    "id": "0682ce36-b030-4ec8-b52d-0be01a74dbc2",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763854219344-ymz11v7xf",
+    "created_at": "2025-11-22T23:35:11.594704+00:00"
+  },
+  {
+    "id": "71468a7a-72c6-4b36-b35f-e0f1b54e286d",
+    "campaign_id": "c3333333-3333-3333-3333-333333333333",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763854219344-ymz11v7xf",
+    "created_at": "2025-11-22T23:41:23.37556+00:00"
+  },
+  {
+    "id": "b011eebb-1029-4c5d-a808-80c3c6795414",
+    "campaign_id": "786a7802-97d4-4560-b533-f47eaf4d9993",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1764225512477-mbhodv85s",
+    "created_at": "2025-11-27T07:13:14.586868+00:00"
+  },
+  {
+    "id": "4dd75c4e-c27b-4d0f-8359-af8515001e5c",
+    "campaign_id": "c2222222-2222-2222-2222-222222222222",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1763748644907-tic4293oz",
+    "created_at": "2025-11-30T04:30:49.84148+00:00"
+  },
+  {
+    "id": "b5a4c858-e1e9-4909-a031-17e8bbcd33a9",
+    "campaign_id": "c1111111-1111-1111-1111-111111111111",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1765063545482-flnn78d35",
+    "created_at": "2025-12-06T23:26:03.543886+00:00"
+  },
+  {
+    "id": "18f88627-7ef9-4dd6-8628-6d7db972f870",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1764881762650-eopkm862t",
+    "created_at": "2025-12-08T19:58:27.713944+00:00"
+  },
+  {
+    "id": "61a058e8-74a7-45b1-a265-848d4deb54d5",
+    "campaign_id": "2225bf4f-d935-4088-a6b2-1a514d67bc52",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "created_at": "2025-12-08T22:47:27.700487+00:00"
+  },
+  {
+    "id": "aea01b12-5442-4a5d-a4d7-faa940bcda10",
+    "campaign_id": "d88b2d24-c333-4a7f-9427-57a32321cc0c",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "created_at": "2025-12-09T00:06:42.539894+00:00"
+  },
+  {
+    "id": "765af162-475e-46b5-b599-34d07bae1b62",
+    "campaign_id": "d88b2d24-c333-4a7f-9427-57a32321cc0c",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1765233852804-2mfr16ywa",
+    "created_at": "2025-12-09T00:06:58.104726+00:00"
+  },
+  {
+    "id": "1efdd848-8c6c-47c7-93b7-3c07a023041b",
+    "campaign_id": "e4e53596-8e52-4b15-aeba-fc3739cd60da",
+    "impression_id": null,
+    "user_id": null,
+    "session_id": "session-1765308954485-qeh32632k",
+    "created_at": "2025-12-09T21:33:29.190903+00:00"
+  }
+]

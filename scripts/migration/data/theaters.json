@@ -1,0 +1,135 @@
+[
+  {
+    "code": "CENTCOM",
+    "name": "U.S. Central Command",
+    "description": "Responsible for military operations in the Middle East, Central Asia, and parts of South Asia. High demand for logistics, intelligence, and security contractors.",
+    "region": "Middle East",
+    "countries": [
+      "Kuwait",
+      "Qatar",
+      "UAE",
+      "Bahrain",
+      "Iraq",
+      "Jordan",
+      "Saudi Arabia",
+      "Afghanistan"
+    ],
+    "major_bases": [
+      "Camp Arifjan",
+      "Al Udeid Air Base",
+      "Ali Al Salem",
+      "Camp Buehring",
+      "Al Dhafra"
+    ],
+    "job_count": 22,
+    "avg_salary_min": 125909,
+    "avg_salary_max": 155909,
+    "is_active": true,
+    "created_at": "2025-12-29T19:16:46.004591+00:00",
+    "updated_at": "2025-12-29T19:18:12.027407+00:00"
+  },
+  {
+    "code": "EUCOM",
+    "name": "U.S. European Command",
+    "description": "Oversees military operations in Europe, including NATO support. Strong demand for IT, cyber, and intelligence professionals.",
+    "region": "Europe",
+    "countries": [
+      "Germany",
+      "Italy",
+      "UK",
+      "Poland",
+      "Spain",
+      "Belgium",
+      "Netherlands",
+      "Turkey"
+    ],
+    "major_bases": [
+      "Ramstein Air Base",
+      "Stuttgart",
+      "Grafenwoehr",
+      "Vicenza",
+      "Aviano",
+      "RAF Lakenheath",
+      "Incirlik"
+    ],
+    "job_count": 26,
+    "avg_salary_min": 117038,
+    "avg_salary_max": 148269,
+    "is_active": true,
+    "created_at": "2025-12-29T19:16:46.004591+00:00",
+    "updated_at": "2025-12-29T19:18:12.027407+00:00"
+  },
+  {
+    "code": "INDOPACOM",
+    "name": "U.S. Indo-Pacific Command",
+    "description": "Covers the Pacific region including Japan, Korea, and Southeast Asia. Growing demand due to strategic focus on the region.",
+    "region": "Asia-Pacific",
+    "countries": [
+      "Japan",
+      "South Korea",
+      "Guam",
+      "Australia",
+      "Philippines",
+      "Singapore",
+      "Thailand"
+    ],
+    "major_bases": [
+      "Camp Humphreys",
+      "Yokota Air Base",
+      "Kadena Air Base",
+      "Osan Air Base",
+      "Yokosuka",
+      "Sasebo",
+      "Andersen AFB"
+    ],
+    "job_count": 24,
+    "avg_salary_min": 129917,
+    "avg_salary_max": 160208,
+    "is_active": true,
+    "created_at": "2025-12-29T19:16:46.004591+00:00",
+    "updated_at": "2025-12-29T19:18:12.027407+00:00"
+  },
+  {
+    "code": "AFRICOM",
+    "name": "U.S. Africa Command",
+    "description": "Manages operations across the African continent. Specialized roles in counterterrorism and security cooperation.",
+    "region": "Africa",
+    "countries": [
+      "Djibouti",
+      "Kenya",
+      "Niger",
+      "Somalia"
+    ],
+    "major_bases": [
+      "Camp Lemonnier"
+    ],
+    "job_count": 10,
+    "avg_salary_min": 140000,
+    "avg_salary_max": 170000,
+    "is_active": true,
+    "created_at": "2025-12-29T19:16:46.004591+00:00",
+    "updated_at": "2025-12-29T19:18:12.027407+00:00"
+  },
+  {
+    "code": "SOUTHCOM",
+    "name": "U.S. Southern Command",
+    "description": "Oversees Central and South America, Caribbean. Focus on counter-narcotics and security partnerships.",
+    "region": "Americas",
+    "countries": [
+      "Honduras",
+      "Colombia",
+      "Cuba",
+      "Panama"
+    ],
+    "major_bases": [
+      "Soto Cano Air Base",
+      "Guantanamo Bay"
+    ],
+    "job_count": 8,
+    "avg_salary_min": 115000,
+    "avg_salary_max": 145000,
+    "is_active": true,
+    "created_at": "2025-12-29T19:16:46.004591+00:00",
+    "updated_at": "2025-12-29T19:18:12.027407+00:00"
+  }
+]

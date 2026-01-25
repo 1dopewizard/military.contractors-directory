@@ -1,0 +1,157 @@
+<script setup lang="ts">
+/**
+ * @file Default layout for military.contractors
+ * @usage Applied automatically to all pages unless overridden
+ * @description Provides a simple layout with header navigation and color mode toggle
+ */
+
+const route = useRoute()
+
+// Mobile menu state
+const mobileMenuOpen = ref(false)
+
+const currentYear = new Date().getFullYear()
+
+// Navigation items - Community Intel Platform structure
+const navItems = [
+    {
+        name: 'Salaries',
+        icon: 'mdi:cash-multiple',
+        route: '/salaries',
+        active: computed(() => route.path.startsWith('/salaries'))
+    },
+    {
+        name: 'Interviews',
+        icon: 'mdi:forum',
+        route: '/interviews',
+        active: computed(() => route.path.startsWith('/interviews'))
+    },
+    {
+        name: 'Companies',
+        icon: 'mdi:domain',
+        route: '/companies',
+        active: computed(() => route.path.startsWith('/companies'))
+    }
+]
+
+// Close mobile menu when route changes
+watch(() => route.path, () => {
+    mobileMenuOpen.value = false
+})
+</script>
+
+<template>
+    <div class="flex flex-col h-screen overflow-x-hidden">
+        <!-- Persistent Grid Background -->
+        <div class="fixed inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0" />
+        <div class="fixed inset-0 bg-gradient-to-b from-background via-background/0 to-background pointer-events-none z-0" />
+
+        <!-- Top Header -->
+        <header class="shrink-0 z-50 w-full bg-background/80 backdrop-blur-sm overflow-visible">
+            <div class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+                <!-- Logo -->
+                <NuxtLink to="/" class="flex items-center shrink-0">
+                    <Badge variant="default" class="flex justify-center items-center px-2">
+                        <span class="font-semibold text-primary-foreground text-base">MC</span>
+                    </Badge>
+                    <span class="ml-2 font-semibold text-md text-primary hidden sm:inline">
+                        military.contractors
+                    </span>
+                </NuxtLink>
+
+                <!-- Navigation Links (Centered - Large Desktop only) -->
+                <nav class="hidden lg:flex items-center gap-6">
+                    <NuxtLink 
+                        v-for="item in navItems" 
+                        :key="item.name"
+                        :to="item.route"
+                        class="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary whitespace-nowrap"
+                        :class="item.active.value ? 'text-primary' : 'text-muted-foreground'"
+                    >
+                        <Icon :name="item.icon" class="w-4 h-4" />
+                        <span>{{ item.name }}</span>
+                    </NuxtLink>
+                </nav>
+
+                <!-- Right Side Actions -->
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <!-- Header Search (hidden on mobile, shown on md+) -->
+                    <div class="hidden md:block">
+                        <HeaderSearch />
+                    </div>
+                    <!-- Auth Button (Desktop) -->
+                    <div class="hidden lg:block">
+                        <AuthButton />
+                    </div>
+
+                    <!-- Mobile/Tablet Menu Button -->
+                    <Button 
+                        variant="ghost" 
+                        class="lg:hidden h-9 w-9 p-0"
+                        @click="mobileMenuOpen = true"
+                    >
+                        <Icon name="mdi:menu" class="w-5 h-5" />
+                        <span class="sr-only">Open menu</span>
+                    </Button>
+
+                    <ColorModeToggle />
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Navigation Sheet -->
+        <Sheet v-model:open="mobileMenuOpen">
+            <SheetContent side="top" class="w-full max-h-[80vh] overflow-y-auto">
+                <SheetHeader class="text-left">
+                    <SheetTitle class="text-left">Navigation</SheetTitle>
+                </SheetHeader>
+                
+                <!-- Mobile Search -->
+                <div class="mt-4 mb-6">
+                    <HeaderSearch />
+                </div>
+                
+                <nav class="flex flex-col gap-4">
+                    <NuxtLink 
+                        v-for="item in navItems" 
+                        :key="item.name"
+                        :to="item.route"
+                        class="flex items-center gap-3 px-3 py-3 text-base font-medium rounded-md transition-colors hover:bg-muted"
+                        :class="item.active.value ? 'text-primary bg-muted' : 'text-muted-foreground'"
+                    >
+                        <Icon :name="item.icon" class="w-5 h-5" />
+                        <span>{{ item.name }}</span>
+                    </NuxtLink>
+                    
+                    <!-- Auth Button in Mobile Menu -->
+                    <div class="mt-4 pt-4 border-t border-border">
+                        <AuthButton />
+                    </div>
+                </nav>
+            </SheetContent>
+        </Sheet>
+
+        <!-- Main Content + Footer (scroll together) -->
+        <main class="flex-1 overflow-auto relative z-10">
+            <div class="flex flex-col min-h-full">
+                <!-- Page Content -->
+                <div class="flex-1">
+                    <slot />
+                </div>
+
+                <!-- Footer (scrolls with content, pushed to bottom when short) -->
+                <footer class="shrink-0 bg-background/80 backdrop-blur-sm py-3 px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
+                        <p>© {{ currentYear }} military.contractors</p>
+                        <div class="flex items-center gap-4">
+                            <NuxtLink to="/employers" class="hover:text-primary transition-colors">For Employers</NuxtLink>
+                            <NuxtLink to="/about" class="hover:text-primary transition-colors">About</NuxtLink>
+                            <NuxtLink to="/privacy" class="hover:text-primary transition-colors">Privacy</NuxtLink>
+                            <NuxtLink to="/terms" class="hover:text-primary transition-colors">Terms</NuxtLink>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+</template>

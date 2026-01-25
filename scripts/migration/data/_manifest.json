@@ -1,0 +1,126 @@
+{
+  "exportedAt": "2026-01-16T20:03:43.114Z",
+  "supabaseUrl": "https://ahndlwrdyawenyecgbth.supabase.co",
+  "tables": [
+    {
+      "table": "theaters",
+      "count": 5,
+      "success": true
+    },
+    {
+      "table": "bases",
+      "count": 24,
+      "success": true
+    },
+    {
+      "table": "companies",
+      "count": 33,
+      "success": true
+    },
+    {
+      "table": "mos_codes",
+      "count": 1317,
+      "success": true
+    },
+    {
+      "table": "jobs",
+      "count": 90,
+      "success": true
+    },
+    {
+      "table": "job_mos_mappings",
+      "count": 36,
+      "success": true
+    },
+    {
+      "table": "company_mos",
+      "count": 15887,
+      "success": true
+    },
+    {
+      "table": "mos_job_rankings",
+      "count": 36,
+      "success": true
+    },
+    {
+      "table": "sponsored_ads",
+      "count": 5,
+      "success": true
+    },
+    {
+      "table": "sponsored_jobs",
+      "count": 4,
+      "success": true
+    },
+    {
+      "table": "toast_impressions",
+      "count": 518,
+      "success": true
+    },
+    {
+      "table": "toast_clicks",
+      "count": 25,
+      "success": true
+    },
+    {
+      "table": "profiles",
+      "count": 1,
+      "success": true
+    },
+    {
+      "table": "campaigns",
+      "count": 18,
+      "success": true
+    },
+    {
+      "table": "toast_ads",
+      "count": 0,
+      "success": false,
+      "error": "Could not find the table 'public.toast_ads' in the schema cache"
+    },
+    {
+      "table": "toast_ad_events",
+      "count": 0,
+      "success": false,
+      "error": "Could not find the table 'public.toast_ad_events' in the schema cache"
+    },
+    {
+      "table": "sponsored_mos",
+      "count": 0,
+      "success": false,
+      "error": "Could not find the table 'public.sponsored_mos' in the schema cache"
+    },
+    {
+      "table": "featured_employers",
+      "count": 4,
+      "success": true
+    },
+    {
+      "table": "job_alert_subscriptions",
+      "count": 2,
+      "success": true
+    },
+    {
+      "table": "candidate_activity",
+      "count": 1,
+      "success": true
+    },
+    {
+      "table": "employer_notes",
+      "count": 0,
+      "success": false,
+      "error": "Could not find the table 'public.employer_notes' in the schema cache"
+    },
+    {
+      "table": "pipeline_jobs",
+      "count": 2,
+      "success": true
+    },
+    {
+      "table": "recruiter_access",
+      "count": 1,
+      "success": true
+    }
+  ],
+  "totalRows": 18009
+}
