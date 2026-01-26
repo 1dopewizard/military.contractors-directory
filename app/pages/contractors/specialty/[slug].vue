@@ -58,17 +58,18 @@ useHead(() => {
 </script>
 
 <template>
-  <!-- Loading State -->
-  <div v-if="isLoading" class="min-h-full">
-    <SearchablePageHeader>
-      <template #filters>
-        <div class="h-7" />
-      </template>
-    </SearchablePageHeader>
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-12 flex items-center justify-center">
-      <Spinner class="w-8 h-8 text-muted-foreground" />
+  <div>
+    <!-- Loading State -->
+    <div v-if="isLoading" class="min-h-full">
+      <SearchablePageHeader>
+        <template #filters>
+          <div class="h-7" />
+        </template>
+      </SearchablePageHeader>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-12 flex items-center justify-center">
+        <LoadingText text="Loading contractors" />
+      </div>
     </div>
-  </div>
 
   <!-- Error/Not Found State -->
   <div v-else-if="error || !specialty" class="min-h-full">
@@ -113,62 +114,28 @@ useHead(() => {
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-8">
       <!-- Hero Section -->
       <div class="mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="flex items-center justify-center">
-            <Icon v-if="specialty.icon" :name="specialty.icon" class="w-8 h-8 text-primary" />
-            <Icon v-else name="mdi:tag-outline" class="w-8 h-8 text-primary" />
-          </div>
-          <div>
-            <h1 class="text-2xl md:text-3xl font-bold text-foreground">
-              {{ specialty.name }} Contractors
-            </h1>
-            <p class="text-muted-foreground">
-              {{ specialty.contractorCount }} defense contractors
-            </p>
-          </div>
-        </div>
-        <p v-if="specialty.description" class="text-muted-foreground max-w-2xl">
-          {{ specialty.description }}
+        <h1 class="text-2xl md:text-3xl font-bold text-foreground mb-1">
+          {{ specialty.name }} Contractors
+        </h1>
+        <p class="text-muted-foreground mb-4">
+          {{ specialty.contractorCount }} defense contractors
         </p>
+        <div v-if="specialty.description" class="flex items-start gap-3">
+          <Icon v-if="specialty.icon" :name="specialty.icon" class="w-5 h-5 text-primary shrink-0 mt-0.5" />
+          <Icon v-else name="mdi:tag-outline" class="w-5 h-5 text-primary shrink-0 mt-0.5" />
+          <p class="text-muted-foreground max-w-2xl">
+            {{ specialty.description }}
+          </p>
+        </div>
       </div>
 
-      <!-- Contractors Grid -->
-      <div v-if="specialty.contractors?.length" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card 
-          v-for="contractor in specialty.contractors" 
+      <!-- Contractors List -->
+      <div v-if="specialty.contractors?.length" class="space-y-2">
+        <ContractorResultItem
+          v-for="contractor in specialty.contractors"
           :key="contractor.id"
-          class="p-4 hover:border-primary/30 transition-colors"
-        >
-          <NuxtLink :to="`/contractors/${contractor.slug}`" class="block">
-            <div class="flex items-start gap-3">
-              <div class="w-10 h-10 rounded bg-muted flex items-center justify-center shrink-0">
-                <img 
-                  v-if="contractor.logoUrl" 
-                  :src="contractor.logoUrl" 
-                  :alt="contractor.name"
-                  class="w-full h-full object-contain rounded"
-                />
-                <span v-else class="text-sm font-bold text-muted-foreground">
-                  {{ contractor.name?.charAt(0) }}
-                </span>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-1">
-                  <h2 class="font-semibold truncate">{{ contractor.name }}</h2>
-                  <Badge v-if="contractor.defenseNewsRank" variant="outline" class="shrink-0">
-                    #{{ contractor.defenseNewsRank }}
-                  </Badge>
-                </div>
-                <p v-if="contractor.headquarters" class="text-sm text-muted-foreground truncate">
-                  {{ contractor.headquarters }}
-                </p>
-                <Badge v-if="contractor.isPrimary" variant="default" class="mt-2 text-xs">
-                  Primary Focus
-                </Badge>
-              </div>
-            </div>
-          </NuxtLink>
-        </Card>
+          :contractor="contractor"
+        />
       </div>
 
       <!-- Related Specialties -->
@@ -186,6 +153,7 @@ useHead(() => {
           </NuxtLink>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>

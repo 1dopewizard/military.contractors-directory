@@ -47,17 +47,18 @@ useHead(() => {
 </script>
 
 <template>
-  <!-- Loading State -->
-  <div v-if="isLoading" class="min-h-full">
-    <SearchablePageHeader>
-      <template #filters>
-        <div class="h-7" />
-      </template>
-    </SearchablePageHeader>
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-12 flex items-center justify-center">
-      <Spinner class="w-8 h-8 text-muted-foreground" />
+  <div>
+    <!-- Loading State -->
+    <div v-if="isLoading" class="min-h-full">
+      <SearchablePageHeader>
+        <template #filters>
+          <div class="h-7" />
+        </template>
+      </SearchablePageHeader>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-12 flex items-center justify-center">
+        <LoadingText text="Loading contractors" />
+      </div>
     </div>
-  </div>
 
   <!-- Error/Not Found State -->
   <div v-else-if="error || !locationData" class="min-h-full">
@@ -117,50 +118,21 @@ useHead(() => {
         </div>
       </div>
 
-      <!-- Contractors Grid -->
-      <div v-if="locationData.contractors?.length" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card 
-          v-for="contractor in locationData.contractors" 
+      <!-- Contractors List -->
+      <div v-if="locationData.contractors?.length" class="space-y-2">
+        <ContractorResultItem
+          v-for="contractor in locationData.contractors"
           :key="contractor.id"
-          class="p-4 hover:border-primary/30 transition-colors"
-        >
-          <NuxtLink :to="`/contractors/${contractor.slug}`" class="block">
-            <div class="flex items-start gap-3">
-              <div class="w-10 h-10 rounded bg-muted flex items-center justify-center shrink-0">
-                <img 
-                  v-if="contractor.logoUrl" 
-                  :src="contractor.logoUrl" 
-                  :alt="contractor.name"
-                  class="w-full h-full object-contain rounded"
-                />
-                <span v-else class="text-sm font-bold text-muted-foreground">
-                  {{ contractor.name?.charAt(0) }}
-                </span>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-1">
-                  <h2 class="font-semibold truncate">{{ contractor.name }}</h2>
-                  <Badge v-if="contractor.defenseNewsRank" variant="outline" class="shrink-0">
-                    #{{ contractor.defenseNewsRank }}
-                  </Badge>
-                </div>
-                <p v-if="contractor.city" class="text-sm text-muted-foreground">
-                  {{ contractor.city }}, {{ locationData.state }}
-                </p>
-                <Badge v-if="contractor.isHeadquarters" variant="default" class="mt-2 text-xs">
-                  Headquarters
-                </Badge>
-              </div>
-            </div>
-          </NuxtLink>
-        </Card>
+          :contractor="contractor"
+        />
       </div>
 
       <!-- Empty State -->
-      <Card v-else class="p-8 text-center">
+      <div v-else class="p-8 text-center border border-border/30 bg-card/30">
         <Icon name="mdi:office-building-outline" class="w-12 h-12 mx-auto mb-4 text-muted-foreground opacity-50" />
         <p class="text-muted-foreground">No contractors found with offices in {{ locationData.state }}</p>
-      </Card>
+      </div>
+    </div>
     </div>
   </div>
 </template>

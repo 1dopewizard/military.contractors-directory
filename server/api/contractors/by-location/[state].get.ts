@@ -5,7 +5,7 @@
  */
 
 import { getDb, schema } from '@/server/utils/db'
-import { eq, ilike, asc, or } from 'drizzle-orm'
+import { eq, asc, or, sql } from 'drizzle-orm'
 
 // Map of state codes to full names
 const stateNames: Record<string, string> = {
@@ -73,8 +73,8 @@ export default defineEventHandler(async (event) => {
       )
       .where(
         or(
-          ilike(schema.contractorLocation.state, stateName),
-          stateCode ? ilike(schema.contractorLocation.state, stateCode.toUpperCase()) : undefined
+          sql`lower(${schema.contractorLocation.state}) = ${stateName.toLowerCase()}`,
+          stateCode ? sql`lower(${schema.contractorLocation.state}) = ${stateCode.toLowerCase()}` : undefined
         )
       )
       .orderBy(asc(schema.contractor.defenseNewsRank))

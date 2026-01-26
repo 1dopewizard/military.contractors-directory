@@ -81,13 +81,13 @@ const tierBadgeColor = computed(() => {
 </script>
 
 <template>
-  <!-- Auth loading state -->
-  <div v-if="!isAuthReady || profileLoading" class="min-h-screen flex items-center justify-center">
-    <div class="flex flex-col items-center gap-4">
-      <Spinner class="w-8 h-8 text-muted-foreground" />
-      <p class="text-sm text-muted-foreground">Loading...</p>
+  <div>
+    <!-- Auth loading state -->
+    <div v-if="!isAuthReady || profileLoading" class="min-h-screen flex items-center justify-center">
+      <div class="flex flex-col items-center gap-4">
+        <LoadingText text="Loading" />
+      </div>
     </div>
-  </div>
 
   <!-- Error state -->
   <div v-else-if="profileError" class="min-h-screen flex items-center justify-center">
@@ -215,6 +215,7 @@ const tierBadgeColor = computed(() => {
           />
         </main>
       </div>
+    </div>
     </div>
   </div>
 </template>

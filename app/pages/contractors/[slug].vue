@@ -148,8 +148,9 @@ watchEffect(() => {
 </script>
 
 <template>
-  <!-- Loading State -->
-  <div v-if="isLoading" class="min-h-full">
+  <div>
+    <!-- Loading State -->
+    <div v-if="isLoading" class="min-h-full">
     <SearchablePageHeader>
       <template #filters>
         <div class="h-7" />
@@ -536,5 +537,6 @@ watchEffect(() => {
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
