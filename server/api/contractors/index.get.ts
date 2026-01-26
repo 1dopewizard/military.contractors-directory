@@ -6,6 +6,7 @@
  * Query params:
  * - q: search query (company name)
  * - specialty: filter by specialty slug
+ * - location: filter by state name or slug
  * - sort: 'rank' | 'revenue' | 'name' (default: 'rank')
  * - limit: number of results (default: 20, max: 50)
  * - offset: pagination offset (default: 0)
@@ -17,10 +18,30 @@ import { eq, and, like, desc, asc, sql, inArray } from 'drizzle-orm'
 const DEFAULT_LIMIT = 20
 const MAX_LIMIT = 50
 
+// Map of state slugs to full names for location filtering
+const stateNames: Record<string, string> = {
+  'alabama': 'Alabama', 'alaska': 'Alaska', 'arizona': 'Arizona', 'arkansas': 'Arkansas',
+  'california': 'California', 'colorado': 'Colorado', 'connecticut': 'Connecticut',
+  'delaware': 'Delaware', 'florida': 'Florida', 'georgia': 'Georgia', 'hawaii': 'Hawaii',
+  'idaho': 'Idaho', 'illinois': 'Illinois', 'indiana': 'Indiana', 'iowa': 'Iowa',
+  'kansas': 'Kansas', 'kentucky': 'Kentucky', 'louisiana': 'Louisiana', 'maine': 'Maine',
+  'maryland': 'Maryland', 'massachusetts': 'Massachusetts', 'michigan': 'Michigan',
+  'minnesota': 'Minnesota', 'mississippi': 'Mississippi', 'missouri': 'Missouri',
+  'montana': 'Montana', 'nebraska': 'Nebraska', 'nevada': 'Nevada', 'new-hampshire': 'New Hampshire',
+  'new-jersey': 'New Jersey', 'new-mexico': 'New Mexico', 'new-york': 'New York',
+  'north-carolina': 'North Carolina', 'north-dakota': 'North Dakota', 'ohio': 'Ohio',
+  'oklahoma': 'Oklahoma', 'oregon': 'Oregon', 'pennsylvania': 'Pennsylvania',
+  'rhode-island': 'Rhode Island', 'south-carolina': 'South Carolina', 'south-dakota': 'South Dakota',
+  'tennessee': 'Tennessee', 'texas': 'Texas', 'utah': 'Utah', 'vermont': 'Vermont',
+  'virginia': 'Virginia', 'washington': 'Washington', 'west-virginia': 'West Virginia',
+  'wisconsin': 'Wisconsin', 'wyoming': 'Wyoming', 'district-of-columbia': 'District of Columbia',
+}
+
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const q = (query.q as string || '').trim()
   const specialtySlug = query.specialty as string | undefined
+  const locationSlug = query.location as string | undefined
   const sort = (query.sort as string) || 'rank'
   const limit = Math.min(Number(query.limit) || DEFAULT_LIMIT, MAX_LIMIT)
   const offset = Number(query.offset) || 0
@@ -82,6 +103,46 @@ export default defineEventHandler(async (event) => {
     if (specialtyFilterContractorIds) {
       whereConditions.push(
         inArray(schema.contractor.id, specialtyFilterContractorIds)
+      )
+    }
+
+    // Filter by location - need to join with contractorLocation table
+    let locationFilterContractorIds: string[] | null = null
+    if (locationSlug) {
+      const stateName = stateNames[locationSlug.toLowerCase()]
+      if (stateName) {
+        // Get all contractor IDs that have offices in this state
+        const contractorLocations = await db
+          .select({ contractorId: schema.contractorLocation.contractorId })
+          .from(schema.contractorLocation)
+          .where(sql`lower(${schema.contractorLocation.state}) = ${stateName.toLowerCase()}`)
+
+        locationFilterContractorIds = contractorLocations.map(cl => cl.contractorId)
+
+        // If no contractors in this location, return empty result
+        if (locationFilterContractorIds.length === 0) {
+          return {
+            contractors: [],
+            total: 0,
+            limit,
+            offset,
+          }
+        }
+      } else {
+        // Location not found, return empty result
+        return {
+          contractors: [],
+          total: 0,
+          limit,
+          offset,
+        }
+      }
+    }
+
+    // Add location filter to WHERE conditions if applicable
+    if (locationFilterContractorIds) {
+      whereConditions.push(
+        inArray(schema.contractor.id, locationFilterContractorIds)
       )
     }
 

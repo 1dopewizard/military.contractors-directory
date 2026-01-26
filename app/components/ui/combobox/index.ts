@@ -5,6 +5,7 @@ export { default as ComboboxGroup } from "./ComboboxGroup.vue"
 export { default as ComboboxInput } from "./ComboboxInput.vue"
 export { default as ComboboxItem } from "./ComboboxItem.vue"
 export { default as ComboboxList } from "./ComboboxList.vue"
+export { default as ComboboxLoading } from "./ComboboxLoading.vue"
 export { default as ComboboxSeparator } from "./ComboboxSeparator.vue"
 
 export { ComboboxCancel, ComboboxItemIndicator, ComboboxTrigger } from "reka-ui"

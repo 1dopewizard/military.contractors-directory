@@ -222,10 +222,14 @@ watchEffect(() => {
             </div>
 
             <!-- Primary Specialty Tag -->
-            <div v-if="contractor.primarySpecialty" class="flex items-center gap-2 mb-4">
+            <NuxtLink
+              v-if="contractor.primarySpecialty"
+              :to="`/contractors/specialty/${contractor.primarySpecialty.slug}`"
+              class="inline-flex items-center gap-2 mb-4 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
               <Icon v-if="contractor.primarySpecialty.icon" :name="contractor.primarySpecialty.icon" class="w-4 h-4 text-primary" />
-              <span class="text-sm text-muted-foreground">{{ contractor.primarySpecialty.name }}</span>
-            </div>
+              {{ contractor.primarySpecialty.name }}
+            </NuxtLink>
 
             <!-- Key Stats Grid -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-4 bg-muted/30">
@@ -522,8 +526,15 @@ watchEffect(() => {
                       class="w-4 h-4 text-primary shrink-0 mt-0.5"
                     />
                     <div>
-                      <span class="font-medium">
-                        {{ [location.city, location.state].filter(Boolean).join(', ') || location.country }}
+                      <NuxtLink
+                        v-if="location.state"
+                        :to="`/contractors/location/${location.state.toLowerCase().replace(/\s+/g, '-')}`"
+                        class="font-medium hover:text-primary transition-colors"
+                      >
+                        {{ [location.city, location.state].filter(Boolean).join(', ') }}
+                      </NuxtLink>
+                      <span v-else class="font-medium">
+                        {{ location.city || location.country }}
                       </span>
                       <Badge v-if="location.isHeadquarters" variant="outline" class="ml-2 text-[10px]">
                         HQ

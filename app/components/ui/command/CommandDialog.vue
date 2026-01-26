@@ -5,14 +5,16 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/app/com
 import Command from "./Command.vue"
 
 const props = defineProps<DialogRootProps>()
-const emits = defineEmits<DialogRootEmits>()
+const emits = defineEmits<DialogRootEmits & {
+  openAutoFocus: [event: Event]
+}>()
 
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <Dialog v-bind="forwarded">
-    <DialogContent class="overflow-hidden p-0 shadow-lg">
+    <DialogContent class="overflow-hidden p-0 shadow-lg" @open-auto-focus="$emit('openAutoFocus', $event)">
       <VisuallyHidden>
         <DialogTitle>Command Palette</DialogTitle>
         <DialogDescription>Search and navigate quickly</DialogDescription>

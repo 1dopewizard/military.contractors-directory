@@ -24,6 +24,7 @@ useHead({
 // State - initialize from URL params
 const searchQuery = ref((route.query.q as string) || '')
 const selectedSpecialty = ref((route.query.specialty as string) || '')
+const selectedLocation = ref((route.query.location as string) || '')
 const sortBy = ref((route.query.sort as string) || 'rank')
 
 // Contractor response type
@@ -74,6 +75,7 @@ const contractorsUrl = computed(() => {
   const params = new URLSearchParams()
   if (searchQuery.value) params.set('q', searchQuery.value)
   if (selectedSpecialty.value) params.set('specialty', selectedSpecialty.value)
+  if (selectedLocation.value) params.set('location', selectedLocation.value)
   if (sortBy.value) params.set('sort', sortBy.value)
   params.set('limit', '50') // Show all contractors
   return `/api/contractors?${params.toString()}`
@@ -99,8 +101,28 @@ const totalCount = computed(() => contractorsData.value?.total ?? 0)
 const hasResults = computed(() => contractors.value.length > 0)
 const specialties = computed(() => specialtiesData.value?.specialties ?? [])
 
+// States for location filter dropdown
+const locationOptions = [
+  { name: 'Virginia', slug: 'virginia' },
+  { name: 'California', slug: 'california' },
+  { name: 'Texas', slug: 'texas' },
+  { name: 'Maryland', slug: 'maryland' },
+  { name: 'Florida', slug: 'florida' },
+  { name: 'Arizona', slug: 'arizona' },
+  { name: 'Colorado', slug: 'colorado' },
+  { name: 'Massachusetts', slug: 'massachusetts' },
+  { name: 'Connecticut', slug: 'connecticut' },
+  { name: 'Alabama', slug: 'alabama' },
+  { name: 'Georgia', slug: 'georgia' },
+  { name: 'Ohio', slug: 'ohio' },
+  { name: 'Pennsylvania', slug: 'pennsylvania' },
+  { name: 'New York', slug: 'new-york' },
+  { name: 'Washington', slug: 'washington' },
+  { name: 'District of Columbia', slug: 'district-of-columbia' },
+]
+
 const hasActiveFilters = computed(() =>
-  !!searchQuery.value || !!selectedSpecialty.value || sortBy.value !== 'rank'
+  !!searchQuery.value || !!selectedSpecialty.value || !!selectedLocation.value || sortBy.value !== 'rank'
 )
 
 
@@ -117,6 +139,7 @@ const syncFiltersToUrl = () => {
   const query: Record<string, string> = {}
   if (searchQuery.value) query.q = searchQuery.value
   if (selectedSpecialty.value) query.specialty = selectedSpecialty.value
+  if (selectedLocation.value) query.location = selectedLocation.value
   if (sortBy.value && sortBy.value !== 'rank') query.sort = sortBy.value
 
   router.replace({ query })
@@ -125,6 +148,12 @@ const syncFiltersToUrl = () => {
 // Apply specialty filter
 const applySpecialtyFilter = (value: string) => {
   selectedSpecialty.value = value === 'ANY' ? '' : value
+  syncFiltersToUrl()
+}
+
+// Apply location filter
+const applyLocationFilter = (value: string) => {
+  selectedLocation.value = value === 'ANY' ? '' : value
   syncFiltersToUrl()
 }
 
@@ -138,6 +167,7 @@ const applySort = (value: string) => {
 const resetFilters = () => {
   searchQuery.value = ''
   selectedSpecialty.value = ''
+  selectedLocation.value = ''
   sortBy.value = 'rank'
   syncFiltersToUrl()
 }
@@ -149,22 +179,32 @@ const selectedSpecialtyName = computed(() => {
   return specialty?.name || null
 })
 
+// Get selected location name for display
+const selectedLocationName = computed(() => {
+  if (!selectedLocation.value) return null
+  const location = locationOptions.find((l) => l.slug === selectedLocation.value)
+  return location?.name || null
+})
+
 // Watch for URL query changes (back/forward navigation)
 watch(
   () => route.query,
   (newQuery) => {
     const newQ = (newQuery.q as string) || ''
     const newSpecialty = (newQuery.specialty as string) || ''
+    const newLocation = (newQuery.location as string) || ''
     const newSort = (newQuery.sort as string) || 'rank'
 
     // Only update if values actually changed
     if (
       newQ !== searchQuery.value ||
       newSpecialty !== selectedSpecialty.value ||
+      newLocation !== selectedLocation.value ||
       newSort !== sortBy.value
     ) {
       searchQuery.value = newQ
       selectedSpecialty.value = newSpecialty
+      selectedLocation.value = newLocation
       sortBy.value = newSort
     }
   }
@@ -206,6 +246,19 @@ watchEffect(() => {
               </SelectContent>
             </Select>
 
+            <!-- Location Filter -->
+            <Select :model-value="selectedLocation || 'ANY'" @update:model-value="(v) => applyLocationFilter(String(v))">
+              <SelectTrigger class="w-auto h-7 px-2 bg-background/50 border-border/50 text-xs gap-1">
+                <SelectValue placeholder="Location" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ANY">Any Location</SelectItem>
+                <SelectItem v-for="location in locationOptions" :key="location.slug" :value="location.slug">
+                  {{ location.name }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
+
             <!-- Sort -->
             <Select :model-value="sortBy" @update:model-value="(v) => applySort(String(v))">
               <SelectTrigger class="w-auto h-7 px-2 bg-background/50 border-border/50 text-xs gap-1">
@@ -240,15 +293,24 @@ watchEffect(() => {
       <div class="flex flex-col lg:flex-row gap-6">
         <!-- Left Column: Results -->
         <div class="flex-1 min-w-0 max-w-3xl lg:pr-24">
-          <!-- Active Filter Badge -->
-          <div v-if="selectedSpecialtyName" class="mb-4">
-            <div class="flex items-center gap-2 text-sm">
+          <!-- Active Filter Badges -->
+          <div v-if="selectedSpecialtyName || selectedLocationName" class="mb-4">
+            <div class="flex items-center gap-2 text-sm flex-wrap">
               <span class="text-muted-foreground">Filtered by:</span>
-              <Badge variant="secondary" class="flex items-center gap-1">
+              <Badge v-if="selectedSpecialtyName" variant="secondary" class="flex items-center gap-1">
                 {{ selectedSpecialtyName }}
                 <button
                   class="ml-1 hover:text-destructive transition-colors"
                   @click="applySpecialtyFilter('ANY')"
+                >
+                  <Icon name="mdi:close" class="w-3 h-3" />
+                </button>
+              </Badge>
+              <Badge v-if="selectedLocationName" variant="secondary" class="flex items-center gap-1">
+                {{ selectedLocationName }}
+                <button
+                  class="ml-1 hover:text-destructive transition-colors"
+                  @click="applyLocationFilter('ANY')"
                 >
                   <Icon name="mdi:close" class="w-3 h-3" />
                 </button>

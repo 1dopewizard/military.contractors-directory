@@ -21,6 +21,7 @@ const router = useRouter()
 
 // Search state
 const open = defineModel<boolean>('open', { default: false })
+const searchInputRef = ref<HTMLInputElement | null>(null)
 const searchQuery = ref('')
 const isSearching = ref(false)
 const searchResults = ref<ContractorResult[]>([])
@@ -126,11 +127,28 @@ onMounted(() => {
   })
 })
 
-// Reset search when closing
+// Reset search when closing, focus input when opening
 watch(open, (isOpen) => {
   if (!isOpen) {
     searchQuery.value = ''
     searchResults.value = []
+  }
+})
+
+// Focus input when dialog opens (prevent default focus trap)
+const handleOpenAutoFocus = (event: Event) => {
+  event.preventDefault()
+  nextTick(() => {
+    searchInputRef.value?.focus()
+  })
+}
+
+// Fallback: also try focusing after a delay when open changes
+watch(open, (isOpen) => {
+  if (isOpen) {
+    setTimeout(() => {
+      searchInputRef.value?.focus()
+    }, 50)
   }
 })
 
@@ -150,10 +168,11 @@ const browseBySpecialty = (slug: string) => {
 </script>
 
 <template>
-  <CommandDialog v-model:open="open">
+  <CommandDialog v-model:open="open" @open-auto-focus="handleOpenAutoFocus">
     <div class="flex items-center px-3 border-b">
       <Icon name="mdi:magnify" class="opacity-50 mr-2 w-4 h-4 shrink-0" />
       <input
+        ref="searchInputRef"
         v-model="searchQuery"
         placeholder="Search contractors..."
         class="flex bg-transparent disabled:opacity-50 py-3 rounded-md outline-none w-full h-11 placeholder:text-muted-foreground text-sm disabled:cursor-not-allowed"
@@ -165,8 +184,7 @@ const browseBySpecialty = (slug: string) => {
     <CommandList class="h-[320px] max-h-[320px]">
       <!-- Loading state -->
       <div v-if="isSearching" class="py-6 text-muted-foreground text-sm text-center">
-        <Icon name="mdi:loading" class="inline mr-2 w-4 h-4 animate-spin" />
-        Searching...
+        <LoadingText text="Searching" />
       </div>
 
       <!-- Search results -->
