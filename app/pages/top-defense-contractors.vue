@@ -73,7 +73,7 @@ useHead({
 
       <!-- Loading State -->
       <div v-if="isLoading" class="flex justify-center py-12">
-        <Spinner class="w-8 h-8 text-muted-foreground" />
+        <LoadingText text="Loading contractors" />
       </div>
 
       <!-- Error State -->

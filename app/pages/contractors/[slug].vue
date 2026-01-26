@@ -155,7 +155,9 @@ watchEffect(() => {
         <div class="h-7" />
       </template>
     </SearchablePageHeader>
-    <ContractorProfileSkeleton />
+    <div class="flex justify-center py-12">
+      <LoadingText text="Loading contractor profile" />
+    </div>
   </div>
 
   <!-- Error/Not Found State -->

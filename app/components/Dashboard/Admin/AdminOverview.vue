@@ -150,8 +150,8 @@ onMounted(() => {
     <div class="space-y-3">
       <h3 class="text-sm font-semibold text-foreground uppercase tracking-wide">Recent Activity</h3>
 
-      <div v-if="activityLoading" class="space-y-2">
-        <Skeleton v-for="i in 5" :key="i" class="h-10 w-full" />
+      <div v-if="activityLoading" class="flex justify-center py-6">
+        <LoadingText text="Loading activity" />
       </div>
 
       <div v-else-if="activityLog.length === 0" class="text-sm text-muted-foreground py-4">

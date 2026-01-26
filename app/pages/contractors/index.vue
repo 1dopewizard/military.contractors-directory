@@ -257,7 +257,9 @@ watchEffect(() => {
           </div>
 
           <!-- Loading State -->
-          <ContractorResultSkeleton v-if="contractorsPending" :count="6" />
+          <div v-if="contractorsPending" class="flex justify-center py-12">
+            <LoadingText text="Loading contractors" />
+          </div>
 
           <!-- Error State -->
           <Empty v-else-if="contractorsError">
