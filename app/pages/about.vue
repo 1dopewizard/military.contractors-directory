@@ -10,7 +10,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Learn about military.contractors - connecting cleared veterans with defense contractor opportunities.'
+      content: 'military.contractors is the definitive directory of defense contractors - structured company profiles, specialties, and locations for the defense industry.'
     }
   ]
 })
@@ -31,10 +31,10 @@ useHead({
         <div class="max-w-2xl">
           <p class="text-xs font-mono uppercase tracking-widest text-primary mb-3">About Us</p>
           <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
-            Translating military experience into civilian careers.
+            The definitive directory of defense contractors.
           </h1>
           <p class="text-lg text-muted-foreground leading-relaxed">
-            military.contractors helps veterans find cleared IT and cyber contractor positions by matching their military occupational specialties to relevant job opportunities.
+            military.contractors is the reference destination for defense contractor intelligence. We provide authoritative, well-structured company profiles for hundreds of defense contractors.
           </p>
         </div>
       </div>
@@ -44,38 +44,38 @@ useHead({
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-8">
       <div class="space-y-12 max-w-3xl">
         
-        <!-- Mission -->
+        <!-- What We Do -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Our Mission</h2>
+          <h2 class="text-lg font-bold text-foreground mb-4">What We Do</h2>
           <p class="text-muted-foreground leading-relaxed mb-4">
-            Transitioning from military to civilian employment can be challenging. Veterans often struggle to translate their specialized training and experience into terms civilian employers understand. We bridge that gap.
+            Think of us as Crunchbase for defense contractors. Whether you're researching potential employers, scouting competitors, or exploring the defense industry landscape, we provide the structured data you need.
           </p>
           <p class="text-muted-foreground leading-relaxed">
-            By indexing thousands of Military Occupational Specialties (MOSes) across all branches and matching them to contractor job listings, we help veterans quickly find positions that value their unique skills and security clearances.
+            Every company profile includes key facts like employee count, revenue, specialties, and locations — all in a clean, consistent format optimized for quick research.
           </p>
         </section>
 
-        <!-- How It Works -->
+        <!-- Who It's For -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">How It Works</h2>
+          <h2 class="text-lg font-bold text-foreground mb-4">Who It's For</h2>
           <div class="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              <span class="text-foreground font-medium">Search by MOS:</span> Enter your MOS code (like 25B, 17C, or 0651) and instantly see relevant contractor positions that match your training.
+              <span class="text-foreground font-medium">Career researchers:</span> Veterans transitioning to contracting, or anyone exploring defense industry employers. Browse by specialty or location to find companies that match your interests.
             </p>
             <p>
-              <span class="text-foreground font-medium">Filter by clearance:</span> Already have a security clearance? Filter jobs by clearance level to find positions where your credentials give you an advantage.
+              <span class="text-foreground font-medium">Industry professionals:</span> Recruiters, business development teams, and analysts who need quick reference on company basics.
             </p>
             <p>
-              <span class="text-foreground font-medium">Browse companies:</span> Research defense contractors, see what positions they're hiring for, and understand the landscape before applying.
+              <span class="text-foreground font-medium">Employers:</span> Defense contractors can claim their company profile to verify information, add culture content, and showcase what makes them a great place to work.
             </p>
           </div>
         </section>
 
-        <!-- Free for Job Seekers -->
+        <!-- Why We Built This -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Free for Veterans</h2>
+          <h2 class="text-lg font-bold text-foreground mb-4">Why We Built This</h2>
           <p class="text-muted-foreground leading-relaxed">
-            Job searching should never cost you money. All features on military.contractors are completely free for job seekers. We sustain the platform through sponsored job listings and company advertisements — never by charging veterans.
+            There's no authoritative, defense-focused company directory. Wikipedia covers the major players; everyone else is scattered across press releases, LinkedIn, and paywalled databases. We're filling that gap with structured, freely accessible company profiles.
           </p>
         </section>
 

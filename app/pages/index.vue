@@ -190,7 +190,7 @@ const getSpecialtyIcon = (slug: string): string => {
           <!-- Stats strip -->
           <div class="flex justify-center items-center gap-8 sm:gap-12 pt-4">
             <div class="text-center">
-              <div class="font-bold tabular-nums text-primary text-3xl sm:text-4xl tracking-tight">
+              <div class="font-bold tabular-nums text-foreground text-3xl sm:text-4xl tracking-tight">
                 {{ totalContractors }}
               </div>
               <div class="mt-0.5 text-muted-foreground text-sm">
@@ -198,7 +198,7 @@ const getSpecialtyIcon = (slug: string): string => {
               </div>
             </div>
             <div class="text-center">
-              <div class="font-bold tabular-nums text-blue-600 dark:text-blue-400 text-3xl sm:text-4xl tracking-tight">
+              <div class="font-bold tabular-nums text-foreground text-3xl sm:text-4xl tracking-tight">
                 {{ specialties.length }}
               </div>
               <div class="mt-0.5 text-muted-foreground text-sm">
@@ -206,7 +206,7 @@ const getSpecialtyIcon = (slug: string): string => {
               </div>
             </div>
             <div class="text-center">
-              <div class="font-bold tabular-nums text-cyan-600 dark:text-cyan-400 text-3xl sm:text-4xl tracking-tight">
+              <div class="font-bold tabular-nums text-foreground text-3xl sm:text-4xl tracking-tight">
                 {{ formatTotalRevenue(totalDefenseRevenue) }}
               </div>
               <div class="mt-0.5 text-muted-foreground text-sm">

@@ -26,6 +26,7 @@ watch(() => route.path, () => {
     <div class="z-0 fixed inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px] pointer-events-none" />
     <div class="z-0 fixed inset-0 bg-linear-to-b from-background via-background/0 to-background pointer-events-none" />
 
+
     <!-- Header -->
     <header class="z-50 bg-background/80 backdrop-blur-sm w-full overflow-visible shrink-0">
       <div class="flex justify-between items-center px-4 sm:px-6 lg:px-8 h-16">

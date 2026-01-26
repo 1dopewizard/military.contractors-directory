@@ -41,15 +41,6 @@ useHead({
     },
   ],
 })
-
-const formatRevenue = (revenue: number | null | undefined): string => {
-  if (revenue == null) return 'N/A'
-  if (revenue >= 1) {
-    return `$${revenue.toFixed(1)}B`
-  }
-  const millions = revenue * 1000
-  return `$${millions.toFixed(0)}M`
-}
 </script>
 
 <template>
@@ -92,53 +83,12 @@ const formatRevenue = (revenue: number | null | undefined): string => {
       </Card>
 
       <!-- Contractors List -->
-      <div v-else-if="data?.contractors?.length" class="space-y-4">
-        <Card 
-          v-for="contractor in data.contractors.filter((c: any) => c.defenseNewsRank)" 
+      <div v-else-if="data?.contractors?.length" class="space-y-2">
+        <ContractorResultItem
+          v-for="contractor in data.contractors.filter((c: any) => c.defenseNewsRank)"
           :key="contractor.id"
-          class="hover:border-primary/30 transition-colors"
-        >
-          <NuxtLink :to="`/contractors/${contractor.slug}`" class="flex items-center gap-4 p-4">
-            <!-- Logo -->
-            <div class="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0">
-              <img 
-                v-if="contractor.logoUrl" 
-                :src="contractor.logoUrl" 
-                :alt="contractor.name"
-                class="w-full h-full object-contain rounded"
-              />
-              <span v-else class="text-lg font-bold text-muted-foreground">
-                {{ contractor.name?.charAt(0) }}
-              </span>
-            </div>
-
-            <!-- Info -->
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2">
-                <h2 class="font-semibold text-lg truncate">{{ contractor.name }}</h2>
-                <span class="text-sm text-muted-foreground shrink-0">#{{ contractor.defenseNewsRank }}</span>
-              </div>
-              <p class="text-sm text-muted-foreground truncate">
-                {{ contractor.headquarters || contractor.country || 'Unknown location' }}
-              </p>
-            </div>
-
-            <!-- Stats -->
-            <div class="hidden md:flex items-center gap-6 shrink-0">
-              <div class="text-right">
-                <p class="text-xs text-muted-foreground uppercase tracking-wide">Defense Revenue</p>
-                <p class="font-semibold">{{ formatRevenue(contractor.defenseRevenue) }}</p>
-              </div>
-              <div class="text-right">
-                <p class="text-xs text-muted-foreground uppercase tracking-wide">Employees</p>
-                <p class="font-semibold">{{ contractor.employeeCount || 'N/A' }}</p>
-              </div>
-            </div>
-
-            <!-- Arrow -->
-            <Icon name="mdi:chevron-right" class="w-5 h-5 text-muted-foreground shrink-0" />
-          </NuxtLink>
-        </Card>
+          :contractor="contractor"
+        />
       </div>
 
       <!-- Key Stats Section -->

@@ -9,6 +9,13 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   pages: true,
   ssr: true,
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
+      ]
+    }
+  },
   modules: [
     '@vueuse/nuxt',
     '@nuxt/icon',
