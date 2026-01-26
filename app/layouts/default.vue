@@ -37,18 +37,18 @@ watch(() => route.path, () => {
 <template>
     <div class="flex flex-col h-screen overflow-x-hidden">
         <!-- Persistent Grid Background -->
-        <div class="fixed inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0" />
-        <div class="fixed inset-0 bg-gradient-to-b from-background via-background/0 to-background pointer-events-none z-0" />
+        <div class="z-0 fixed inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px] pointer-events-none" />
+        <div class="z-0 fixed inset-0 bg-linear-to-b from-background via-background/0 to-background pointer-events-none" />
 
         <!-- Top Header -->
-        <header class="shrink-0 z-50 w-full bg-background/80 backdrop-blur-sm overflow-visible">
-            <div class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <header class="z-50 bg-background/80 backdrop-blur-sm w-full overflow-visible shrink-0">
+            <div class="flex justify-between items-center px-4 sm:px-6 lg:px-8 h-16">
                 <!-- Logo -->
                 <NuxtLink to="/" class="flex items-center shrink-0">
                     <Badge variant="default" class="flex justify-center items-center px-2">
                         <span class="font-semibold text-primary-foreground text-base">MC</span>
                     </Badge>
-                    <span class="ml-2 font-semibold text-md text-primary hidden sm:inline">
+                    <span class="hidden sm:inline ml-2 font-semibold text-md text-primary">
                         military.contractors
                     </span>
                 </NuxtLink>
@@ -59,7 +59,7 @@ watch(() => route.path, () => {
                         v-for="item in navItems" 
                         :key="item.name"
                         :to="item.route"
-                        class="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary whitespace-nowrap"
+                        class="flex items-center gap-2 font-medium hover:text-primary text-sm whitespace-nowrap transition-colors"
                         :class="item.active.value ? 'text-primary' : 'text-muted-foreground'"
                     >
                         <Icon :name="item.icon" class="w-4 h-4" />
@@ -81,7 +81,7 @@ watch(() => route.path, () => {
                     <!-- Mobile/Tablet Menu Button -->
                     <Button 
                         variant="ghost" 
-                        class="lg:hidden h-9 w-9 p-0 hover:bg-transparent"
+                        class="lg:hidden hover:bg-transparent p-0 w-9 h-9"
                         @click="mobileMenuOpen = true"
                     >
                         <Icon name="mdi:menu" class="w-5 h-5" />
@@ -110,7 +110,7 @@ watch(() => route.path, () => {
                         v-for="item in navItems" 
                         :key="item.name"
                         :to="item.route"
-                        class="flex items-center gap-3 px-3 py-3 text-base font-medium rounded-md transition-colors hover:bg-muted"
+                        class="flex items-center gap-3 hover:bg-muted px-3 py-3 rounded-md font-medium text-base transition-colors"
                         :class="item.active.value ? 'text-primary bg-muted' : 'text-muted-foreground'"
                     >
                         <Icon :name="item.icon" class="w-5 h-5" />
@@ -118,7 +118,7 @@ watch(() => route.path, () => {
                     </NuxtLink>
                     
                     <!-- Auth Button in Mobile Menu -->
-                    <div class="mt-4 pt-4 border-t border-border">
+                    <div class="mt-4 pt-4 border-border border-t">
                         <AuthButton />
                     </div>
                 </nav>
@@ -126,7 +126,7 @@ watch(() => route.path, () => {
         </Sheet>
 
         <!-- Main Content + Footer (scroll together) -->
-        <main class="flex-1 overflow-auto relative z-10">
+        <main class="z-10 relative flex-1 overflow-auto">
             <div class="flex flex-col min-h-full">
                 <!-- Page Content -->
                 <div class="flex-1">
@@ -134,8 +134,8 @@ watch(() => route.path, () => {
                 </div>
 
                 <!-- Footer (scrolls with content, pushed to bottom when short) -->
-                <footer class="shrink-0 bg-background/80 backdrop-blur-sm py-3 px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
+                <footer class="bg-background/80 backdrop-blur-sm px-4 sm:px-6 lg:px-8 py-3 shrink-0">
+                    <div class="flex sm:flex-row flex-col justify-between items-center gap-2 text-muted-foreground text-xs">
                         <p>© {{ currentYear }} military.contractors</p>
                         <div class="flex items-center gap-4">
                             <NuxtLink to="/for-companies" class="hover:text-primary transition-colors">For Companies</NuxtLink>
