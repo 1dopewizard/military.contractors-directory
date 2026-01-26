@@ -151,21 +151,21 @@ const browseBySpecialty = (slug: string) => {
 
 <template>
   <CommandDialog v-model:open="open">
-    <div class="flex items-center border-b px-3">
-      <Icon name="mdi:magnify" class="mr-2 h-4 w-4 shrink-0 opacity-50" />
+    <div class="flex items-center px-3 border-b">
+      <Icon name="mdi:magnify" class="opacity-50 mr-2 w-4 h-4 shrink-0" />
       <input
         v-model="searchQuery"
         placeholder="Search contractors..."
-        class="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+        class="flex bg-transparent disabled:opacity-50 py-3 rounded-md outline-none w-full h-11 placeholder:text-muted-foreground text-sm disabled:cursor-not-allowed"
         @keydown.enter="navigateToSearch()"
       />
-      <Kbd v-if="!searchQuery" class="ml-2 hidden sm:inline-flex">ESC</Kbd>
+      <Kbd v-if="!searchQuery" class="hidden sm:inline-flex ml-2">ESC</Kbd>
     </div>
     
-    <CommandList class="!h-[320px] !max-h-[320px]">
+    <CommandList class="h-[320px] max-h-[320px]">
       <!-- Loading state -->
-      <div v-if="isSearching" class="py-6 text-center text-sm text-muted-foreground">
-        <Icon name="mdi:loading" class="mr-2 h-4 w-4 animate-spin inline" />
+      <div v-if="isSearching" class="py-6 text-muted-foreground text-sm text-center">
+        <Icon name="mdi:loading" class="inline mr-2 w-4 h-4 animate-spin" />
         Searching...
       </div>
 
@@ -184,7 +184,7 @@ const browseBySpecialty = (slug: string) => {
             @select="navigateToContractor(contractor.slug)"
           >
             <div class="flex items-center gap-3 w-full">
-              <div class="flex items-center justify-center w-8 h-8 bg-muted rounded shrink-0">
+              <div class="flex justify-center items-center bg-muted rounded w-8 h-8 shrink-0">
                 <img
                   v-if="contractor.logoUrl"
                   :src="contractor.logoUrl"
@@ -195,7 +195,7 @@ const browseBySpecialty = (slug: string) => {
               </div>
               <div class="flex-1 min-w-0">
                 <div class="font-medium truncate">{{ contractor.name }}</div>
-                <div v-if="contractor.headquarters" class="text-xs text-muted-foreground truncate">
+                <div v-if="contractor.headquarters" class="text-muted-foreground text-xs truncate">
                   {{ contractor.headquarters }}
                 </div>
               </div>
@@ -211,11 +211,11 @@ const browseBySpecialty = (slug: string) => {
           <Button 
             variant="ghost" 
             size="sm" 
-            class="w-full justify-center text-muted-foreground"
+            class="justify-center w-full text-muted-foreground"
             @click="navigateToSearch()"
           >
             View all {{ totalResults }} results
-            <Icon name="mdi:arrow-right" class="ml-2 h-4 w-4" />
+            <Icon name="mdi:arrow-right" class="ml-2 w-4 h-4" />
           </Button>
         </div>
       </template>
@@ -231,14 +231,14 @@ const browseBySpecialty = (slug: string) => {
             class="cursor-pointer"
             @select="handleRecentSearch(query)"
           >
-            <Icon name="mdi:history" class="mr-2 h-4 w-4 text-muted-foreground" />
+            <Icon name="mdi:history" class="mr-2 w-4 h-4 text-muted-foreground" />
             <span>{{ query }}</span>
           </CommandItem>
           <div class="px-2 py-1">
             <Button
               variant="ghost"
               size="sm"
-              class="h-6 text-xs text-muted-foreground hover:text-foreground"
+              class="h-6 text-muted-foreground hover:text-foreground text-xs"
               @click="clearRecentSearches"
             >
               Clear recent
@@ -257,7 +257,7 @@ const browseBySpecialty = (slug: string) => {
             class="cursor-pointer"
             @select="browseBySpecialty(specialty.slug)"
           >
-            <Icon :name="specialty.icon" class="mr-2 h-4 w-4 text-muted-foreground" />
+            <Icon :name="specialty.icon" class="mr-2 w-4 h-4 text-muted-foreground" />
             <span>{{ specialty.name }}</span>
           </CommandItem>
         </CommandGroup>
@@ -271,7 +271,7 @@ const browseBySpecialty = (slug: string) => {
             class="cursor-pointer"
             @select="navigateToSearch('')"
           >
-            <Icon name="mdi:view-list" class="mr-2 h-4 w-4 text-muted-foreground" />
+            <Icon name="mdi:view-list" class="mr-2 w-4 h-4 text-muted-foreground" />
             <span>Browse all contractors</span>
           </CommandItem>
           <CommandItem
@@ -279,7 +279,7 @@ const browseBySpecialty = (slug: string) => {
             class="cursor-pointer"
             @select="() => { open = false; router.push('/top-defense-contractors') }"
           >
-            <Icon name="mdi:trophy-outline" class="mr-2 h-4 w-4 text-muted-foreground" />
+            <Icon name="mdi:trophy-outline" class="mr-2 w-4 h-4 text-muted-foreground" />
             <span>View Top 100</span>
           </CommandItem>
         </CommandGroup>
