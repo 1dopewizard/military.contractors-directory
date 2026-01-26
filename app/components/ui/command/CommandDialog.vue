@@ -14,7 +14,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 <template>
   <Dialog v-bind="forwarded">
-    <DialogContent class="overflow-hidden p-0 shadow-lg" @open-auto-focus="$emit('openAutoFocus', $event)">
+    <DialogContent class="overflow-hidden p-0 shadow-lg" hide-close-button @open-auto-focus="$emit('openAutoFocus', $event)">
       <VisuallyHidden>
         <DialogTitle>Command Palette</DialogTitle>
         <DialogDescription>Search and navigate quickly</DialogDescription>
