@@ -46,7 +46,7 @@ const getStatusBadge = (status: AdStatus) => {
 }
 
 const getPriorityBadge = (priority?: number) => {
-  if (priority === 2) return { label: 'Premium', class: 'bg-primary/10 text-primary' }
+  if (priority === 2) return { label: 'Premium', class: 'bg-primary/5 text-primary' }
   return null
 }
 
@@ -108,7 +108,7 @@ const formatDate = (dateString: string) => {
       <div class="flex flex-col sm:flex-row sm:items-center gap-4">
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-1 flex-wrap">
-            <span class="px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded" :class="item.type === 'job' ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'">
+            <span class="px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded" :class="item.type === 'job' ? 'bg-primary/5 text-primary' : 'bg-muted text-muted-foreground'">
               {{ item.type === 'job' ? 'Job' : 'Spotlight' }}
             </span>
             <span class="px-1.5 py-0.5 text-[10px] font-medium rounded" :class="getStatusBadge(item.data.status).class">

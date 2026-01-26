@@ -160,7 +160,7 @@ const formatDate = (dateString: string) => {
             <div class="flex items-center gap-2 mb-0.5">
               <span 
                 class="px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider" 
-                :class="item.type === 'job' ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'"
+                :class="item.type === 'job' ? 'bg-primary/5 text-primary' : 'bg-muted text-muted-foreground'"
               >
                 {{ item.type === 'job' ? 'Job' : 'Spotlight' }}
               </span>

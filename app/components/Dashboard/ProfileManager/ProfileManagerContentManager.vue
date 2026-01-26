@@ -382,7 +382,7 @@ const benefitIcons = [
                 type="button"
                 :class="[
                   'w-10 h-10 rounded-lg flex items-center justify-center border transition-colors',
-                  benefitForm.icon === icon ? 'border-primary bg-primary/10' : 'hover:bg-muted'
+                  benefitForm.icon === icon ? 'border-primary bg-primary/5' : 'hover:bg-muted'
                 ]"
                 @click="benefitForm.icon = icon"
               >

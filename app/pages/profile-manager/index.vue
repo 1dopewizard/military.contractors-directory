@@ -75,7 +75,7 @@ const tierBadgeColor = computed(() => {
   switch (profile.value.tier) {
     case 'premium': return 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
     case 'enterprise': return 'bg-purple-500/10 text-purple-600 dark:text-purple-400'
-    default: return 'bg-primary/10 text-primary'
+    default: return 'bg-primary/5 text-primary'
   }
 })
 </script>
@@ -176,7 +176,7 @@ const tierBadgeColor = computed(() => {
               :key="tab.id"
               class="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors"
               :class="activeTab === tab.id 
-                ? 'bg-primary/10 text-primary font-medium' 
+                ? 'bg-primary/5 text-primary font-medium' 
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground'"
               @click="setActiveTab(tab.id)"
             >

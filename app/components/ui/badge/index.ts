@@ -16,7 +16,7 @@ export const badgeVariants = cva(
           "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
         outline: "text-foreground",
         ghost: "border-transparent bg-transparent text-foreground hover:bg-muted",
-        soft: "border-transparent bg-primary/10 text-primary hover:bg-primary/20",
+        soft: "border-transparent bg-primary/5 text-primary hover:bg-primary/15",
         // Location type variants
         conus: "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20",
         oconus: "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20",

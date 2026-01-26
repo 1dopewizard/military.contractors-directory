@@ -131,7 +131,7 @@ const getDisplayPrice = (adType: AdType, tier: AdPlacementTier) => {
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-1">
                 <span class="font-bold text-sm text-primary">Premium</span>
-                <span class="px-1.5 py-0.5 text-[10px] font-medium bg-primary/10 text-primary">2x Exposure</span>
+                <span class="px-1.5 py-0.5 text-[10px] font-medium bg-primary/5 text-primary">2x Exposure</span>
                 <div 
                   class="w-4 h-4 border-2 flex items-center justify-center" 
                   :class="selectedTier === 'premium' ? 'border-primary bg-primary' : 'border-border'"

@@ -342,7 +342,7 @@ watchEffect(() => {
           <section v-if="contractor.spotlight" class="mb-8">
             <Card class="p-6 border-primary/30 bg-primary/5">
               <div class="flex items-center gap-2 mb-4">
-                <Badge class="bg-primary/10 text-primary">Company Spotlight</Badge>
+                <Badge class="bg-primary/5 text-primary">Company Spotlight</Badge>
               </div>
               <h3 v-if="contractor.spotlight.title" class="text-xl font-bold mb-2">
                 {{ contractor.spotlight.title }}

@@ -104,7 +104,7 @@ const activeLabel = computed(() => {
 
       <!-- Header Section -->
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-primary/10 text-primary text-[10px] font-mono font-bold uppercase tracking-widest mb-4 border border-primary/20">
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-primary/5 text-primary text-[10px] font-mono font-bold uppercase tracking-widest mb-4 border border-primary/20">
           <div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
           Developer Portal
         </div>

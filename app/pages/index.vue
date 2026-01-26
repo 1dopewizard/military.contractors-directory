@@ -152,12 +152,12 @@ const getSpecialtyIcon = (slug: string): string => {
       <div class="relative overflow-hidden">
         <div class="space-y-6 py-6 sm:py-8 text-center">
           <!-- Eyebrow badge -->
-          <div class="inline-flex items-center gap-2 bg-primary/10 px-3 py-1.5 border border-primary/20 font-medium text-primary text-xs tracking-wide">
+          <div class="inline-flex items-center gap-2 bg-primary/5 px-3 py-1.5 border border-primary/20 font-medium text-primary text-xs tracking-wide">
             <span class="relative flex w-2 h-2">
               <span class="inline-flex absolute bg-primary opacity-75 w-full h-full animate-ping" />
               <span class="inline-flex relative bg-primary w-2 h-2" />
             </span>
-            DEFENSE NEWS TOP 100
+            TOP 100 CONTRACTORS
           </div>
 
           
@@ -177,11 +177,11 @@ const getSpecialtyIcon = (slug: string): string => {
           <div class="mx-auto pt-4 max-w-xl">
             <Button
               variant="outline"
-              class="w-full h-12 justify-start bg-background/50 border-border/50 text-muted-foreground hover:text-foreground hover:bg-background/80 px-4"
+              class="justify-start bg-background/50 hover:bg-background/80 px-4 border-border/50 w-full h-12 text-muted-foreground hover:text-foreground"
               @click="openSearch"
             >
-              <Icon name="mdi:magnify" class="mr-3 h-5 w-5" />
-              <span class="flex-1 text-left text-base">Search contractors...</span>
+              <Icon name="mdi:magnify" class="mr-3 w-5 h-5" />
+              <span class="flex-1 text-base text-left">Search contractors...</span>
               <Kbd class="hidden sm:inline-flex">⌘K</Kbd>
             </Button>
             <GlobalSearch v-model:open="searchOpen" />
@@ -284,7 +284,7 @@ const getSpecialtyIcon = (slug: string): string => {
               </div>
               <span
                 v-if="contractor.defenseNewsRank"
-                class="text-sm text-muted-foreground shrink-0"
+                class="text-muted-foreground text-sm shrink-0"
               >
                 #{{ contractor.defenseNewsRank }}
               </span>

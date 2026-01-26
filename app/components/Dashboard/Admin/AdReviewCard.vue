@@ -52,7 +52,7 @@ const handleReject = () => {
         <div class="flex items-center gap-2 mb-1 flex-wrap">
           <span
             class="px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded"
-            :class="isSpotlight ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'"
+            :class="isSpotlight ? 'bg-muted text-muted-foreground' : 'bg-primary/5 text-primary'"
           >
             {{ isSpotlight ? 'Spotlight' : 'Job' }}
           </span>
