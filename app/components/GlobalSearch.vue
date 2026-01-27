@@ -292,14 +292,7 @@ const browseBySpecialty = (slug: string) => {
             <Icon name="mdi:view-list" class="mr-2 w-4 h-4 text-muted-foreground" />
             <span>Browse all contractors</span>
           </CommandItem>
-          <CommandItem
-            value="top-100"
-            class="cursor-pointer"
-            @select="() => { open = false; router.push('/top-defense-contractors') }"
-          >
-            <Icon name="mdi:trophy-outline" class="mr-2 w-4 h-4 text-muted-foreground" />
-            <span>View Top 100</span>
-          </CommandItem>
+
         </CommandGroup>
       </template>
     </CommandList>

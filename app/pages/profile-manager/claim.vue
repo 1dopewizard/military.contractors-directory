@@ -109,16 +109,15 @@ const emailDomain = computed(() => {
 </script>
 
 <template>
-  <ClientOnly>
-    <div>
-      <!-- Auth loading state -->
-      <div v-if="!isAuthReady" class="min-h-screen flex items-center justify-center">
-        <div class="flex flex-col items-center gap-4">
-          <LoadingText text="Loading" />
-        </div>
+  <div>
+    <!-- Auth loading state -->
+    <div v-if="!isAuthReady" class="min-h-screen flex items-center justify-center">
+      <div class="flex flex-col items-center gap-4">
+        <LoadingText text="Loading" />
       </div>
+    </div>
 
-      <div v-else class="min-h-screen py-12">
+    <div v-else class="min-h-screen py-12">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
       <!-- Header -->
       <div class="text-center mb-8">
@@ -340,8 +339,7 @@ const emailDomain = computed(() => {
           <NuxtLink to="/">Return to Home</NuxtLink>
         </Button>
       </Card>
-      </div>
     </div>
     </div>
-  </ClientOnly>
+  </div>
 </template>

@@ -10,24 +10,20 @@ const logger = useLogger('ContractorsBrowsePage')
 const route = useRoute()
 const router = useRouter()
 
-// SEO
 useHead({
-  title: 'Browse Defense Contractors | military.contractors',
+  title: 'Defense Contractors | military.contractors',
   meta: [
     {
       name: 'description',
-      content: 'Browse U.S. defense contractors from the Defense News Top 100. Filter by specialty, search by name, and explore company profiles.',
+      content: 'Browse U.S. defense contractors. Filter by specialty, location, and explore company profiles.',
     },
   ],
 })
 
-// State - initialize from URL params
-const searchQuery = ref((route.query.q as string) || '')
 const selectedSpecialty = ref((route.query.specialty as string) || '')
 const selectedLocation = ref((route.query.location as string) || '')
-const sortBy = ref((route.query.sort as string) || 'rank')
+const sortBy = ref((route.query.sort as string) || 'revenue')
 
-// Contractor response type
 interface ContractorResponse {
   contractors: Array<{
     id: string
@@ -70,14 +66,12 @@ interface Specialty {
   contractorCount?: number
 }
 
-// Fetch contractors with reactive query params
 const contractorsUrl = computed(() => {
   const params = new URLSearchParams()
-  if (searchQuery.value) params.set('q', searchQuery.value)
   if (selectedSpecialty.value) params.set('specialty', selectedSpecialty.value)
   if (selectedLocation.value) params.set('location', selectedLocation.value)
   if (sortBy.value) params.set('sort', sortBy.value)
-  params.set('limit', '50') // Show all contractors
+  params.set('limit', '100')
   return `/api/contractors?${params.toString()}`
 })
 
@@ -85,23 +79,20 @@ const { data: contractorsData, pending: contractorsPending, error: contractorsEr
   contractorsUrl,
   {
     lazy: true,
-    default: () => ({ contractors: [], total: 0, limit: 50, offset: 0 }),
+    default: () => ({ contractors: [], total: 0, limit: 100, offset: 0 }),
   }
 )
 
-// Fetch specialties for filter dropdown
 const { data: specialtiesData } = useFetch<{ specialties: Specialty[] }>('/api/specialties?includeCounts=true', {
   lazy: true,
   default: () => ({ specialties: [] }),
 })
 
-// Computed values
 const contractors = computed(() => contractorsData.value?.contractors ?? [])
 const totalCount = computed(() => contractorsData.value?.total ?? 0)
 const hasResults = computed(() => contractors.value.length > 0)
 const specialties = computed(() => specialtiesData.value?.specialties ?? [])
 
-// States for location filter dropdown
 const locationOptions = [
   { name: 'Virginia', slug: 'virginia' },
   { name: 'California', slug: 'california' },
@@ -122,87 +113,68 @@ const locationOptions = [
 ]
 
 const hasActiveFilters = computed(() =>
-  !!searchQuery.value || !!selectedSpecialty.value || !!selectedLocation.value || sortBy.value !== 'rank'
+  !!selectedSpecialty.value || !!selectedLocation.value || sortBy.value !== 'revenue'
 )
 
-
-
-// Sort options
 const sortOptions = [
-  { value: 'rank', label: 'Rank' },
   { value: 'revenue', label: 'Revenue' },
   { value: 'name', label: 'Name' },
 ]
 
-// Sync current filter state to URL query params
 const syncFiltersToUrl = () => {
   const query: Record<string, string> = {}
-  if (searchQuery.value) query.q = searchQuery.value
   if (selectedSpecialty.value) query.specialty = selectedSpecialty.value
   if (selectedLocation.value) query.location = selectedLocation.value
-  if (sortBy.value && sortBy.value !== 'rank') query.sort = sortBy.value
-
+  if (sortBy.value && sortBy.value !== 'revenue') query.sort = sortBy.value
   router.replace({ query })
 }
 
-// Apply specialty filter
 const applySpecialtyFilter = (value: string) => {
   selectedSpecialty.value = value === 'ANY' ? '' : value
   syncFiltersToUrl()
 }
 
-// Apply location filter
 const applyLocationFilter = (value: string) => {
   selectedLocation.value = value === 'ANY' ? '' : value
   syncFiltersToUrl()
 }
 
-// Apply sort
 const applySort = (value: string) => {
   sortBy.value = value
   syncFiltersToUrl()
 }
 
-// Reset all filters
 const resetFilters = () => {
-  searchQuery.value = ''
   selectedSpecialty.value = ''
   selectedLocation.value = ''
-  sortBy.value = 'rank'
+  sortBy.value = 'revenue'
   syncFiltersToUrl()
 }
 
-// Get selected specialty name for display
 const selectedSpecialtyName = computed(() => {
   if (!selectedSpecialty.value) return null
   const specialty = specialties.value.find((s) => s.slug === selectedSpecialty.value)
   return specialty?.name || null
 })
 
-// Get selected location name for display
 const selectedLocationName = computed(() => {
   if (!selectedLocation.value) return null
   const location = locationOptions.find((l) => l.slug === selectedLocation.value)
   return location?.name || null
 })
 
-// Watch for URL query changes (back/forward navigation)
 watch(
   () => route.query,
   (newQuery) => {
-    const newQ = (newQuery.q as string) || ''
     const newSpecialty = (newQuery.specialty as string) || ''
     const newLocation = (newQuery.location as string) || ''
-    const newSort = (newQuery.sort as string) || 'rank'
+    const newSort = (newQuery.sort as string) || 'revenue'
 
-    // Only update if values actually changed
     if (
-      newQ !== searchQuery.value ||
       newSpecialty !== selectedSpecialty.value ||
       newLocation !== selectedLocation.value ||
       newSort !== sortBy.value
     ) {
-      searchQuery.value = newQ
       selectedSpecialty.value = newSpecialty
       selectedLocation.value = newLocation
       sortBy.value = newSort
@@ -210,7 +182,6 @@ watch(
   }
 )
 
-// Log page load
 watchEffect(() => {
   if (contractors.value.length > 0) {
     logger.info({ count: contractors.value.length }, 'Contractors loaded')
@@ -348,7 +319,7 @@ watchEffect(() => {
             <EmptyContent>
               <EmptyTitle>No contractors found</EmptyTitle>
               <EmptyDescription>
-                {{ selectedSpecialty ? 'No contractors match the selected specialty.' : 'Try adjusting your search or filters.' }}
+                {{ selectedSpecialty ? 'No contractors match the selected filters.' : 'Try adjusting your search or filters.' }}
               </EmptyDescription>
             </EmptyContent>
             <Button v-if="hasActiveFilters" variant="ghost" size="sm" @click="resetFilters">
@@ -365,7 +336,6 @@ watchEffect(() => {
             />
           </div>
         </div>
-
       </div>
     </div>
   </div>

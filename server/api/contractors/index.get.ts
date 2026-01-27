@@ -199,21 +199,22 @@ export default defineEventHandler(async (event) => {
         logoUrl: schema.contractor.logoUrl,
         createdAt: schema.contractor.createdAt,
         updatedAt: schema.contractor.updatedAt,
-        // Get primary specialty via join
+        // Get primary specialty via correlated subquery
+        // Note: Using raw SQL table/column names because Drizzle's template interpolation
+        // doesn't work correctly inside subqueries. This is the documented pattern for
+        // scalar subqueries in select fields.
         primarySpecialtySlug: sql<string | null>`(
-          SELECT ${schema.specialty.slug}
-          FROM ${schema.contractorSpecialty}
-          JOIN ${schema.specialty} ON ${schema.contractorSpecialty.specialtyId} = ${schema.specialty.id}
-          WHERE ${schema.contractorSpecialty.contractorId} = ${schema.contractor.id}
-          AND ${schema.contractorSpecialty.isPrimary} = 1
+          SELECT s.slug
+          FROM contractorSpecialty cs
+          JOIN specialty s ON cs.specialtyId = s.id
+          WHERE cs.contractorId = contractor.id AND cs.isPrimary = 1
           LIMIT 1
         )`.as('primarySpecialtySlug'),
         primarySpecialtyName: sql<string | null>`(
-          SELECT ${schema.specialty.name}
-          FROM ${schema.contractorSpecialty}
-          JOIN ${schema.specialty} ON ${schema.contractorSpecialty.specialtyId} = ${schema.specialty.id}
-          WHERE ${schema.contractorSpecialty.contractorId} = ${schema.contractor.id}
-          AND ${schema.contractorSpecialty.isPrimary} = 1
+          SELECT s.name
+          FROM contractorSpecialty cs
+          JOIN specialty s ON cs.specialtyId = s.id
+          WHERE cs.contractorId = contractor.id AND cs.isPrimary = 1
           LIMIT 1
         )`.as('primarySpecialtyName'),
       })

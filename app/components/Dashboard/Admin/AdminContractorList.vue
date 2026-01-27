@@ -7,13 +7,14 @@ interface Contractor {
   id: string
   name: string
   slug: string
-  defenseNewsRank: number | null
   headquarters: string | null
+  primarySpecialty: { name: string | null } | null
 }
 
 const { data: contractors, pending, error, refresh } = await useFetch<{ contractors: Contractor[] }>('/api/contractors', {
   params: {
     limit: 100,
+    sort: 'name',
   },
 })
 </script>
@@ -50,17 +51,14 @@ const { data: contractors, pending, error, refresh } = await useFetch<{ contract
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead class="w-12">Rank</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Headquarters</TableHead>
+            <TableHead>Specialty</TableHead>
             <TableHead class="w-24">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           <TableRow v-for="contractor in contractors?.contractors" :key="contractor.id">
-            <TableCell class="font-medium">
-              {{ contractor.defenseNewsRank || '-' }}
-            </TableCell>
             <TableCell>
               <NuxtLink 
                 :to="`/contractors/${contractor.slug}`" 
@@ -71,7 +69,10 @@ const { data: contractors, pending, error, refresh } = await useFetch<{ contract
               </NuxtLink>
             </TableCell>
             <TableCell class="text-muted-foreground">
-              {{ contractor.headquarters || '-' }}
+              {{ contractor.headquarters || '—' }}
+            </TableCell>
+            <TableCell class="text-muted-foreground">
+              {{ contractor.primarySpecialty?.name || '—' }}
             </TableCell>
             <TableCell>
               <Button variant="ghost" size="sm" as-child>

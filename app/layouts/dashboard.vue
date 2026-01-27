@@ -13,22 +13,6 @@ const mobileMenuOpen = ref(false)
 
 const currentYear = new Date().getFullYear()
 
-// Navigation items - Defense Contractor Directory
-const navItems = [
-    {
-        name: 'Contractors',
-        icon: 'mdi:domain',
-        route: '/contractors',
-        active: computed(() => route.path.startsWith('/contractors'))
-    },
-    {
-        name: 'Top 100',
-        icon: 'mdi:trophy-outline',
-        route: '/top-defense-contractors',
-        active: computed(() => route.path === '/top-defense-contractors')
-    }
-]
-
 // Close mobile menu when route changes
 watch(() => route.path, () => {
     mobileMenuOpen.value = false
@@ -55,20 +39,6 @@ logger.info('Dashboard layout loaded')
             military.contractors
           </span>
         </NuxtLink>
-
-        <!-- Navigation Links (Centered - Large Desktop only) -->
-        <nav class="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 items-center gap-6 z-0">
-          <NuxtLink 
-            v-for="item in navItems" 
-            :key="item.name"
-            :to="item.route"
-            class="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary whitespace-nowrap"
-            :class="item.active.value ? 'text-primary' : 'text-muted-foreground'"
-          >
-            <Icon :name="item.icon" class="w-4 h-4" />
-            <span>{{ item.name }}</span>
-          </NuxtLink>
-        </nav>
 
         <!-- Right side actions -->
         <div class="flex items-center gap-2 sm:gap-4 ml-auto z-10">
@@ -98,23 +68,9 @@ logger.info('Dashboard layout loaded')
         <SheetHeader class="text-left">
           <SheetTitle class="text-left">Navigation</SheetTitle>
         </SheetHeader>
-        <nav class="flex flex-col gap-4 mt-6">
-          <NuxtLink 
-            v-for="item in navItems" 
-            :key="item.name"
-            :to="item.route"
-            class="flex items-center gap-3 px-3 py-3 text-base font-medium rounded-md transition-colors hover:bg-muted"
-            :class="item.active.value ? 'text-primary bg-muted' : 'text-muted-foreground'"
-          >
-            <Icon :name="item.icon" class="w-5 h-5" />
-            <span>{{ item.name }}</span>
-          </NuxtLink>
-          
-          <!-- Auth Button in Mobile Menu -->
-          <div class="mt-4 pt-4 border-t border-border">
-            <AuthButton />
-          </div>
-        </nav>
+        <div class="mt-6">
+          <AuthButton />
+        </div>
       </SheetContent>
     </Sheet>
 
@@ -133,6 +89,7 @@ logger.info('Dashboard layout loaded')
               <p>© {{ currentYear }} military.contractors</p>
               <div class="flex items-center gap-4">
                 <NuxtLink to="/about" class="hover:text-primary transition-colors">About</NuxtLink>
+                <NuxtLink to="/contact" class="hover:text-primary transition-colors">Contact</NuxtLink>
                 <NuxtLink to="/privacy" class="hover:text-primary transition-colors">Privacy</NuxtLink>
                 <NuxtLink to="/terms" class="hover:text-primary transition-colors">Terms</NuxtLink>
               </div>

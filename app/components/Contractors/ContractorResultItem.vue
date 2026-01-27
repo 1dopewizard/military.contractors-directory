@@ -43,50 +43,32 @@ const formatRevenue = (revenue: number | null | undefined): string => {
     class="block group relative px-4 py-4 border border-border/30 bg-card/30 transition-all duration-150 hover:border-primary/30 hover:bg-card/50"
   >
     <article class="flex gap-4">
-      <!-- Logo -->
-      <div class="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0">
-        <img 
-          v-if="contractor.logoUrl" 
-          :src="contractor.logoUrl" 
-          :alt="contractor.name"
-          class="w-full h-full object-contain rounded"
-        />
-        <span v-else class="text-lg font-bold text-muted-foreground">
-          {{ contractor.name?.charAt(0) }}
-        </span>
-      </div>
-      
       <!-- Content -->
       <div class="flex-1 min-w-0 space-y-2">
-        <!-- Name + Rank row -->
+        <!-- Name row -->
         <div class="flex items-start justify-between gap-4">
-          <div class="flex items-center gap-3 min-w-0">
-            <h3 class="text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors leading-snug truncate">
-              {{ contractor.name }}
-            </h3>
-            <span v-if="contractor.defenseNewsRank" class="text-xs text-muted-foreground shrink-0">
-              #{{ contractor.defenseNewsRank }}
-            </span>
-          </div>
+          <h3 class="text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors leading-snug truncate">
+            {{ contractor.name }}
+          </h3>
         </div>
 
-      <!-- Stats row -->
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-        <span v-if="contractor.defenseRevenue != null" class="font-medium">
-          {{ formatRevenue(contractor.defenseRevenue) }} Defense
-        </span>
-        <span v-if="contractor.headquarters" class="flex items-center gap-1">
-          <Icon name="mdi:map-marker-outline" class="w-3.5 h-3.5" />
-          {{ contractor.headquarters }}
-        </span>
-      </div>
+        <!-- Stats row -->
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+          <span v-if="contractor.defenseRevenue != null" class="font-medium">
+            {{ formatRevenue(contractor.defenseRevenue) }} Defense
+          </span>
+          <span v-if="contractor.headquarters" class="flex items-center gap-1">
+            <Icon name="mdi:map-marker-outline" class="w-3.5 h-3.5" />
+            {{ contractor.headquarters }}
+          </span>
+        </div>
 
-      <!-- Primary Specialty -->
-      <div v-if="contractor.primarySpecialty" class="flex items-center gap-2">
-        <Badge variant="outline" class="text-xs">
-          {{ contractor.primarySpecialty.name }}
-        </Badge>
-      </div>
+        <!-- Primary Specialty -->
+        <div v-if="contractor.primarySpecialty" class="flex items-center gap-2">
+          <Badge variant="outline" class="text-xs">
+            {{ contractor.primarySpecialty.name }}
+          </Badge>
+        </div>
 
         <!-- Description snippet -->
         <p
@@ -95,6 +77,19 @@ const formatRevenue = (revenue: number | null | undefined): string => {
         >
           {{ contractor.description }}
         </p>
+      </div>
+
+      <!-- Logo -->
+      <div class="w-12 h-12 bg-muted flex items-center justify-center shrink-0">
+        <img 
+          v-if="contractor.logoUrl" 
+          :src="contractor.logoUrl" 
+          :alt="contractor.name"
+          class="w-full h-full object-contain"
+        />
+        <span v-else class="text-lg font-bold text-muted-foreground">
+          {{ contractor.name?.charAt(0) }}
+        </span>
       </div>
     </article>
   </NuxtLink>

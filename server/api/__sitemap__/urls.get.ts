@@ -59,12 +59,6 @@ export default defineEventHandler(async () => {
 
     // Add static SEO pages
     urls.push({
-      loc: `${baseUrl}/top-defense-contractors`,
-      changefreq: 'monthly',
-      priority: 0.9,
-    })
-
-    urls.push({
       loc: `${baseUrl}/for-companies`,
       changefreq: 'monthly',
       priority: 0.6,

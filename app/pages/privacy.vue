@@ -18,37 +18,24 @@ useHead({
 
 <template>
   <div class="min-h-full">
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-8 pb-6">
-        <!-- Breadcrumb -->
-        <nav class="text-sm text-muted-foreground mb-8">
-          <NuxtLink to="/" class="hover:text-primary transition-colors">Home</NuxtLink>
-          <span class="mx-2">/</span>
-          <span class="text-foreground">Privacy Policy</span>
-        </nav>
-
-        <div class="max-w-2xl">
-          <p class="text-xs font-mono uppercase tracking-widest text-primary mb-3">Legal</p>
-          <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
-            Privacy Policy
-          </h1>
-          <p class="text-lg text-muted-foreground leading-relaxed">
-            Your privacy matters. This policy explains how we collect, use, and protect your information.
-          </p>
-        </div>
+    <!-- Header -->
+    <header class="border-b border-border">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12 sm:py-16">
+        <h1 class="text-2xl sm:text-3xl font-bold text-foreground">Privacy Policy</h1>
+        <p class="mt-2 text-muted-foreground">
+          How we collect, use, and protect your information.
+        </p>
       </div>
-    </section>
+    </header>
 
     <!-- Main Content -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-8">
-      <div class="space-y-10 max-w-3xl">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12">
+      <div class="space-y-10 max-w-2xl">
         
         <p class="text-sm text-muted-foreground">Last updated: December 2024</p>
 
-        <!-- Information We Collect -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Information We Collect</h2>
+          <h2 class="font-semibold text-foreground mb-3">Information we collect</h2>
           <div class="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               <span class="text-foreground font-medium">Account Information:</span> When you create an account, we collect your email address for authentication purposes.
@@ -62,9 +49,8 @@ useHead({
           </div>
         </section>
 
-        <!-- How We Use Your Information -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">How We Use Your Information</h2>
+          <h2 class="font-semibold text-foreground mb-3">How we use your information</h2>
           <ul class="space-y-2 text-muted-foreground leading-relaxed list-disc list-inside">
             <li>To provide and maintain the service</li>
             <li>To authenticate your account and enable personalized features</li>
@@ -74,9 +60,8 @@ useHead({
           </ul>
         </section>
 
-        <!-- Information Sharing -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Information Sharing</h2>
+          <h2 class="font-semibold text-foreground mb-3">Information sharing</h2>
           <p class="text-muted-foreground leading-relaxed mb-4">
             We do not sell your personal information. We may share data with:
           </p>
@@ -86,25 +71,22 @@ useHead({
           </ul>
         </section>
 
-        <!-- Cookies -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Cookies & Tracking</h2>
+          <h2 class="font-semibold text-foreground mb-3">Cookies and tracking</h2>
           <p class="text-muted-foreground leading-relaxed">
             We use essential cookies for authentication and site functionality. We use privacy-respecting analytics to understand how the site is used. We do not use advertising cookies or sell data to advertisers.
           </p>
         </section>
 
-        <!-- Data Security -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Data Security</h2>
+          <h2 class="font-semibold text-foreground mb-3">Data security</h2>
           <p class="text-muted-foreground leading-relaxed">
             We implement industry-standard security measures to protect your data, including encryption in transit (HTTPS), secure authentication, and regular security audits. However, no method of transmission over the internet is 100% secure.
           </p>
         </section>
 
-        <!-- Your Rights -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Your Rights</h2>
+          <h2 class="font-semibold text-foreground mb-3">Your rights</h2>
           <p class="text-muted-foreground leading-relaxed mb-4">
             You have the right to:
           </p>
@@ -115,27 +97,24 @@ useHead({
             <li>Export your data in a portable format</li>
           </ul>
           <p class="text-muted-foreground leading-relaxed mt-4">
-            To exercise these rights, contact us at <a href="mailto:privacy@military.contractors" class="text-primary hover:underline">privacy@military.contractors</a>.
+            To exercise these rights, <NuxtLink to="/contact" class="text-primary hover:underline">contact us</NuxtLink>.
           </p>
         </section>
 
-        <!-- Changes -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Changes to This Policy</h2>
+          <h2 class="font-semibold text-foreground mb-3">Changes to this policy</h2>
           <p class="text-muted-foreground leading-relaxed">
             We may update this policy from time to time. We will notify you of significant changes by posting a notice on the site or sending an email to registered users.
           </p>
         </section>
 
-        <!-- Contact -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Contact</h2>
+          <h2 class="font-semibold text-foreground mb-3">Contact</h2>
           <p class="text-muted-foreground leading-relaxed">
-            Questions about this policy? Contact us at <a href="mailto:privacy@military.contractors" class="text-primary hover:underline">privacy@military.contractors</a>.
+            Questions about this policy? <NuxtLink to="/contact" class="text-primary hover:underline">Get in touch</NuxtLink>.
           </p>
         </section>
-
       </div>
-    </div>
+    </main>
   </div>
 </template>

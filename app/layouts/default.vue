@@ -12,22 +12,6 @@ const mobileMenuOpen = ref(false)
 
 const currentYear = new Date().getFullYear()
 
-// Navigation items - Defense Contractor Directory
-const navItems = [
-    {
-        name: 'Contractors',
-        icon: 'mdi:domain',
-        route: '/contractors',
-        active: computed(() => route.path.startsWith('/contractors'))
-    },
-    {
-        name: 'Top 100',
-        icon: 'mdi:trophy-outline',
-        route: '/top-defense-contractors',
-        active: computed(() => route.path === '/top-defense-contractors')
-    }
-]
-
 // Close mobile menu when route changes
 watch(() => route.path, () => {
     mobileMenuOpen.value = false
@@ -52,20 +36,6 @@ watch(() => route.path, () => {
                         military.contractors
                     </span>
                 </NuxtLink>
-
-                <!-- Navigation Links (Centered - Large Desktop only) -->
-                <nav class="hidden lg:flex items-center gap-6">
-                    <NuxtLink 
-                        v-for="item in navItems" 
-                        :key="item.name"
-                        :to="item.route"
-                        class="flex items-center gap-2 font-medium hover:text-primary text-sm whitespace-nowrap transition-colors"
-                        :class="item.active.value ? 'text-primary' : 'text-muted-foreground'"
-                    >
-                        <Icon :name="item.icon" class="w-4 h-4" />
-                        <span>{{ item.name }}</span>
-                    </NuxtLink>
-                </nav>
 
                 <!-- Right Side Actions -->
                 <div class="flex items-center gap-2 sm:gap-4">
@@ -105,23 +75,9 @@ watch(() => route.path, () => {
                     <HeaderSearch />
                 </div>
                 
-                <nav class="flex flex-col gap-4">
-                    <NuxtLink 
-                        v-for="item in navItems" 
-                        :key="item.name"
-                        :to="item.route"
-                        class="flex items-center gap-3 hover:bg-muted px-3 py-3 rounded-md font-medium text-base transition-colors"
-                        :class="item.active.value ? 'text-primary bg-muted' : 'text-muted-foreground'"
-                    >
-                        <Icon :name="item.icon" class="w-5 h-5" />
-                        <span>{{ item.name }}</span>
-                    </NuxtLink>
-                    
-                    <!-- Auth Button in Mobile Menu -->
-                    <div class="mt-4 pt-4 border-border border-t">
-                        <AuthButton />
-                    </div>
-                </nav>
+                <div class="mt-4">
+                    <AuthButton />
+                </div>
             </SheetContent>
         </Sheet>
 
@@ -140,6 +96,7 @@ watch(() => route.path, () => {
                         <div class="flex items-center gap-4">
                             <NuxtLink to="/for-companies" class="hover:text-primary transition-colors">For Companies</NuxtLink>
                             <NuxtLink to="/about" class="hover:text-primary transition-colors">About</NuxtLink>
+                            <NuxtLink to="/contact" class="hover:text-primary transition-colors">Contact</NuxtLink>
                             <NuxtLink to="/privacy" class="hover:text-primary transition-colors">Privacy</NuxtLink>
                             <NuxtLink to="/terms" class="hover:text-primary transition-colors">Terms</NuxtLink>
                         </div>

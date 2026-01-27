@@ -230,19 +230,19 @@ const getSpecialtyIcon = (slug: string): string => {
       </div>
     </section>
 
-    <!-- Top Contractors Section -->
+    <!-- Featured Contractors Section -->
     <section class="border-t border-border">
       <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
         <div class="mx-auto max-w-5xl">
           <div class="flex justify-between items-baseline mb-8">
             <h2 class="font-bold text-foreground text-xl sm:text-2xl">
-              Top Contractors
+              Featured Contractors
             </h2>
             <NuxtLink 
               to="/contractors" 
               class="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              View all contractors
+              View all
             </NuxtLink>
           </div>
 
@@ -273,17 +273,9 @@ const getSpecialtyIcon = (slug: string): string => {
               class="group bg-background p-5 sm:p-6 transition-colors hover:bg-muted/30"
             >
               <div class="space-y-3">
-                <div class="flex justify-between items-start gap-3">
-                  <h3 class="font-semibold text-foreground group-hover:text-primary text-base leading-tight transition-colors">
-                    {{ contractor.name }}
-                  </h3>
-                  <span
-                    v-if="contractor.defenseNewsRank"
-                    class="text-muted-foreground text-sm tabular-nums shrink-0"
-                  >
-                    #{{ contractor.defenseNewsRank }}
-                  </span>
-                </div>
+                <h3 class="font-semibold text-foreground group-hover:text-primary text-base leading-tight transition-colors">
+                  {{ contractor.name }}
+                </h3>
                 <div class="space-y-1 text-sm text-muted-foreground">
                   <div v-if="contractor.defenseRevenue != null" class="font-medium text-foreground">
                     {{ formatRevenue(contractor.defenseRevenue) }} defense revenue

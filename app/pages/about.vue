@@ -18,35 +18,22 @@ useHead({
 
 <template>
   <div class="min-h-full">
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-8 pb-6">
-        <!-- Breadcrumb -->
-        <nav class="text-sm text-muted-foreground mb-8">
-          <NuxtLink to="/" class="hover:text-primary transition-colors">Home</NuxtLink>
-          <span class="mx-2">/</span>
-          <span class="text-foreground">About</span>
-        </nav>
-
-        <div class="max-w-2xl">
-          <p class="text-xs font-mono uppercase tracking-widest text-primary mb-3">About Us</p>
-          <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
-            The definitive directory of defense contractors.
-          </h1>
-          <p class="text-lg text-muted-foreground leading-relaxed">
-            military.contractors is the reference destination for defense contractor intelligence. We provide authoritative, well-structured company profiles for hundreds of defense contractors.
-          </p>
-        </div>
+    <!-- Header -->
+    <header class="border-b border-border">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12 sm:py-16">
+        <h1 class="text-2xl sm:text-3xl font-bold text-foreground">About</h1>
+        <p class="mt-2 text-muted-foreground">
+          The definitive directory of defense contractors.
+        </p>
       </div>
-    </section>
+    </header>
 
     <!-- Main Content -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-8">
-      <div class="space-y-12 max-w-3xl">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12">
+      <div class="space-y-10 max-w-2xl">
         
-        <!-- What We Do -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">What We Do</h2>
+          <h2 class="font-semibold text-foreground mb-3">What we do</h2>
           <p class="text-muted-foreground leading-relaxed mb-4">
             Think of us as Crunchbase for defense contractors. Whether you're researching potential employers, scouting competitors, or exploring the defense industry landscape, we provide the structured data you need.
           </p>
@@ -55,9 +42,8 @@ useHead({
           </p>
         </section>
 
-        <!-- Who It's For -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Who It's For</h2>
+          <h2 class="font-semibold text-foreground mb-3">Who it's for</h2>
           <div class="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               <span class="text-foreground font-medium">Career researchers:</span> Veterans transitioning to contracting, or anyone exploring defense industry employers. Browse by specialty or location to find companies that match your interests.
@@ -71,24 +57,21 @@ useHead({
           </div>
         </section>
 
-        <!-- Why We Built This -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Why We Built This</h2>
+          <h2 class="font-semibold text-foreground mb-3">Why we built this</h2>
           <p class="text-muted-foreground leading-relaxed">
             There's no authoritative, defense-focused company directory. Wikipedia covers the major players; everyone else is scattered across press releases, LinkedIn, and paywalled databases. We're filling that gap with structured, freely accessible company profiles.
           </p>
         </section>
 
-        <!-- Contact -->
         <section>
-          <h2 class="text-lg font-bold text-foreground mb-4">Contact</h2>
+          <h2 class="font-semibold text-foreground mb-3">Contact</h2>
           <p class="text-muted-foreground leading-relaxed">
-            Questions, feedback, or partnership inquiries? Reach out at 
-            <a href="mailto:hello@military.contractors" class="text-primary hover:underline">hello@military.contractors</a>.
+            Questions, feedback, or partnership inquiries? 
+            <NuxtLink to="/contact" class="text-primary hover:underline">Get in touch</NuxtLink>.
           </p>
         </section>
-
       </div>
-    </div>
+    </main>
   </div>
 </template>
