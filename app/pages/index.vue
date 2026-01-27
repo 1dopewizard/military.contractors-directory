@@ -30,8 +30,19 @@ useWebPageSchema({
   description: 'Comprehensive directory of U.S. defense contractors featuring company profiles, specialties, and revenue data.'
 })
 
-// Search state - opens global search modal
-const searchOpen = ref(false)
+// Search state
+const searchQuery = ref('')
+const router = useRouter()
+
+// Handle search submission
+const handleSearch = () => {
+  const q = searchQuery.value.trim()
+  if (q) {
+    router.push({ path: '/contractors', query: { q } })
+  } else {
+    router.push('/contractors')
+  }
+}
 
 // Contractor response type
 interface ContractorResponse {
@@ -118,10 +129,7 @@ const formatTotalRevenue = (revenue: number): string => {
   return `$${revenue.toFixed(0)}B`
 }
 
-// Handle search - opens the global search modal
-const openSearch = () => {
-  searchOpen.value = true
-}
+
 
 // Specialty icon mapping
 const specialtyIcons: Record<string, string> = {
@@ -163,16 +171,21 @@ const getSpecialtyIcon = (slug: string): string => {
 
           <!-- Search Bar - Hero Element -->
           <div class="mt-10 mx-auto max-w-2xl">
-            <button
-              type="button"
-              class="flex items-center w-full h-14 sm:h-16 px-5 sm:px-6 border border-border bg-card text-left transition-colors hover:border-primary/50 focus:outline-none focus:border-primary"
-              @click="openSearch"
-            >
-              <Icon name="mdi:magnify" class="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground shrink-0" />
-              <span class="ml-4 flex-1 text-muted-foreground text-base sm:text-lg">Search contractors...</span>
-              <Kbd class="hidden sm:inline-flex text-xs">⌘K</Kbd>
-            </button>
-            <GlobalSearch v-model:open="searchOpen" />
+            <form @submit.prevent="handleSearch" class="flex items-center w-full h-14 sm:h-16 border border-border bg-card transition-colors focus-within:border-primary">
+              <Icon name="mdi:magnify" class="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground shrink-0 ml-5 sm:ml-6" />
+              <input
+                v-model="searchQuery"
+                type="text"
+                placeholder="Search contractors..."
+                class="flex-1 h-full px-4 bg-transparent text-foreground text-base sm:text-lg placeholder:text-muted-foreground focus:outline-none"
+              />
+              <button
+                type="submit"
+                class="h-full px-5 sm:px-6 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Icon name="mdi:arrow-right" class="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+            </form>
           </div>
 
           <!-- Quick filters -->
