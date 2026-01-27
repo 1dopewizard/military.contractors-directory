@@ -80,7 +80,28 @@ pnpm db:studio     # Open Drizzle Studio GUI
 
 **Context7 MCP** — Library documentation via `resolve-library-id` → `query-docs`. Use for Drizzle ORM, Vue, Nuxt, and other library docs.
 
-**Chrome DevTools MCP** — Browser automation for UI testing.
+---
+
+## Browser Automation
+
+**agent-browser** — Headless browser automation CLI for AI agents.
+
+```bash
+# Core workflow
+agent-browser open <url> [--headed]   # Navigate (--headed shows window)
+agent-browser snapshot -i             # Get interactive elements with refs
+agent-browser click @e1               # Click by ref from snapshot
+agent-browser fill @e2 "text"         # Fill input by ref
+agent-browser get text @e1            # Get element text
+agent-browser screenshot [path]       # Take screenshot
+agent-browser close                   # Close browser
+
+# Switch modes: close first, then reopen
+agent-browser close
+agent-browser open example.com --headed
+```
+
+Refs (`@e1`, `@e2`) come from `snapshot` output and provide deterministic element selection.
 
 ---
 
