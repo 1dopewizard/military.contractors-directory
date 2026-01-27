@@ -30,8 +30,6 @@ useWebPageSchema({
   description: 'Comprehensive directory of U.S. defense contractors featuring company profiles, specialties, and revenue data.'
 })
 
-const router = useRouter()
-
 // Search state - opens global search modal
 const searchOpen = ref(false)
 
@@ -63,9 +61,9 @@ interface Specialty {
   contractorCount?: number
 }
 
-// Fetch top 10 contractors
+// Fetch top contractors
 const { data: topContractorsData, pending: contractorsPending } = useFetch<ContractorResponse>(
-  '/api/contractors?sort=rank&limit=10',
+  '/api/contractors?sort=rank&limit=6',
   {
     lazy: true,
     default: () => ({ contractors: [], total: 0 }),
@@ -147,69 +145,83 @@ const getSpecialtyIcon = (slug: string): string => {
 
 <template>
   <div class="min-h-full">
-    <!-- Hero Section -->
-    <section class="mx-auto px-4 sm:px-6 lg:px-8 pt-[clamp(1.5rem,6vh,3rem)] pb-8 container">
-      <div class="relative overflow-hidden">
-        <div class="space-y-6 py-6 sm:py-8 text-center">
-          <!-- Eyebrow badge -->
-          <div class="inline-flex items-center gap-2 bg-primary/5 px-3 py-1.5 border border-primary/20 font-medium text-primary text-xs tracking-wide">
-            <span class="relative flex w-2 h-2">
-              <span class="inline-flex absolute bg-primary opacity-75 w-full h-full animate-ping" />
-              <span class="inline-flex relative bg-primary w-2 h-2" />
-            </span>
-            TOP 100 CONTRACTORS
-          </div>
-
+    <!-- Hero Section - Search Centric -->
+    <section class="relative">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 pt-[clamp(4rem,12vh,8rem)] pb-12 container">
+        <div class="mx-auto max-w-3xl text-center">
+          <!-- Primary headline - Large and commanding -->
+          <h1 class="font-bold text-foreground text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight">
+            Find Defense
+            <br />
+            Contractors
+          </h1>
           
-          <!-- Main headline -->
-          <div class="space-y-4">
-            <h1 class="font-bold text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight">
-              The Defense Contractor
-              <br class="hidden sm:block" />
-              Directory
-            </h1>
-            <p class="mx-auto max-w-2xl text-muted-foreground text-lg sm:text-xl leading-relaxed">
-              Browse U.S. defense contractors by specialty, revenue, and rank.
-            </p>
-          </div>
+          <!-- Subheadline -->
+          <p class="mt-6 text-muted-foreground text-lg sm:text-xl">
+            Search {{ totalContractors }} U.S. defense contractors by name, specialty, or location.
+          </p>
 
-          <!-- Search Bar - Opens Global Search Modal -->
-          <div class="mx-auto pt-4 max-w-xl">
-            <Button
-              variant="outline"
-              class="justify-start bg-background/50 hover:bg-background/80 px-4 border-border/50 w-full h-12 text-muted-foreground hover:text-foreground"
+          <!-- Search Bar - Hero Element -->
+          <div class="mt-10 mx-auto max-w-2xl">
+            <button
+              type="button"
+              class="flex items-center w-full h-14 sm:h-16 px-5 sm:px-6 border border-border bg-card text-left transition-colors hover:border-primary/50 focus:outline-none focus:border-primary"
               @click="openSearch"
             >
-              <Icon name="mdi:magnify" class="mr-3 w-5 h-5" />
-              <span class="flex-1 text-base text-left">Search contractors...</span>
-              <Kbd class="hidden sm:inline-flex">⌘K</Kbd>
-            </Button>
+              <Icon name="mdi:magnify" class="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground shrink-0" />
+              <span class="ml-4 flex-1 text-muted-foreground text-base sm:text-lg">Search contractors...</span>
+              <Kbd class="hidden sm:inline-flex text-xs">⌘K</Kbd>
+            </button>
             <GlobalSearch v-model:open="searchOpen" />
           </div>
 
-          <!-- Stats strip -->
-          <div class="flex justify-center items-center gap-8 sm:gap-12 pt-4">
-            <div class="text-center">
-              <div class="font-bold tabular-nums text-foreground text-3xl sm:text-4xl tracking-tight">
+          <!-- Quick filters -->
+          <div class="mt-6 flex flex-wrap justify-center gap-2">
+            <NuxtLink
+              v-for="specialty in specialties.slice(0, 5)"
+              :key="specialty.id"
+              :to="{ path: '/contractors', query: { specialty: specialty.slug } }"
+              class="px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground border border-transparent hover:border-border transition-colors"
+            >
+              {{ specialty.name }}
+            </NuxtLink>
+            <NuxtLink
+              to="/contractors"
+              class="px-3 py-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
+            >
+              View all
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="border-t border-border">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-8 container">
+        <div class="mx-auto max-w-4xl">
+          <div class="grid grid-cols-3 divide-x divide-border">
+            <div class="px-4 sm:px-8 text-center">
+              <div class="font-bold tabular-nums text-foreground text-2xl sm:text-3xl md:text-4xl tracking-tight">
                 {{ totalContractors }}
               </div>
-              <div class="mt-0.5 text-muted-foreground text-sm">
+              <div class="mt-1 text-muted-foreground text-xs sm:text-sm">
                 U.S. Contractors
               </div>
             </div>
-            <div class="text-center">
-              <div class="font-bold tabular-nums text-foreground text-3xl sm:text-4xl tracking-tight">
+            <div class="px-4 sm:px-8 text-center">
+              <div class="font-bold tabular-nums text-foreground text-2xl sm:text-3xl md:text-4xl tracking-tight">
                 {{ specialties.length }}
               </div>
-              <div class="mt-0.5 text-muted-foreground text-sm">
+              <div class="mt-1 text-muted-foreground text-xs sm:text-sm">
                 Specialties
               </div>
             </div>
-            <div class="text-center">
-              <div class="font-bold tabular-nums text-foreground text-3xl sm:text-4xl tracking-tight">
+            <div class="px-4 sm:px-8 text-center">
+              <div class="font-bold tabular-nums text-foreground text-2xl sm:text-3xl md:text-4xl tracking-tight">
                 {{ formatTotalRevenue(totalDefenseRevenue) }}
               </div>
-              <div class="mt-0.5 text-muted-foreground text-sm">
+              <div class="mt-1 text-muted-foreground text-xs sm:text-sm">
                 Defense Revenue
               </div>
             </div>
@@ -218,141 +230,142 @@ const getSpecialtyIcon = (slug: string): string => {
       </div>
     </section>
 
-    <!-- Top 10 Contractors Section -->
-    <section class="mx-auto px-4 sm:px-6 lg:px-8 py-8 container">
-      <div class="mx-auto max-w-5xl">
-        <div class="flex justify-between items-center mb-6">
-          <h2 class="font-bold text-foreground text-2xl">
-            Top 10 Contractors
-          </h2>
-          <Button variant="ghost" as-child class="text-muted-foreground hover:text-foreground">
-            <NuxtLink to="/contractors" class="gap-2">
-              View All
-              <Icon name="mdi:arrow-right" class="w-4 h-4" />
+    <!-- Top Contractors Section -->
+    <section class="border-t border-border">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
+        <div class="mx-auto max-w-5xl">
+          <div class="flex justify-between items-baseline mb-8">
+            <h2 class="font-bold text-foreground text-xl sm:text-2xl">
+              Top Contractors
+            </h2>
+            <NuxtLink 
+              to="/contractors" 
+              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              View all contractors
             </NuxtLink>
-          </Button>
-        </div>
+          </div>
 
-        <!-- Loading State -->
-        <div v-if="contractorsPending" class="gap-3 grid grid-cols-1 md:grid-cols-2">
-          <div
-            v-for="i in 10"
-            :key="i"
-            class="bg-card/30 p-4 border border-border/30 animate-pulse"
-          >
-            <div class="flex justify-between items-start gap-4">
-              <div class="flex-1 space-y-2">
-                <div class="bg-muted w-3/4 h-5" />
+          <!-- Loading State -->
+          <div v-if="contractorsPending" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+            <div
+              v-for="i in 6"
+              :key="i"
+              class="bg-background p-6 animate-pulse"
+            >
+              <div class="space-y-3">
+                <div class="flex justify-between">
+                  <div class="bg-muted w-2/3 h-5" />
+                  <div class="bg-muted w-8 h-5" />
+                </div>
                 <div class="bg-muted/50 w-1/2 h-4" />
+                <div class="bg-muted/50 w-1/3 h-4" />
               </div>
-              <div class="bg-muted w-10 h-6" />
             </div>
           </div>
-        </div>
 
-        <!-- Contractors Grid -->
-        <div v-else class="gap-3 grid grid-cols-1 md:grid-cols-2">
-          <NuxtLink
-            v-for="contractor in topContractors"
-            :key="contractor.id"
-            :to="`/contractors/${contractor.slug}`"
-            class="group relative bg-card/30 hover:bg-card/50 px-4 py-4 border border-border/30 hover:border-primary/30 transition-all duration-150"
-          >
-            <div class="flex justify-between items-start gap-4">
-              <div class="space-y-1 min-w-0">
-                <div class="flex items-center gap-3">
-                  <h3 class="font-semibold text-foreground group-hover:text-primary text-base truncate transition-colors">
+          <!-- Contractors Grid -->
+          <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
+            <NuxtLink
+              v-for="contractor in topContractors"
+              :key="contractor.id"
+              :to="`/contractors/${contractor.slug}`"
+              class="group bg-background p-5 sm:p-6 transition-colors hover:bg-muted/30"
+            >
+              <div class="space-y-3">
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="font-semibold text-foreground group-hover:text-primary text-base leading-tight transition-colors">
                     {{ contractor.name }}
                   </h3>
-                </div>
-                <div class="flex items-center gap-3 text-muted-foreground text-sm">
-                  <span v-if="contractor.defenseRevenue != null" class="font-medium">
-                    {{ formatRevenue(contractor.defenseRevenue) }}
+                  <span
+                    v-if="contractor.defenseNewsRank"
+                    class="text-muted-foreground text-sm tabular-nums shrink-0"
+                  >
+                    #{{ contractor.defenseNewsRank }}
                   </span>
-                  <span v-if="contractor.headquarters" class="flex items-center gap-1 truncate">
-                    <Icon name="mdi:map-marker-outline" class="w-3.5 h-3.5 shrink-0" />
+                </div>
+                <div class="space-y-1 text-sm text-muted-foreground">
+                  <div v-if="contractor.defenseRevenue != null" class="font-medium text-foreground">
+                    {{ formatRevenue(contractor.defenseRevenue) }} defense revenue
+                  </div>
+                  <div v-if="contractor.headquarters" class="truncate">
                     {{ contractor.headquarters }}
-                  </span>
+                  </div>
+                  <div v-if="contractor.primarySpecialty" class="text-xs">
+                    {{ contractor.primarySpecialty.name }}
+                  </div>
                 </div>
-                <Badge
-                  v-if="contractor.primarySpecialty"
-                  variant="outline"
-                  class="text-xs"
-                >
-                  {{ contractor.primarySpecialty.name }}
-                </Badge>
               </div>
-              <span
-                v-if="contractor.defenseNewsRank"
-                class="text-muted-foreground text-sm shrink-0"
-              >
-                #{{ contractor.defenseNewsRank }}
-              </span>
-            </div>
-          </NuxtLink>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Browse by Specialty Section -->
-    <section class="mx-auto px-4 sm:px-6 lg:px-8 py-8 border-border/30 border-t container">
-      <div class="mx-auto max-w-5xl">
-        <h2 class="mb-6 font-bold text-foreground text-2xl">
-          Browse by Specialty
-        </h2>
+    <section class="border-t border-border">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
+        <div class="mx-auto max-w-5xl">
+          <h2 class="mb-8 font-bold text-foreground text-xl sm:text-2xl">
+            Browse by Specialty
+          </h2>
 
-        <!-- Loading State -->
-        <div v-if="specialtiesPending" class="gap-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
-          <div
-            v-for="i in 10"
-            :key="i"
-            class="bg-card/30 p-4 border border-border/30 animate-pulse"
-          >
-            <div class="flex flex-col items-center gap-2">
-              <div class="bg-muted w-8 h-8" />
-              <div class="bg-muted w-3/4 h-4" />
-              <div class="bg-muted/50 w-1/2 h-3" />
+          <!-- Loading State -->
+          <div v-if="specialtiesPending" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div
+              v-for="i in 10"
+              :key="i"
+              class="p-4 animate-pulse"
+            >
+              <div class="space-y-2">
+                <div class="bg-muted w-6 h-6" />
+                <div class="bg-muted w-3/4 h-4" />
+                <div class="bg-muted/50 w-1/2 h-3" />
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Specialty Grid -->
-        <div v-else class="gap-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
-          <NuxtLink
-            v-for="specialty in specialties"
-            :key="specialty.id"
-            :to="{ path: '/contractors', query: { specialty: specialty.slug } }"
-            class="group flex flex-col items-center gap-2 p-4 text-center"
-          >
-            <div class="flex justify-center items-center w-10 h-10 text-primary">
-              <Icon :name="getSpecialtyIcon(specialty.slug)" class="w-6 h-6" />
-            </div>
-            <span class="font-medium text-foreground group-hover:text-primary text-sm line-clamp-2 transition-colors">
-              {{ specialty.name }}
-            </span>
-            <span v-if="specialty.contractorCount" class="text-muted-foreground text-xs">
-              {{ specialty.contractorCount }} {{ specialty.contractorCount === 1 ? 'contractor' : 'contractors' }}
-            </span>
-          </NuxtLink>
+          <!-- Specialty Grid -->
+          <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <NuxtLink
+              v-for="specialty in specialties"
+              :key="specialty.id"
+              :to="{ path: '/contractors', query: { specialty: specialty.slug } }"
+              class="group p-4 border border-transparent hover:border-border transition-colors"
+            >
+              <div class="text-primary mb-2">
+                <Icon :name="getSpecialtyIcon(specialty.slug)" class="w-5 h-5" />
+              </div>
+              <div class="font-medium text-foreground group-hover:text-primary text-sm transition-colors">
+                {{ specialty.name }}
+              </div>
+              <div v-if="specialty.contractorCount" class="mt-1 text-muted-foreground text-xs">
+                {{ specialty.contractorCount }} contractors
+              </div>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="mx-auto px-4 sm:px-6 lg:px-8 py-12 border-border/30 border-t container">
-      <div class="space-y-4 mx-auto max-w-2xl text-center">
-        <h2 class="font-semibold text-foreground text-xl">
-          Are you a defense contractor?
-        </h2>
-        <p class="text-muted-foreground">
-          Claim your company profile to showcase your organization to job seekers and industry professionals.
-        </p>
-        <Button variant="outline" as-child>
-          <NuxtLink to="/for-companies" class="gap-2">
-            <Icon name="mdi:domain" class="w-4 h-4" />
-            Learn More
-          </NuxtLink>
-        </Button>
+    <section class="border-t border-border bg-muted/20">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="font-semibold text-foreground text-lg sm:text-xl">
+            Are you a defense contractor?
+          </h2>
+          <p class="mt-2 text-muted-foreground text-sm sm:text-base">
+            Claim your company profile to manage your presence and reach job seekers.
+          </p>
+          <div class="mt-6">
+            <Button variant="outline" as-child>
+              <NuxtLink to="/for-companies">
+                Learn more
+              </NuxtLink>
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   </div>
