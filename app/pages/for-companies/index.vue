@@ -72,15 +72,15 @@ const tiers = [
 <template>
   <div class="min-h-full">
     <!-- Hero -->
-    <header class="border-b border-border">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-16 sm:py-24">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground tracking-tight">
+    <header class="border-border border-b">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 max-w-4xl container">
+        <h1 class="font-bold text-foreground text-3xl sm:text-4xl md:text-5xl tracking-tight">
           Claim Your Company Profile
         </h1>
-        <p class="mt-4 text-lg text-muted-foreground max-w-2xl">
+        <p class="mt-4 max-w-2xl text-muted-foreground text-lg">
           Stand out to job seekers researching defense contractors. Control your narrative and showcase what makes your company a great place to work.
         </p>
-        <div class="mt-8 flex flex-wrap gap-4">
+        <div class="flex flex-wrap gap-4 mt-8">
           <Button as-child>
             <NuxtLink to="/profile-manager/claim">Get Started</NuxtLink>
           </Button>
@@ -92,31 +92,31 @@ const tiers = [
     </header>
 
     <!-- Benefits -->
-    <section class="border-b border-border">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-16">
-        <h2 class="text-xl font-semibold text-foreground mb-8">Why claim your profile?</h2>
-        <div class="grid sm:grid-cols-2 gap-x-12 gap-y-8">
+    <section class="">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-4xl container">
+        <h2 class="mb-8 font-semibold text-foreground text-xl">Why claim your profile?</h2>
+        <div class="gap-x-12 gap-y-8 grid sm:grid-cols-2">
           <div>
             <h3 class="font-medium text-foreground">Build Trust</h3>
-            <p class="mt-1 text-sm text-muted-foreground">
+            <p class="mt-1 text-muted-foreground text-sm">
               A verified badge shows candidates your profile is authentic and maintained.
             </p>
           </div>
           <div>
             <h3 class="font-medium text-foreground">Control Your Narrative</h3>
-            <p class="mt-1 text-sm text-muted-foreground">
+            <p class="mt-1 text-muted-foreground text-sm">
               Update your description, links, and contact information anytime.
             </p>
           </div>
           <div>
             <h3 class="font-medium text-foreground">Attract Talent</h3>
-            <p class="mt-1 text-sm text-muted-foreground">
+            <p class="mt-1 text-muted-foreground text-sm">
               Showcase your culture, benefits, and programs to job seekers.
             </p>
           </div>
           <div>
             <h3 class="font-medium text-foreground">Track Performance</h3>
-            <p class="mt-1 text-sm text-muted-foreground">
+            <p class="mt-1 text-muted-foreground text-sm">
               See how many people view your profile and click to your careers page.
             </p>
           </div>
@@ -125,41 +125,41 @@ const tiers = [
     </section>
 
     <!-- How It Works -->
-    <section class="border-b border-border">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-16">
-        <h2 class="text-xl font-semibold text-foreground mb-8">How it works</h2>
-        <ol class="grid sm:grid-cols-4 gap-8">
+    <section class="">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-4xl container">
+        <h2 class="mb-8 font-semibold text-foreground text-xl">How it works</h2>
+        <ol class="gap-8 grid sm:grid-cols-4">
           <li>
-            <span class="text-sm font-medium text-muted-foreground">01</span>
+            <span class="font-medium text-muted-foreground text-sm">01</span>
             <h3 class="mt-2 font-medium text-foreground">Find your company</h3>
-            <p class="mt-1 text-sm text-muted-foreground">Search our defense contractor directory.</p>
+            <p class="mt-1 text-muted-foreground text-sm">Search our defense contractor directory.</p>
           </li>
           <li>
-            <span class="text-sm font-medium text-muted-foreground">02</span>
+            <span class="font-medium text-muted-foreground text-sm">02</span>
             <h3 class="mt-2 font-medium text-foreground">Verify identity</h3>
-            <p class="mt-1 text-sm text-muted-foreground">Confirm employment via email or manual review.</p>
+            <p class="mt-1 text-muted-foreground text-sm">Confirm employment via email or manual review.</p>
           </li>
           <li>
-            <span class="text-sm font-medium text-muted-foreground">03</span>
+            <span class="font-medium text-muted-foreground text-sm">03</span>
             <h3 class="mt-2 font-medium text-foreground">Choose a plan</h3>
-            <p class="mt-1 text-sm text-muted-foreground">Select the tier that fits your needs.</p>
+            <p class="mt-1 text-muted-foreground text-sm">Select the tier that fits your needs.</p>
           </li>
           <li>
-            <span class="text-sm font-medium text-muted-foreground">04</span>
+            <span class="font-medium text-muted-foreground text-sm">04</span>
             <h3 class="mt-2 font-medium text-foreground">Start managing</h3>
-            <p class="mt-1 text-sm text-muted-foreground">Access your dashboard and update your profile.</p>
+            <p class="mt-1 text-muted-foreground text-sm">Access your dashboard and update your profile.</p>
           </li>
         </ol>
       </div>
     </section>
 
     <!-- Pricing -->
-    <section id="pricing" class="border-b border-border">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-16">
-        <h2 class="text-xl font-semibold text-foreground mb-2">Pricing</h2>
-        <p class="text-muted-foreground mb-8">Simple plans. Cancel anytime.</p>
+    <section id="pricing" class="">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-4xl container">
+        <h2 class="mb-2 font-semibold text-foreground text-xl">Pricing</h2>
+        <p class="mb-8 text-muted-foreground">Simple plans. Cancel anytime.</p>
 
-        <div class="grid md:grid-cols-3 gap-px bg-border border border-border">
+        <div class="gap-px grid md:grid-cols-3 bg-border border border-border">
           <div
             v-for="tier in tiers"
             :key="tier.name"
@@ -168,23 +168,23 @@ const tiers = [
               tier.highlight ? 'bg-muted/30' : ''
             ]"
           >
-            <div class="flex items-baseline justify-between">
+            <div class="flex justify-between items-baseline">
               <h3 class="font-semibold text-foreground">{{ tier.name }}</h3>
-              <span v-if="tier.highlight" class="text-xs text-primary font-medium">Popular</span>
+              <span v-if="tier.highlight" class="font-medium text-primary text-xs">Popular</span>
             </div>
-            <div class="mt-4 flex items-baseline gap-1">
-              <span class="text-3xl font-bold text-foreground">{{ tier.price }}</span>
-              <span v-if="tier.period" class="text-sm text-muted-foreground">{{ tier.period }}</span>
+            <div class="flex items-baseline gap-1 mt-4">
+              <span class="font-bold text-foreground text-3xl">{{ tier.price }}</span>
+              <span v-if="tier.period" class="text-muted-foreground text-sm">{{ tier.period }}</span>
             </div>
-            <p class="mt-2 text-sm text-muted-foreground">{{ tier.description }}</p>
+            <p class="mt-2 text-muted-foreground text-sm">{{ tier.description }}</p>
 
-            <ul class="mt-6 space-y-2 text-sm">
+            <ul class="space-y-2 mt-6 text-sm">
               <li v-for="feature in tier.features" :key="feature" class="flex items-start gap-2">
-                <Icon name="mdi:check" class="w-4 h-4 text-foreground shrink-0 mt-0.5" />
+                <Icon name="mdi:check" class="mt-0.5 w-4 h-4 text-foreground shrink-0" />
                 <span>{{ feature }}</span>
               </li>
               <li v-for="item in tier.excluded" :key="item" class="flex items-start gap-2 text-muted-foreground/60">
-                <Icon name="mdi:minus" class="w-4 h-4 shrink-0 mt-0.5" />
+                <Icon name="mdi:minus" class="mt-0.5 w-4 h-4 shrink-0" />
                 <span>{{ item }}</span>
               </li>
             </ul>
@@ -198,7 +198,7 @@ const tiers = [
               >
                 <NuxtLink :to="tier.ctaLink">{{ tier.cta }}</NuxtLink>
               </Button>
-              <p v-else class="text-sm text-muted-foreground text-center">Default listing</p>
+              <p v-else class="text-muted-foreground text-sm text-center">Default listing</p>
             </div>
           </div>
         </div>
@@ -207,8 +207,8 @@ const tiers = [
 
     <!-- CTA -->
     <section>
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-16 text-center">
-        <h2 class="text-2xl font-bold text-foreground">Ready to stand out?</h2>
+      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-4xl text-center container">
+        <h2 class="font-bold text-foreground text-2xl">Ready to stand out?</h2>
         <p class="mt-2 text-muted-foreground">
           Join leading defense contractors who have claimed their profiles.
         </p>

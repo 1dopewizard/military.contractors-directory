@@ -408,7 +408,7 @@ const getSpecialtyIcon = (slug: string): string => {
     </section>
 
     <!-- Stats Section -->
-    <section class="border-border border-t">
+    <section class="">
       <div class="mx-auto px-4 sm:px-6 lg:px-8 py-8 container">
         <div class="mx-auto max-w-4xl">
           <div class="grid grid-cols-3 divide-x divide-border">
@@ -448,7 +448,7 @@ const getSpecialtyIcon = (slug: string): string => {
     </section>
 
     <!-- Featured Contractors Section -->
-    <section class="border-border border-t">
+    <section class="">
       <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
         <div class="mx-auto max-w-5xl">
           <div class="flex justify-between items-baseline mb-8">
@@ -524,7 +524,7 @@ const getSpecialtyIcon = (slug: string): string => {
     </section>
 
     <!-- Browse by Specialty Section -->
-    <section class="border-border border-t">
+    <section class="">
       <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
         <div class="mx-auto max-w-5xl">
           <h2 class="mb-8 font-bold text-foreground text-xl sm:text-2xl">
@@ -583,7 +583,7 @@ const getSpecialtyIcon = (slug: string): string => {
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-muted/20 border-border border-t">
+    <section class="">
       <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
         <div class="mx-auto max-w-2xl text-center">
           <h2 class="font-semibold text-foreground text-lg sm:text-xl">
