@@ -230,7 +230,7 @@ watchEffect(() => {
             </NuxtLink>
 
             <!-- Key Stats Grid -->
-            <div class="gap-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-muted/30 p-4">
+            <div class="gap-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 p-4">
               <div class="text-center">
                 <p class="mb-1 text-muted-foreground text-xs uppercase tracking-wide">Defense Revenue</p>
                 <p class="font-bold text-foreground text-lg">{{ formatRevenue(contractor.defenseRevenue) }}</p>
@@ -280,7 +280,7 @@ watchEffect(() => {
                 v-for="specialty in contractor.specialties"
                 :key="specialty.id"
                 :to="`/companies/specialty/${specialty.slug}`"
-                class="group flex items-center gap-2 bg-sidebar hover:bg-muted/50 px-4 py-2 transition-colors"
+                class="group flex items-center gap-2 hover:bg-muted/50 px-4 py-2 transition-colors"
               >
                 <Icon v-if="specialty.icon" :name="specialty.icon" class="w-5 h-5 text-primary" />
                 <div>
@@ -307,7 +307,7 @@ watchEffect(() => {
               <div 
                 v-for="benefit in contractor.benefits" 
                 :key="benefit.id"
-                class="bg-sidebar p-4 rounded-lg"
+                class="p-4 rounded-lg"
               >
                 <Icon :name="benefit.icon" class="mb-2 w-8 h-8 text-primary" />
                 <h3 class="mb-1 font-semibold">{{ benefit.title }}</h3>
@@ -325,7 +325,7 @@ watchEffect(() => {
               <div 
                 v-for="program in contractor.programs" 
                 :key="program.id"
-                class="flex items-start gap-3 bg-sidebar p-3 rounded-lg"
+                class="flex items-start gap-3 p-3 rounded-lg"
               >
                 <Icon name="mdi:rocket-launch-outline" class="mt-0.5 w-5 h-5 text-primary shrink-0" />
                 <div>
@@ -417,7 +417,7 @@ watchEffect(() => {
         <div class="lg:w-80 shrink-0">
           <div class="lg:top-4 lg:sticky space-y-6">
             <!-- External Links Card -->
-            <Card class="bg-sidebar border-none overflow-hidden">
+            <Card class="border-none overflow-hidden">
               <CardContent class="p-0">
                 <div class="p-4 border-border/30 border-b">
                   <div class="flex items-center gap-2 mb-3">
@@ -504,7 +504,7 @@ watchEffect(() => {
             </Card>
 
             <!-- Headquarters Location Card -->
-            <Card v-if="contractor.locations?.length" class="bg-sidebar border-none overflow-hidden">
+            <Card v-if="contractor.locations?.length" class="border-none overflow-hidden">
               <CardContent class="p-4">
                 <div class="flex items-center gap-2 mb-3">
                   <Icon name="mdi:map-marker" class="w-4 h-4 text-muted-foreground" />
