@@ -40,20 +40,20 @@ const formatRevenue = (revenue: number | null | undefined): string => {
 <template>
   <NuxtLink
     :to="contractorLink"
-    class="block group relative px-4 py-4 border border-border/30 bg-card/30 transition-all duration-150 hover:border-primary/30 hover:bg-card/50"
+    class="group block relative hover:bg-card/50 px-4 py-4 border border-transparent hover:border-primary/30 transition-all duration-150"
   >
     <article class="flex gap-4">
       <!-- Content -->
-      <div class="flex-1 min-w-0 space-y-2">
+      <div class="flex-1 space-y-2 min-w-0">
         <!-- Name row -->
-        <div class="flex items-start justify-between gap-4">
-          <h3 class="text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors leading-snug truncate">
+        <div class="flex justify-between items-start gap-4">
+          <h3 class="font-semibold text-foreground group-hover:text-primary text-base md:text-lg truncate leading-snug transition-colors">
             {{ contractor.name }}
           </h3>
         </div>
 
         <!-- Stats row -->
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted-foreground text-sm">
           <span v-if="contractor.defenseRevenue != null" class="font-medium">
             {{ formatRevenue(contractor.defenseRevenue) }} Defense
           </span>
@@ -73,21 +73,21 @@ const formatRevenue = (revenue: number | null | undefined): string => {
         <!-- Description snippet -->
         <p
           v-if="contractor.description"
-          class="text-sm text-muted-foreground leading-relaxed line-clamp-2"
+          class="text-muted-foreground text-sm line-clamp-2 leading-relaxed"
         >
           {{ contractor.description }}
         </p>
       </div>
 
       <!-- Logo -->
-      <div class="w-12 h-12 bg-muted flex items-center justify-center shrink-0">
+      <div class="flex justify-center items-center bg-muted w-12 h-12 shrink-0">
         <img 
           v-if="contractor.logoUrl" 
           :src="contractor.logoUrl" 
           :alt="contractor.name"
           class="w-full h-full object-contain"
         />
-        <span v-else class="text-lg font-bold text-muted-foreground">
+        <span v-else class="font-bold text-muted-foreground text-lg">
           {{ contractor.name?.charAt(0) }}
         </span>
       </div>
