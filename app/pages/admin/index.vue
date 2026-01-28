@@ -155,10 +155,6 @@ onUnmounted(() => {
                   Welcome back, {{ displayName }}
                 </p>
               </div>
-              <Button variant="outline" size="sm" @click="refreshHealth">
-                <Icon name="mdi:refresh" class="mr-2 w-4 h-4" />
-                Refresh
-              </Button>
             </div>
           </div>
         </section>
@@ -168,44 +164,51 @@ onUnmounted(() => {
           <div class="flex lg:flex-row flex-col gap-8">
             <!-- Sidebar Navigation -->
             <aside class="lg:w-56 shrink-0">
-              <nav class="space-y-1">
-                <button
-                  v-for="(tab, index) in tabs"
-                  :key="tab.id"
-                  @click="setActiveTab(tab.id)"
-                  class="flex justify-between items-center px-3 py-2.5 w-full font-medium text-sm transition-colors"
-                  :class="activeTab === tab.id
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'"
-                >
-                  <div class="flex items-center gap-3">
-                    <Icon :name="tab.icon" class="w-4 h-4" />
-                    <span>{{ tab.label }}</span>
-                  </div>
-                  <kbd class="hidden lg:inline-block bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
-                    {{ index + 1 }}
-                  </kbd>
-                </button>
-              </nav>
+              <div class="lg:top-4 lg:sticky space-y-6">
+                <Card class="border-none overflow-hidden">
+                  <CardContent class="p-0">
+                    <!-- Navigation -->
+                    <div class="p-4 border-border/30 border-b">
+                      <div class="flex items-center gap-2 mb-3">
+                        <Icon name="mdi:menu" class="w-4 h-4 text-muted-foreground" />
+                        <span class="font-bold text-muted-foreground text-xs uppercase tracking-widest">Navigation</span>
+                      </div>
+                      <nav class="space-y-1">
+                        <button
+                          v-for="(tab, index) in tabs"
+                          :key="tab.id"
+                          @click="setActiveTab(tab.id)"
+                          class="flex items-center justify-between w-full px-2 py-2 rounded-md text-sm transition-colors"
+                          :class="activeTab === tab.id
+                            ? 'bg-primary/10 text-primary font-medium'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-muted'"
+                        >
+                          <span class="flex items-center gap-2">
+                            <Icon :name="tab.icon" class="size-4" />
+                            <span>{{ tab.label }}</span>
+                          </span>
+                          <kbd class="hidden lg:inline-flex items-center justify-center size-5 rounded bg-muted font-mono text-[10px] text-muted-foreground">
+                            {{ index + 1 }}
+                          </kbd>
+                        </button>
+                      </nav>
+                    </div>
 
-              <!-- Keyboard Shortcuts -->
-              <div class="hidden lg:block mt-6 pt-4 border-border border-t">
-                <Popover>
-                  <PopoverTrigger as-child>
-                    <button class="flex items-center gap-2 px-3 py-2 w-full text-muted-foreground hover:text-foreground text-xs transition-colors">
-                      <Icon name="mdi:keyboard" class="w-4 h-4" />
-                      Keyboard Shortcuts
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent side="right" align="start" class="p-3 w-48">
-                    <div class="space-y-2 text-xs">
-                      <div v-for="shortcut in shortcuts" :key="shortcut.key" class="flex justify-between items-center">
-                        <span class="text-muted-foreground">{{ shortcut.description }}</span>
-                        <kbd class="bg-muted px-1.5 py-0.5 font-mono text-foreground">{{ shortcut.key }}</kbd>
+                    <!-- Keyboard Shortcuts -->
+                    <div class="hidden lg:block p-4">
+                      <div class="flex items-center gap-2 mb-3">
+                        <Icon name="mdi:keyboard" class="w-4 h-4 text-muted-foreground" />
+                        <span class="font-bold text-muted-foreground text-xs uppercase tracking-widest">Shortcuts</span>
+                      </div>
+                      <div class="space-y-2">
+                        <div v-for="shortcut in shortcuts" :key="shortcut.key" class="flex justify-between items-center text-sm">
+                          <span class="text-muted-foreground">{{ shortcut.description }}</span>
+                          <kbd class="inline-flex items-center justify-center min-w-6 h-5 px-1.5 rounded bg-muted font-mono text-[10px] text-foreground">{{ shortcut.key }}</kbd>
+                        </div>
                       </div>
                     </div>
-                  </PopoverContent>
-                </Popover>
+                  </CardContent>
+                </Card>
               </div>
             </aside>
 
@@ -221,7 +224,9 @@ onUnmounted(() => {
                 <AdminOverview
                   v-if="activeTab === 'overview'"
                   :system-health="systemHealth ?? null"
+                  :refreshing="healthLoading"
                   @set-tab="setActiveTab"
+                  @refresh="refreshHealth"
                 />
 
                 <!-- Claims Tab -->

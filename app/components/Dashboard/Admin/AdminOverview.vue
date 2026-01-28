@@ -21,12 +21,14 @@ interface Props {
       pendingReview: number
     }
   } | null
+  refreshing?: boolean
 }
 
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
   setTab: [tabId: string]
+  refresh: []
 }>()
 
 // Activity log
@@ -59,7 +61,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="space-y-8">
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-semibold">Overview</h2>
+        <p class="text-sm text-muted-foreground">System health and quick actions</p>
+      </div>
+      <Button variant="outline" size="sm" :disabled="refreshing" @click="emit('refresh')">
+        <Icon :name="refreshing ? 'mdi:loading' : 'mdi:refresh'" :class="['w-4 h-4 mr-1.5', { 'animate-spin': refreshing }]" />
+        Refresh
+      </Button>
+    </div>
     <!-- Stats Grid -->
     <div v-if="systemHealth" class="grid grid-cols-2 md:grid-cols-4 gap-6">
       <div class="space-y-1">

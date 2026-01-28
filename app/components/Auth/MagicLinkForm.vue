@@ -112,23 +112,23 @@ onMounted(() => {
     <CardContent>
       <!-- Success State -->
       <div v-if="submitted" class="py-2">
-        <div class="flex flex-col items-center text-center gap-4 py-4">
-          <div class="flex items-center justify-center">
+        <div class="flex flex-col items-center gap-4 py-4 text-center">
+          <div class="flex justify-center items-center">
             <Icon name="mdi:email-check-outline" class="size-8 text-primary" />
           </div>
           <div class="space-y-2">
-            <p class="text-base font-semibold text-foreground">Check your inbox</p>
-            <p class="text-sm text-muted-foreground max-w-[280px]">
+            <p class="font-semibold text-foreground text-base">Check your inbox</p>
+            <p class="max-w-[280px] text-muted-foreground text-sm">
               We sent a sign-in link to
-              <span class="font-medium text-foreground block mt-1">{{ email }}</span>
+              <span class="block mt-1 font-medium text-foreground">{{ email }}</span>
             </p>
           </div>
         </div>
         
-        <p class="text-xs text-muted-foreground text-center pt-4 border-t border-border">
+        <p class="pt-4 border-border border-t text-muted-foreground text-xs text-center">
           No email? Check spam or <button 
             type="button" 
-            class="text-primary hover:underline font-medium"
+            class="font-medium text-primary hover:underline"
             @click="resetForm"
           >try again</button>
         </p>
@@ -140,7 +140,7 @@ onMounted(() => {
         <div class="space-y-1.5">
           <label for="magic-email" class="sr-only">Email address</label>
           <InputGroup 
-            class="h-11 bg-input transition-colors focus-within:ring-1 focus-within:ring-ring"
+            class="h-11 transition-colors"
             :class="error ? 'ring-1 ring-destructive' : ''"
           >
             <InputGroupAddon class="pl-3">
@@ -155,7 +155,7 @@ onMounted(() => {
               autocomplete="email"
               placeholder="Enter your email"
               :disabled="loading"
-              class="h-full text-sm text-foreground caret-foreground"
+              class="h-full text-foreground text-sm caret-foreground"
             />
             <InputGroupAddon v-if="loading" align="inline-end" class="pr-3">
               <Spinner class="size-4 text-primary" />
@@ -163,7 +163,7 @@ onMounted(() => {
           </InputGroup>
           <p 
             v-if="error" 
-            class="text-xs text-destructive flex items-center gap-1 pt-0.5"
+            class="flex items-center gap-1 pt-0.5 text-destructive text-xs"
           >
             <Icon name="mdi:alert-circle-outline" class="size-3.5 shrink-0" />
             {{ error }}
@@ -177,11 +177,11 @@ onMounted(() => {
           :disabled="loading || !email.trim()"
         >
           <span>{{ loading ? 'Sending...' : 'Continue' }}</span>
-          <Icon v-if="!loading" name="mdi:arrow-right" class="size-4 ml-1.5" />
+          <Icon v-if="!loading" name="mdi:arrow-right" class="ml-1.5 size-4" />
         </Button>
 
         <!-- Info Text -->
-        <p class="text-xs text-muted-foreground text-center">
+        <p class="text-muted-foreground text-xs text-center">
           We'll send you a secure link — no password needed.
         </p>
       </form>

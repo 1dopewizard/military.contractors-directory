@@ -456,7 +456,7 @@ const getSpecialtyIcon = (slug: string): string => {
               Featured Contractors
             </h2>
             <NuxtLink
-              to="/contractors"
+              to="/companies"
               class="text-muted-foreground hover:text-foreground text-sm transition-colors"
             >
               View all
@@ -487,13 +487,13 @@ const getSpecialtyIcon = (slug: string): string => {
           <!-- Contractors Grid -->
           <div
             v-else
-            class="gap-px grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-border border border-border"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-transparent border-border border-t border-l"
           >
             <NuxtLink
               v-for="contractor in topContractors"
               :key="contractor.id"
               :to="`/companies/${contractor.slug}`"
-              class="group bg-background hover:bg-muted/30 p-5 sm:p-6 transition-colors"
+              class="group hover:bg-muted/50 p-5 sm:p-6 border-border border-r border-b transition-colors"
             >
               <div class="space-y-3">
                 <h3
