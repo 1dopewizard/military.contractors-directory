@@ -156,7 +156,7 @@ const tierBadgeColor = computed(() => {
             </div>
           </div>
           <Button variant="outline" size="sm" as-child>
-            <NuxtLink :to="`/contractors/${profile.contractor?.slug}`" target="_blank">
+            <NuxtLink :to="`/companies/${profile.contractor?.slug}`" target="_blank">
               <Icon name="mdi:open-in-new" class="w-4 h-4 mr-1.5" />
               View Public Profile
             </NuxtLink>

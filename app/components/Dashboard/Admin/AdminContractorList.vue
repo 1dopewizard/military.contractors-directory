@@ -61,7 +61,7 @@ const { data: contractors, pending, error, refresh } = await useFetch<{ contract
           <TableRow v-for="contractor in contractors?.contractors" :key="contractor.id">
             <TableCell>
               <NuxtLink 
-                :to="`/contractors/${contractor.slug}`" 
+                :to="`/companies/${contractor.slug}`" 
                 class="font-medium hover:text-primary"
                 target="_blank"
               >
@@ -76,7 +76,7 @@ const { data: contractors, pending, error, refresh } = await useFetch<{ contract
             </TableCell>
             <TableCell>
               <Button variant="ghost" size="sm" as-child>
-                <NuxtLink :to="`/contractors/${contractor.slug}`" target="_blank">
+                <NuxtLink :to="`/companies/${contractor.slug}`" target="_blank">
                   <Icon name="mdi:open-in-new" class="w-4 h-4" />
                 </NuxtLink>
               </Button>

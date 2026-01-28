@@ -32,7 +32,7 @@ export default defineEventHandler(async () => {
 
     for (const contractor of contractors) {
       urls.push({
-        loc: `${baseUrl}/contractors/${contractor.slug}`,
+        loc: `${baseUrl}/companies/${contractor.slug}`,
         lastmod: contractor.updatedAt?.toISOString() ?? null,
         changefreq: 'weekly',
         priority: 0.8,
@@ -50,7 +50,7 @@ export default defineEventHandler(async () => {
 
     for (const specialty of specialties) {
       urls.push({
-        loc: `${baseUrl}/contractors/specialty/${specialty.slug}`,
+        loc: `${baseUrl}/companies/specialty/${specialty.slug}`,
         lastmod: specialty.updatedAt?.toISOString() ?? null,
         changefreq: 'monthly',
         priority: 0.7,

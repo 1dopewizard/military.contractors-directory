@@ -1,6 +1,6 @@
 <!--
-  @file Contractor profile page
-  @route /contractors/[slug]
+  @file Company profile page
+  @route /companies/[slug]
   @description Shows defense contractor profile with company details, key stats, and specialties
 -->
 
@@ -177,7 +177,7 @@ watchEffect(() => {
         </EmptyContent>
         <div class="flex gap-3 justify-center">
           <Button as-child variant="default">
-            <NuxtLink to="/contractors">Browse Contractors</NuxtLink>
+            <NuxtLink to="/companies">Browse Contractors</NuxtLink>
           </Button>
         </div>
       </Empty>
@@ -191,8 +191,8 @@ watchEffect(() => {
       <template #filters>
         <!-- Breadcrumb -->
         <div class="flex items-center gap-2 text-sm">
-          <NuxtLink to="/contractors" class="text-muted-foreground hover:text-primary transition-colors">
-            Contractors
+          <NuxtLink to="/companies" class="text-muted-foreground hover:text-primary transition-colors">
+            Companies
           </NuxtLink>
           <Icon name="mdi:chevron-right" class="w-4 h-4 text-muted-foreground/50" />
           <span class="text-foreground font-medium truncate">{{ contractor.name }}</span>
@@ -224,7 +224,7 @@ watchEffect(() => {
             <!-- Primary Specialty Tag -->
             <NuxtLink
               v-if="contractor.primarySpecialty"
-              :to="`/contractors/specialty/${contractor.primarySpecialty.slug}`"
+              :to="`/companies/specialty/${contractor.primarySpecialty.slug}`"
               class="inline-flex items-center gap-2 mb-4 text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               <Icon v-if="contractor.primarySpecialty.icon" :name="contractor.primarySpecialty.icon" class="w-4 h-4 text-primary" />
@@ -281,7 +281,7 @@ watchEffect(() => {
               <NuxtLink
                 v-for="specialty in contractor.specialties"
                 :key="specialty.id"
-                :to="`/contractors/specialty/${specialty.slug}`"
+                :to="`/companies/specialty/${specialty.slug}`"
                 class="flex items-center gap-2 px-4 py-2 bg-sidebar hover:bg-muted/50 transition-colors group"
               >
                 <Icon v-if="specialty.icon" :name="specialty.icon" class="w-5 h-5 text-primary" />
@@ -528,7 +528,7 @@ watchEffect(() => {
                     <div>
                       <NuxtLink
                         v-if="location.state"
-                        :to="`/contractors/location/${location.state.toLowerCase().replace(/\s+/g, '-')}`"
+                        :to="`/companies/location/${location.state.toLowerCase().replace(/\s+/g, '-')}`"
                         class="font-medium hover:text-primary transition-colors"
                       >
                         {{ [location.city, location.state].filter(Boolean).join(', ') }}

@@ -139,7 +139,7 @@ const contentTypeLabels: Record<string, string> = {
               <Badge variant="outline">{{ contentTypeLabels[item.type] || item.type }}</Badge>
               <span class="text-sm text-muted-foreground">from</span>
               <NuxtLink 
-                :to="`/contractors/${item.contractor.slug}`" 
+                :to="`/companies/${item.contractor.slug}`" 
                 class="font-medium hover:text-primary"
                 target="_blank"
               >

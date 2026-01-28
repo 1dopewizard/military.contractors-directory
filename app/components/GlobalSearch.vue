@@ -96,7 +96,7 @@ const navigateToContractor = (slug: string) => {
   }
   open.value = false
   searchQuery.value = ''
-  router.push(`/contractors/${slug}`)
+  router.push(`/companies/${slug}`)
 }
 
 const navigateToSearch = (query?: string) => {
@@ -106,7 +106,7 @@ const navigateToSearch = (query?: string) => {
   }
   open.value = false
   searchQuery.value = ''
-  router.push(q ? `/contractors?q=${encodeURIComponent(q)}` : '/contractors')
+  router.push(q ? `/companies?q=${encodeURIComponent(q)}` : '/companies')
 }
 
 const handleRecentSearch = (query: string) => {
@@ -163,7 +163,7 @@ const specialtyLinks = [
 const browseBySpecialty = (slug: string) => {
   open.value = false
   searchQuery.value = ''
-  router.push(`/contractors?specialty=${slug}`)
+  router.push(`/companies?specialty=${slug}`)
 }
 </script>
 

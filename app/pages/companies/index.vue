@@ -1,6 +1,6 @@
 <!--
-  @file Contractors browse page
-  @route /contractors
+  @file Companies browse page
+  @route /companies
   @description Browse defense contractors with search, specialty filter, and sorting
   @urlparams q - Search query, specialty - Specialty filter, sort - Sort order
 -->

@@ -91,9 +91,9 @@ const handleSearch = () => {
   showSuggestions.value = false;
   const q = searchQuery.value.trim();
   if (q) {
-    router.push({ path: "/contractors", query: { q } });
+    router.push({ path: "/companies", query: { q } });
   } else {
-    router.push("/contractors");
+    router.push("/companies");
   }
 };
 
@@ -101,7 +101,7 @@ const handleSearch = () => {
 const selectContractor = (slug: string) => {
   showSuggestions.value = false;
   searchQuery.value = "";
-  router.push(`/contractors/${slug}`);
+  router.push(`/companies/${slug}`);
 };
 
 const handleKeydown = (e: KeyboardEvent) => {
@@ -389,7 +389,7 @@ const getSpecialtyIcon = (slug: string): string => {
               v-for="specialty in specialties.slice(0, 5)"
               :key="specialty.id"
               :to="{
-                path: '/contractors',
+                path: '/companies',
                 query: { specialty: specialty.slug },
               }"
               class="px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground border border-transparent hover:border-border transition-colors"
@@ -397,7 +397,7 @@ const getSpecialtyIcon = (slug: string): string => {
               {{ specialty.name }}
             </NuxtLink>
             <NuxtLink
-              to="/contractors"
+              to="/companies"
               class="px-3 py-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
             >
               View all
@@ -492,7 +492,7 @@ const getSpecialtyIcon = (slug: string): string => {
             <NuxtLink
               v-for="contractor in topContractors"
               :key="contractor.id"
-              :to="`/contractors/${contractor.slug}`"
+              :to="`/companies/${contractor.slug}`"
               class="group bg-background p-5 sm:p-6 transition-colors hover:bg-muted/30"
             >
               <div class="space-y-3">
@@ -554,7 +554,7 @@ const getSpecialtyIcon = (slug: string): string => {
               v-for="specialty in specialties"
               :key="specialty.id"
               :to="{
-                path: '/contractors',
+                path: '/companies',
                 query: { specialty: specialty.slug },
               }"
               class="group p-4 border border-transparent hover:border-border transition-colors"

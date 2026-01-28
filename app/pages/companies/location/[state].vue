@@ -1,6 +1,6 @@
 <!--
   @file Location browse page
-  @route /contractors/location/[state]
+  @route /companies/location/[state]
   @description Lists contractors with offices in a specific state
 -->
 
@@ -76,7 +76,7 @@ useHead(() => {
         </EmptyContent>
         <div class="flex gap-3 justify-center">
           <Button as-child variant="default">
-            <NuxtLink to="/contractors">Browse All Contractors</NuxtLink>
+            <NuxtLink to="/companies">Browse All Contractors</NuxtLink>
           </Button>
         </div>
       </Empty>
@@ -90,8 +90,8 @@ useHead(() => {
       <template #filters>
         <!-- Breadcrumb -->
         <div class="flex items-center gap-2 text-sm">
-          <NuxtLink to="/contractors" class="text-muted-foreground hover:text-primary transition-colors">
-            Contractors
+          <NuxtLink to="/companies" class="text-muted-foreground hover:text-primary transition-colors">
+            Companies
           </NuxtLink>
           <Icon name="mdi:chevron-right" class="w-4 h-4 text-muted-foreground/50" />
           <span class="text-foreground font-medium truncate">{{ locationData.state }}</span>

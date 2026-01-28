@@ -90,9 +90,9 @@ const handleSignOut = async () => {
             </DropdownMenuItem>
             
             <DropdownMenuItem as-child>
-              <NuxtLink to="/contractors" class="flex items-center gap-2 cursor-pointer">
+              <NuxtLink to="/companies" class="flex items-center gap-2 cursor-pointer">
                 <Icon name="mdi:domain" class="size-4 text-muted-foreground" />
-                <span class="font-medium">Browse Contractors</span>
+                <span class="font-medium">Browse Companies</span>
               </NuxtLink>
             </DropdownMenuItem>
           </DropdownMenuGroup>
