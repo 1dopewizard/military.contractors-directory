@@ -27,7 +27,6 @@
 **UI/Design**
 - Use shadcn-vue (auto-imported, no manual imports)
 - Iconify MDI icons only, use sparingly for functional value
-- Icons should not have a background color nor any hover effect
 - No `rounded-*` or `shadow-*` utility classes
 - Clean, minimal, flat, mobile responsive
 
@@ -52,6 +51,7 @@
 - Imports use `@` alias
 - Scripts in `/scripts`, run from root
 - **Nuxt auto-imports**: Never import from `#imports` — use Vue APIs, Nuxt composables, and module exports directly
+- **App imports**: Use `@/app/` prefix for imports from `app/` directory (e.g., `import { htmlToMarkdown } from '@/app/lib/utils'`)
 
 ---
 
