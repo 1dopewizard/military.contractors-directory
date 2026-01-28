@@ -280,7 +280,7 @@ watchEffect(() => {
                 v-for="specialty in contractor.specialties"
                 :key="specialty.id"
                 :to="`/companies/specialty/${specialty.slug}`"
-                class="group flex items-center gap-2 hover:bg-muted/50 px-4 py-2 transition-colors"
+                class="group flex items-center gap-2 px-4 py-2 border border-transparent hover:border-border transition-colors"
               >
                 <Icon v-if="specialty.icon" :name="specialty.icon" class="w-5 h-5 text-primary" />
                 <div>
