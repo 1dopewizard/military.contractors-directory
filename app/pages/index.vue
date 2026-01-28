@@ -33,14 +33,112 @@ useWebPageSchema({
 // Search state
 const searchQuery = ref('')
 const router = useRouter()
+const searchInputRef = ref<HTMLInputElement | null>(null)
+const showSuggestions = ref(false)
+const highlightedIndex = ref(-1)
+
+// Autocomplete results
+interface AutocompleteContractor {
+  id: string
+  slug: string
+  name: string
+  headquarters: string | null
+  defenseNewsRank: number | null
+}
+
+const suggestions = ref<AutocompleteContractor[]>([])
+const isSearching = ref(false)
+
+// Debounced autocomplete fetch
+const debouncedFetch = useDebounceFn(async (query: string) => {
+  if (!query.trim() || query.length < 2) {
+    suggestions.value = []
+    isSearching.value = false
+    return
+  }
+
+  isSearching.value = true
+  try {
+    const response = await $fetch<{ contractors: AutocompleteContractor[] }>(
+      `/api/contractors?q=${encodeURIComponent(query)}&limit=5`
+    )
+    suggestions.value = response.contractors
+  } catch {
+    suggestions.value = []
+  } finally {
+    isSearching.value = false
+  }
+}, 200)
+
+watch(searchQuery, (query) => {
+  highlightedIndex.value = -1
+  if (query.trim().length >= 2) {
+    isSearching.value = true
+    showSuggestions.value = true
+    debouncedFetch(query)
+  } else {
+    suggestions.value = []
+    showSuggestions.value = false
+    isSearching.value = false
+  }
+})
 
 // Handle search submission
 const handleSearch = () => {
+  showSuggestions.value = false
   const q = searchQuery.value.trim()
   if (q) {
     router.push({ path: '/contractors', query: { q } })
   } else {
     router.push('/contractors')
+  }
+}
+
+// Navigate directly to contractor
+const selectContractor = (slug: string) => {
+  showSuggestions.value = false
+  searchQuery.value = ''
+  router.push(`/contractors/${slug}`)
+}
+
+// Keyboard navigation
+const handleKeydown = (e: KeyboardEvent) => {
+  if (!showSuggestions.value || suggestions.value.length === 0) return
+
+  switch (e.key) {
+    case 'ArrowDown':
+      e.preventDefault()
+      highlightedIndex.value = Math.min(highlightedIndex.value + 1, suggestions.value.length - 1)
+      break
+    case 'ArrowUp':
+      e.preventDefault()
+      highlightedIndex.value = Math.max(highlightedIndex.value - 1, -1)
+      break
+    case 'Enter': {
+      const selected = suggestions.value[highlightedIndex.value]
+      if (highlightedIndex.value >= 0 && selected) {
+        e.preventDefault()
+        selectContractor(selected.slug)
+      }
+      break
+    }
+    case 'Escape':
+      showSuggestions.value = false
+      highlightedIndex.value = -1
+      break
+  }
+}
+
+// Close suggestions on blur (with delay to allow click)
+const handleBlur = () => {
+  setTimeout(() => {
+    showSuggestions.value = false
+  }, 200)
+}
+
+const handleFocus = () => {
+  if (searchQuery.value.trim().length >= 2 && suggestions.value.length > 0) {
+    showSuggestions.value = true
   }
 }
 
@@ -170,22 +268,67 @@ const getSpecialtyIcon = (slug: string): string => {
           </p>
 
           <!-- Search Bar - Hero Element -->
-          <div class="mt-10 mx-auto max-w-2xl">
+          <div class="mt-10 mx-auto max-w-2xl relative">
             <form @submit.prevent="handleSearch">
               <InputGroup class="h-14 sm:h-16 rounded-none shadow-none">
                 <InputGroupAddon align="inline-start" class="pl-5 sm:pl-6">
                   <Icon name="mdi:magnify" class="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground" />
                 </InputGroupAddon>
                 <InputGroupInput
+                  ref="searchInputRef"
                   v-model="searchQuery"
                   placeholder="Search contractors..."
                   class="text-base sm:text-lg"
+                  autocomplete="off"
+                  @keydown="handleKeydown"
+                  @blur="handleBlur"
+                  @focus="handleFocus"
                 />
                 <InputGroupButton variant="ghost" type="submit" class="h-full px-5 sm:px-6">
                   <Icon name="mdi:arrow-right" class="w-5 h-5 sm:w-6 sm:h-6" />
                 </InputGroupButton>
               </InputGroup>
             </form>
+
+            <!-- Autocomplete Dropdown -->
+            <div
+              v-if="showSuggestions && (suggestions.length > 0 || isSearching)"
+              class="absolute left-0 right-0 top-full mt-1 bg-card border border-border shadow-lg z-50"
+            >
+              <!-- Loading state -->
+              <div v-if="isSearching && suggestions.length === 0" class="px-4 py-3 text-sm text-muted-foreground">
+                Searching...
+              </div>
+
+              <!-- Results -->
+              <template v-else>
+                <button
+                  v-for="(contractor, index) in suggestions"
+                  :key="contractor.id"
+                  type="button"
+                  class="w-full px-4 py-3 flex items-center gap-3 text-left transition-colors"
+                  :class="index === highlightedIndex ? 'bg-muted' : 'hover:bg-muted/50'"
+                  @mousedown.prevent="selectContractor(contractor.slug)"
+                  @mouseenter="highlightedIndex = index"
+                >
+                  <Icon name="mdi:domain" class="w-4 h-4 text-muted-foreground shrink-0" />
+                  <div class="flex-1 min-w-0">
+                    <div class="font-medium text-foreground truncate">{{ contractor.name }}</div>
+                    <div v-if="contractor.headquarters" class="text-xs text-muted-foreground truncate">
+                      {{ contractor.headquarters }}
+                    </div>
+                  </div>
+                  <Badge v-if="contractor.defenseNewsRank" variant="secondary" class="shrink-0">
+                    #{{ contractor.defenseNewsRank }}
+                  </Badge>
+                </button>
+
+                <!-- View all results hint -->
+                <div class="px-4 py-2 text-xs text-muted-foreground border-t border-border">
+                  Press Enter to search all results
+                </div>
+              </template>
+            </div>
           </div>
 
           <!-- Quick filters -->
