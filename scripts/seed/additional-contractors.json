@@ -1,0 +1,1874 @@
+[
+  {
+    "rank": 51,
+    "name": "ManTech International",
+    "country": "U.S.",
+    "totalRevenue": 2800000000,
+    "defenseRevenue": 2380000000,
+    "defenseRevenuePercent": 85,
+    "slug": "mantech-international",
+    "description": "ManTech International Corporation is a U.S.-based technology company that provides mission-focused solutions and services to the defense, intelligence, and federal civilian markets. The company specializes in cybersecurity, data analytics, software development, systems engineering, and IT modernization for national security customers. ManTech supports the full lifecycle of critical programs across the Department of Defense, Intelligence Community, and federal agencies.\n\nFounded in 1968, ManTech has grown into a major mid-tier defense contractor with deep expertise in classified environments and mission-critical operations. The company plays a key role in cyber defense, enterprise IT, and intelligence analysis, helping customers protect networks, exploit data, and maintain operational advantage in contested environments.",
+    "headquarters": "Herndon, Virginia",
+    "founded": 1968,
+    "employeeCount": "~10,000",
+    "website": "https://www.mantech.com",
+    "careersUrl": "https://www.mantech.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/mantech",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/ManTech_International",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "cybersecurity-it",
+      "intelligence-analytics",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Cyber operations and defensive cyber services",
+      "Intelligence analysis and mission support",
+      "Enterprise IT modernization and cloud services",
+      "Data analytics and AI/ML solutions",
+      "Systems engineering and integration"
+    ],
+    "notableContracts": [
+      "Defense Information Systems Agency enterprise IT support contracts",
+      "Intelligence Community cyber and mission support programs",
+      "U.S. Army and Navy IT modernization and network defense contracts"
+    ]
+  },
+  {
+    "rank": 52,
+    "name": "Maximus",
+    "country": "U.S.",
+    "totalRevenue": 5300000000,
+    "defenseRevenue": 1590000000,
+    "defenseRevenuePercent": 30,
+    "slug": "maximus",
+    "description": "Maximus is a leading provider of government services that operates health and human services programs for federal, state, and local governments. While primarily known for administering citizen services programs, Maximus has a significant federal segment that provides IT modernization, data analytics, and digital transformation services to defense and civilian agencies. The company helps government customers improve program outcomes through technology-enabled solutions.\n\nFounded in 1975, Maximus has evolved from a program management consultancy into a large-scale government services contractor with operations across the United States and internationally. In the federal space, Maximus supports defense health programs, benefits administration, and enterprise IT initiatives, leveraging its expertise in large-scale citizen engagement and digital services delivery.",
+    "headquarters": "Tysons, Virginia",
+    "founded": 1975,
+    "employeeCount": "~39,000",
+    "website": "https://www.maximus.com",
+    "careersUrl": "https://www.maximus.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/maximus",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Maximus_(company)",
+    "stockTicker": "MMS",
+    "isPublic": true,
+    "specialties": [
+      "professional-services",
+      "cybersecurity-it",
+      "logistics-support"
+    ],
+    "keyProducts": [
+      "Federal health program administration",
+      "Contact center and citizen services",
+      "IT modernization and cloud migration",
+      "Data analytics and reporting solutions",
+      "Digital transformation services"
+    ],
+    "notableContracts": [
+      "Centers for Medicare & Medicaid Services program support",
+      "Department of Defense health program administration",
+      "Federal civilian agency IT modernization contracts"
+    ]
+  },
+  {
+    "rank": 53,
+    "name": "ICF International",
+    "country": "U.S.",
+    "totalRevenue": 2000000000,
+    "defenseRevenue": 500000000,
+    "defenseRevenuePercent": 25,
+    "slug": "icf-international",
+    "description": "ICF International is a global consulting and technology services company that provides advisory, implementation, and managed services to government and commercial clients. The company's federal practice supports defense, homeland security, and civilian agencies with strategic consulting, digital transformation, data analytics, and program management. ICF specializes in complex policy and technology challenges across energy, environment, health, and national security domains.\n\nFounded in 1969, ICF has evolved from an energy and environmental consultancy into a diversified professional services firm with strong capabilities in IT modernization, cybersecurity, and analytics. The company serves defense customers with mission support, enterprise IT, and specialized advisory services that help agencies modernize operations and improve outcomes.",
+    "headquarters": "Fairfax, Virginia",
+    "founded": 1969,
+    "employeeCount": "~9,000",
+    "website": "https://www.icf.com",
+    "careersUrl": "https://www.icf.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/icf-international",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/ICF_International",
+    "stockTicker": "ICFI",
+    "isPublic": true,
+    "specialties": [
+      "professional-services",
+      "cybersecurity-it",
+      "intelligence-analytics"
+    ],
+    "keyProducts": [
+      "Strategic consulting and advisory services",
+      "IT modernization and digital transformation",
+      "Data analytics and AI solutions",
+      "Program management and implementation",
+      "Cybersecurity and resilience services"
+    ],
+    "notableContracts": [
+      "Department of Homeland Security program support contracts",
+      "Department of Defense advisory and analytics services",
+      "Federal civilian agency IT modernization programs"
+    ]
+  },
+  {
+    "rank": 54,
+    "name": "Serco Inc.",
+    "country": "U.S.",
+    "totalRevenue": 1800000000,
+    "defenseRevenue": 1260000000,
+    "defenseRevenuePercent": 70,
+    "slug": "serco-inc",
+    "description": "Serco Inc. is the Americas division of Serco Group plc, a leading provider of public services to government customers. In the United States, Serco delivers defense, federal civilian, and healthcare services including program management, logistics, training, and technical support. The company supports critical missions across the Department of Defense, Department of Homeland Security, and various civilian agencies.\n\nWith roots tracing back to the 1920s through predecessor organizations, Serco has developed deep expertise in managing complex government programs and delivering essential services. The company provides operations and maintenance, logistics support, IT services, and specialized technical services to defense customers, playing a key role in military readiness and installation support.",
+    "headquarters": "Herndon, Virginia",
+    "founded": 1988,
+    "employeeCount": "~9,000",
+    "website": "https://www.serco.com/na",
+    "careersUrl": "https://www.serco.com/na/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/serco-na",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Serco",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "professional-services",
+      "logistics-support",
+      "cybersecurity-it"
+    ],
+    "keyProducts": [
+      "Defense logistics and supply chain services",
+      "Training and simulation support",
+      "Healthcare administration services",
+      "IT and cybersecurity services",
+      "Program management and technical services"
+    ],
+    "notableContracts": [
+      "U.S. Navy fleet readiness and logistics support",
+      "Department of Homeland Security program management",
+      "Defense Health Agency healthcare administration"
+    ]
+  },
+  {
+    "rank": 55,
+    "name": "Anduril Industries",
+    "country": "U.S.",
+    "totalRevenue": 1500000000,
+    "defenseRevenue": 1350000000,
+    "defenseRevenuePercent": 90,
+    "slug": "anduril-industries",
+    "description": "Anduril Industries is a defense technology company that builds advanced autonomous systems, artificial intelligence platforms, and integrated command-and-control solutions for the U.S. military and allied forces. Founded by Palmer Luckey, Anduril has rapidly emerged as a leading non-traditional defense contractor, developing products including autonomous drones, counter-unmanned aircraft systems, surveillance towers, and the Lattice software platform that fuses sensor data and enables autonomous operations.\n\nThe company represents a new model of defense contracting, emphasizing rapid product development, commercial-style software iteration, and venture-backed growth. Anduril's technology stack powers autonomous systems across air, ground, and maritime domains, providing warfighters with persistent surveillance, autonomous targeting, and integrated battlespace awareness. With a valuation exceeding $30 billion, Anduril has become one of the most valuable private defense companies and a key partner in Pentagon modernization efforts.",
+    "headquarters": "Costa Mesa, California",
+    "founded": 2017,
+    "employeeCount": "~4,000",
+    "website": "https://www.anduril.com",
+    "careersUrl": "https://www.anduril.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/anduril",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Anduril_Industries",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "aerospace-defense",
+      "electronics-sensors",
+      "research-development"
+    ],
+    "keyProducts": [
+      "Lattice autonomous operations platform",
+      "Ghost family of autonomous aircraft",
+      "Sentry Tower surveillance systems",
+      "Anvil counter-UAS interceptor",
+      "Altius loitering munitions"
+    ],
+    "notableContracts": [
+      "U.S. Special Operations Command counter-UAS systems",
+      "U.S. Marine Corps autonomous ISR programs",
+      "U.S. Navy counter-drone and maritime surveillance contracts"
+    ]
+  },
+  {
+    "rank": 56,
+    "name": "Shield AI",
+    "country": "U.S.",
+    "totalRevenue": 500000000,
+    "defenseRevenue": 475000000,
+    "defenseRevenuePercent": 95,
+    "slug": "shield-ai",
+    "description": "Shield AI is a defense technology company that develops autonomous aircraft and AI pilot systems for military applications. The company's flagship product, Hivemind, is an AI pilot capable of flying aircraft autonomously in contested environments without GPS, communications, or human intervention. Shield AI focuses on transforming existing aircraft into autonomous platforms and developing purpose-built autonomous systems for intelligence, surveillance, and combat missions.\n\nFounded in 2015 by former Navy SEALs and AI researchers, Shield AI has grown rapidly through venture funding and defense contracts. The company's technology enables autonomous reconnaissance, teaming between manned and unmanned aircraft, and swarm operations. Shield AI represents the next generation of defense technology companies that prioritize AI and autonomy as core capabilities for future warfare.",
+    "headquarters": "San Diego, California",
+    "founded": 2015,
+    "employeeCount": "~900",
+    "website": "https://www.shield.ai",
+    "careersUrl": "https://www.shield.ai/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/shieldai",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Shield_AI",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "aerospace-defense",
+      "research-development",
+      "intelligence-analytics"
+    ],
+    "keyProducts": [
+      "Hivemind autonomous AI pilot",
+      "Nova autonomous quadcopter",
+      "V-BAT autonomous VTOL aircraft",
+      "Autonomous teaming and swarm systems",
+      "AI-enabled ISR solutions"
+    ],
+    "notableContracts": [
+      "U.S. Air Force autonomous aircraft programs",
+      "U.S. Special Operations Command ISR support",
+      "Department of Defense AI and autonomy development contracts"
+    ]
+  },
+  {
+    "rank": 57,
+    "name": "Palantir Technologies",
+    "country": "U.S.",
+    "totalRevenue": 2900000000,
+    "defenseRevenue": 1450000000,
+    "defenseRevenuePercent": 50,
+    "slug": "palantir-technologies",
+    "description": "Palantir Technologies is a software company that builds data integration and analytics platforms for government and commercial customers. The company's Gotham platform serves defense and intelligence customers, enabling analysts to integrate disparate data sources, conduct complex investigations, and support operational decision-making. Palantir's technology has become embedded in critical defense and intelligence workflows across the U.S. government and allied nations.\n\nFounded in 2003 with backing from the CIA's venture arm In-Q-Tel, Palantir has evolved from a counterterrorism analytics tool into a broad platform for operational AI and data-driven decision-making. The company's defense work spans intelligence analysis, logistics optimization, battlefield awareness, and AI-enabled targeting support. Palantir's Foundry platform extends these capabilities to commercial customers while its Artificial Intelligence Platform (AIP) enables large language model deployment in secure environments.",
+    "headquarters": "Denver, Colorado",
+    "founded": 2003,
+    "employeeCount": "~3,800",
+    "website": "https://www.palantir.com",
+    "careersUrl": "https://www.palantir.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/palantir-technologies",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Palantir_Technologies",
+    "stockTicker": "PLTR",
+    "isPublic": true,
+    "specialties": [
+      "intelligence-analytics",
+      "cybersecurity-it",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Gotham data integration and analysis platform",
+      "Foundry enterprise data platform",
+      "Artificial Intelligence Platform (AIP)",
+      "Apollo continuous deployment system",
+      "MetaConstellation satellite tasking"
+    ],
+    "notableContracts": [
+      "U.S. Army Distributed Common Ground System integration",
+      "U.S. Special Operations Command analytics support",
+      "Intelligence Community data integration and analysis programs"
+    ]
+  },
+  {
+    "rank": 58,
+    "name": "Sierra Nevada Corporation",
+    "country": "U.S.",
+    "totalRevenue": 4800000000,
+    "defenseRevenue": 4080000000,
+    "defenseRevenuePercent": 85,
+    "slug": "sierra-nevada-corporation",
+    "description": "Sierra Nevada Corporation (SNC) is a privately held aerospace and defense company that provides aircraft modification, tactical systems integration, space systems, and commercial solutions to the U.S. government and international customers. The company is known for its work on intelligence, surveillance, and reconnaissance (ISR) platforms, special mission aircraft, and the Dream Chaser spaceplane. SNC serves as a major systems integrator for the Department of Defense, NASA, and allied nations.\n\nFounded in 1963, SNC has grown from a small electronics company into a diversified aerospace and defense contractor with capabilities spanning aircraft modification, C4ISR systems, space vehicles, and propulsion. The company plays a significant role in ISR modernization, providing modified aircraft and integrated sensor systems for military and intelligence customers worldwide.",
+    "headquarters": "Sparks, Nevada",
+    "founded": 1963,
+    "employeeCount": "~4,500",
+    "website": "https://www.sncorp.com",
+    "careersUrl": "https://www.sncorp.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/sierra-nevada-corporation",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Sierra_Nevada_Corporation",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "aerospace-defense",
+      "space-systems",
+      "electronics-sensors"
+    ],
+    "keyProducts": [
+      "Dream Chaser spaceplane",
+      "ISR aircraft modifications and integration",
+      "Tactical communication systems",
+      "Propulsion systems",
+      "Space systems and satellites"
+    ],
+    "notableContracts": [
+      "U.S. Air Force Survivable Airborne Operations Center (SAOC)",
+      "U.S. Army High Accuracy Detection and Exploitation System (HADES)",
+      "NASA Commercial Resupply Services with Dream Chaser"
+    ]
+  },
+  {
+    "rank": 59,
+    "name": "Mercury Systems",
+    "country": "U.S.",
+    "totalRevenue": 912000000,
+    "defenseRevenue": 820000000,
+    "defenseRevenuePercent": 90,
+    "slug": "mercury-systems",
+    "description": "Mercury Systems is a leading provider of mission-critical processing subsystems and components for defense and aerospace applications. The company specializes in trusted, secure processing for radar, electronic warfare, C4I, and missile systems, delivering rugged computing solutions that operate in the most demanding environments. Mercury serves as a key supplier to major defense prime contractors and directly to military customers.\n\nFounded in 1981, Mercury has evolved from a signal processing company into a trusted defense electronics supplier with deep expertise in secure processing, sensor systems, and advanced packaging. The company plays a critical role in the defense supply chain, providing the processing power and secure electronics that enable modern weapons systems, radar, and communication platforms.",
+    "headquarters": "Andover, Massachusetts",
+    "founded": 1981,
+    "employeeCount": "~2,400",
+    "website": "https://www.mrcy.com",
+    "careersUrl": "https://www.mrcy.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/mercury-systems",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Mercury_Systems",
+    "stockTicker": "MRCY",
+    "isPublic": true,
+    "specialties": [
+      "electronics-sensors",
+      "aerospace-defense",
+      "research-development"
+    ],
+    "keyProducts": [
+      "Mission-critical processing subsystems",
+      "Secure and trusted computing modules",
+      "Radar processing systems",
+      "Electronic warfare processing",
+      "Advanced microelectronics packaging"
+    ],
+    "notableContracts": [
+      "F-35 Joint Strike Fighter processing subsystems",
+      "Patriot missile system electronics upgrades",
+      "Multiple radar and EW platform processing contracts"
+    ]
+  },
+  {
+    "rank": 60,
+    "name": "Kratos Defense & Security Solutions",
+    "country": "U.S.",
+    "totalRevenue": 1100000000,
+    "defenseRevenue": 935000000,
+    "defenseRevenuePercent": 85,
+    "slug": "kratos-defense",
+    "description": "Kratos Defense & Security Solutions is a technology company focused on unmanned systems, satellite communications, microwave electronics, and missile defense. The company develops high-performance tactical drones, target drones for military training, and advanced electronics for radar and communication systems. Kratos is a leader in affordable, attritable unmanned aerial systems designed to operate in contested environments.\n\nThe company has positioned itself at the forefront of next-generation military drone development, emphasizing low-cost, high-performance autonomous systems that can be produced at scale. Kratos also provides satellite ground systems, space electronics, and microwave products that support both government and commercial space missions. Its focus on affordability and rapid production aligns with Pentagon priorities for mass and expendability in future conflicts.",
+    "headquarters": "San Diego, California",
+    "founded": 1994,
+    "employeeCount": "~4,000",
+    "website": "https://www.kratosdefense.com",
+    "careersUrl": "https://www.kratosdefense.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/kratos-defense",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Kratos_Defense_%26_Security_Solutions",
+    "stockTicker": "KTOS",
+    "isPublic": true,
+    "specialties": [
+      "aerospace-defense",
+      "space-systems",
+      "electronics-sensors"
+    ],
+    "keyProducts": [
+      "Valkyrie (XQ-58A) attritable tactical drone",
+      "BQM-177A Subsonic Aerial Target",
+      "Satellite ground systems",
+      "Microwave electronics",
+      "Space and missile defense products"
+    ],
+    "notableContracts": [
+      "U.S. Air Force Skyborg autonomous wingman program",
+      "U.S. Navy aerial target drone production",
+      "Satellite ground system contracts for DoD and commercial customers"
+    ]
+  },
+  {
+    "rank": 61,
+    "name": "Leonardo DRS",
+    "country": "U.S.",
+    "totalRevenue": 3569000000,
+    "defenseRevenue": 3390000000,
+    "defenseRevenuePercent": 95,
+    "slug": "leonardo-drs",
+    "description": "Leonardo DRS is a U.S.-based defense electronics company that provides advanced sensing, network computing, force protection, and electric power technologies to military customers. A subsidiary of Italian defense giant Leonardo S.p.A., the company delivers naval electronics, ground combat systems, and networked computing solutions that support warfighters across all domains. Leonardo DRS is a key supplier of infrared sensors, radar systems, and naval power systems.\n\nWith heritage dating back to early defense electronics pioneers, Leonardo DRS has become a leading provider of tactical systems integration, power conversion, and advanced sensors for U.S. and allied forces. The company's products are embedded in major platforms including ships, ground vehicles, and aircraft, providing the sensing, computing, and power management capabilities essential to modern military operations.",
+    "headquarters": "Arlington, Virginia",
+    "founded": 1968,
+    "employeeCount": "~7,000",
+    "website": "https://www.leonardodrs.com",
+    "careersUrl": "https://www.leonardodrs.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/leonardo-drs",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Leonardo_DRS",
+    "stockTicker": "DRS",
+    "isPublic": true,
+    "specialties": [
+      "electronics-sensors",
+      "naval-maritime",
+      "land-systems"
+    ],
+    "keyProducts": [
+      "Naval power systems and ship electronics",
+      "Infrared sensors and EO/IR systems",
+      "Ground vehicle electronics and computing",
+      "Force protection systems",
+      "Network computing and C4I solutions"
+    ],
+    "notableContracts": [
+      "U.S. Navy ship electronics and power systems",
+      "U.S. Army combat vehicle modernization",
+      "Infrared sensor production for multiple platforms"
+    ]
+  },
+  {
+    "rank": 62,
+    "name": "BAE Systems Inc.",
+    "country": "U.S.",
+    "totalRevenue": 14500000000,
+    "defenseRevenue": 13775000000,
+    "defenseRevenuePercent": 95,
+    "slug": "bae-systems-inc",
+    "description": "BAE Systems Inc. is the U.S. subsidiary of BAE Systems plc, one of the world's largest defense contractors. The U.S. operation provides electronic warfare systems, intelligence solutions, armored combat vehicles, naval ship repair, and advanced technology products to the Department of Defense and other government agencies. BAE Systems Inc. operates as a separate, ITAR-controlled entity to serve the U.S. national security market.\n\nThe company is a leader in electronic warfare, providing advanced EW systems for aircraft, ships, and ground forces. BAE Systems Inc. also manufactures armored vehicles including the Bradley Fighting Vehicle and Armored Multi-Purpose Vehicle (AMPV), operates major shipyards for naval repair and modernization, and delivers intelligence and surveillance solutions to defense and intelligence customers.",
+    "headquarters": "Falls Church, Virginia",
+    "founded": 1999,
+    "employeeCount": "~35,000",
+    "website": "https://www.baesystems.com/en-us",
+    "careersUrl": "https://jobs.baesystems.com",
+    "linkedinUrl": "https://www.linkedin.com/company/baborae-systems",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/BAE_Systems",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "electronics-sensors",
+      "land-systems",
+      "naval-maritime"
+    ],
+    "keyProducts": [
+      "Electronic warfare systems and countermeasures",
+      "Bradley Fighting Vehicle and AMPV",
+      "M777 howitzer",
+      "Naval ship repair and modernization",
+      "Intelligence and cyber solutions"
+    ],
+    "notableContracts": [
+      "U.S. Army Armored Multi-Purpose Vehicle production",
+      "F-35 electronic warfare systems",
+      "U.S. Navy ship repair and maintenance contracts"
+    ]
+  },
+  {
+    "rank": 63,
+    "name": "General Atomics",
+    "country": "U.S.",
+    "totalRevenue": 4000000000,
+    "defenseRevenue": 3600000000,
+    "defenseRevenuePercent": 90,
+    "slug": "general-atomics",
+    "description": "General Atomics is a defense and diversified technologies company best known for developing the Predator and Reaper unmanned aircraft systems that have transformed military ISR and strike operations. The company also conducts research in nuclear energy, electromagnetic systems, and advanced materials. Through its Aeronautical Systems subsidiary, General Atomics has become synonymous with military drones and remotely piloted aircraft.\n\nFounded in 1955 as a nuclear research company, General Atomics has diversified into a major defense contractor while maintaining significant research activities in energy, physics, and advanced technologies. The company's MQ-9 Reaper and MQ-1C Gray Eagle are workhorses of U.S. military drone operations, while its electromagnetic systems division develops advanced launchers, railguns, and aircraft launch systems for naval applications.",
+    "headquarters": "San Diego, California",
+    "founded": 1955,
+    "employeeCount": "~16,000",
+    "website": "https://www.ga.com",
+    "careersUrl": "https://www.ga.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/general-atomics",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/General_Atomics",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "aerospace-defense",
+      "research-development",
+      "electronics-sensors"
+    ],
+    "keyProducts": [
+      "MQ-9 Reaper remotely piloted aircraft",
+      "MQ-1C Gray Eagle UAS",
+      "Electromagnetic Aircraft Launch System (EMALS)",
+      "Advanced Arresting Gear (AAG)",
+      "Nuclear research and energy systems"
+    ],
+    "notableContracts": [
+      "U.S. Air Force MQ-9 Reaper production and sustainment",
+      "U.S. Army MQ-1C Gray Eagle Extended Range program",
+      "U.S. Navy EMALS and AAG for Ford-class carriers"
+    ]
+  },
+  {
+    "rank": 64,
+    "name": "Oshkosh Defense",
+    "country": "U.S.",
+    "totalRevenue": 4200000000,
+    "defenseRevenue": 4000000000,
+    "defenseRevenuePercent": 95,
+    "slug": "oshkosh-defense",
+    "description": "Oshkosh Defense is a leading manufacturer of tactical wheeled vehicles for the U.S. military and allied forces. A division of Oshkosh Corporation, the company produces the Joint Light Tactical Vehicle (JLTV), Family of Heavy Tactical Vehicles (FHTV), and a range of specialized military trucks. Oshkosh vehicles form the backbone of U.S. Army and Marine Corps ground transportation and logistics fleets.\n\nWith roots dating back to 1917 in the truck manufacturing industry, Oshkosh has become the premier supplier of tactical wheeled vehicles to the Department of Defense. The company's vehicles are known for their durability, mobility, and protection, designed to operate in the most demanding environments. Oshkosh also provides vehicle sustainment, modernization, and international sales support.",
+    "headquarters": "Oshkosh, Wisconsin",
+    "founded": 1917,
+    "employeeCount": "~8,000",
+    "website": "https://oshkoshdefense.com",
+    "careersUrl": "https://oshkoshdefense.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/oshkosh-defense",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Oshkosh_Defense",
+    "stockTicker": "OSK",
+    "isPublic": true,
+    "specialties": [
+      "land-systems",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Joint Light Tactical Vehicle (JLTV)",
+      "Family of Heavy Tactical Vehicles (FHTV)",
+      "Medium Tactical Vehicle Replacement (MTVR)",
+      "Logistics Vehicle System Replacement (LVSR)",
+      "HEMTT and PLS heavy trucks"
+    ],
+    "notableContracts": [
+      "U.S. Army and Marine Corps JLTV production",
+      "U.S. Postal Service Next Generation Delivery Vehicle",
+      "International tactical vehicle sales and support"
+    ]
+  },
+  {
+    "rank": 65,
+    "name": "Curtiss-Wright Corporation",
+    "country": "U.S.",
+    "totalRevenue": 3000000000,
+    "defenseRevenue": 1500000000,
+    "defenseRevenuePercent": 50,
+    "slug": "curtiss-wright-corporation",
+    "description": "Curtiss-Wright Corporation is a diversified industrial company that provides highly engineered products, solutions, and services to the aerospace, defense, and industrial markets. The company specializes in flight control systems, weapons handling equipment, sensors, naval propulsion components, and rugged electronics for military platforms. Curtiss-Wright products are found on aircraft, ships, submarines, and ground vehicles across all military services.\n\nWith heritage tracing back to aviation pioneers Glenn Curtiss and the Wright Brothers, Curtiss-Wright has evolved through decades of innovation and acquisition into a key supplier of mission-critical components and systems. The company's defense products include actuation systems for aircraft, weapons elevators for naval vessels, embedded computing solutions, and valve technologies for nuclear and conventional naval propulsion.",
+    "headquarters": "Davidson, North Carolina",
+    "founded": 1929,
+    "employeeCount": "~8,500",
+    "website": "https://www.curtisswright.com",
+    "careersUrl": "https://www.curtisswright.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/curtiss-wright-corporation",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Curtiss-Wright",
+    "stockTicker": "CW",
+    "isPublic": true,
+    "specialties": [
+      "aerospace-defense",
+      "naval-maritime",
+      "electronics-sensors"
+    ],
+    "keyProducts": [
+      "Aircraft actuation and flight control systems",
+      "Naval weapons handling and elevator systems",
+      "Submarine propulsion components",
+      "Rugged embedded computing",
+      "Industrial valves and flow control"
+    ],
+    "notableContracts": [
+      "F-35 actuation systems and components",
+      "U.S. Navy carrier and submarine equipment",
+      "Commercial and military aircraft flight controls"
+    ]
+  },
+  {
+    "rank": 66,
+    "name": "Elbit Systems of America",
+    "country": "U.S.",
+    "totalRevenue": 1600000000,
+    "defenseRevenue": 1520000000,
+    "defenseRevenuePercent": 95,
+    "slug": "elbit-systems-of-america",
+    "description": "Elbit Systems of America is the U.S. subsidiary of Israeli defense company Elbit Systems Ltd., providing advanced defense electronics, systems integration, and homeland security solutions to U.S. government customers. The company specializes in night vision and electro-optical systems, C4I solutions, unmanned aircraft systems, and aircraft modernization. Elbit Systems of America serves the Department of Defense, Department of Homeland Security, and other federal agencies.\n\nAs a wholly owned U.S. subsidiary operating under Special Security Agreements, Elbit Systems of America brings Israeli defense innovation to the American market while meeting stringent ITAR requirements. The company is a major supplier of helmet-mounted displays, night vision goggles, and airborne systems, leveraging technology developed through decades of Israeli defense experience.",
+    "headquarters": "Fort Worth, Texas",
+    "founded": 1997,
+    "employeeCount": "~3,000",
+    "website": "https://www.elbitsystems-us.com",
+    "careersUrl": "https://www.elbitsystems-us.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/elbit-systems-of-america",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Elbit_Systems_of_America",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "electronics-sensors",
+      "aerospace-defense",
+      "intelligence-analytics"
+    ],
+    "keyProducts": [
+      "Night vision systems and goggles",
+      "Helmet-mounted display systems",
+      "Unmanned aircraft systems",
+      "C4I and tactical communications",
+      "Border security solutions"
+    ],
+    "notableContracts": [
+      "U.S. Army night vision goggle programs",
+      "F-35 helmet-mounted display system",
+      "Department of Homeland Security border surveillance"
+    ]
+  },
+  {
+    "rank": 67,
+    "name": "AAR Corp",
+    "country": "U.S.",
+    "totalRevenue": 2200000000,
+    "defenseRevenue": 1100000000,
+    "defenseRevenuePercent": 50,
+    "slug": "aar-corp",
+    "description": "AAR Corp is an aviation services company that provides aftermarket support, MRO (maintenance, repair, and overhaul), and logistics services to commercial and government customers. The company's government business supports military aviation through parts supply, aircraft maintenance, fleet management, and expeditionary services. AAR operates globally with MRO facilities, distribution centers, and deployed support teams.\n\nFounded in 1951, AAR has grown into a leading independent provider of aviation services with deep expertise in supply chain management and aircraft sustainment. The company supports U.S. military and allied air forces with parts distribution, heavy maintenance, modifications, and field services that keep aircraft mission-ready. AAR's commercial aviation business provides complementary scale and capabilities.",
+    "headquarters": "Wood Dale, Illinois",
+    "founded": 1951,
+    "employeeCount": "~6,000",
+    "website": "https://www.aarcorp.com",
+    "careersUrl": "https://www.aarcorp.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/aar-corp",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/AAR_Corp",
+    "stockTicker": "AIR",
+    "isPublic": true,
+    "specialties": [
+      "logistics-support",
+      "aerospace-defense",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Aircraft MRO services",
+      "Aviation parts supply and distribution",
+      "Fleet management programs",
+      "Expeditionary airlift services",
+      "Government aircraft modifications"
+    ],
+    "notableContracts": [
+      "U.S. Air Force KC-135 tanker parts support",
+      "U.S. Army rotorcraft sustainment programs",
+      "Defense Logistics Agency aviation supply contracts"
+    ]
+  },
+  {
+    "rank": 68,
+    "name": "TransDigm Group",
+    "country": "U.S.",
+    "totalRevenue": 7900000000,
+    "defenseRevenue": 2765000000,
+    "defenseRevenuePercent": 35,
+    "slug": "transdigm-group",
+    "description": "TransDigm Group is a leading global designer, producer, and supplier of highly engineered aircraft components for commercial and military aircraft. The company owns a portfolio of proprietary aerospace businesses that manufacture critical components including actuators, batteries, ignition systems, pumps, valves, and cockpit displays. TransDigm products are installed on virtually every commercial and military aircraft platform.\n\nTransDigm has grown primarily through acquisition, building a collection of aerospace component businesses with strong market positions and sole-source relationships. The company supplies components to both commercial airlines and defense customers, with military products found on fighters, bombers, tankers, helicopters, and transport aircraft across the U.S. military fleet.",
+    "headquarters": "Cleveland, Ohio",
+    "founded": 1993,
+    "employeeCount": "~22,000",
+    "website": "https://www.transdigm.com",
+    "careersUrl": "https://www.transdigm.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/transdigm-group",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/TransDigm_Group",
+    "stockTicker": "TDG",
+    "isPublic": true,
+    "specialties": [
+      "aerospace-defense",
+      "electronics-sensors",
+      "logistics-support"
+    ],
+    "keyProducts": [
+      "Aircraft actuators and motors",
+      "Cockpit displays and instruments",
+      "Power systems and batteries",
+      "Mechanical systems and components",
+      "Aircraft lighting and safety systems"
+    ],
+    "notableContracts": [
+      "Sole-source components for major military aircraft programs",
+      "F-35 Joint Strike Fighter component supply",
+      "Commercial and military aftermarket support"
+    ]
+  },
+  {
+    "rank": 69,
+    "name": "Austal USA",
+    "country": "U.S.",
+    "totalRevenue": 1800000000,
+    "defenseRevenue": 1710000000,
+    "defenseRevenuePercent": 95,
+    "slug": "austal-usa",
+    "description": "Austal USA is an American shipbuilder and defense contractor that designs and constructs aluminum ships for the U.S. Navy and Coast Guard. A subsidiary of Australian shipbuilder Austal Limited, the company operates a major shipyard in Mobile, Alabama, where it builds Independence-class Littoral Combat Ships, Expeditionary Fast Transports (EPF), and other naval vessels. Austal USA has become a key player in the U.S. shipbuilding industrial base.\n\nFounded in 1999 to bring Austal's high-speed aluminum vessel expertise to the U.S. market, the company has grown into a significant naval shipbuilder with capabilities spanning design, construction, and lifecycle support. Austal USA is expanding into steel shipbuilding and is competing for future Navy frigate and auxiliary ship programs, diversifying beyond its aluminum vessel heritage.",
+    "headquarters": "Mobile, Alabama",
+    "founded": 1999,
+    "employeeCount": "~4,500",
+    "website": "https://www.austalusa.com",
+    "careersUrl": "https://www.austalusa.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/austal-usa",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Austal_USA",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "naval-maritime",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Independence-class Littoral Combat Ship",
+      "Expeditionary Fast Transport (EPF)",
+      "Towing, Salvage, and Rescue Ship (T-ATS)",
+      "Offshore patrol cutters",
+      "High-speed aluminum vessels"
+    ],
+    "notableContracts": [
+      "U.S. Navy Littoral Combat Ship production",
+      "U.S. Navy Expeditionary Fast Transport construction",
+      "U.S. Navy T-ATS Navajo-class construction"
+    ]
+  },
+  {
+    "rank": 70,
+    "name": "Bollinger Shipyards",
+    "country": "U.S.",
+    "totalRevenue": 800000000,
+    "defenseRevenue": 640000000,
+    "defenseRevenuePercent": 80,
+    "slug": "bollinger-shipyards",
+    "description": "Bollinger Shipyards is a family-owned American shipbuilder that constructs patrol boats, cutters, and response vessels for the U.S. Coast Guard, Navy, and international customers. Based in Louisiana with multiple Gulf Coast facilities, Bollinger has delivered hundreds of vessels to government and commercial customers over its century-plus history. The company is a leading builder of small-to-medium surface combatants and patrol craft.\n\nFounded in 1946, Bollinger has built its reputation on quality construction, on-time delivery, and strong relationships with government customers. The company has delivered numerous Fast Response Cutters to the Coast Guard and is expanding into larger vessels and Navy programs. Bollinger's workforce carries deep shipbuilding expertise passed down through generations of Louisiana craftsmen.",
+    "headquarters": "Lockport, Louisiana",
+    "founded": 1946,
+    "employeeCount": "~3,000",
+    "website": "https://www.bollingershipyards.com",
+    "careersUrl": "https://www.bollingershipyards.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/bollinger-shipyards",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Bollinger_Shipyards",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "naval-maritime",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Sentinel-class Fast Response Cutter",
+      "Patrol boats and response vessels",
+      "Offshore support vessels",
+      "Vessel repair and conversion",
+      "Commercial workboats"
+    ],
+    "notableContracts": [
+      "U.S. Coast Guard Fast Response Cutter program",
+      "U.S. Coast Guard medium and heavy cutters",
+      "U.S. Navy patrol and support craft"
+    ]
+  },
+  {
+    "rank": 71,
+    "name": "Fincantieri Marinette Marine",
+    "country": "U.S.",
+    "totalRevenue": 900000000,
+    "defenseRevenue": 855000000,
+    "defenseRevenuePercent": 95,
+    "slug": "fincantieri-marinette-marine",
+    "description": "Fincantieri Marinette Marine is an American shipbuilder and subsidiary of Italian shipbuilding giant Fincantieri. The company operates the Marinette Marine shipyard in Wisconsin, where it builds the U.S. Navy's Constellation-class guided-missile frigates, Freedom-class Littoral Combat Ships, and other naval vessels. Marinette Marine brings European frigate expertise to American shipbuilding.\n\nWith roots dating back to 1942, the Marinette shipyard has a long history of naval construction and is now at the center of the Navy's frigate recapitalization effort. The Constellation-class frigate, based on Fincantieri's proven FREMM design, represents a significant expansion of the company's role in the U.S. defense industrial base. The yard is undergoing major investments to support frigate production at scale.",
+    "headquarters": "Marinette, Wisconsin",
+    "founded": 1942,
+    "employeeCount": "~2,500",
+    "website": "https://www.fincantierimarinegroupamerica.com",
+    "careersUrl": "https://careers.fincantieri.com",
+    "linkedinUrl": "https://www.linkedin.com/company/marinette-marine-corporation",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Fincantieri_Marinette_Marine",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "naval-maritime",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Constellation-class guided-missile frigate",
+      "Freedom-class Littoral Combat Ship",
+      "Response boats and patrol craft",
+      "Ship repair and modernization",
+      "Naval vessel design"
+    ],
+    "notableContracts": [
+      "U.S. Navy Constellation-class frigate program",
+      "U.S. Navy Freedom-class LCS construction",
+      "U.S. Coast Guard response boat production"
+    ]
+  },
+  {
+    "rank": 72,
+    "name": "Rocket Lab USA",
+    "country": "U.S.",
+    "totalRevenue": 450000000,
+    "defenseRevenue": 180000000,
+    "defenseRevenuePercent": 40,
+    "slug": "rocket-lab-usa",
+    "description": "Rocket Lab USA is a space launch and satellite company that provides dedicated small launch services, spacecraft components, and space systems. The company operates the Electron rocket, the second most frequently launched U.S. rocket, and is developing the larger Neutron rocket for medium-lift missions. Rocket Lab also builds spacecraft and provides satellite components including solar panels, reaction wheels, and separation systems.\n\nFounded in New Zealand and now headquartered in the United States, Rocket Lab has emerged as a leader in the small satellite launch market. The company serves defense, intelligence, and civil government customers with responsive launch capabilities and spacecraft solutions. Rocket Lab's vertically integrated approach enables rapid, affordable access to space for national security and commercial missions.",
+    "headquarters": "Long Beach, California",
+    "founded": 2006,
+    "employeeCount": "~2,000",
+    "website": "https://www.rocketlabusa.com",
+    "careersUrl": "https://www.rocketlabusa.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/rocketlabusa",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Rocket_Lab",
+    "stockTicker": "RKLB",
+    "isPublic": true,
+    "specialties": [
+      "space-systems",
+      "aerospace-defense",
+      "research-development"
+    ],
+    "keyProducts": [
+      "Electron small launch vehicle",
+      "Neutron medium launch vehicle",
+      "Photon satellite bus",
+      "Space solar panels and components",
+      "Separation systems and reaction wheels"
+    ],
+    "notableContracts": [
+      "National Reconnaissance Office launch services",
+      "U.S. Space Force responsive launch programs",
+      "NASA CAPSTONE lunar mission"
+    ]
+  },
+  {
+    "rank": 73,
+    "name": "United Launch Alliance",
+    "country": "U.S.",
+    "totalRevenue": 2500000000,
+    "defenseRevenue": 1750000000,
+    "defenseRevenuePercent": 70,
+    "slug": "united-launch-alliance",
+    "description": "United Launch Alliance (ULA) is a joint venture between Boeing and Lockheed Martin that provides launch services for U.S. national security, civil, and commercial missions. ULA operates the Atlas V and Delta IV Heavy rockets and is developing the next-generation Vulcan Centaur launch system. The company has a perfect mission success record and is a trusted provider for the nation's most critical space missions.\n\nFormed in 2006 to consolidate the legacy Atlas and Delta rocket programs, ULA has launched critical national security satellites, NASA science missions, and commercial payloads. The company is transitioning to the Vulcan Centaur rocket, which will provide enhanced capability and reduced cost for future missions. ULA's reliability and heritage make it a cornerstone of U.S. assured access to space.",
+    "headquarters": "Centennial, Colorado",
+    "founded": 2006,
+    "employeeCount": "~3,000",
+    "website": "https://www.ulalaunch.com",
+    "careersUrl": "https://www.ulalaunch.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/united-launch-alliance",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/United_Launch_Alliance",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "space-systems",
+      "aerospace-defense",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Vulcan Centaur launch vehicle",
+      "Atlas V launch vehicle",
+      "Delta IV Heavy launch vehicle",
+      "Centaur upper stage",
+      "Launch services and mission integration"
+    ],
+    "notableContracts": [
+      "National Security Space Launch Phase 2 contracts",
+      "NASA Commercial Crew and cargo missions",
+      "National Reconnaissance Office satellite launches"
+    ]
+  },
+  {
+    "rank": 74,
+    "name": "Aerojet Rocketdyne",
+    "country": "U.S.",
+    "totalRevenue": 2300000000,
+    "defenseRevenue": 2070000000,
+    "defenseRevenuePercent": 90,
+    "slug": "aerojet-rocketdyne",
+    "description": "Aerojet Rocketdyne is a leading manufacturer of rocket propulsion systems, providing engines and propulsion solutions for space launch, strategic missiles, missile defense, and tactical systems. Now a subsidiary of L3Harris Technologies following acquisition, the company produces the RS-25 engines for NASA's Space Launch System, RL10 upper stage engines, and propulsion for numerous defense and space programs.\n\nWith heritage dating to the dawn of the space age, Aerojet Rocketdyne has powered some of America's most significant space achievements, from Apollo to the Space Shuttle to current exploration missions. The company also provides solid rocket motors for strategic deterrence systems and propulsion for missile defense interceptors, making it a critical supplier across the national security space and missile enterprise.",
+    "headquarters": "El Segundo, California",
+    "founded": 1942,
+    "employeeCount": "~5,000",
+    "website": "https://www.rocket.com",
+    "careersUrl": "https://www.rocket.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/aerojet-rocketdyne",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Aerojet_Rocketdyne",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "space-systems",
+      "aerospace-defense",
+      "research-development"
+    ],
+    "keyProducts": [
+      "RS-25 Space Launch System engine",
+      "RL10 upper stage engine",
+      "AR1 first stage engine",
+      "Missile defense propulsion",
+      "Strategic missile motors"
+    ],
+    "notableContracts": [
+      "NASA Space Launch System RS-25 production",
+      "Missile Defense Agency interceptor propulsion",
+      "Strategic deterrence system propulsion"
+    ]
+  },
+  {
+    "rank": 75,
+    "name": "Maxar Technologies",
+    "country": "U.S.",
+    "totalRevenue": 1800000000,
+    "defenseRevenue": 1080000000,
+    "defenseRevenuePercent": 60,
+    "slug": "maxar-technologies",
+    "description": "Maxar Technologies is a space technology company that provides Earth observation satellites, geospatial intelligence, and space infrastructure solutions to government and commercial customers. The company operates one of the world's most capable commercial imaging satellite constellations and provides analysis and services to defense and intelligence agencies. Maxar also manufactures spacecraft and space robotics systems.\n\nFormed through the combination of DigitalGlobe, MDA, and SSL, Maxar brings together decades of expertise in satellite imaging, spacecraft manufacturing, and geospatial analytics. The company is a primary provider of commercial satellite imagery to the U.S. government and operates ground systems that support national security missions. Maxar's space infrastructure business builds communications and Earth observation satellites for government and commercial customers.",
+    "headquarters": "Westminster, Colorado",
+    "founded": 2017,
+    "employeeCount": "~5,000",
+    "website": "https://www.maxar.com",
+    "careersUrl": "https://www.maxar.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/maxar-technologies",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Maxar_Technologies",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "space-systems",
+      "intelligence-analytics",
+      "electronics-sensors"
+    ],
+    "keyProducts": [
+      "WorldView satellite constellation",
+      "Earth observation and imagery services",
+      "Geospatial analytics and GEOINT solutions",
+      "Communications satellites",
+      "Space robotics and servicing systems"
+    ],
+    "notableContracts": [
+      "National Geospatial-Intelligence Agency EnhancedView/EOCL contracts",
+      "U.S. Space Force satellite manufacturing",
+      "NASA Lunar Gateway power and propulsion element"
+    ]
+  },
+  {
+    "rank": 76,
+    "name": "Ball Aerospace",
+    "country": "U.S.",
+    "totalRevenue": 2600000000,
+    "defenseRevenue": 1820000000,
+    "defenseRevenuePercent": 70,
+    "slug": "ball-aerospace",
+    "description": "Ball Aerospace is a subsidiary of Ball Corporation that designs and manufactures spacecraft, instruments, sensors, and systems for civil, commercial, and national security space applications. The company is known for building critical optical systems and spacecraft, including mirrors for the James Webb Space Telescope and instruments for numerous NASA science missions. Ball also provides tactical solutions and antenna systems for defense applications.\n\nWith over six decades of aerospace heritage, Ball Aerospace has contributed to some of the most important space science and national security missions in history. The company excels in developing advanced optics, cryogenic systems, and precision instruments that push the boundaries of space-based observation. Ball also provides ground systems, data exploitation, and operational support for government space programs.",
+    "headquarters": "Boulder, Colorado",
+    "founded": 1956,
+    "employeeCount": "~6,000",
+    "website": "https://www.ball.com/aerospace",
+    "careersUrl": "https://www.ball.com/aerospace/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/ball-aerospace",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Ball_Aerospace",
+    "stockTicker": "BALL",
+    "isPublic": true,
+    "specialties": [
+      "space-systems",
+      "electronics-sensors",
+      "research-development"
+    ],
+    "keyProducts": [
+      "Space telescopes and optical systems",
+      "Earth observation instruments",
+      "Spacecraft and satellite buses",
+      "Tactical antenna systems",
+      "Cryogenic and precision systems"
+    ],
+    "notableContracts": [
+      "NASA James Webb Space Telescope mirrors",
+      "NASA science mission instruments",
+      "National security space systems and sensors"
+    ]
+  },
+  {
+    "rank": 77,
+    "name": "AM General",
+    "country": "U.S.",
+    "totalRevenue": 1500000000,
+    "defenseRevenue": 1425000000,
+    "defenseRevenuePercent": 95,
+    "slug": "am-general",
+    "description": "AM General is an American defense contractor best known as the manufacturer of the High Mobility Multipurpose Wheeled Vehicle (HMMWV), commonly known as the Humvee. The company has produced over 300,000 Humvees for the U.S. military and allied nations, making it one of the most prolific military vehicles in history. AM General continues to manufacture, modernize, and support the Humvee fleet while pursuing next-generation vehicle programs.\n\nOriginally part of American Motors Corporation, AM General became an independent military vehicle manufacturer with a singular focus on designing and building vehicles for defense customers. The company's South Bend, Indiana facility remains the center of Humvee production and supports a global installed base of vehicles with parts, upgrades, and technical services.",
+    "headquarters": "South Bend, Indiana",
+    "founded": 1971,
+    "employeeCount": "~2,500",
+    "website": "https://www.amgeneral.com",
+    "careersUrl": "https://www.amgeneral.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/am-general",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/AM_General",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "land-systems",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "HMMWV (Humvee)",
+      "Humvee modernization and upgrades",
+      "Specialty military vehicles",
+      "Vehicle parts and sustainment",
+      "International vehicle programs"
+    ],
+    "notableContracts": [
+      "U.S. Army and Marine Corps HMMWV production",
+      "Humvee modernization and recapitalization programs",
+      "Foreign Military Sales vehicle contracts"
+    ]
+  },
+  {
+    "rank": 78,
+    "name": "Fluor Corporation",
+    "country": "U.S.",
+    "totalRevenue": 16000000000,
+    "defenseRevenue": 3200000000,
+    "defenseRevenuePercent": 20,
+    "slug": "fluor-corporation",
+    "description": "Fluor Corporation is one of the world's largest engineering, procurement, construction, and maintenance companies, with a significant government segment that supports U.S. military and federal agency missions. Fluor provides base operations, logistics, construction, and contingency support services through contracts like LOGCAP and supports Department of Energy nuclear facilities and environmental remediation projects.\n\nFounded in 1912, Fluor has grown into a global infrastructure and services company with deep capabilities in complex project execution. The company's government business supports military readiness through base operations, facilities management, and deployed logistics support, while also managing critical nuclear and environmental programs for the Department of Energy.",
+    "headquarters": "Irving, Texas",
+    "founded": 1912,
+    "employeeCount": "~40,000",
+    "website": "https://www.fluor.com",
+    "careersUrl": "https://www.fluor.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/fluor",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Fluor_Corporation",
+    "stockTicker": "FLR",
+    "isPublic": true,
+    "specialties": [
+      "professional-services",
+      "logistics-support",
+      "research-development"
+    ],
+    "keyProducts": [
+      "Base operations and installation support",
+      "LOGCAP contingency logistics",
+      "Nuclear facility management",
+      "Environmental remediation",
+      "Construction and project management"
+    ],
+    "notableContracts": [
+      "U.S. Army LOGCAP task orders",
+      "Department of Energy site management contracts",
+      "Nuclear and environmental remediation programs"
+    ]
+  },
+  {
+    "rank": 79,
+    "name": "AECOM",
+    "country": "U.S.",
+    "totalRevenue": 16100000000,
+    "defenseRevenue": 2415000000,
+    "defenseRevenuePercent": 15,
+    "slug": "aecom",
+    "description": "AECOM is a global infrastructure consulting firm that provides planning, design, engineering, and program management services to government and commercial clients. The company's federal and defense practice supports military construction, base operations, environmental services, and infrastructure projects for the Department of Defense, Department of Energy, and other agencies.\n\nHeadquartered in Texas, AECOM has grown through acquisitions into one of the world's largest engineering and construction management firms. The company supports defense customers with facility design, environmental compliance, program management, and technical services that enable military readiness and modernization.",
+    "headquarters": "Dallas, Texas",
+    "founded": 1990,
+    "employeeCount": "~50,000",
+    "website": "https://www.aecom.com",
+    "careersUrl": "https://www.aecom.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/aecom",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/AECOM",
+    "stockTicker": "ACM",
+    "isPublic": true,
+    "specialties": [
+      "professional-services",
+      "logistics-support",
+      "research-development"
+    ],
+    "keyProducts": [
+      "Infrastructure design and engineering",
+      "Program management services",
+      "Environmental consulting",
+      "Facility operations and maintenance",
+      "Construction management"
+    ],
+    "notableContracts": [
+      "Department of Defense facility design and construction",
+      "Department of Energy environmental services",
+      "Military base operations and maintenance"
+    ]
+  },
+  {
+    "rank": 80,
+    "name": "Day & Zimmermann",
+    "country": "U.S.",
+    "totalRevenue": 2800000000,
+    "defenseRevenue": 1680000000,
+    "defenseRevenuePercent": 60,
+    "slug": "day-zimmermann",
+    "description": "Day & Zimmermann is a family-owned company that provides munitions manufacturing, maintenance, and staffing services to the U.S. Department of Defense and commercial customers. The company operates Army Ammunition Plants, provides depot-level maintenance for military equipment, and offers technical staffing services. Day & Zimmermann is one of the largest private munitions manufacturers in the United States.\n\nFounded in 1901, Day & Zimmermann has evolved through generations of family ownership into a diversified services company with deep expertise in defense manufacturing and maintenance. The company operates government-owned facilities that produce ammunition and explosives, maintains military vehicles and equipment, and provides skilled technical workers to defense and industrial customers.",
+    "headquarters": "Philadelphia, Pennsylvania",
+    "founded": 1901,
+    "employeeCount": "~50,000",
+    "website": "https://www.dayzim.com",
+    "careersUrl": "https://www.dayzim.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/day-&-zimmermann",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Day_%26_Zimmermann",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "land-systems",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Ammunition manufacturing",
+      "Munitions demilitarization",
+      "Depot maintenance services",
+      "Technical staffing",
+      "Plant operations and management"
+    ],
+    "notableContracts": [
+      "Army Ammunition Plant operations",
+      "U.S. Army depot maintenance contracts",
+      "Munitions demilitarization programs"
+    ]
+  },
+  {
+    "rank": 81,
+    "name": "Teledyne Technologies",
+    "country": "U.S.",
+    "totalRevenue": 5700000000,
+    "defenseRevenue": 1995000000,
+    "defenseRevenuePercent": 35,
+    "slug": "teledyne-technologies",
+    "description": "Teledyne Technologies is a diversified industrial company that provides sophisticated instrumentation, digital imaging, aerospace and defense electronics, and engineered systems to government and commercial customers. The company's defense portfolio includes marine systems, electronic warfare components, imaging sensors, and test and measurement equipment. Teledyne significantly expanded its defense capabilities through the acquisition of FLIR Systems.\n\nFounded in 1960, Teledyne has evolved through organic growth and strategic acquisitions into a leading provider of enabling technologies for defense, space, and industrial markets. The company's products include underwater vehicles, thermal imaging systems, aerospace electronics, and precision sensors that support military and intelligence operations across all domains.",
+    "headquarters": "Thousand Oaks, California",
+    "founded": 1960,
+    "employeeCount": "~22,000",
+    "website": "https://www.teledyne.com",
+    "careersUrl": "https://www.teledyne.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/teledyne-technologies",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Teledyne_Technologies",
+    "stockTicker": "TDY",
+    "isPublic": true,
+    "specialties": [
+      "electronics-sensors",
+      "naval-maritime",
+      "aerospace-defense"
+    ],
+    "keyProducts": [
+      "FLIR thermal imaging systems",
+      "Autonomous underwater vehicles",
+      "Electronic warfare components",
+      "Space and defense electronics",
+      "Test and measurement instruments"
+    ],
+    "notableContracts": [
+      "U.S. military thermal imaging and ISR systems",
+      "Navy underwater vehicle programs",
+      "Space and missile defense electronics"
+    ]
+  },
+  {
+    "rank": 82,
+    "name": "Akima",
+    "country": "U.S.",
+    "totalRevenue": 1800000000,
+    "defenseRevenue": 1440000000,
+    "defenseRevenuePercent": 80,
+    "slug": "akima",
+    "description": "Akima is an Alaska Native Corporation-owned federal contractor that provides IT, facilities management, logistics, and professional services to defense and civilian government customers. As a subsidiary of NANA Regional Corporation, Akima leverages Alaska Native Corporation contracting preferences while delivering mission-critical services across the federal enterprise.\n\nAkima has grown into one of the largest Alaska Native Corporation contractors, operating through multiple subsidiary companies that specialize in IT services, base operations, construction, and technical support. The company serves all branches of the military, intelligence agencies, and civilian departments with services that enable mission success and operational readiness.",
+    "headquarters": "Herndon, Virginia",
+    "founded": 2002,
+    "employeeCount": "~8,000",
+    "website": "https://www.akima.com",
+    "careersUrl": "https://www.akima.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/akima",
+    "wikipediaUrl": null,
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "professional-services",
+      "cybersecurity-it",
+      "logistics-support"
+    ],
+    "keyProducts": [
+      "IT services and modernization",
+      "Facilities management",
+      "Logistics and supply chain services",
+      "Construction and environmental services",
+      "Technical and professional services"
+    ],
+    "notableContracts": [
+      "Department of Defense IT support contracts",
+      "Federal facility operations and maintenance",
+      "Military base support services"
+    ]
+  },
+  {
+    "rank": 83,
+    "name": "Chenega Corporation",
+    "country": "U.S.",
+    "totalRevenue": 1500000000,
+    "defenseRevenue": 1200000000,
+    "defenseRevenuePercent": 80,
+    "slug": "chenega-corporation",
+    "description": "Chenega Corporation is an Alaska Native Corporation that provides professional, technical, and security services to federal government customers through its subsidiary companies. Chenega's federal services portfolio includes IT, cybersecurity, intelligence support, logistics, and protective services for defense and civilian agencies.\n\nBased in Anchorage with operations throughout the United States and overseas, Chenega has grown from its Alaska Native village roots into a major federal contractor. The corporation uses its 8(a) and Alaska Native Corporation contracting advantages to compete for and win significant government contracts while reinvesting profits to benefit Alaska Native shareholders and communities.",
+    "headquarters": "Anchorage, Alaska",
+    "founded": 1974,
+    "employeeCount": "~6,000",
+    "website": "https://www.chenega.com",
+    "careersUrl": "https://www.chenega.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/chenega-corporation",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Chenega_Corporation",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "professional-services",
+      "cybersecurity-it",
+      "intelligence-analytics"
+    ],
+    "keyProducts": [
+      "IT and cybersecurity services",
+      "Intelligence and mission support",
+      "Protective security services",
+      "Logistics and facilities management",
+      "Training and simulation support"
+    ],
+    "notableContracts": [
+      "Department of Defense IT and cyber contracts",
+      "Intelligence Community mission support",
+      "Federal protective services contracts"
+    ]
+  },
+  {
+    "rank": 84,
+    "name": "CGI Federal",
+    "country": "U.S.",
+    "totalRevenue": 2000000000,
+    "defenseRevenue": 1000000000,
+    "defenseRevenuePercent": 50,
+    "slug": "cgi-federal",
+    "description": "CGI Federal is the U.S. federal subsidiary of CGI Inc., a Canadian IT services company. CGI Federal provides IT consulting, systems integration, and managed services to defense, intelligence, and civilian government customers. The company specializes in enterprise IT modernization, cybersecurity, data analytics, and digital transformation for federal agencies.\n\nAs a wholly owned subsidiary operating under a Proxy Agreement, CGI Federal serves the U.S. government while leveraging the global capabilities and scale of its parent company. CGI Federal supports defense customers with mission IT, network modernization, and enterprise solutions that enable digital transformation and operational efficiency.",
+    "headquarters": "Fairfax, Virginia",
+    "founded": 1976,
+    "employeeCount": "~8,000",
+    "website": "https://www.cgi.com/us/en-us/federal",
+    "careersUrl": "https://www.cgi.com/us/en-us/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/cgi",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/CGI_Inc.",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "cybersecurity-it",
+      "professional-services",
+      "intelligence-analytics"
+    ],
+    "keyProducts": [
+      "Enterprise IT modernization",
+      "Cybersecurity solutions",
+      "Systems integration",
+      "Data analytics and AI",
+      "Cloud migration services"
+    ],
+    "notableContracts": [
+      "Department of Defense enterprise IT programs",
+      "Federal civilian agency modernization",
+      "Veterans Affairs IT support"
+    ]
+  },
+  {
+    "rank": 85,
+    "name": "Guidehouse",
+    "country": "U.S.",
+    "totalRevenue": 2200000000,
+    "defenseRevenue": 660000000,
+    "defenseRevenuePercent": 30,
+    "slug": "guidehouse",
+    "description": "Guidehouse is a management consulting firm that provides advisory, managed services, and technology solutions to government and commercial clients. The company's defense and national security practice supports the Department of Defense with strategy, financial management, supply chain, and technology consulting. Guidehouse combines traditional management consulting with technology implementation capabilities.\n\nFormed from the public sector consulting business of PricewaterhouseCoopers and expanded through acquisitions, Guidehouse has become a leading provider of consulting services to federal agencies. The company helps defense customers improve operations, manage transformation, and implement technology solutions that enhance mission effectiveness and efficiency.",
+    "headquarters": "McLean, Virginia",
+    "founded": 2018,
+    "employeeCount": "~17,000",
+    "website": "https://www.guidehouse.com",
+    "careersUrl": "https://www.guidehouse.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/guidehouse",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Guidehouse",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "professional-services",
+      "cybersecurity-it",
+      "intelligence-analytics"
+    ],
+    "keyProducts": [
+      "Management consulting",
+      "Financial management services",
+      "Technology consulting",
+      "Supply chain advisory",
+      "Data analytics solutions"
+    ],
+    "notableContracts": [
+      "Department of Defense financial management",
+      "Federal agency transformation programs",
+      "Defense supply chain consulting"
+    ]
+  },
+  {
+    "rank": 86,
+    "name": "Telos Corporation",
+    "country": "U.S.",
+    "totalRevenue": 650000000,
+    "defenseRevenue": 520000000,
+    "defenseRevenuePercent": 80,
+    "slug": "telos-corporation",
+    "description": "Telos Corporation provides cybersecurity, secure communications, and identity management solutions to federal government and commercial customers. The company specializes in security assessments, vulnerability management, and secure network solutions that protect critical government systems and infrastructure.\n\nFounded in 1968, Telos has evolved from a systems integrator into a focused cybersecurity and secure communications company. The company provides automated security compliance tools, identity verification services, and secure mobile communications that help government and commercial customers protect sensitive information and systems from cyber threats.",
+    "headquarters": "Ashburn, Virginia",
+    "founded": 1968,
+    "employeeCount": "~700",
+    "website": "https://www.telos.com",
+    "careersUrl": "https://www.telos.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/telos-corporation",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Telos_Corporation",
+    "stockTicker": "TLS",
+    "isPublic": true,
+    "specialties": [
+      "cybersecurity-it",
+      "professional-services",
+      "intelligence-analytics"
+    ],
+    "keyProducts": [
+      "Xacta automated security compliance",
+      "ID verification and credentialing",
+      "Secure communications solutions",
+      "Vulnerability assessment services",
+      "Network security solutions"
+    ],
+    "notableContracts": [
+      "Department of Defense cybersecurity programs",
+      "Federal identity management services",
+      "Intelligence Community security support"
+    ]
+  },
+  {
+    "rank": 87,
+    "name": "Cubic Corporation",
+    "country": "U.S.",
+    "totalRevenue": 1200000000,
+    "defenseRevenue": 720000000,
+    "defenseRevenuePercent": 60,
+    "slug": "cubic-corporation",
+    "description": "Cubic Corporation provides mission and training solutions, C4ISR systems, and transportation services to defense and commercial customers. The company's defense business specializes in live, virtual, and constructive training systems, air and ground combat training ranges, and tactical communications and networking solutions for military customers worldwide.\n\nWith roots in defense electronics dating to the 1950s, Cubic has developed deep expertise in training and readiness solutions that prepare military forces for combat. The company's training ranges and systems are used by U.S. and allied forces globally, while its C4ISR products provide situational awareness and communications capabilities for tactical operations.",
+    "headquarters": "San Diego, California",
+    "founded": 1951,
+    "employeeCount": "~5,500",
+    "website": "https://www.cubic.com",
+    "careersUrl": "https://www.cubic.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/cubic-corporation",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Cubic_Corporation",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "electronics-sensors",
+      "professional-services",
+      "logistics-support"
+    ],
+    "keyProducts": [
+      "Combat training centers and ranges",
+      "Air combat maneuvering instrumentation",
+      "C4ISR and tactical networking",
+      "Simulation and virtual training",
+      "Transportation systems"
+    ],
+    "notableContracts": [
+      "National Training Center and JRTC instrumentation",
+      "Air combat training systems worldwide",
+      "Tactical data link and C4ISR programs"
+    ]
+  },
+  {
+    "rank": 88,
+    "name": "Scientific Research Corporation",
+    "country": "U.S.",
+    "totalRevenue": 800000000,
+    "defenseRevenue": 720000000,
+    "defenseRevenuePercent": 90,
+    "slug": "scientific-research-corporation",
+    "description": "Scientific Research Corporation (SRC) is an employee-owned company that provides advanced defense electronics, radar systems, electronic warfare solutions, and C4ISR capabilities to the U.S. military and intelligence community. The company develops innovative sensing, communications, and information systems that protect warfighters and enable mission success.\n\nFounded in 1980, SRC has grown into a leading provider of cutting-edge defense electronics and systems integration services. The company is known for rapid development of prototype systems and transition to fielded capabilities, often working on the most challenging technical problems in radar, EW, and signal processing for defense and intelligence customers.",
+    "headquarters": "Atlanta, Georgia",
+    "founded": 1980,
+    "employeeCount": "~1,800",
+    "website": "https://www.srcinc.com",
+    "careersUrl": "https://www.srcinc.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/scientific-research-corporation",
+    "wikipediaUrl": null,
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "electronics-sensors",
+      "research-development",
+      "intelligence-analytics"
+    ],
+    "keyProducts": [
+      "Counter-UAS radar systems",
+      "Electronic warfare solutions",
+      "C4ISR systems integration",
+      "Tactical communications",
+      "Signal processing systems"
+    ],
+    "notableContracts": [
+      "U.S. Army counter-UAS and radar programs",
+      "Department of Defense electronic warfare contracts",
+      "Intelligence Community C4ISR support"
+    ]
+  },
+  {
+    "rank": 89,
+    "name": "Battelle Memorial Institute",
+    "country": "U.S.",
+    "totalRevenue": 9000000000,
+    "defenseRevenue": 2700000000,
+    "defenseRevenuePercent": 30,
+    "slug": "battelle-memorial-institute",
+    "description": "Battelle Memorial Institute is an independent nonprofit applied science and technology development organization that manages national laboratories and conducts research for government and commercial clients. The organization is the largest nonprofit research and development contractor in the world, managing or co-managing major national laboratories including Oak Ridge, Pacific Northwest, Brookhaven, and Idaho National Laboratory.\n\nFounded in 1929, Battelle has played a central role in American science and technology development, contributing to innovations from xerography to optical digital recording. The organization's defense work spans chemical and biological defense, cybersecurity, advanced materials, and systems engineering, supporting the Department of Defense, intelligence community, and Department of Energy with applied research and technology development.",
+    "headquarters": "Columbus, Ohio",
+    "founded": 1929,
+    "employeeCount": "~30,000",
+    "website": "https://www.battelle.org",
+    "careersUrl": "https://www.battelle.org/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/battelle",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Battelle_Memorial_Institute",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "research-development",
+      "professional-services",
+      "cybersecurity-it"
+    ],
+    "keyProducts": [
+      "National laboratory management",
+      "Applied R&D services",
+      "Chemical and biological defense",
+      "Cybersecurity research",
+      "Advanced materials development"
+    ],
+    "notableContracts": [
+      "Department of Energy national laboratory management",
+      "Department of Defense R&D contracts",
+      "CBRN defense research programs"
+    ]
+  },
+  {
+    "rank": 90,
+    "name": "Johns Hopkins Applied Physics Laboratory",
+    "country": "U.S.",
+    "totalRevenue": 2400000000,
+    "defenseRevenue": 2040000000,
+    "defenseRevenuePercent": 85,
+    "slug": "johns-hopkins-apl",
+    "description": "Johns Hopkins Applied Physics Laboratory (APL) is a university-affiliated research center that solves complex national security, space exploration, and scientific challenges. APL is a trusted technical adviser to government sponsors, providing independent engineering analysis, systems development, and operational support for critical defense and space programs.\n\nFounded in 1942 during World War II to develop the proximity fuze, APL has continued to deliver breakthrough innovations for national security. The laboratory is a leader in missile defense technology, space exploration systems, undersea warfare, and cyber operations, providing the government with technical expertise and innovative solutions that often cannot be obtained elsewhere.",
+    "headquarters": "Laurel, Maryland",
+    "founded": 1942,
+    "employeeCount": "~9,000",
+    "website": "https://www.jhuapl.edu",
+    "careersUrl": "https://www.jhuapl.edu/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/johns-hopkins-applied-physics-laboratory",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Applied_Physics_Laboratory",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "research-development",
+      "space-systems",
+      "electronics-sensors"
+    ],
+    "keyProducts": [
+      "Missile defense systems engineering",
+      "Space mission development",
+      "Undersea systems and sensors",
+      "Cyber and information operations",
+      "Precision strike systems"
+    ],
+    "notableContracts": [
+      "Missile Defense Agency technical direction and engineering",
+      "NASA planetary science missions",
+      "U.S. Navy undersea warfare programs"
+    ]
+  },
+  {
+    "rank": 91,
+    "name": "Firefly Aerospace",
+    "country": "U.S.",
+    "totalRevenue": 200000000,
+    "defenseRevenue": 80000000,
+    "defenseRevenuePercent": 40,
+    "slug": "firefly-aerospace",
+    "description": "Firefly Aerospace is a space launch and spacecraft company that provides launch services, lunar landers, and space systems for government and commercial customers. The company operates the Alpha small launch vehicle and is developing the medium-lift MLV rocket. Firefly is also building lunar landers under NASA's Commercial Lunar Payload Services program.\n\nBased in Texas, Firefly has emerged as a promising entrant in the space launch market, offering responsive and affordable access to orbit. The company serves defense, civil, and commercial customers with launch services and is expanding into spacecraft development and lunar surface delivery.",
+    "headquarters": "Cedar Park, Texas",
+    "founded": 2014,
+    "employeeCount": "~700",
+    "website": "https://www.fireflyspace.com",
+    "careersUrl": "https://www.fireflyspace.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/fireflyspace",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Firefly_Aerospace",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "space-systems",
+      "aerospace-defense",
+      "research-development"
+    ],
+    "keyProducts": [
+      "Alpha launch vehicle",
+      "MLV medium launch vehicle",
+      "Blue Ghost lunar lander",
+      "Space systems and satellites",
+      "In-space transportation"
+    ],
+    "notableContracts": [
+      "NASA Commercial Lunar Payload Services (CLPS)",
+      "U.S. Space Force launch services",
+      "Commercial satellite launches"
+    ]
+  },
+  {
+    "rank": 92,
+    "name": "Relativity Space",
+    "country": "U.S.",
+    "totalRevenue": 100000000,
+    "defenseRevenue": 30000000,
+    "defenseRevenuePercent": 30,
+    "slug": "relativity-space",
+    "description": "Relativity Space is a space launch company that uses 3D printing technology to manufacture rockets, dramatically reducing the complexity and cost of launch vehicle production. The company is developing the Terran R medium-lift rocket, a fully reusable launch vehicle designed to compete for commercial and government launch contracts.\n\nFounded in 2015, Relativity has pioneered the use of large-scale additive manufacturing for aerospace applications, developing the world's largest metal 3D printers. The company's approach promises faster iteration, lower costs, and ultimately the ability to manufacture rockets on Mars. Relativity serves both commercial and government customers seeking innovative and cost-effective launch solutions.",
+    "headquarters": "Long Beach, California",
+    "founded": 2015,
+    "employeeCount": "~1,000",
+    "website": "https://www.relativityspace.com",
+    "careersUrl": "https://www.relativityspace.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/relativity-space",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Relativity_Space",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "space-systems",
+      "aerospace-defense",
+      "research-development"
+    ],
+    "keyProducts": [
+      "Terran R reusable launch vehicle",
+      "Stargate 3D printers",
+      "Aeon rocket engines",
+      "Launch services",
+      "Additive manufacturing technology"
+    ],
+    "notableContracts": [
+      "Commercial satellite launch contracts",
+      "OneWeb satellite launches",
+      "Government and defense launch opportunities"
+    ]
+  },
+  {
+    "rank": 93,
+    "name": "Vista Outdoor",
+    "country": "U.S.",
+    "totalRevenue": 2800000000,
+    "defenseRevenue": 560000000,
+    "defenseRevenuePercent": 20,
+    "slug": "vista-outdoor",
+    "description": "Vista Outdoor is an outdoor sports and recreation company whose ammunition division, Federal Premium, is a major supplier of small-caliber ammunition to the U.S. military and law enforcement. The company manufactures rifle, pistol, and shotgun ammunition for both military and commercial markets through its Federal, CCI, Speer, and Remington ammunition brands.\n\nSpun off from Alliant Techsystems (ATK) in 2015, Vista Outdoor has focused on the consumer outdoor products market while maintaining significant military ammunition production capabilities. Federal Premium has supplied ammunition to the U.S. military for decades and remains a key domestic source for small arms ammunition used in training and combat operations.",
+    "headquarters": "Anoka, Minnesota",
+    "founded": 2015,
+    "employeeCount": "~6,500",
+    "website": "https://www.vistaoutdoor.com",
+    "careersUrl": "https://www.vistaoutdoor.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/vista-outdoor",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Vista_Outdoor",
+    "stockTicker": "VSTO",
+    "isPublic": true,
+    "specialties": [
+      "land-systems",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Federal Premium military ammunition",
+      "Small-caliber rifle ammunition",
+      "Pistol and shotgun ammunition",
+      "Training ammunition",
+      "Commercial sporting ammunition"
+    ],
+    "notableContracts": [
+      "U.S. Army small-caliber ammunition supply",
+      "Department of Defense training ammunition",
+      "Law enforcement ammunition contracts"
+    ]
+  },
+  {
+    "rank": 94,
+    "name": "Vigor Industrial",
+    "country": "U.S.",
+    "totalRevenue": 600000000,
+    "defenseRevenue": 360000000,
+    "defenseRevenuePercent": 60,
+    "slug": "vigor-industrial",
+    "description": "Vigor Industrial is a shipbuilder and industrial fabricator based in the Pacific Northwest that provides ship construction, repair, and maintenance services to the U.S. Navy, Coast Guard, and commercial customers. The company operates shipyards in Oregon, Washington, and Alaska, supporting both new construction and lifecycle maintenance for naval and commercial vessels.\n\nWith roots dating back to the early 20th century, Vigor has become the leading shipyard in the Pacific Northwest, providing critical infrastructure for naval ship maintenance on the West Coast. The company also provides industrial fabrication services for aerospace and infrastructure projects, leveraging its heavy manufacturing capabilities across multiple facilities.",
+    "headquarters": "Portland, Oregon",
+    "founded": 1918,
+    "employeeCount": "~2,500",
+    "website": "https://www.vigor.net",
+    "careersUrl": "https://www.vigor.net/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/vigor-industrial",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Vigor_Industrial",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "naval-maritime",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Naval ship repair and maintenance",
+      "Ship construction",
+      "Industrial fabrication",
+      "Drydock services",
+      "Vessel conversions and modifications"
+    ],
+    "notableContracts": [
+      "U.S. Navy ship repair and maintenance",
+      "U.S. Coast Guard vessel support",
+      "NOAA ship maintenance"
+    ]
+  },
+  {
+    "rank": 95,
+    "name": "Navistar Defense",
+    "country": "U.S.",
+    "totalRevenue": 800000000,
+    "defenseRevenue": 720000000,
+    "defenseRevenuePercent": 90,
+    "slug": "navistar-defense",
+    "description": "Navistar Defense is a leading provider of tactical wheeled vehicles and sustainment services to the U.S. military and allied forces. The company manufactures the MaxxPro MRAP (Mine Resistant Ambush Protected) vehicle and a range of medium tactical trucks based on its International truck platforms. Now a subsidiary of TRATON GROUP following acquisition, Navistar Defense continues to support a large installed base of vehicles worldwide.\n\nBuilding on International Truck's heritage of rugged commercial vehicles, Navistar Defense has become a significant supplier of protected vehicles that save lives on the battlefield. The company's MRAP vehicles were deployed extensively in Iraq and Afghanistan, and it continues to provide new production, modernization, and sustainment services for tactical vehicle fleets.",
+    "headquarters": "Lisle, Illinois",
+    "founded": 2004,
+    "employeeCount": "~1,500",
+    "website": "https://www.navistardefense.com",
+    "careersUrl": "https://www.navistardefense.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/navistar-defense",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Navistar_Defense",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "land-systems",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "MaxxPro MRAP vehicle",
+      "Medium tactical trucks",
+      "International military trucks",
+      "Vehicle sustainment and parts",
+      "Armored vehicle systems"
+    ],
+    "notableContracts": [
+      "U.S. Army and Marine Corps MRAP programs",
+      "International MRAP sales and support",
+      "Medium tactical vehicle supply contracts"
+    ]
+  },
+  {
+    "rank": 96,
+    "name": "Carahsoft Technology Corp",
+    "country": "U.S.",
+    "totalRevenue": 18000000000,
+    "defenseRevenue": 5400000000,
+    "defenseRevenuePercent": 30,
+    "slug": "carahsoft-technology",
+    "description": "Carahsoft Technology Corp is the largest government IT distributor and solutions provider in the United States, serving as a master aggregator and channel partner for hundreds of technology vendors selling to federal, state, and local government customers. The company provides procurement vehicle access, contract management, and go-to-market services that enable technology companies to sell to the government.\n\nFounded in 2004, Carahsoft has become an essential intermediary in the government technology market, helping both established and emerging technology vendors navigate complex government procurement processes. The company holds contracts on virtually every major government-wide acquisition contract vehicle and provides the infrastructure that enables efficient technology acquisition across the public sector.",
+    "headquarters": "Reston, Virginia",
+    "founded": 2004,
+    "employeeCount": "~2,000",
+    "website": "https://www.carahsoft.com",
+    "careersUrl": "https://www.carahsoft.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/carahsoft",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Carahsoft",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "cybersecurity-it",
+      "professional-services",
+      "logistics-support"
+    ],
+    "keyProducts": [
+      "Government IT distribution",
+      "Contract vehicle access",
+      "Cybersecurity solutions",
+      "Cloud services",
+      "Enterprise software"
+    ],
+    "notableContracts": [
+      "GSA Schedule and GWAC contract vehicles",
+      "NASA SEWP contract",
+      "State and local government contracts"
+    ]
+  },
+  {
+    "rank": 97,
+    "name": "Olin Corporation",
+    "country": "U.S.",
+    "totalRevenue": 6500000000,
+    "defenseRevenue": 975000000,
+    "defenseRevenuePercent": 15,
+    "slug": "olin-corporation",
+    "description": "Olin Corporation is a diversified industrial company whose Winchester division is one of the world's largest manufacturers of small-caliber ammunition for military, law enforcement, and commercial markets. Winchester has supplied ammunition to the U.S. military for over a century and operates the Lake City Army Ammunition Plant under contract to the U.S. Army.\n\nWhile Olin's primary business is chemicals, its Winchester ammunition division maintains critical defense industrial base capabilities. The Lake City plant is the primary source of small-caliber ammunition for the U.S. military, producing billions of rounds annually. Winchester's military ammunition supports training and combat operations for all branches of the armed forces.",
+    "headquarters": "Clayton, Missouri",
+    "founded": 1892,
+    "employeeCount": "~7,500",
+    "website": "https://www.olin.com",
+    "careersUrl": "https://www.olin.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/olin-corporation",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Olin_Corporation",
+    "stockTicker": "OLN",
+    "isPublic": true,
+    "specialties": [
+      "land-systems",
+      "logistics-support",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Winchester military ammunition",
+      "Small-caliber rifle ammunition",
+      "Pistol ammunition",
+      "Lake City Army Ammunition Plant operations",
+      "Commercial sporting ammunition"
+    ],
+    "notableContracts": [
+      "Lake City Army Ammunition Plant operations",
+      "U.S. Army small-caliber ammunition production",
+      "Department of Defense training ammunition supply"
+    ]
+  },
+  {
+    "rank": 98,
+    "name": "Caliburn International",
+    "country": "U.S.",
+    "totalRevenue": 1000000000,
+    "defenseRevenue": 700000000,
+    "defenseRevenuePercent": 70,
+    "slug": "caliburn-international",
+    "description": "Caliburn International is a professional services company that provides medical, security, and contingency services to government customers. The company supports the Department of Defense, Department of Homeland Security, and Department of State with healthcare services, security operations, and specialized mission support in challenging environments.\n\nFormed through the combination of Comprehensive Health Services, Janus Global Operations, and other service providers, Caliburn delivers critical support services in deployed environments, at government facilities, and in contingency operations worldwide. The company is known for its medical services capabilities, providing healthcare to military personnel, government employees, and others in austere locations.",
+    "headquarters": "Reston, Virginia",
+    "founded": 2018,
+    "employeeCount": "~8,000",
+    "website": "https://www.caliburnintl.com",
+    "careersUrl": "https://www.caliburnintl.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/caliburn-international",
+    "wikipediaUrl": null,
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "professional-services",
+      "logistics-support",
+      "cybersecurity-it"
+    ],
+    "keyProducts": [
+      "Medical and healthcare services",
+      "Security services",
+      "Contingency operations support",
+      "Facility management",
+      "Training services"
+    ],
+    "notableContracts": [
+      "Department of Defense medical support contracts",
+      "Department of Homeland Security healthcare services",
+      "Department of State security and medical programs"
+    ]
+  },
+  {
+    "rank": 99,
+    "name": "Modern Technology Solutions Inc.",
+    "country": "U.S.",
+    "totalRevenue": 400000000,
+    "defenseRevenue": 380000000,
+    "defenseRevenuePercent": 95,
+    "slug": "modern-technology-solutions",
+    "description": "Modern Technology Solutions, Inc. (MTSI) is an employee-owned engineering and technology services company that provides systems engineering, test and evaluation, and technical advisory services to defense and intelligence customers. The company specializes in hypersonics, directed energy, space systems, and advanced weapons development, supporting the most challenging technical programs in the Department of Defense.\n\nFounded in 1993, MTSI has built a reputation for technical excellence and independent analysis that helps government customers develop and field advanced capabilities. The company's engineers and scientists work on cutting-edge programs in hypersonics, missile defense, and emerging technologies, providing the technical depth that supports successful program execution.",
+    "headquarters": "Alexandria, Virginia",
+    "founded": 1993,
+    "employeeCount": "~1,500",
+    "website": "https://www.mtsi-va.com",
+    "careersUrl": "https://www.mtsi-va.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/modern-technology-solutions-inc",
+    "wikipediaUrl": null,
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "research-development",
+      "professional-services",
+      "aerospace-defense"
+    ],
+    "keyProducts": [
+      "Hypersonics engineering support",
+      "Directed energy systems engineering",
+      "Test and evaluation services",
+      "Space systems engineering",
+      "Missile defense technical support"
+    ],
+    "notableContracts": [
+      "Department of Defense hypersonics programs",
+      "Missile Defense Agency technical support",
+      "U.S. Air Force advanced weapons development"
+    ]
+  },
+  {
+    "rank": 100,
+    "name": "MITRE Corporation",
+    "country": "U.S.",
+    "totalRevenue": 2600000000,
+    "defenseRevenue": 1820000000,
+    "defenseRevenuePercent": 70,
+    "slug": "mitre-corporation",
+    "description": "MITRE Corporation is a nonprofit organization that operates federally funded research and development centers (FFRDCs) and provides systems engineering, research, and advisory services to government sponsors. MITRE manages FFRDCs for the Department of Defense, Federal Aviation Administration, IRS, Department of Homeland Security, and other agencies, serving as an independent trusted adviser on complex technical and policy challenges.\n\nFounded in 1958, MITRE traces its origins to MIT Lincoln Laboratory and has played a central role in developing critical national capabilities including air defense systems, FAA air traffic control, and cybersecurity frameworks. As a not-for-profit, MITRE operates in the public interest, providing unbiased technical analysis and systems engineering expertise that government agencies cannot obtain from commercial contractors.",
+    "headquarters": "McLean, Virginia",
+    "founded": 1958,
+    "employeeCount": "~9,500",
+    "website": "https://www.mitre.org",
+    "careersUrl": "https://www.mitre.org/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/miabortre",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Mitre_Corporation",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "research-development",
+      "cybersecurity-it",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "FFRDC management and operations",
+      "Systems engineering and integration",
+      "Cybersecurity frameworks (ATT&CK)",
+      "Aviation systems support",
+      "Defense acquisition support"
+    ],
+    "notableContracts": [
+      "Department of Defense FFRDC operations",
+      "FAA Center for Advanced Aviation System Development",
+      "DHS Homeland Security Systems Engineering and Development Institute"
+    ]
+  },
+  {
+    "rank": 101,
+    "name": "Rebellion Defense",
+    "country": "U.S.",
+    "totalRevenue": 100000000,
+    "defenseRevenue": 95000000,
+    "defenseRevenuePercent": 95,
+    "slug": "rebellion-defense",
+    "description": "Rebellion Defense is a technology company that builds AI and machine learning tools to help defense and national security organizations make faster, better-informed decisions. The company focuses on operationalizing AI for military applications, including predictive maintenance, threat assessment, and decision support systems.\n\nFounded by former government officials with deep national security experience, Rebellion Defense brings a mission-focused approach to defense AI development. The company works closely with military customers to understand operational challenges and deploy practical AI solutions that enhance readiness and effectiveness.",
+    "headquarters": "Washington, D.C.",
+    "founded": 2019,
+    "employeeCount": "~200",
+    "website": "https://www.rebelliondefense.com",
+    "careersUrl": "https://www.rebelliondefense.com/careers",
+    "linkedinUrl": "https://www.linkedin.com/company/rebelliondefense",
+    "wikipediaUrl": null,
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "intelligence-analytics",
+      "cybersecurity-it",
+      "research-development"
+    ],
+    "keyProducts": [
+      "AI decision support tools",
+      "Predictive maintenance systems",
+      "Threat assessment platforms",
+      "Machine learning operations",
+      "Defense AI applications"
+    ],
+    "notableContracts": [
+      "Department of Defense AI pilot programs",
+      "Military predictive maintenance contracts",
+      "National security analytics support"
+    ]
+  },
+  {
+    "rank": 102,
+    "name": "Saab, Inc.",
+    "country": "U.S.",
+    "totalRevenue": 800000000,
+    "defenseRevenue": 760000000,
+    "defenseRevenuePercent": 95,
+    "slug": "saab-inc",
+    "description": "Saab, Inc. is the U.S. subsidiary of Swedish defense company Saab AB, providing advanced defense systems and solutions to the U.S. military and federal agencies. The company manufactures the Carl-Gustaf recoilless rifle system, the AT4 anti-armor weapon, and other ground combat systems at its U.S. facilities. Saab also provides command and control, training, and simulation solutions.\n\nOperating as a U.S. company under Special Security Agreements, Saab has established significant manufacturing presence in the United States, producing weapons and systems for both U.S. forces and export customers. The company brings Swedish defense innovation to the American market while meeting domestic production and security requirements.",
+    "headquarters": "East Syracuse, New York",
+    "founded": 2007,
+    "employeeCount": "~1,500",
+    "website": "https://www.saab.com/markets/usa",
+    "careersUrl": "https://www.saab.com/career",
+    "linkedinUrl": "https://www.linkedin.com/company/saab",
+    "wikipediaUrl": "https://en.wikipedia.org/wiki/Saab_Group",
+    "stockTicker": null,
+    "isPublic": false,
+    "specialties": [
+      "land-systems",
+      "electronics-sensors",
+      "professional-services"
+    ],
+    "keyProducts": [
+      "Carl-Gustaf recoilless rifle system",
+      "AT4 anti-armor weapon",
+      "Training and simulation systems",
+      "Command and control solutions",
+      "Ground combat systems"
+    ],
+    "notableContracts": [
+      "U.S. Army Carl-Gustaf and AT4 production",
+      "Foreign Military Sales weapons programs",
+      "Training system development contracts"
+    ]
+  }
+]

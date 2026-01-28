@@ -24,7 +24,7 @@ import * as schema from '../../server/database/schema'
 // ===========================================
 
 const dbPath = resolve(process.cwd(), 'server/database/app.db')
-const MOCK_DATA_FILE = resolve(process.cwd(), 'scripts/seed/mock-contractors.json')
+const MOCK_DATA_FILE = resolve(process.cwd(), 'scripts/seed/all-contractors.json')
 
 // Create libSQL client and Drizzle instance
 const client = createClient({ url: `file:${dbPath}` })
