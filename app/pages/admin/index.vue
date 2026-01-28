@@ -124,16 +124,16 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-background">
+  <div class="bg-background min-h-screen">
     <ClientOnly>
-      <div v-if="!isAuthReady" class="flex items-center justify-center py-24">
+      <div v-if="!isAuthReady" class="flex justify-center items-center py-24">
         <Spinner class="w-8 h-8" />
       </div>
 
       <template v-else>
         <!-- Header -->
-        <section class="relative overflow-hidden border-b border-border/40 mb-6">
-          <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-8 pb-6">
+        <section class="relative mb-6 border-border/40 border-b overflow-hidden">
+          <div class="mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6 max-w-6xl container">
             <Breadcrumb class="mb-6">
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -148,15 +148,15 @@ onUnmounted(() => {
               </BreadcrumbList>
             </Breadcrumb>
 
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-4">
               <div>
-                <h1 class="text-2xl font-semibold tracking-tight mb-2">Admin Dashboard</h1>
+                <h1 class="mb-2 font-semibold text-2xl tracking-tight">Admin Dashboard</h1>
                 <p class="text-muted-foreground text-sm">
                   Welcome back, {{ displayName }}
                 </p>
               </div>
               <Button variant="outline" size="sm" @click="refreshHealth">
-                <Icon name="mdi:refresh" class="w-4 h-4 mr-2" />
+                <Icon name="mdi:refresh" class="mr-2 w-4 h-4" />
                 Refresh
               </Button>
             </div>
@@ -164,8 +164,8 @@ onUnmounted(() => {
         </section>
 
         <!-- Main Content -->
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pb-16">
-          <div class="flex flex-col lg:flex-row gap-8">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 pb-16 max-w-6xl container">
+          <div class="flex lg:flex-row flex-col gap-8">
             <!-- Sidebar Navigation -->
             <aside class="lg:w-56 shrink-0">
               <nav class="space-y-1">
@@ -173,7 +173,7 @@ onUnmounted(() => {
                   v-for="(tab, index) in tabs"
                   :key="tab.id"
                   @click="setActiveTab(tab.id)"
-                  class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-colors"
+                  class="flex justify-between items-center px-3 py-2.5 w-full font-medium text-sm transition-colors"
                   :class="activeTab === tab.id
                     ? 'bg-primary text-primary-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'"
@@ -182,26 +182,26 @@ onUnmounted(() => {
                     <Icon :name="tab.icon" class="w-4 h-4" />
                     <span>{{ tab.label }}</span>
                   </div>
-                  <kbd class="hidden lg:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-muted/50 text-muted-foreground rounded">
+                  <kbd class="hidden lg:inline-block bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
                     {{ index + 1 }}
                   </kbd>
                 </button>
               </nav>
 
               <!-- Keyboard Shortcuts -->
-              <div class="hidden lg:block mt-6 pt-4 border-t border-border">
+              <div class="hidden lg:block mt-6 pt-4 border-border border-t">
                 <Popover>
                   <PopoverTrigger as-child>
-                    <button class="flex items-center gap-2 px-3 py-2 text-xs text-muted-foreground hover:text-foreground transition-colors w-full">
+                    <button class="flex items-center gap-2 px-3 py-2 w-full text-muted-foreground hover:text-foreground text-xs transition-colors">
                       <Icon name="mdi:keyboard" class="w-4 h-4" />
                       Keyboard Shortcuts
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent side="right" align="start" class="w-48 p-3">
+                  <PopoverContent side="right" align="start" class="p-3 w-48">
                     <div class="space-y-2 text-xs">
-                      <div v-for="shortcut in shortcuts" :key="shortcut.key" class="flex items-center justify-between">
+                      <div v-for="shortcut in shortcuts" :key="shortcut.key" class="flex justify-between items-center">
                         <span class="text-muted-foreground">{{ shortcut.description }}</span>
-                        <kbd class="px-1.5 py-0.5 font-mono bg-muted rounded text-foreground">{{ shortcut.key }}</kbd>
+                        <kbd class="bg-muted px-1.5 py-0.5 font-mono text-foreground">{{ shortcut.key }}</kbd>
                       </div>
                     </div>
                   </PopoverContent>
@@ -249,7 +249,7 @@ onUnmounted(() => {
       </template>
 
       <template #fallback>
-        <div class="flex items-center justify-center py-24">
+        <div class="flex justify-center items-center py-24">
           <Spinner class="w-8 h-8" />
         </div>
       </template>
