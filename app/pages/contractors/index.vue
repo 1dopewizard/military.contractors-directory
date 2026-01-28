@@ -213,28 +213,29 @@ watchEffect(() => {
       <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <!-- Search Bar -->
         <div class="py-4">
-          <form @submit="handleSearch" class="flex items-center w-full max-w-2xl h-10 border border-border bg-background transition-colors focus-within:border-primary">
-            <Icon name="mdi:magnify" class="w-4 h-4 text-muted-foreground shrink-0 ml-3" />
-            <input
-              v-model="searchQuery"
-              type="text"
-              placeholder="Search contractors..."
-              class="flex-1 h-full px-3 bg-transparent text-foreground text-sm placeholder:text-muted-foreground focus:outline-none"
-            />
-            <button
-              v-if="searchQuery"
-              type="button"
-              class="px-2 text-muted-foreground hover:text-foreground transition-colors"
-              @click="clearSearch"
-            >
-              <Icon name="mdi:close" class="w-4 h-4" />
-            </button>
-            <button
-              type="submit"
-              class="h-full px-3 text-muted-foreground hover:text-foreground transition-colors border-l border-border"
-            >
-              <Icon name="mdi:arrow-right" class="w-4 h-4" />
-            </button>
+          <form @submit="handleSearch" class="max-w-2xl">
+            <InputGroup class="h-10 rounded-none shadow-none">
+              <InputGroupAddon align="inline-start" class="pl-3">
+                <Icon name="mdi:magnify" class="w-4 h-4 text-muted-foreground" />
+              </InputGroupAddon>
+              <InputGroupInput
+                v-model="searchQuery"
+                placeholder="Search contractors..."
+                class="text-sm"
+              />
+              <InputGroupButton
+                v-if="searchQuery"
+                variant="ghost"
+                type="button"
+                class="px-2"
+                @click="clearSearch"
+              >
+                <Icon name="mdi:close" class="w-4 h-4" />
+              </InputGroupButton>
+              <InputGroupButton variant="ghost" type="submit" class="h-full px-3">
+                <Icon name="mdi:arrow-right" class="w-4 h-4" />
+              </InputGroupButton>
+            </InputGroup>
           </form>
         </div>
 

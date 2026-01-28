@@ -171,20 +171,20 @@ const getSpecialtyIcon = (slug: string): string => {
 
           <!-- Search Bar - Hero Element -->
           <div class="mt-10 mx-auto max-w-2xl">
-            <form @submit.prevent="handleSearch" class="flex items-center w-full h-14 sm:h-16 border border-border bg-card transition-colors focus-within:border-primary">
-              <Icon name="mdi:magnify" class="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground shrink-0 ml-5 sm:ml-6" />
-              <input
-                v-model="searchQuery"
-                type="text"
-                placeholder="Search contractors..."
-                class="flex-1 h-full px-4 bg-transparent text-foreground text-base sm:text-lg placeholder:text-muted-foreground focus:outline-none"
-              />
-              <button
-                type="submit"
-                class="h-full px-5 sm:px-6 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Icon name="mdi:arrow-right" class="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
+            <form @submit.prevent="handleSearch">
+              <InputGroup class="h-14 sm:h-16 rounded-none shadow-none">
+                <InputGroupAddon align="inline-start" class="pl-5 sm:pl-6">
+                  <Icon name="mdi:magnify" class="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground" />
+                </InputGroupAddon>
+                <InputGroupInput
+                  v-model="searchQuery"
+                  placeholder="Search contractors..."
+                  class="text-base sm:text-lg"
+                />
+                <InputGroupButton variant="ghost" type="submit" class="h-full px-5 sm:px-6">
+                  <Icon name="mdi:arrow-right" class="w-5 h-5 sm:w-6 sm:h-6" />
+                </InputGroupButton>
+              </InputGroup>
             </form>
           </div>
 
