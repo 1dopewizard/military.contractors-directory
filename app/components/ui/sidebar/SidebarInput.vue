@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue"
-import { cn } from '@/app/lib/utils'
-import { Input } from '@/app/components/ui/input'
+import type { HTMLAttributes } from "vue";
+import { cn } from "@/app/lib/utils";
+import { Input } from "@/app/components/ui/input";
 
 const props = defineProps<{
-  class?: HTMLAttributes["class"]
-}>()
+  class?: HTMLAttributes["class"];
+}>();
 </script>
 
 <template>
   <Input
     data-sidebar="input"
-    :class="cn(
-      'h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring',
-      props.class,
-    )"
+    :class="
+      cn(
+        'bg-background focus-visible:ring-sidebar-ring h-8 w-full shadow-none focus-visible:ring-2',
+        props.class,
+      )
+    "
   >
     <slot />
   </Input>

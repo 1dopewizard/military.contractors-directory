@@ -153,7 +153,6 @@ Create `scripts/seed/generate-mock-contractors.ts`:
 2. Filter to U.S. companies only
 3. Parse into structured data
 4. For each U.S. company, call GPT-5.1 API with prompt including:
-
    - Company name, rank, country, revenue data
    - Specialty taxonomy for classification
    - Output schema (JSON)
@@ -201,7 +200,7 @@ Return as JSON matching this schema: {...}
 **Key Stats Row:**
 
 - Defense Revenue: $X.XB
-- Total Revenue: $X.XB  
+- Total Revenue: $X.XB
 - % Defense: XX%
 - Employees: ~XX,000
 - Founded: YYYY

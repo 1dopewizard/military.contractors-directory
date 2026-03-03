@@ -12,11 +12,13 @@ This repository uses the following sources of truth:
 ## Rules vs Skills
 
 **`.cursorrules`** contains only:
+
 - Repo/stack invariants ("always do X", "never do Y")
 - Directory/layout conventions unique to this repo
 - A routing table that points to the right skill for each task type
 
 **Skills** contain:
+
 - Step-by-step workflows and checklists
 - Library/framework usage patterns and code examples
 - Testing playbooks and validation commands
@@ -39,29 +41,29 @@ If guidance in a skill contradicts `.cursorrules`, the invariant in `.cursorrule
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| Framework | Nuxt 4 |
-| Database | libsql (SQLite) via Drizzle ORM |
-| Auth | Better Auth |
-| UI | shadcn-vue, Tailwind CSS |
-| Search | SQLite FTS5 |
-| Testing | Vitest |
+| Layer     | Technology                      |
+| --------- | ------------------------------- |
+| Framework | Nuxt 4                          |
+| Database  | libsql (SQLite) via Drizzle ORM |
+| Auth      | Better Auth                     |
+| UI        | shadcn-vue, Tailwind CSS        |
+| Search    | SQLite FTS5                     |
+| Testing   | Vitest                          |
 
 ---
 
 ## Key Paths
 
-| Purpose | Path |
-|---------|------|
-| Database schema | `server/database/schema/` |
-| Database connection | `server/database/index.ts` |
-| Migrations | `server/database/migrations/` |
-| API endpoints | `server/api/` |
-| Auth utilities | `server/utils/auth.ts`, `server/utils/better-auth.ts` |
-| Composables | `app/composables/` |
-| Pages | `app/pages/` |
-| UI components | `app/components/` |
+| Purpose             | Path                                                  |
+| ------------------- | ----------------------------------------------------- |
+| Database schema     | `server/database/schema/`                             |
+| Database connection | `server/database/index.ts`                            |
+| Migrations          | `server/database/migrations/`                         |
+| API endpoints       | `server/api/`                                         |
+| Auth utilities      | `server/utils/auth.ts`, `server/utils/better-auth.ts` |
+| Composables         | `app/composables/`                                    |
+| Pages               | `app/pages/`                                          |
+| UI components       | `app/components/`                                     |
 
 ---
 

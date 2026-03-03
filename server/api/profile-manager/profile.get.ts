@@ -4,13 +4,13 @@
  * @description Returns the claimed profile for the authenticated user
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, and } from 'drizzle-orm'
-import { requireAuth } from '@/server/utils/better-auth'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, and } from "drizzle-orm";
+import { requireAuth } from "@/server/utils/better-auth";
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-  const db = getDb()
+  const user = await requireAuth(event);
+  const db = getDb();
 
   // Find claimed profile where user is owner or company user
   const [claimedProfile] = await db
@@ -30,10 +30,10 @@ export default defineEventHandler(async (event) => {
     .where(
       and(
         eq(schema.claimedProfile.userId, user.id),
-        eq(schema.claimedProfile.status, 'active')
-      )
+        eq(schema.claimedProfile.status, "active"),
+      ),
     )
-    .limit(1)
+    .limit(1);
 
   if (!claimedProfile) {
     // Check if user is a contractor user (not owner)
@@ -44,10 +44,10 @@ export default defineEventHandler(async (event) => {
       })
       .from(schema.contractorUser)
       .where(eq(schema.contractorUser.userId, user.id))
-      .limit(1)
+      .limit(1);
 
     if (!contractorAccess) {
-      return null
+      return null;
     }
 
     // Get the claimed profile they have access to
@@ -55,10 +55,10 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(schema.claimedProfile)
       .where(eq(schema.claimedProfile.id, contractorAccess.claimedProfileId))
-      .limit(1)
+      .limit(1);
 
-    if (!accessedProfile || accessedProfile.status !== 'active') {
-      return null
+    if (!accessedProfile || accessedProfile.status !== "active") {
+      return null;
     }
 
     // Get contractor details
@@ -66,14 +66,14 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(schema.contractor)
       .where(eq(schema.contractor.id, accessedProfile.contractorId))
-      .limit(1)
+      .limit(1);
 
     return {
       ...accessedProfile,
       contractor,
       userRole: contractorAccess.role,
       isOwner: false,
-    }
+    };
   }
 
   // Get contractor details
@@ -81,12 +81,12 @@ export default defineEventHandler(async (event) => {
     .select()
     .from(schema.contractor)
     .where(eq(schema.contractor.id, claimedProfile.contractorId))
-    .limit(1)
+    .limit(1);
 
   return {
     ...claimedProfile,
     contractor,
-    userRole: 'owner',
+    userRole: "owner",
     isOwner: true,
-  }
-})
+  };
+});

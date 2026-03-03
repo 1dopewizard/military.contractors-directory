@@ -3,37 +3,37 @@
  * @description Shapes for contractor companies and MOS match metadata
  */
 
-import type { Ref } from 'vue'
-export type CompanyMosMatchStrength = 'WEAK' | 'MEDIUM' | 'STRONG'
+import type { Ref } from "vue";
+export type CompanyMosMatchStrength = "WEAK" | "MEDIUM" | "STRONG";
 
 export interface CompanyMosMatch {
-  mosCode: string
-  strength: CompanyMosMatchStrength
+  mosCode: string;
+  strength: CompanyMosMatchStrength;
   /** MOS title/name */
-  mosTitle?: string
+  mosTitle?: string;
   /** Military branch */
-  branch?: string
+  branch?: string;
   /** Typical civilian job titles for this MOS at this company */
-  typicalRoles?: string[]
+  typicalRoles?: string[];
   /** Typical clearance requirement */
-  typicalClearance?: string | null
+  typicalClearance?: string | null;
   /** Confidence level (HIGH, MEDIUM, LOW) */
-  confidence?: string | null
+  confidence?: string | null;
   /**
    * @deprecated Use typicalRoles instead
    * Short explanation of how/why this MOS fits this company.
    */
-  notes?: string
+  notes?: string;
   /**
    * @deprecated Jobs are no longer tracked per-MOS
    * Number of active jobs for this MOS (legacy)
    */
-  jobCount?: number
+  jobCount?: number;
   /**
    * @deprecated Jobs are no longer tracked per-MOS
    * Average confidence score across jobs (legacy)
    */
-  avgConfidence?: number
+  avgConfidence?: number;
 }
 
 /**
@@ -41,81 +41,81 @@ export interface CompanyMosMatch {
  */
 export interface CompanyStats {
   /** Total number of MOS codes matched to this company */
-  totalMosMatches: number
+  totalMosMatches: number;
   /** Count of STRONG strength matches */
-  strongMatches: number
+  strongMatches: number;
   /** Count of MEDIUM strength matches */
-  mediumMatches: number
+  mediumMatches: number;
   /** Count of WEAK strength matches */
-  weakMatches: number
+  weakMatches: number;
   /** Unique clearance levels across all MOS matches */
-  clearanceLevels: string[]
+  clearanceLevels: string[];
   /** Military branches represented in MOS matches */
-  branches: string[]
+  branches: string[];
   /**
    * @deprecated Use totalMosMatches instead
    */
-  totalJobs?: number
+  totalJobs?: number;
   /**
    * @deprecated Location type stats no longer tracked
    */
-  oconusJobs?: number
+  oconusJobs?: number;
   /**
    * @deprecated Location type stats no longer tracked
    */
-  conusJobs?: number
+  conusJobs?: number;
   /**
    * @deprecated Use branches instead
    */
-  theaters?: string[]
+  theaters?: string[];
 }
 
 export interface Company {
-  id: string
-  slug: string
-  name: string
-  summary: string
+  id: string;
+  slug: string;
+  name: string;
+  summary: string;
 
   /**
    * High-level domains / verticals this company hires for.
    * Example: ['IT/Comms', 'LOGCAP/Base Ops', 'Intel']
    */
-  domains: string[]
+  domains: string[];
 
   /**
    * Theaters / regions where this company is known to operate.
    * Example: ['Kuwait', 'Afghanistan', 'Qatar', 'CONUS']
    */
-  theaters: string[]
+  theaters: string[];
 
   /**
    * MOS-level mappings for this company.
    * Computed from job_mos_map data in Phase 0+.
    */
-  mosMatches: CompanyMosMatch[]
+  mosMatches: CompanyMosMatch[];
 
   /**
    * Computed hiring statistics (Phase 0+)
    */
-  stats?: CompanyStats
+  stats?: CompanyStats;
 
   /**
    * Job count for list views (computed from API)
    */
-  job_count?: number
+  job_count?: number;
 
-  websiteUrl?: string
-  headquartersCountry?: string
-  logoUrl?: string
+  websiteUrl?: string;
+  headquartersCountry?: string;
+  logoUrl?: string;
 }
 
 /**
  * Filters for the company browser and derived queries.
  */
 export interface CompanyFilters {
-  searchQuery?: string
-  theater?: string
-  domain?: string
+  searchQuery?: string;
+  theater?: string;
+  domain?: string;
 }
 
 /**
@@ -126,13 +126,13 @@ export interface CompaniesForMosOptions {
    * Minimum match strength to include.
    * Default: 'MEDIUM'
    */
-  minStrength?: CompanyMosMatchStrength
+  minStrength?: CompanyMosMatchStrength;
 
   /**
    * Optional max number of companies to return.
    * Default: no limit.
    */
-  limit?: number
+  limit?: number;
 }
 
 /**
@@ -140,10 +140,10 @@ export interface CompaniesForMosOptions {
  * This type is kept for backwards compatibility
  */
 export interface UseCompaniesReturn {
-  allCompanies: Ref<Company[]>
-  getAllCompanies: () => Promise<Company[]>
-  getCompanyById: (id: string) => Promise<Company | undefined>
-  getCompanyBySlug: (slug: string) => Promise<Company | undefined>
-  searchCompanies: (query: string, limit?: number) => Promise<Company[]>
-  filterCompanies: (filters?: CompanyFilters) => Promise<Company[]>
+  allCompanies: Ref<Company[]>;
+  getAllCompanies: () => Promise<Company[]>;
+  getCompanyById: (id: string) => Promise<Company | undefined>;
+  getCompanyBySlug: (slug: string) => Promise<Company | undefined>;
+  searchCompanies: (query: string, limit?: number) => Promise<Company[]>;
+  filterCompanies: (filters?: CompanyFilters) => Promise<Company[]>;
 }

@@ -4,14 +4,14 @@
  * @description List HR/contractor contacts with optional filters (admin or recruiter) (Drizzle-backed)
  */
 
-import { requireAdminOrRecruiter } from '@/server/utils/better-auth'
-import { getDb, schema } from '@/server/utils/db'
-import { desc, eq } from 'drizzle-orm'
+import { requireAdminOrRecruiter } from "@/server/utils/better-auth";
+import { getDb, schema } from "@/server/utils/db";
+import { desc, eq } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
-  await requireAdminOrRecruiter(event)
+  await requireAdminOrRecruiter(event);
 
-  const db = getDb()
+  const db = getDb();
 
   try {
     // Get contacts with contractor info
@@ -21,8 +21,11 @@ export default defineEventHandler(async (event) => {
         contractor: schema.contractor,
       })
       .from(schema.contractorContact)
-      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.contractorContact.contractorId))
-      .orderBy(desc(schema.contractorContact.createdAt))
+      .leftJoin(
+        schema.contractor,
+        eq(schema.contractor.id, schema.contractorContact.contractorId),
+      )
+      .orderBy(desc(schema.contractorContact.createdAt));
 
     // Transform to expected format
     const transformed = contacts.map(({ contact, contractor }) => ({
@@ -36,16 +39,16 @@ export default defineEventHandler(async (event) => {
       is_primary: contact.isPrimary,
       created_at: contact.createdAt?.toISOString() ?? null,
       updated_at: contact.updatedAt?.toISOString() ?? null,
-    }))
+    }));
 
     return {
-      contacts: transformed
-    }
+      contacts: transformed,
+    };
   } catch (error) {
-    console.error('Failed to fetch contractor contacts:', error)
+    console.error("Failed to fetch contractor contacts:", error);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch contacts'
-    })
+      statusMessage: "Failed to fetch contacts",
+    });
   }
-})
+});

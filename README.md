@@ -24,32 +24,32 @@ This is a **reference directory** that aggregates and structures public data to 
 
 ### Public Pages
 
-| Page | URL | Description |
-|------|-----|-------------|
-| Homepage | `/` | Search, top contractors, browse by specialty |
-| Contractor profile | `/contractors/[slug]` | Full company profile with stats and details |
-| Browse all | `/contractors` | Paginated list with search and filters |
-| By specialty | `/contractors/specialty/[slug]` | Contractors in a specific specialty |
-| By location | `/contractors/location/[state]` | Contractors in a specific state |
-| Top contractors | `/top-defense-contractors` | Ranked list of top defense contractors |
-| For employers | `/for-employers` | Marketing page for claimed profiles |
+| Page               | URL                             | Description                                  |
+| ------------------ | ------------------------------- | -------------------------------------------- |
+| Homepage           | `/`                             | Search, top contractors, browse by specialty |
+| Contractor profile | `/contractors/[slug]`           | Full company profile with stats and details  |
+| Browse all         | `/contractors`                  | Paginated list with search and filters       |
+| By specialty       | `/contractors/specialty/[slug]` | Contractors in a specific specialty          |
+| By location        | `/contractors/location/[state]` | Contractors in a specific state              |
+| Top contractors    | `/top-defense-contractors`      | Ranked list of top defense contractors       |
+| For employers      | `/for-employers`                | Marketing page for claimed profiles          |
 
 ### Employer Dashboard
 
-| Page | URL | Description |
-|------|-----|-------------|
-| Dashboard | `/profile-manager` | Manage claimed profile |
+| Page       | URL                      | Description             |
+| ---------- | ------------------------ | ----------------------- |
+| Dashboard  | `/profile-manager`       | Manage claimed profile  |
 | Claim flow | `/profile-manager/claim` | Claim a company profile |
 
 ### Admin Dashboard
 
-| Section | Description |
-|---------|-------------|
-| Overview | Site stats and metrics |
-| Claims | Review pending claim requests |
+| Section        | Description                      |
+| -------------- | -------------------------------- |
+| Overview       | Site stats and metrics           |
+| Claims         | Review pending claim requests    |
 | Content Review | Approve/reject sponsored content |
-| Contractors | Manage contractor profiles |
-| Users | User management |
+| Contractors    | Manage contractor profiles       |
+| Users          | User management                  |
 
 ---
 
@@ -166,17 +166,17 @@ pnpm start
 
 ## Available scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Build for production |
-| `pnpm start` | Start production server |
-| `pnpm preview` | Preview production build |
-| `pnpm db:generate` | Generate Drizzle migrations |
-| `pnpm db:migrate` | Run database migrations |
-| `pnpm db:push` | Push schema directly (dev only) |
-| `pnpm db:studio` | Open Drizzle Studio |
-| `pnpm test` | Run tests |
+| Command            | Description                     |
+| ------------------ | ------------------------------- |
+| `pnpm dev`         | Start development server        |
+| `pnpm build`       | Build for production            |
+| `pnpm start`       | Start production server         |
+| `pnpm preview`     | Preview production build        |
+| `pnpm db:generate` | Generate Drizzle migrations     |
+| `pnpm db:migrate`  | Run database migrations         |
+| `pnpm db:push`     | Push schema directly (dev only) |
+| `pnpm db:studio`   | Open Drizzle Studio             |
+| `pnpm test`        | Run tests                       |
 
 ---
 
@@ -184,30 +184,30 @@ pnpm start
 
 ### Directory Tables
 
-| Table | Purpose |
-|-------|---------|
-| `contractor` | Defense contractor profiles |
-| `specialty` | Specialty/capability taxonomy |
+| Table                 | Purpose                          |
+| --------------------- | -------------------------------- |
+| `contractor`          | Defense contractor profiles      |
+| `specialty`           | Specialty/capability taxonomy    |
 | `contractorSpecialty` | Contractor-to-specialty mappings |
-| `contractorLocation` | Contractor office locations |
+| `contractorLocation`  | Contractor office locations      |
 
 ### Claimed Profiles Tables
 
-| Table | Purpose |
-|-------|---------|
-| `claimedProfile` | Employer-claimed profile records |
-| `employerUser` | Users linked to claimed profiles |
-| `employerBenefit` | "Why Work Here" benefits |
-| `employerProgram` | Notable programs/products |
-| `employerTestimonial` | Employee testimonials |
-| `sponsoredContent` | Spotlight content blocks |
+| Table                 | Purpose                          |
+| --------------------- | -------------------------------- |
+| `claimedProfile`      | Employer-claimed profile records |
+| `employerUser`        | Users linked to claimed profiles |
+| `employerBenefit`     | "Why Work Here" benefits         |
+| `employerProgram`     | Notable programs/products        |
+| `employerTestimonial` | Employee testimonials            |
+| `sponsoredContent`    | Spotlight content blocks         |
 
 ### Auth Tables
 
-| Table | Purpose |
-|-------|---------|
-| `user` | User accounts |
-| `session` | Active sessions |
+| Table     | Purpose           |
+| --------- | ----------------- |
+| `user`    | User accounts     |
+| `session` | Active sessions   |
 | `account` | OAuth connections |
 
 ---
@@ -241,12 +241,12 @@ pm2 save
 
 ## Documentation
 
-| Document | Purpose |
-|----------|---------|
-| `prd.md` | Product requirements |
-| `.cursor/plans/` | Implementation plans |
-| `AGENTS.md` | Cursor/agent conventions |
-| `docs/` | Feature documentation |
+| Document         | Purpose                  |
+| ---------------- | ------------------------ |
+| `prd.md`         | Product requirements     |
+| `.cursor/plans/` | Implementation plans     |
+| `AGENTS.md`      | Cursor/agent conventions |
+| `docs/`          | Feature documentation    |
 
 ---
 

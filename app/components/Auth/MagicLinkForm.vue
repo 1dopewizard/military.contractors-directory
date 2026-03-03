@@ -5,100 +5,103 @@
 -->
 
 <script setup lang="ts">
-import { z } from 'zod'
+import { z } from "zod";
 
 const emit = defineEmits<{
-  success: []
-}>()
+  success: [];
+}>();
 
-const logger = useLogger('MagicLinkForm')
-const { signInWithMagicLink } = useAuth()
+const logger = useLogger("MagicLinkForm");
+const { signInWithMagicLink } = useAuth();
 
 // Form state
-const email = ref('')
-const loading = ref(false)
-const submitted = ref(false)
-const error = ref<string | null>(null)
+const email = ref("");
+const loading = ref(false);
+const submitted = ref(false);
+const error = ref<string | null>(null);
 
 // Input ref
-const emailInput = ref<{ $el: HTMLInputElement } | null>(null)
+const emailInput = ref<{ $el: HTMLInputElement } | null>(null);
 
 /**
  * Email validation schema
  */
-const emailSchema = z.email('Please enter a valid email address')
+const emailSchema = z.email("Please enter a valid email address");
 
 /**
  * Validate email
  */
 const validateEmail = (): boolean => {
   try {
-    emailSchema.parse(email.value)
-    error.value = null
-    return true
+    emailSchema.parse(email.value);
+    error.value = null;
+    return true;
   } catch (err) {
     if (err instanceof z.ZodError) {
-      const firstIssue = err.issues[0]
+      const firstIssue = err.issues[0];
       if (firstIssue) {
-        error.value = firstIssue.message
+        error.value = firstIssue.message;
       }
     }
-    return false
+    return false;
   }
-}
+};
 
 /**
  * Reset form state
  */
 const resetForm = () => {
-  email.value = ''
-  error.value = null
-  submitted.value = false
-  loading.value = false
-}
+  email.value = "";
+  error.value = null;
+  submitted.value = false;
+  loading.value = false;
+};
 
 /**
  * Handle form submission
  */
 const handleSubmit = async () => {
   if (!validateEmail()) {
-    return
+    return;
   }
 
-  loading.value = true
-  error.value = null
+  loading.value = true;
+  error.value = null;
 
-  logger.info('MagicLinkForm: Submitting magic link request')
+  logger.info("MagicLinkForm: Submitting magic link request");
 
-  const result = await signInWithMagicLink(email.value)
-  const success = result?.success || false
-  const signInError = result?.error
+  const result = await signInWithMagicLink(email.value);
+  const success = result?.success || false;
+  const signInError = result?.error;
 
-  loading.value = false
+  loading.value = false;
 
   if (success) {
-    submitted.value = true
-    logger.info('MagicLinkForm: Magic link sent successfully')
-    emit('success')
+    submitted.value = true;
+    logger.info("MagicLinkForm: Magic link sent successfully");
+    emit("success");
   } else {
-    error.value = signInError || 'Failed to send magic link'
+    error.value = signInError || "Failed to send magic link";
     if (signInError) {
-      logger.error({ err: signInError }, 'MagicLinkForm: Failed to send magic link')
+      logger.error(
+        { err: signInError },
+        "MagicLinkForm: Failed to send magic link",
+      );
     }
   }
-}
+};
 
 // Clear error when user starts typing
 watch(email, () => {
   if (error.value && email.value) {
-    error.value = null
+    error.value = null;
   }
-})
+});
 
 // Reset form when component is mounted (in case dialog is reopened)
 onMounted(() => {
-  resetForm()
-})
+  resetForm();
+});
 </script>
 
 <template>
@@ -113,24 +116,33 @@ onMounted(() => {
       <!-- Success State -->
       <div v-if="submitted" class="py-2">
         <div class="flex flex-col items-center gap-4 py-4 text-center">
-          <div class="flex justify-center items-center">
-            <Icon name="mdi:email-check-outline" class="size-8 text-primary" />
+          <div class="flex items-center justify-center">
+            <Icon name="mdi:email-check-outline" class="text-primary size-8" />
           </div>
           <div class="space-y-2">
-            <p class="font-semibold text-foreground text-base">Check your inbox</p>
-            <p class="max-w-[280px] text-muted-foreground text-sm">
+            <p class="text-foreground text-base font-semibold">
+              Check your inbox
+            </p>
+            <p class="text-muted-foreground max-w-[280px] text-sm">
               We sent a sign-in link to
-              <span class="block mt-1 font-medium text-foreground">{{ email }}</span>
+              <span class="text-foreground mt-1 block font-medium">{{
+                email
+              }}</span>
             </p>
           </div>
         </div>
-        
-        <p class="pt-4 border-border border-t text-muted-foreground text-xs text-center">
-          No email? Check spam or <button 
-            type="button" 
-            class="font-medium text-primary hover:underline"
+
+        <p
+          class="border-border text-muted-foreground border-t pt-4 text-center text-xs"
+        >
+          No email? Check spam or
+          <button
+            type="button"
+            class="text-primary font-medium hover:underline"
             @click="resetForm"
-          >try again</button>
+          >
+            try again
+          </button>
         </p>
       </div>
 
@@ -139,12 +151,15 @@ onMounted(() => {
         <!-- Email Input Group -->
         <div class="space-y-1.5">
           <label for="magic-email" class="sr-only">Email address</label>
-          <InputGroup 
+          <InputGroup
             class="h-11 transition-colors"
-            :class="error ? 'ring-1 ring-destructive' : ''"
+            :class="error ? 'ring-destructive ring-1' : ''"
           >
             <InputGroupAddon class="pl-3">
-              <Icon name="mdi:email-outline" class="size-4 text-muted-foreground" />
+              <Icon
+                name="mdi:email-outline"
+                class="text-muted-foreground size-4"
+              />
             </InputGroupAddon>
             <InputGroupInput
               id="magic-email"
@@ -155,15 +170,15 @@ onMounted(() => {
               autocomplete="email"
               placeholder="Enter your email"
               :disabled="loading"
-              class="h-full text-foreground text-sm caret-foreground"
+              class="text-foreground caret-foreground h-full text-sm"
             />
             <InputGroupAddon v-if="loading" align="inline-end" class="pr-3">
-              <Spinner class="size-4 text-primary" />
+              <Spinner class="text-primary size-4" />
             </InputGroupAddon>
           </InputGroup>
-          <p 
-            v-if="error" 
-            class="flex items-center gap-1 pt-0.5 text-destructive text-xs"
+          <p
+            v-if="error"
+            class="text-destructive flex items-center gap-1 pt-0.5 text-xs"
           >
             <Icon name="mdi:alert-circle-outline" class="size-3.5 shrink-0" />
             {{ error }}
@@ -171,21 +186,20 @@ onMounted(() => {
         </div>
 
         <!-- Submit Button -->
-        <Button 
-          type="submit" 
-          class="w-full h-10"
+        <Button
+          type="submit"
+          class="h-10 w-full"
           :disabled="loading || !email.trim()"
         >
-          <span>{{ loading ? 'Sending...' : 'Continue' }}</span>
+          <span>{{ loading ? "Sending..." : "Continue" }}</span>
           <Icon v-if="!loading" name="mdi:arrow-right" class="ml-1.5 size-4" />
         </Button>
 
         <!-- Info Text -->
-        <p class="text-muted-foreground text-xs text-center">
+        <p class="text-muted-foreground text-center text-xs">
           We'll send you a secure link — no password needed.
         </p>
       </form>
     </CardContent>
   </Card>
 </template>
-

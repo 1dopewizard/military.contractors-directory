@@ -4,13 +4,13 @@
  * @description Returns all pending claim requests for admin review
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, desc } from 'drizzle-orm'
-import { requireAdmin } from '@/server/utils/better-auth'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, desc } from "drizzle-orm";
+import { requireAdmin } from "@/server/utils/better-auth";
 
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
-  const db = getDb()
+  await requireAdmin(event);
+  const db = getDb();
 
   const claims = await db
     .select({
@@ -27,12 +27,15 @@ export default defineEventHandler(async (event) => {
       userEmail: schema.user.email,
     })
     .from(schema.claimedProfile)
-    .innerJoin(schema.contractor, eq(schema.claimedProfile.contractorId, schema.contractor.id))
+    .innerJoin(
+      schema.contractor,
+      eq(schema.claimedProfile.contractorId, schema.contractor.id),
+    )
     .innerJoin(schema.user, eq(schema.claimedProfile.userId, schema.user.id))
-    .where(eq(schema.claimedProfile.status, 'pending'))
-    .orderBy(desc(schema.claimedProfile.createdAt))
+    .where(eq(schema.claimedProfile.status, "pending"))
+    .orderBy(desc(schema.claimedProfile.createdAt));
 
-  return claims.map(claim => ({
+  return claims.map((claim) => ({
     id: claim.id,
     tier: claim.tier,
     status: claim.status,
@@ -48,5 +51,5 @@ export default defineEventHandler(async (event) => {
       name: claim.userName,
       email: claim.userEmail,
     },
-  }))
-})
+  }));
+});

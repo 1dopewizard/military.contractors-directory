@@ -143,7 +143,7 @@ employerTestimonial table:
 Add to [server/database/schema/index.ts](server/database/schema/index.ts):
 
 ```typescript
-export * from './claimed'
+export * from "./claimed";
 ```
 
 ### 1.4 Generate Migration
@@ -363,7 +363,6 @@ Include claimed profile data:
 Seed 3 companies with full sponsored content for demo:
 
 1. **Lockheed Martin** (Premium tier)
-
    - Verified badge
    - 3 "Why Work Here" benefits
    - 3 notable programs (F-35, F-22, etc.)
@@ -371,13 +370,11 @@ Seed 3 companies with full sponsored content for demo:
    - 2 employee testimonials
 
 2. **CACI** (Claimed tier)
-
    - Verified badge
    - 3 "Why Work Here" benefits
    - 2 notable programs
 
 3. **Booz Allen Hamilton** (Premium tier)
-
    - Verified badge
    - 3 "Why Work Here" benefits
    - 4 notable programs
@@ -425,12 +422,12 @@ Create test admin user and test employer users linked to these profiles.
 **Update [app/pages/contractors/[slug].vue](app/pages/contractors/[slug].vue):**
 
 ```typescript
-useOrganizationSchema(contractor)
+useOrganizationSchema(contractor);
 useBreadcrumbSchema([
-  { name: 'Home', url: '/' },
-  { name: 'Contractors', url: '/contractors' },
-  { name: contractor.value.name, url: `/contractors/${contractor.value.slug}` }
-])
+  { name: "Home", url: "/" },
+  { name: "Contractors", url: "/contractors" },
+  { name: contractor.value.name, url: `/contractors/${contractor.value.slug}` },
+]);
 ```
 
 ---

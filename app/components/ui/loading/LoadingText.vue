@@ -1,22 +1,24 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue"
-import { cn } from "@/app/lib/utils"
+import type { HTMLAttributes } from "vue";
+import { cn } from "@/app/lib/utils";
 
 const props = withDefaults(
   defineProps<{
-    class?: HTMLAttributes["class"]
-    text?: string
+    class?: HTMLAttributes["class"];
+    text?: string;
   }>(),
   {
     text: "Loading",
-  }
-)
+  },
+);
 </script>
 
 <template>
-  <span :class="cn('inline-flex items-center text-muted-foreground', props.class)">
+  <span
+    :class="cn('text-muted-foreground inline-flex items-center', props.class)"
+  >
     {{ text }}
-    <span class="inline-flex w-6 ml-0.5">
+    <span class="ml-0.5 inline-flex w-6">
       <span class="animate-pulse-dot animation-delay-0">.</span>
       <span class="animate-pulse-dot animation-delay-200">.</span>
       <span class="animate-pulse-dot animation-delay-400">.</span>

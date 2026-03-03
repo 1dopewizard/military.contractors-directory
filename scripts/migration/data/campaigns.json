@@ -34,11 +34,7 @@
     "cta_label": "View Jobs",
     "cta_url": "/companies/booz-allen",
     "target_page": "MOS",
-    "target_mos_codes": [
-      "17C",
-      "CTN",
-      "0651"
-    ],
+    "target_mos_codes": ["17C", "CTN", "0651"],
     "target_company_slugs": null,
     "priority": 90,
     "max_impressions_per_session": 3,
@@ -288,12 +284,7 @@
     "cta_label": "View Roles",
     "cta_url": "/companies/kbr",
     "target_page": "MOS",
-    "target_mos_codes": [
-      "25B",
-      "25U",
-      "25Q",
-      "25S"
-    ],
+    "target_mos_codes": ["25B", "25U", "25Q", "25S"],
     "target_company_slugs": [],
     "priority": 10,
     "max_impressions_per_session": 3,
@@ -319,11 +310,7 @@
     "cta_url": "/about",
     "target_page": "COMPANY",
     "target_mos_codes": [],
-    "target_company_slugs": [
-      "amentum",
-      "kbr",
-      "leidos"
-    ],
+    "target_company_slugs": ["amentum", "kbr", "leidos"],
     "priority": 5,
     "max_impressions_per_session": 2,
     "budget_total_impressions": 5000,
@@ -398,10 +385,7 @@
     "cta_url": "/companies/leidos",
     "target_page": "COMPANY",
     "target_mos_codes": [],
-    "target_company_slugs": [
-      "general-dynamics",
-      "booz-allen"
-    ],
+    "target_company_slugs": ["general-dynamics", "booz-allen"],
     "priority": 9,
     "max_impressions_per_session": 2,
     "budget_total_impressions": 5000,
@@ -425,11 +409,7 @@
     "cta_label": "Apply Now",
     "cta_url": "/jobs",
     "target_page": "MOS",
-    "target_mos_codes": [
-      "11B",
-      "0311",
-      "11C"
-    ],
+    "target_mos_codes": ["11B", "0311", "11C"],
     "target_company_slugs": [],
     "priority": 10,
     "max_impressions_per_session": 3,

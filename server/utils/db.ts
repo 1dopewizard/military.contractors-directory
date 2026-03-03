@@ -3,15 +3,15 @@
  * @description Provides Drizzle ORM client for server-side API routes
  */
 
-import { createClient, type Client } from '@libsql/client'
-import { drizzle, type LibSQLDatabase } from 'drizzle-orm/libsql'
-import * as schema from '../database/schema'
-import { resolve } from 'path'
+import { createClient, type Client } from "@libsql/client";
+import { drizzle, type LibSQLDatabase } from "drizzle-orm/libsql";
+import * as schema from "../database/schema";
+import { resolve } from "path";
 
-const dbPath = resolve(process.cwd(), 'server/database/app.db')
+const dbPath = resolve(process.cwd(), "server/database/app.db");
 
-let _client: Client | null = null
-let _db: LibSQLDatabase<typeof schema> | null = null
+let _client: Client | null = null;
+let _db: LibSQLDatabase<typeof schema> | null = null;
 
 /**
  * Get or create the database client (lazy initialization)
@@ -21,10 +21,10 @@ export function getDb(): LibSQLDatabase<typeof schema> {
   if (!_db) {
     _client = createClient({
       url: `file:${dbPath}`,
-    })
-    _db = drizzle(_client, { schema })
+    });
+    _db = drizzle(_client, { schema });
   }
-  return _db
+  return _db;
 }
 
 /**
@@ -32,19 +32,19 @@ export function getDb(): LibSQLDatabase<typeof schema> {
  */
 export function getClient(): Client {
   if (!_client) {
-    getDb() // Initialize
+    getDb(); // Initialize
   }
-  return _client!
+  return _client!;
 }
 
 // Backwards compatibility: export `db` directly (uses same lazy singleton)
 export const db = new Proxy({} as LibSQLDatabase<typeof schema>, {
   get: (_, prop) => {
-    const instance = getDb()
-    return Reflect.get(instance, prop)
+    const instance = getDb();
+    return Reflect.get(instance, prop);
   },
-})
+});
 
 // Re-export schema and client for convenience
-export { schema }
-export { _client as client }
+export { schema };
+export { _client as client };

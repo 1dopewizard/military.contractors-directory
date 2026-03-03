@@ -3,15 +3,15 @@
  * @description Returns list of all users for admin management
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { requireAdmin } from '@/server/utils/better-auth'
-import { eq, desc } from 'drizzle-orm'
+import { getDb, schema } from "@/server/utils/db";
+import { requireAdmin } from "@/server/utils/better-auth";
+import { eq, desc } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
   // Require admin access
-  await requireAdmin(event)
+  await requireAdmin(event);
 
-  const db = getDb()
+  const db = getDb();
 
   // Get all users with their profiles
   const users = await db
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
     })
     .from(schema.user)
     .leftJoin(schema.profile, eq(schema.user.id, schema.profile.userId))
-    .orderBy(desc(schema.user.createdAt))
+    .orderBy(desc(schema.user.createdAt));
 
-  return { users }
-})
+  return { users };
+});

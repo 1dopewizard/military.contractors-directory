@@ -4,10 +4,10 @@
  * @description Creates or updates a benefit for the company's profile
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, and } from 'drizzle-orm'
-import { requireAuth } from '@/server/utils/better-auth'
-import { z } from 'zod'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, and } from "drizzle-orm";
+import { requireAuth } from "@/server/utils/better-auth";
+import { z } from "zod";
 
 const benefitSchema = z.object({
   id: z.string().uuid().optional(),
@@ -15,19 +15,21 @@ const benefitSchema = z.object({
   title: z.string().min(1).max(50),
   description: z.string().min(1).max(150),
   sortOrder: z.number().int().min(0).max(10).default(0),
-})
+});
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-  const db = getDb()
-  const body = await readBody(event)
+  const user = await requireAuth(event);
+  const db = getDb();
+  const body = await readBody(event);
 
-  const parsed = benefitSchema.safeParse(body)
+  const parsed = benefitSchema.safeParse(body);
   if (!parsed.success) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Invalid input: ' + parsed.error.issues.map(i => i.message).join(', '),
-    })
+      statusMessage:
+        "Invalid input: " +
+        parsed.error.issues.map((i) => i.message).join(", "),
+    });
   }
 
   // Find claimed profile
@@ -37,12 +39,12 @@ export default defineEventHandler(async (event) => {
     .where(
       and(
         eq(schema.claimedProfile.userId, user.id),
-        eq(schema.claimedProfile.status, 'active')
-      )
+        eq(schema.claimedProfile.status, "active"),
+      ),
     )
-    .limit(1)
+    .limit(1);
 
-  let profileId = claimedProfile?.id
+  let profileId = claimedProfile?.id;
 
   if (!profileId) {
     // Check contractor user access (admin or owner role required)
@@ -50,15 +52,15 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(schema.contractorUser)
       .where(eq(schema.contractorUser.userId, user.id))
-      .limit(1)
+      .limit(1);
 
-    if (!contractorAccess || contractorAccess.role === 'editor') {
+    if (!contractorAccess || contractorAccess.role === "editor") {
       throw createError({
         statusCode: 403,
-        statusMessage: 'You do not have permission to manage benefits',
-      })
+        statusMessage: "You do not have permission to manage benefits",
+      });
     }
-    profileId = contractorAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId;
   }
 
   if (parsed.data.id) {
@@ -75,11 +77,11 @@ export default defineEventHandler(async (event) => {
       .where(
         and(
           eq(schema.contractorBenefit.id, parsed.data.id),
-          eq(schema.contractorBenefit.claimedProfileId, profileId)
-        )
-      )
+          eq(schema.contractorBenefit.claimedProfileId, profileId),
+        ),
+      );
 
-    return { success: true, id: parsed.data.id }
+    return { success: true, id: parsed.data.id };
   }
 
   // Create new benefit
@@ -92,7 +94,7 @@ export default defineEventHandler(async (event) => {
       description: parsed.data.description,
       sortOrder: parsed.data.sortOrder,
     })
-    .returning({ id: schema.contractorBenefit.id })
+    .returning({ id: schema.contractorBenefit.id });
 
-  return { success: true, id: newBenefit?.id }
-})
+  return { success: true, id: newBenefit?.id };
+});

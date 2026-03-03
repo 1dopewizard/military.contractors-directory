@@ -9,6 +9,7 @@
 Transform `military.contractors` from a company directory into an **AI-powered career toolkit** for transitioning military veterans. Users enter their MOS and receive personalized, AI-generated career guidance — no external content dependencies, immediate value on day one.
 
 **Tagline options:**
+
 - "Your AI-powered transition toolkit"
 - "From MOS to career — powered by AI"
 - "The smartest way to translate your military experience"
@@ -31,16 +32,20 @@ A suite of AI-powered tools that leverage our **MOS ontology** (1,317 codes with
 ### Core Tools
 
 #### 1. Resume Translator
+
 **Input:** MOS + military experience bullets (pasted text)  
 **Output:** Civilian-translated content with:
+
 - De-jargoned bullet points
 - Quantified achievements
 - ATS-optimized keywords
 - Suggested job titles
 
 #### 2. Career Roadmap Generator
+
 **Input:** MOS + clarifying questions (experience, clearance, goals)  
 **Output:** Personalized plan including:
+
 - Target roles ranked by fit
 - Salary expectations by location
 - Certification roadmap (prioritized)
@@ -48,16 +53,20 @@ A suite of AI-powered tools that leverage our **MOS ontology** (1,317 codes with
 - Company recommendations with reasoning
 
 #### 3. Interview Prep Coach
+
 **Input:** MOS + target role/company  
 **Output:** Interview preparation:
+
 - Technical questions with sample answers
 - Behavioral questions with STAR examples from military context
 - Questions to ask the interviewer
 - (Premium) Mock interview mode with AI feedback
 
 #### 4. Salary Calculator
+
 **Input:** MOS + clearance + location + experience  
 **Output:** Market rate estimate:
+
 - Salary range for your profile
 - Premium for clearance level
 - CONUS vs OCONUS comparison
@@ -109,15 +118,15 @@ A suite of AI-powered tools that leverage our **MOS ontology** (1,317 codes with
 
 ## Why This Works
 
-| Factor | Benefit |
-|--------|---------|
-| **Day-one value** | No external content dependencies — works immediately |
-| **MOS ontology is the moat** | 1,317 codes with skills, certs, career paths power the AI |
-| **Solves real pain** | Resume translation is a universal need for transitioning vets |
-| **Repeat engagement** | Multiple tools bring users back |
-| **Clear monetization** | Free tier hooks, premium tier converts |
-| **Viral potential** | Useful tools get shared in military communities |
-| **Domain fit** | "military.contractors" = helping military get contractor jobs |
+| Factor                       | Benefit                                                       |
+| ---------------------------- | ------------------------------------------------------------- |
+| **Day-one value**            | No external content dependencies — works immediately          |
+| **MOS ontology is the moat** | 1,317 codes with skills, certs, career paths power the AI     |
+| **Solves real pain**         | Resume translation is a universal need for transitioning vets |
+| **Repeat engagement**        | Multiple tools bring users back                               |
+| **Clear monetization**       | Free tier hooks, premium tier converts                        |
+| **Viral potential**          | Useful tools get shared in military communities               |
+| **Domain fit**               | "military.contractors" = helping military get contractor jobs |
 
 ---
 
@@ -125,22 +134,22 @@ A suite of AI-powered tools that leverage our **MOS ontology** (1,317 codes with
 
 ### Pricing Tiers
 
-| Tier | Price | Features |
-|------|-------|----------|
-| **Free** | $0 | 1 resume translation, basic career snapshot, 5 interview questions |
-| **Pro** | $19/month | Unlimited translations, full roadmaps, mock interviews, PDF exports, saved history |
-| **Lifetime** | $99 one-time | Everything forever (appeals to transitioning vets with limited-time need) |
+| Tier         | Price        | Features                                                                           |
+| ------------ | ------------ | ---------------------------------------------------------------------------------- |
+| **Free**     | $0           | 1 resume translation, basic career snapshot, 5 interview questions                 |
+| **Pro**      | $19/month    | Unlimited translations, full roadmaps, mock interviews, PDF exports, saved history |
+| **Lifetime** | $99 one-time | Everything forever (appeals to transitioning vets with limited-time need)          |
 
 ### Revenue Projections (Conservative)
 
-| Metric | Month 3 | Month 6 | Month 12 |
-|--------|---------|---------|----------|
-| Monthly visitors | 1,000 | 5,000 | 15,000 |
-| Free signups | 200 | 1,000 | 3,000 |
-| Pro conversions (5%) | 10 | 50 | 150 |
-| Monthly revenue | $190 | $950 | $2,850 |
-| Lifetime purchases | 5 | 25 | 75 |
-| Lifetime revenue | $495 | $2,475 | $7,425 |
+| Metric               | Month 3 | Month 6 | Month 12 |
+| -------------------- | ------- | ------- | -------- |
+| Monthly visitors     | 1,000   | 5,000   | 15,000   |
+| Free signups         | 200     | 1,000   | 3,000    |
+| Pro conversions (5%) | 10      | 50      | 150      |
+| Monthly revenue      | $190    | $950    | $2,850   |
+| Lifetime purchases   | 5       | 25      | 75       |
+| Lifetime revenue     | $495    | $2,475  | $7,425   |
 
 ---
 
@@ -214,8 +223,9 @@ A suite of AI-powered tools that leverage our **MOS ontology** (1,317 codes with
 ### AI Prompts (Conceptual)
 
 #### Resume Translator Prompt
+
 ```
-You are an expert military-to-civilian resume translator. You understand 
+You are an expert military-to-civilian resume translator. You understand
 all military occupational specialties and how they map to civilian roles.
 
 The user has MOS: {mos_code} ({mos_name}) from the {branch}.
@@ -241,6 +251,7 @@ Provide:
 ```
 
 #### Career Roadmap Prompt
+
 ```
 You are a career advisor specializing in military-to-civilian transitions,
 particularly into the defense contracting industry.
@@ -275,30 +286,35 @@ Generate a personalized 12-month career roadmap including:
 ## Implementation Phases
 
 ### Phase 1: Foundation (Week 1-2)
+
 - [ ] New homepage with MOS input hero
 - [ ] MOS resolution page (shows MOS details + tool options)
 - [ ] Basic Resume Translator (no auth, no limits initially)
 - [ ] OpenAI API integration for translations
 
 ### Phase 2: Core Tools (Week 3-4)
+
 - [ ] Career Roadmap generator
 - [ ] Interview Prep (basic question generation)
 - [ ] Salary Calculator (using MOS pay band data)
 - [ ] Polish UI/UX for all tools
 
 ### Phase 3: Auth & Limits (Week 5-6)
+
 - [ ] Better Auth integration (if not already done)
 - [ ] Usage tracking (free tier limits)
 - [ ] Saved generations (history)
 - [ ] User dashboard
 
 ### Phase 4: Monetization (Week 7-8)
+
 - [ ] Stripe integration
 - [ ] Pricing page
 - [ ] Pro tier features unlock
 - [ ] Lifetime purchase option
 
 ### Phase 5: Growth (Ongoing)
+
 - [ ] Mock interview mode (premium)
 - [ ] PDF export for resumes
 - [ ] Email capture / job alerts
@@ -309,51 +325,54 @@ Generate a personalized 12-month career roadmap including:
 ## Success Metrics
 
 ### User Engagement
-| Metric | Target (Month 3) |
-|--------|------------------|
-| MOS searches / day | 50+ |
-| Resume translations / day | 20+ |
-| Roadmaps generated / day | 10+ |
-| Return visitor rate | 30%+ |
+
+| Metric                    | Target (Month 3) |
+| ------------------------- | ---------------- |
+| MOS searches / day        | 50+              |
+| Resume translations / day | 20+              |
+| Roadmaps generated / day  | 10+              |
+| Return visitor rate       | 30%+             |
 
 ### Revenue
-| Metric | Target (Month 6) |
-|--------|------------------|
-| Pro subscribers | 50+ |
-| MRR | $950+ |
-| Lifetime purchases | 25+ |
+
+| Metric             | Target (Month 6) |
+| ------------------ | ---------------- |
+| Pro subscribers    | 50+              |
+| MRR                | $950+            |
+| Lifetime purchases | 25+              |
 
 ### Growth
-| Metric | Target (Month 12) |
-|--------|------------------|
-| Monthly visitors | 15,000+ |
-| Email subscribers | 3,000+ |
-| Pro subscribers | 150+ |
-| MRR | $2,850+ |
+
+| Metric            | Target (Month 12) |
+| ----------------- | ----------------- |
+| Monthly visitors  | 15,000+           |
+| Email subscribers | 3,000+            |
+| Pro subscribers   | 150+              |
+| MRR               | $2,850+           |
 
 ---
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| AI output quality varies | Users lose trust | Prompt engineering, output review, user feedback loop |
-| Low conversion to paid | No revenue | Strong free tier hooks, clear value upgrade path |
-| Competition copies model | Reduced differentiation | Move fast, build brand, deepen MOS data |
-| OpenAI costs spike | Margin pressure | Caching common queries, output length limits, consider alternatives |
-| Veterans prefer free tools | Low revenue | Lifetime deal appeals to budget-conscious, strong ROI messaging |
+| Risk                       | Impact                  | Mitigation                                                          |
+| -------------------------- | ----------------------- | ------------------------------------------------------------------- |
+| AI output quality varies   | Users lose trust        | Prompt engineering, output review, user feedback loop               |
+| Low conversion to paid     | No revenue              | Strong free tier hooks, clear value upgrade path                    |
+| Competition copies model   | Reduced differentiation | Move fast, build brand, deepen MOS data                             |
+| OpenAI costs spike         | Margin pressure         | Caching common queries, output length limits, consider alternatives |
+| Veterans prefer free tools | Low revenue             | Lifetime deal appeals to budget-conscious, strong ROI messaging     |
 
 ---
 
 ## Competitive Landscape
 
-| Competitor | What They Do | Our Advantage |
-|------------|--------------|---------------|
-| ChatGPT | Generic AI | MOS-specific context, pre-loaded military knowledge |
-| Resume.io | Resume builder | Military translation, MOS-aware suggestions |
-| LinkedIn | Career platform | Specialized for military→contractor transition |
-| Skillbridge | Transition programs | On-demand, no application required |
-| Hire Heroes USA | Nonprofit support | Instant AI access vs. waiting for human coach |
+| Competitor      | What They Do        | Our Advantage                                       |
+| --------------- | ------------------- | --------------------------------------------------- |
+| ChatGPT         | Generic AI          | MOS-specific context, pre-loaded military knowledge |
+| Resume.io       | Resume builder      | Military translation, MOS-aware suggestions         |
+| LinkedIn        | Career platform     | Specialized for military→contractor transition      |
+| Skillbridge     | Transition programs | On-demand, no application required                  |
+| Hire Heroes USA | Nonprofit support   | Instant AI access vs. waiting for human coach       |
 
 ---
 
@@ -363,16 +382,17 @@ Both sites remain in the same monorepo, sharing infrastructure and data while se
 
 ### Site Responsibilities
 
-| Site | Purpose | Primary Content |
-|------|---------|-----------------|
-| **mos.directory** | MOS Encyclopedia | Informational — "What is this MOS?" |
-| **military.contractors** | Career Toolkit | Transactional — "Help me get a job" |
+| Site                     | Purpose          | Primary Content                     |
+| ------------------------ | ---------------- | ----------------------------------- |
+| **mos.directory**        | MOS Encyclopedia | Informational — "What is this MOS?" |
+| **military.contractors** | Career Toolkit   | Transactional — "Help me get a job" |
 
 ### mos.directory Changes
 
 With the pivot, `mos.directory` absorbs the company-MOS data that was the core of `military.contractors`:
 
 **Each MOS page gains:**
+
 ```
 /army/25B
 ├── Overview (existing)
@@ -386,6 +406,7 @@ With the pivot, `mos.directory` absorbs the company-MOS data that was the core o
 ```
 
 **CTA to military.contractors:**
+
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │  Ready to transition?                                          │
@@ -422,6 +443,7 @@ monorepo/
 ```
 
 **Shared resources:**
+
 - **Convex database** — Both apps read from the same `mosCodes`, `companies`, `companyMos` tables
 - **MOS enrichment pipeline** — Python pipeline enriches MOS data for both sites
 - **Shared types** — TypeScript types in `packages/shared-types`
@@ -459,13 +481,14 @@ Google: "What is MOS 25B?"
 
 ### SEO Strategy (Dual-Site)
 
-| Intent | Site | Example Query |
-|--------|------|---------------|
-| Informational | mos.directory | "What is 25B MOS", "Army IT jobs" |
-| Transactional | military.contractors | "Military resume translator", "MOS career advice" |
-| Commercial | military.contractors | "Defense contractor salary", "Veteran career tools" |
+| Intent        | Site                 | Example Query                                       |
+| ------------- | -------------------- | --------------------------------------------------- |
+| Informational | mos.directory        | "What is 25B MOS", "Army IT jobs"                   |
+| Transactional | military.contractors | "Military resume translator", "MOS career advice"   |
+| Commercial    | military.contractors | "Defense contractor salary", "Veteran career tools" |
 
 **Cross-linking benefits:**
+
 - mos.directory builds authority on informational queries (1,317 MOS pages)
 - Passes "ready to act" traffic to military.contractors
 - military.contractors focuses on conversion, not SEO breadth
@@ -491,20 +514,20 @@ Google: "What is MOS 25B?"
 
 ## Open Questions
 
-1. **Company data in military.contractors — visible or hidden?** 
+1. **Company data in military.contractors — visible or hidden?**
    - Option A: Remove company UI entirely, data only powers AI recommendations
    - Option B: Keep a simple "Companies That Hire Your MOS" as one tool (alongside Resume, Roadmap, etc.)
-   - *Recommendation:* Option A — let mos.directory own company browsing, military.contractors focuses on AI tools
+   - _Recommendation:_ Option A — let mos.directory own company browsing, military.contractors focuses on AI tools
 
 2. **Free tier limits — how generous?**
    - Too restrictive → users leave
    - Too generous → no conversions
-   - *Suggestion:* 2 resume translations, 1 roadmap, 10 interview questions per month
+   - _Suggestion:_ 2 resume translations, 1 roadmap, 10 interview questions per month
 
 3. **Lifetime vs subscription — which to emphasize?**
    - Lifetime is simpler for users, one-time revenue
    - Subscription is recurring but may feel expensive for short-term need
-   - *Suggestion:* Emphasize Lifetime ($99) for transitioning vets, keep Pro ($19/mo) for power users
+   - _Suggestion:_ Emphasize Lifetime ($99) for transitioning vets, keep Pro ($19/mo) for power users
 
 4. **Referral tracking from mos.directory?**
    - Should we track which MOS pages drive the most conversions?
@@ -513,7 +536,7 @@ Google: "What is MOS 25B?"
 5. **Pre-fill MOS from mos.directory referral?**
    - When user clicks CTA on mos.directory, pass MOS code in URL
    - military.contractors skips MOS input step, goes straight to tool selection
-   - *Suggestion:* Yes — reduces friction, better UX
+   - _Suggestion:_ Yes — reduces friction, better UX
 
 ---
 

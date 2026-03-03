@@ -5,9 +5,7 @@
     "name": null,
     "branch": "army",
     "clearance_level": "secret",
-    "mos_codes": [
-      "17C"
-    ],
+    "mos_codes": ["17C"],
     "frequency": "DAILY",
     "include_similar_mos": true,
     "location_preference": null,

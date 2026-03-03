@@ -4,20 +4,20 @@
  * @description Returns base details (Drizzle-backed)
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq } from 'drizzle-orm'
+import { getDb, schema } from "@/server/utils/db";
+import { eq } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
-  const slug = getRouterParam(event, 'slug')?.toLowerCase()
+  const slug = getRouterParam(event, "slug")?.toLowerCase();
 
   if (!slug) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Base slug is required',
-    })
+      statusMessage: "Base slug is required",
+    });
   }
 
-  const db = getDb()
+  const db = getDb();
 
   try {
     // Get base by slug
@@ -25,24 +25,24 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(schema.base)
       .where(eq(schema.base.slug, slug))
-      .limit(1)
+      .limit(1);
 
     if (!baseResult) {
       throw createError({
         statusCode: 404,
         statusMessage: `Base "${slug}" not found`,
-      })
+      });
     }
 
     // Get theater info if available
-    let theaterInfo = null
+    let theaterInfo = null;
     if (baseResult.theaterCode) {
       const [theater] = await db
         .select()
         .from(schema.theater)
         .where(eq(schema.theater.code, baseResult.theaterCode))
-        .limit(1)
-      theaterInfo = theater
+        .limit(1);
+      theaterInfo = theater;
     }
 
     // Transform base to snake_case
@@ -55,29 +55,32 @@ export default defineEventHandler(async (event) => {
       description: baseResult.description ?? null,
       theater_code: baseResult.theaterCode ?? null,
       is_active: baseResult.isActive ?? null,
-      coordinates: baseResult.coordinatesLat && baseResult.coordinatesLng
-        ? { lat: baseResult.coordinatesLat, lng: baseResult.coordinatesLng }
-        : null,
+      coordinates:
+        baseResult.coordinatesLat && baseResult.coordinatesLng
+          ? { lat: baseResult.coordinatesLat, lng: baseResult.coordinatesLng }
+          : null,
       created_at: baseResult.createdAt?.toISOString() ?? null,
       updated_at: baseResult.updatedAt?.toISOString() ?? null,
-      theater: theaterInfo ? {
-        code: theaterInfo.code,
-        name: theaterInfo.name,
-        region: theaterInfo.region,
-      } : null,
-    }
+      theater: theaterInfo
+        ? {
+            code: theaterInfo.code,
+            name: theaterInfo.name,
+            region: theaterInfo.region,
+          }
+        : null,
+    };
 
-    return { base }
+    return { base };
   } catch (error) {
     // Re-throw HTTP errors
     if ((error as { statusCode?: number })?.statusCode) {
-      throw error
+      throw error;
     }
 
-    const message = error instanceof Error ? error.message : 'Unknown error'
+    const message = error instanceof Error ? error.message : "Unknown error";
     throw createError({
       statusCode: 500,
       statusMessage: `Failed to fetch base: ${message}`,
-    })
+    });
   }
-})
+});

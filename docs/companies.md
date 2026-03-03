@@ -117,4 +117,4 @@
 97. **Cubic** (C4ISR & training)
 98. **CAES (Cobham Advanced Electronic Solutions)**
 99. **Rheinmetall North America**
-100. **QinetiQ US**
+100.  **QinetiQ US**

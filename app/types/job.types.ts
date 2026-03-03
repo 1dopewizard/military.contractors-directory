@@ -8,14 +8,14 @@
 // ============================================================================
 
 export interface JobLocation {
-  type?: string
-  city?: string
-  state?: string
-  country?: string
-  region?: string
-  theater?: string
-  siteNameOrBase?: string
-  travelPercent?: number
+  type?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  region?: string;
+  theater?: string;
+  siteNameOrBase?: string;
+  travelPercent?: number;
 }
 
 // ============================================================================
@@ -23,11 +23,11 @@ export interface JobLocation {
 // ============================================================================
 
 export interface JobClearance {
-  level?: string
-  polygraph?: string
-  activeRequired?: boolean
-  usCitizenshipRequired?: boolean
-  sponsorAvailable?: boolean
+  level?: string;
+  polygraph?: string;
+  activeRequired?: boolean;
+  usCitizenshipRequired?: boolean;
+  sponsorAvailable?: boolean;
 }
 
 // ============================================================================
@@ -35,16 +35,16 @@ export interface JobClearance {
 // ============================================================================
 
 export interface JobCompensation {
-  rateType?: string
-  currency?: string
-  min?: number
-  max?: number
-  period?: string
-  normalizedAnnualUSD?: number
-  benefits?: string[]
-  perDiemDailyUSD?: number
-  housingProvided?: boolean
-  hardshipEligible?: boolean
+  rateType?: string;
+  currency?: string;
+  min?: number;
+  max?: number;
+  period?: string;
+  normalizedAnnualUSD?: number;
+  benefits?: string[];
+  perDiemDailyUSD?: number;
+  housingProvided?: boolean;
+  hardshipEligible?: boolean;
 }
 
 // ============================================================================
@@ -52,10 +52,10 @@ export interface JobCompensation {
 // ============================================================================
 
 export interface JobContract {
-  type?: string
-  programOrMission?: string
-  vehicleOrIDIQ?: string
-  durationMonths?: number
+  type?: string;
+  programOrMission?: string;
+  vehicleOrIDIQ?: string;
+  durationMonths?: number;
 }
 
 // ============================================================================
@@ -63,19 +63,19 @@ export interface JobContract {
 // ============================================================================
 
 export interface JobEducation {
-  level?: string
-  fields?: string[]
-  acceptsEquivalency?: boolean
+  level?: string;
+  fields?: string[];
+  acceptsEquivalency?: boolean;
 }
 
 export interface JobQualifications {
-  certs?: string[]
-  required?: string[]
-  preferred?: string[]
-  languages?: string[]
-  licenses?: string[]
-  education?: JobEducation
-  yearsExperienceMin?: number
+  certs?: string[];
+  required?: string[];
+  preferred?: string[];
+  languages?: string[];
+  licenses?: string[];
+  education?: JobEducation;
+  yearsExperienceMin?: number;
 }
 
 // ============================================================================
@@ -83,11 +83,11 @@ export interface JobQualifications {
 // ============================================================================
 
 export interface JobMilitaryMapping {
-  service?: string[]
-  mos?: string[]
-  afsc?: string[]
-  necOrRating?: string[]
-  billetKeywords?: string[]
+  service?: string[];
+  mos?: string[];
+  afsc?: string[];
+  necOrRating?: string[];
+  billetKeywords?: string[];
 }
 
 // ============================================================================
@@ -95,9 +95,9 @@ export interface JobMilitaryMapping {
 // ============================================================================
 
 export interface JobCompliance {
-  itar?: boolean
-  drugTest?: boolean
-  backgroundCheck?: boolean
+  itar?: boolean;
+  drugTest?: boolean;
+  backgroundCheck?: boolean;
 }
 
 // ============================================================================
@@ -105,9 +105,9 @@ export interface JobCompliance {
 // ============================================================================
 
 export interface JobPosting {
-  datePosted?: string
-  validThrough?: string
-  shift?: string
+  datePosted?: string;
+  validThrough?: string;
+  shift?: string;
 }
 
 // ============================================================================
@@ -115,32 +115,32 @@ export interface JobPosting {
 // ============================================================================
 
 export interface JobDetail {
-  id: string
-  title: string
-  company: string
-  seniority?: string
-  location: JobLocation
-  clearance: JobClearance
-  compensation: JobCompensation
-  employmentType?: string
-  contract: JobContract
-  qualifications: JobQualifications
-  responsibilities?: string[]
-  toolsTech?: string[]
-  domainTags?: string[]
-  militaryMapping?: JobMilitaryMapping
-  compliance?: JobCompliance
-  posting?: JobPosting
-  sourceUrl: string
-  description?: string
+  id: string;
+  title: string;
+  company: string;
+  seniority?: string;
+  location: JobLocation;
+  clearance: JobClearance;
+  compensation: JobCompensation;
+  employmentType?: string;
+  contract: JobContract;
+  qualifications: JobQualifications;
+  responsibilities?: string[];
+  toolsTech?: string[];
+  domainTags?: string[];
+  militaryMapping?: JobMilitaryMapping;
+  compliance?: JobCompliance;
+  posting?: JobPosting;
+  sourceUrl: string;
+  description?: string;
   // Flat field fallbacks (for legacy data)
-  locationFlat?: string
-  clearanceFlat?: string
-  salaryMin?: number
-  salaryMax?: number
-  postedAt?: string
+  locationFlat?: string;
+  clearanceFlat?: string;
+  salaryMin?: number;
+  salaryMax?: number;
+  postedAt?: string;
   // Company link
-  companySlug?: string | null
+  companySlug?: string | null;
 }
 
 // ============================================================================
@@ -148,20 +148,20 @@ export interface JobDetail {
 // ============================================================================
 
 export interface BenefitLabel {
-  label: string
-  icon: string
+  label: string;
+  icon: string;
 }
 
 export const BENEFIT_LABELS: Record<string, BenefitLabel> = {
-  HOUSING: { label: 'Housing Provided', icon: 'mdi:home' },
-  TRANSPORTATION: { label: 'Transportation', icon: 'mdi:car' },
-  BONUS: { label: 'Completion Bonus', icon: 'mdi:cash-plus' },
-  TUITION_REIMBURSEMENT: { label: 'Tuition Reimbursement', icon: 'mdi:school' },
-  HEALTH: { label: 'Health Insurance', icon: 'mdi:hospital' },
-  DENTAL: { label: 'Dental Insurance', icon: 'mdi:tooth' },
-  VISION: { label: 'Vision Insurance', icon: 'mdi:eye' },
-  RETIREMENT_401K: { label: '401(k)', icon: 'mdi:piggy-bank' },
-  RELOCATION: { label: 'Relocation', icon: 'mdi:truck' },
-  PER_DIEM: { label: 'Per Diem', icon: 'mdi:cash' },
-  HARDSHIP_PAY: { label: 'Hardship Pay', icon: 'mdi:cash-plus' },
-}
+  HOUSING: { label: "Housing Provided", icon: "mdi:home" },
+  TRANSPORTATION: { label: "Transportation", icon: "mdi:car" },
+  BONUS: { label: "Completion Bonus", icon: "mdi:cash-plus" },
+  TUITION_REIMBURSEMENT: { label: "Tuition Reimbursement", icon: "mdi:school" },
+  HEALTH: { label: "Health Insurance", icon: "mdi:hospital" },
+  DENTAL: { label: "Dental Insurance", icon: "mdi:tooth" },
+  VISION: { label: "Vision Insurance", icon: "mdi:eye" },
+  RETIREMENT_401K: { label: "401(k)", icon: "mdi:piggy-bank" },
+  RELOCATION: { label: "Relocation", icon: "mdi:truck" },
+  PER_DIEM: { label: "Per Diem", icon: "mdi:cash" },
+  HARDSHIP_PAY: { label: "Hardship Pay", icon: "mdi:cash-plus" },
+};

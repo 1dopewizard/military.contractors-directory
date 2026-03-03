@@ -97,16 +97,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "Political Science"
-        ],
+        "fields": ["Intelligence Studies", "Political Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "French"
-      ],
+      "languages": ["English", "French"],
       "preferred": [
         "Prior AFRICOM or CJTF-HOA experience",
         "French or Arabic language skills",
@@ -153,19 +147,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35M"
-      ],
-      "afsc": [
-        "1N0X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["35F", "35M"],
+      "afsc": ["1N0X1"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
       "billetKeywords": [
         "All-Source Analyst",
@@ -173,11 +157,7 @@
         "Intelligence Planner"
       ]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR",
-      "CYBER"
-    ],
+    "domain_tags": ["INTEL", "ISR", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_39483313-161",
       "site": "mock_gpt",
@@ -279,10 +259,7 @@
       "normalizedAnnualUSD": 150000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CISSP"
-      ],
+      "certs": ["CompTIA Security+", "CISSP"],
       "licenses": [],
       "required": [
         "Active DoD Top Secret clearance",
@@ -298,18 +275,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science",
-          "Information Systems"
-        ],
+        "fields": ["Cybersecurity", "Computer Science", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "PowerShell"
-      ],
+      "languages": ["English", "Python", "PowerShell"],
       "preferred": [
         "CISSP, GCIA or GCED certification",
         "Experience supporting EUCOM or NATO missions",
@@ -363,20 +332,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D",
-        "35Q"
-      ],
-      "afsc": [
-        "1B4X1",
-        "3D0X3"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy"
-      ],
+      "mos": ["17C", "25D", "35Q"],
+      "afsc": ["1B4X1", "3D0X3"],
+      "service": ["Army", "AirForce", "Navy"],
       "necOrRating": null,
       "billetKeywords": [
         "Cyber Defense",
@@ -384,11 +342,7 @@
         "Information Assurance"
       ]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER",
-      "SECURITY"
-    ],
+    "domain_tags": ["IT", "CYBER", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_b4d97a9d-09d",
       "site": "mock_gpt",
@@ -493,10 +447,7 @@
       "normalizedAnnualUSD": 195000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "CompTIA Security+"
-      ],
+      "certs": ["CISSP", "CompTIA Security+"],
       "licenses": [],
       "required": [
         "Active TS/SCI clearance with recent access",
@@ -512,15 +463,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Engineering"
-        ],
+        "fields": ["Cybersecurity", "Computer Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Experience with air C2 or ISR systems",
         "Prior CENTCOM or AFCENT experience",
@@ -570,19 +516,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25D",
-        "17C"
-      ],
-      "afsc": [
-        "3D0X3",
-        "1B4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25D", "17C"],
+      "afsc": ["3D0X3", "1B4X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
       "billetKeywords": [
         "Cybersecurity Engineer",
@@ -590,11 +526,7 @@
         "Information Assurance"
       ]
     },
-    "domain_tags": [
-      "CYBER",
-      "SECURITY",
-      "IT"
-    ],
+    "domain_tags": ["CYBER", "SECURITY", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_df072d09-b9e",
       "site": "mock_gpt",
@@ -698,11 +630,7 @@
       "normalizedAnnualUSD": 185000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "GCIA",
-        "GCED"
-      ],
+      "certs": ["CompTIA Security+", "GCIA", "GCED"],
       "licenses": [],
       "required": [
         "5+ years cyber defense experience",
@@ -718,15 +646,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science"
-        ],
+        "fields": ["Cybersecurity", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python"
-      ],
+      "languages": ["Python"],
       "preferred": [
         "Experience in INDOPACOM missions",
         "Prior work at an AOC or cyber cell",
@@ -776,30 +699,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35Q",
-        "17C"
-      ],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Navy",
-        "Army"
-      ],
+      "mos": ["35Q", "17C"],
+      "afsc": ["1B4X1"],
+      "service": ["AirForce", "Navy", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Analyst",
-        "DCO",
-        "AOC Cyber"
-      ]
+      "billetKeywords": ["Cyber Analyst", "DCO", "AOC Cyber"]
     },
-    "domain_tags": [
-      "CYBER",
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["CYBER", "INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_4dded25e-233",
       "site": "mock_gpt",
@@ -903,9 +809,7 @@
       "normalizedAnnualUSD": 240000
     },
     "qualifications_data": {
-      "certs": [
-        "AWS Solutions Architect"
-      ],
+      "certs": ["AWS Solutions Architect"],
       "licenses": [],
       "required": [
         "Active TS/SCI clearance; polygraph preferred",
@@ -921,17 +825,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Software Engineering"
-        ],
+        "fields": ["Computer Science", "Software Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "Bash"
-      ],
+      "languages": ["English", "Python", "Bash"],
       "preferred": [
         "AWS Certified Solutions Architect",
         "Experience supporting Navy or INDOPACOM",
@@ -983,32 +880,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25B"
-      ],
-      "afsc": [
-        "3D0X2",
-        "1D7X1"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army",
-        "SpaceForce"
-      ],
+      "mos": ["17C", "25B"],
+      "afsc": ["3D0X2", "1D7X1"],
+      "service": ["Navy", "AirForce", "Army", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "DevOps Engineer",
-        "Cloud Architect",
-        "SysOps Lead"
-      ]
+      "billetKeywords": ["DevOps Engineer", "Cloud Architect", "SysOps Lead"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER",
-      "ISR"
-    ],
+    "domain_tags": ["IT", "CYBER", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_5b3379e7-996",
       "site": "mock_gpt",
@@ -1128,17 +1006,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Data Science"
-        ],
+        "fields": ["Computer Science", "Data Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "SQL"
-      ],
+      "languages": ["English", "Python", "SQL"],
       "preferred": [
         "Experience with Palantir platforms",
         "Prior work supporting NATO or EUCOM",
@@ -1164,14 +1035,7 @@
       "Support deployment of new capabilities",
       "Provide on-site user support and training"
     ],
-    "tools_tech": [
-      "Palantir Gotham",
-      "Python",
-      "SQL",
-      "Spark",
-      "Kafka",
-      "Git"
-    ],
+    "tools_tech": ["Palantir Gotham", "Python", "SQL", "Spark", "Kafka", "Git"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -1186,18 +1050,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F"
-      ],
-      "afsc": [
-        "1N0X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "SpaceForce"
-      ],
+      "mos": ["35F"],
+      "afsc": ["1N0X1"],
+      "service": ["Army", "AirForce", "Navy", "SpaceForce"],
       "necOrRating": null,
       "billetKeywords": [
         "Data Engineer",
@@ -1205,11 +1060,7 @@
         "Fusion Cell Support"
       ]
     },
-    "domain_tags": [
-      "IT",
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["IT", "INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_7cfb5029-872",
       "site": "mock_gpt",
@@ -1330,10 +1181,7 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
       "languages": null,
@@ -1383,29 +1231,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N1X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["35F", "35N"],
+      "afsc": ["1N0X1", "1N1X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISR Ops",
-        "Collection Manager"
-      ]
+      "billetKeywords": ["ISR Ops", "Collection Manager"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_b0f1b378-83d",
       "site": "mock_gpt",
@@ -1509,10 +1341,7 @@
       "normalizedAnnualUSD": 210000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "CompTIA Security+"
-      ],
+      "certs": ["CISSP", "CompTIA Security+"],
       "licenses": [],
       "required": [
         "6+ years IA or cybersecurity experience",
@@ -1528,10 +1357,7 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Information Assurance"
-        ],
+        "fields": ["Cybersecurity", "Information Assurance"],
         "acceptsEquivalency": true
       },
       "languages": null,
@@ -1582,30 +1408,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25D",
-        "17C"
-      ],
-      "afsc": [
-        "3D0X3"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["25D", "17C"],
+      "afsc": ["3D0X3"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISSO",
-        "Cybersecurity",
-        "IAM"
-      ]
+      "billetKeywords": ["ISSO", "Cybersecurity", "IAM"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_b620903e-697",
       "site": "mock_gpt",
@@ -1709,10 +1518,7 @@
       "normalizedAnnualUSD": 300000
     },
     "qualifications_data": {
-      "certs": [
-        "CKA",
-        "AWS Certified Solutions Architect"
-      ],
+      "certs": ["CKA", "AWS Certified Solutions Architect"],
       "licenses": [],
       "required": [
         "10+ years DevOps or software engineering",
@@ -1728,16 +1534,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Software Engineering"
-        ],
+        "fields": ["Computer Science", "Software Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python",
-        "Go"
-      ],
+      "languages": ["Python", "Go"],
       "preferred": [
         "Experience supporting defense missions",
         "Hands-on with service mesh and zero trust",
@@ -1787,30 +1587,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C"
-      ],
-      "afsc": [
-        "1D7X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy",
-        "SpaceForce"
-      ],
+      "mos": ["17C"],
+      "afsc": ["1D7X1"],
+      "service": ["AirForce", "Army", "Navy", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "DevOps",
-        "Platform Engineer",
-        "Cyber"
-      ]
+      "billetKeywords": ["DevOps", "Platform Engineer", "Cyber"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER",
-      "ISR"
-    ],
+    "domain_tags": ["IT", "CYBER", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_e5477ad4-51e",
       "site": "mock_gpt",
@@ -1914,10 +1697,7 @@
       "normalizedAnnualUSD": 185000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CEH"
-      ],
+      "certs": ["CompTIA Security+", "CEH"],
       "licenses": [],
       "required": [
         "5+ years in SOC or cyber defense operations",
@@ -1938,10 +1718,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python"
-      ],
+      "languages": ["English", "Python"],
       "preferred": [
         "GCIA, GCIH, or CEH certifications",
         "Prior Air Force cyber experience",
@@ -1990,31 +1767,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D"
-      ],
-      "afsc": [
-        "1D7X1B",
-        "3D0X3"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["17C", "25D"],
+      "afsc": ["1D7X1B", "3D0X3"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Defense",
-        "CPT",
-        "NOSC"
-      ]
+      "billetKeywords": ["Cyber Defense", "CPT", "NOSC"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_f0e9ab90-783",
       "site": "mock_gpt",
@@ -2115,10 +1874,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CompTIA Network+"
-      ],
+      "certs": ["CompTIA Security+", "CompTIA Network+"],
       "licenses": [],
       "required": [
         "3+ years administering Windows and Linux servers",
@@ -2139,11 +1895,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "PowerShell",
-        "Bash"
-      ],
+      "languages": ["English", "PowerShell", "Bash"],
       "preferred": [
         "Experience with Ansible or PowerShell scripting",
         "Prior OCONUS or deployed IT experience",
@@ -2194,31 +1946,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U",
-        "17C"
-      ],
-      "afsc": [
-        "3D0X2",
-        "1D7X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy"
-      ],
+      "mos": ["25B", "25U", "17C"],
+      "afsc": ["3D0X2", "1D7X1"],
+      "service": ["Army", "AirForce", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "System Administrator",
-        "S6",
-        "Network Control"
-      ]
+      "billetKeywords": ["System Administrator", "S6", "Network Control"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_f9ceda49-d87",
       "site": "mock_gpt",
@@ -2341,9 +2075,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior service in Navy or intel community",
         "Experience supporting CTF or numbered fleets",
@@ -2390,30 +2122,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "0231"
-      ],
-      "afsc": [
-        "1N0X1",
-        "14N"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Marines"
-      ],
+      "mos": ["35F", "0231"],
+      "afsc": ["1N0X1", "14N"],
+      "service": ["Navy", "AirForce", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All-Source Analyst",
-        "N2",
-        "J2"
-      ]
+      "billetKeywords": ["All-Source Analyst", "N2", "J2"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_ea30bbbc-435",
       "site": "mock_gpt",
@@ -2513,10 +2228,7 @@
       "normalizedAnnualUSD": 150000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CCNA"
-      ],
+      "certs": ["CompTIA Security+", "CCNA"],
       "licenses": [],
       "required": [
         "4+ years enterprise network administration",
@@ -2530,15 +2242,10 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Networking",
-          "Information Technology"
-        ],
+        "fields": ["Networking", "Information Technology"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "CCNA or CCNP certification",
         "Prior experience on USAF bases",
@@ -2585,28 +2292,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N",
-        "25B"
-      ],
-      "afsc": [
-        "3D1X2",
-        "3D0X2"
-      ],
-      "service": [
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["25N", "25B"],
+      "afsc": ["3D1X2", "3D0X2"],
+      "service": ["AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Network Engineer",
-        "Base Communications"
-      ]
+      "billetKeywords": ["Network Engineer", "Base Communications"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS"
-    ],
+    "domain_tags": ["IT", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_734c512a-546",
       "site": "mock_gpt",
@@ -2722,16 +2414,10 @@
       ],
       "education": {
         "level": "MASTER",
-        "fields": [
-          "National Security Studies",
-          "Cybersecurity"
-        ],
+        "fields": ["National Security Studies", "Cybersecurity"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "French"
-      ],
+      "languages": ["English", "French"],
       "preferred": [
         "Graduate of SAMS, SAASS, or similar school",
         "Prior experience with AFRICOM missions",
@@ -2756,12 +2442,7 @@
       "Support exercises and crisis action planning efforts",
       "Represent the program at high-level planning forums"
     ],
-    "tools_tech": [
-      "Microsoft Office",
-      "SharePoint",
-      "JOPES",
-      "Intel Portals"
-    ],
+    "tools_tech": ["Microsoft Office", "SharePoint", "JOPES", "Intel Portals"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -2776,31 +2457,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17A",
-        "17C"
-      ],
-      "afsc": [
-        "17S",
-        "14N"
-      ],
-      "service": [
-        "Army",
-        "Navy",
-        "AirForce",
-        "Marines"
-      ],
+      "mos": ["17A", "17C"],
+      "afsc": ["17S", "14N"],
+      "service": ["Army", "Navy", "AirForce", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "J3",
-        "J5 Planner",
-        "Cyber Ops Planner"
-      ]
+      "billetKeywords": ["J3", "J5 Planner", "Cyber Ops Planner"]
     },
-    "domain_tags": [
-      "CYBER",
-      "INTEL"
-    ],
+    "domain_tags": ["CYBER", "INTEL"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_b3f30464-427",
       "site": "mock_gpt",
@@ -2902,9 +2565,7 @@
       "normalizedAnnualUSD": 190000
     },
     "qualifications_data": {
-      "certs": [
-        "AWS Solutions Architect – Associate"
-      ],
+      "certs": ["AWS Solutions Architect – Associate"],
       "licenses": [],
       "required": [
         "5+ years designing and operating cloud solutions",
@@ -2918,17 +2579,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Information Systems"
-        ],
+        "fields": ["Computer Science", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "Bash"
-      ],
+      "languages": ["English", "Python", "Bash"],
       "preferred": [
         "AWS Solutions Architect certification",
         "Prior work with DoD or IC cloud programs",
@@ -2976,30 +2630,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "17C"
-      ],
-      "afsc": [
-        "1D7X1",
-        "3D0X2"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "SpaceForce"
-      ],
+      "mos": ["25B", "17C"],
+      "afsc": ["1D7X1", "3D0X2"],
+      "service": ["Army", "AirForce", "Navy", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cloud Engineer",
-        "Systems Architect"
-      ]
+      "billetKeywords": ["Cloud Engineer", "Systems Architect"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_e2e7f092-260",
       "site": "mock_gpt",
@@ -3113,18 +2750,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Data Science",
-          "Statistics",
-          "Computer Science"
-        ],
+        "fields": ["Data Science", "Statistics", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "SQL"
-      ],
+      "languages": ["English", "Python", "SQL"],
       "preferred": [
         "Python or R scripting experience",
         "Prior internship in defense or intelligence",
@@ -3149,13 +2778,7 @@
       "Gather requirements from analysts and operators",
       "Troubleshoot basic data and workflow issues"
     ],
-    "tools_tech": [
-      "Palantir",
-      "SQL",
-      "Python",
-      "Excel",
-      "Tableau"
-    ],
+    "tools_tech": ["Palantir", "SQL", "Python", "Excel", "Tableau"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -3170,27 +2793,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F"
-      ],
-      "afsc": [
-        "1N0X1"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["35F"],
+      "afsc": ["1N0X1"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Intel Analyst",
-        "Targeting Analyst"
-      ]
+      "billetKeywords": ["Intel Analyst", "Targeting Analyst"]
     },
-    "domain_tags": [
-      "INTEL",
-      "IT"
-    ],
+    "domain_tags": ["INTEL", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_4795be6f-1e7",
       "site": "mock_gpt",
@@ -3292,11 +2901,7 @@
       "normalizedAnnualUSD": 180000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "GCIA",
-        "GCED"
-      ],
+      "certs": ["CompTIA Security+", "GCIA", "GCED"],
       "licenses": null,
       "required": [
         "5+ years in SOC, CSIRT or cyber defense role",
@@ -3317,9 +2922,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python"
-      ],
+      "languages": ["Python"],
       "preferred": [
         "Experience working with USAFE or EUCOM",
         "Threat hunting and malware analysis skills",
@@ -3368,24 +2971,12 @@
     },
     "military_mapping": {
       "mos": null,
-      "afsc": [
-        "1B4X1",
-        "3D0X3"
-      ],
-      "service": [
-        "AirForce"
-      ],
+      "afsc": ["1B4X1", "3D0X3"],
+      "service": ["AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Defense",
-        "SOC Analyst"
-      ]
+      "billetKeywords": ["Cyber Defense", "SOC Analyst"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_63eba552-a9d",
       "site": "mock_gpt",
@@ -3487,9 +3078,7 @@
       "normalizedAnnualUSD": 230000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP"
-      ],
+      "certs": ["CISSP"],
       "licenses": [],
       "required": [
         "7+ years cybersecurity or IA experience",
@@ -3503,15 +3092,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Information Assurance"
-        ],
+        "fields": ["Cybersecurity", "Information Assurance"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior work on USAF systems in INDOPACOM",
         "Knowledge of ACAS, HBSS, and host security",
@@ -3558,30 +3142,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D"
-      ],
-      "afsc": [
-        "3D0X3",
-        "1D7X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["17C", "25D"],
+      "afsc": ["3D0X3", "1D7X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISSM",
-        "Cybersecurity Manager"
-      ]
+      "billetKeywords": ["ISSM", "Cybersecurity Manager"]
     },
-    "domain_tags": [
-      "CYBER",
-      "SECURITY",
-      "IT"
-    ],
+    "domain_tags": ["CYBER", "SECURITY", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_d7622e04-c6d",
       "site": "mock_gpt",
@@ -3683,10 +3250,7 @@
       "normalizedAnnualUSD": 235000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "CompTIA Security+"
-      ],
+      "certs": ["CISSP", "CompTIA Security+"],
       "licenses": null,
       "required": [
         "10+ years in cybersecurity engineering roles",
@@ -3700,10 +3264,7 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Engineering"
-        ],
+        "fields": ["Cybersecurity", "Computer Engineering"],
         "acceptsEquivalency": true
       },
       "languages": null,
@@ -3753,25 +3314,12 @@
     },
     "military_mapping": {
       "mos": null,
-      "afsc": [
-        "17X",
-        "1B4X1"
-      ],
-      "service": [
-        "AirForce",
-        "SpaceForce"
-      ],
+      "afsc": ["17X", "1B4X1"],
+      "service": ["AirForce", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Planner",
-        "Cyber Engineer"
-      ]
+      "billetKeywords": ["Cyber Planner", "Cyber Engineer"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_5bfa7b6a-879",
       "site": "mock_gpt",
@@ -3871,10 +3419,7 @@
       "normalizedAnnualUSD": 145000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CCNA"
-      ],
+      "certs": ["CompTIA Security+", "CCNA"],
       "licenses": null,
       "required": [
         "5+ years designing and supporting IP networks",
@@ -3888,10 +3433,7 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Information Technology",
-          "Network Engineering"
-        ],
+        "fields": ["Information Technology", "Network Engineering"],
         "acceptsEquivalency": true
       },
       "languages": null,
@@ -3940,28 +3482,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N",
-        "25B"
-      ],
-      "afsc": [
-        "3D1X2"
-      ],
-      "service": [
-        "Army",
-        "AirForce"
-      ],
+      "mos": ["25N", "25B"],
+      "afsc": ["3D1X2"],
+      "service": ["Army", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Network Engineer",
-        "Network Operations"
-      ]
+      "billetKeywords": ["Network Engineer", "Network Operations"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS",
-      "SECURITY"
-    ],
+    "domain_tags": ["IT", "COMMS", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_791e7ba2-436",
       "site": "mock_gpt",
@@ -4077,15 +3604,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Arabic"
-      ],
+      "languages": ["Arabic"],
       "preferred": [
         "Prior Al Udeid or CAOC experience",
         "Formal military intel school completion",
@@ -4130,28 +3652,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N1X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["35F", "35N"],
+      "afsc": ["1N0X1", "1N1X1"],
+      "service": ["AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All Source Analyst",
-        "Targeting Analyst"
-      ]
+      "billetKeywords": ["All Source Analyst", "Targeting Analyst"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_ba8e8fa3-127",
       "site": "mock_gpt",
@@ -4269,15 +3776,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior assignment at Al Udeid or AFCENT",
         "Experience with targeting or ISR planning",
@@ -4327,31 +3829,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["35F", "35N"],
+      "afsc": ["1N0X1", "1N4X1"],
+      "service": ["AirForce", "Army", "Navy", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All-Source Analyst",
-        "AOC Intel",
-        "Targeteer"
-      ]
+      "billetKeywords": ["All-Source Analyst", "AOC Intel", "Targeteer"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_54b90d1a-105",
       "site": "mock_gpt",
@@ -4452,11 +3936,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "MCSA",
-        "VMware VCP"
-      ],
+      "certs": ["CompTIA Security+", "MCSA", "VMware VCP"],
       "licenses": null,
       "required": [
         "3+ years Windows and Linux systems administration",
@@ -4479,11 +3959,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "PowerShell",
-        "Bash"
-      ],
+      "languages": ["English", "PowerShell", "Bash"],
       "preferred": [
         "Experience supporting EUCOM or NATO missions",
         "Prior OCONUS or deployed IT support experience",
@@ -4535,30 +4011,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U"
-      ],
-      "afsc": [
-        "3D0X2",
-        "3D0X3"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy"
-      ],
+      "mos": ["25B", "25U"],
+      "afsc": ["3D0X2", "3D0X3"],
+      "service": ["Army", "AirForce", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "System Administrator",
-        "S6",
-        "G6"
-      ]
+      "billetKeywords": ["System Administrator", "S6", "G6"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_8371fdcc-21f",
       "site": "mock_gpt",
@@ -4661,11 +4120,7 @@
       "normalizedAnnualUSD": 170000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "GCIA",
-        "GCED"
-      ],
+      "certs": ["CompTIA Security+", "GCIA", "GCED"],
       "licenses": null,
       "required": [
         "5+ years in SOC, cyber defense, or IR roles",
@@ -4688,11 +4143,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "PowerShell"
-      ],
+      "languages": ["English", "Python", "PowerShell"],
       "preferred": [
         "GCIA, GCIA, or similar GIAC certifications",
         "Experience supporting USAF or EUCOM missions",
@@ -4744,30 +4195,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D"
-      ],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["17C", "25D"],
+      "afsc": ["1B4X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Defense",
-        "NOSC",
-        "SOC"
-      ]
+      "billetKeywords": ["Cyber Defense", "NOSC", "SOC"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_a42b1b13-d3d",
       "site": "mock_gpt",
@@ -4871,10 +4305,7 @@
       "normalizedAnnualUSD": 240000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "CompTIA Security+"
-      ],
+      "certs": ["CISSP", "CompTIA Security+"],
       "licenses": null,
       "required": [
         "10+ years cybersecurity engineering",
@@ -4890,15 +4321,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science"
-        ],
+        "fields": ["Cybersecurity", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior AFRICOM or CENTCOM experience",
         "Experience as ISSM or ISSO for DoD",
@@ -4948,31 +4374,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D"
-      ],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["17C", "25D"],
+      "afsc": ["1B4X1"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Lead",
-        "ISSM",
-        "Defensive Cyber Ops"
-      ]
+      "billetKeywords": ["Cyber Lead", "ISSM", "Defensive Cyber Ops"]
     },
-    "domain_tags": [
-      "CYBER",
-      "SECURITY",
-      "IT"
-    ],
+    "domain_tags": ["CYBER", "SECURITY", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_f4c63b20-316",
       "site": "mock_gpt",
@@ -5090,15 +4498,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior experience at Al Dhafra or AFCENT",
         "Background in PED or targeting",
@@ -5145,30 +4548,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35G"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N1X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["35F", "35G"],
+      "afsc": ["1N0X1", "1N1X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISR CM",
-        "Collection Manager",
-        "AOC Intel"
-      ]
+      "billetKeywords": ["ISR CM", "Collection Manager", "AOC Intel"]
     },
-    "domain_tags": [
-      "ISR",
-      "INTEL"
-    ],
+    "domain_tags": ["ISR", "INTEL"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_d2ac032d-12e",
       "site": "mock_gpt",
@@ -5269,10 +4655,7 @@
       "normalizedAnnualUSD": 145000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CCNA"
-      ],
+      "certs": ["CompTIA Security+", "CCNA"],
       "licenses": null,
       "required": [
         "5+ years enterprise network engineering",
@@ -5288,15 +4671,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Networking",
-          "Information Technology"
-        ],
+        "fields": ["Computer Networking", "Information Technology"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "CCNP or higher Cisco certification",
         "Prior experience in INDOPACOM AOR",
@@ -5348,29 +4726,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N",
-        "25B"
-      ],
-      "afsc": [
-        "3D1X2"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25N", "25B"],
+      "afsc": ["3D1X2"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Network Engineer",
-        "NOSC",
-        "Comm Squadron"
-      ]
+      "billetKeywords": ["Network Engineer", "NOSC", "Comm Squadron"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS"
-    ],
+    "domain_tags": ["IT", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_ee21253d-243",
       "site": "mock_gpt",
@@ -5473,9 +4835,7 @@
       "normalizedAnnualUSD": 220000
     },
     "qualifications_data": {
-      "certs": [
-        "Microsoft Certified: Azure Solutions Architect Expert"
-      ],
+      "certs": ["Microsoft Certified: Azure Solutions Architect Expert"],
       "licenses": null,
       "required": [
         "10+ years in systems or cloud architecture",
@@ -5491,16 +4851,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Information Systems"
-        ],
+        "fields": ["Computer Science", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "PowerShell"
-      ],
+      "languages": ["English", "PowerShell"],
       "preferred": [
         "Azure Solutions Architect Expert cert",
         "Experience with AUKUS or allied programs",
@@ -5549,29 +4903,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B"
-      ],
-      "afsc": [
-        "17X"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy",
-        "SpaceForce"
-      ],
+      "mos": ["25B"],
+      "afsc": ["17X"],
+      "service": ["AirForce", "Army", "Navy", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Enterprise Architect",
-        "Cloud Architect"
-      ]
+      "billetKeywords": ["Enterprise Architect", "Cloud Architect"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER",
-      "COMMS"
-    ],
+    "domain_tags": ["IT", "CYBER", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_9f9b3a9c-d3b",
       "site": "mock_gpt",
@@ -5672,9 +5010,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+"
-      ],
+      "certs": ["CompTIA Security+"],
       "licenses": [],
       "required": [
         "Active Secret clearance and US citizenship",
@@ -5697,10 +5033,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "PowerShell",
-        "Bash"
-      ],
+      "languages": ["PowerShell", "Bash"],
       "preferred": [
         "Prior USAF or DoD enterprise experience",
         "ITIL Foundation or similar process knowledge",
@@ -5751,29 +5084,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U"
-      ],
-      "afsc": [
-        "3D0X2",
-        "3D0X3"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25B", "25U"],
+      "afsc": ["3D0X2", "3D0X3"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "System Administrator",
-        "Network Operations"
-      ]
+      "billetKeywords": ["System Administrator", "Network Operations"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_d170b476-62a",
       "site": "mock_gpt",
@@ -5876,10 +5193,7 @@
       "normalizedAnnualUSD": 185000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA CySA+",
-        "GCIA"
-      ],
+      "certs": ["CompTIA CySA+", "GCIA"],
       "licenses": [],
       "required": [
         "Active TS/SCI clearance with US citizenship",
@@ -5895,17 +5209,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science",
-          "Intelligence Studies"
-        ],
+        "fields": ["Cybersecurity", "Computer Science", "Intelligence Studies"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python",
-        "Korean"
-      ],
+      "languages": ["Python", "Korean"],
       "preferred": [
         "Prior USFK or INDOPACOM experience",
         "SANS GIAC (GCIA, GCTI, GCIA) certifications",
@@ -5955,32 +5262,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N",
-        "17C"
-      ],
-      "afsc": [
-        "1N4X1A",
-        "3D0X3"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["35F", "35N", "17C"],
+      "afsc": ["1N4X1A", "3D0X3"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Intel Analyst",
-        "All Source Analyst"
-      ]
+      "billetKeywords": ["Cyber Intel Analyst", "All Source Analyst"]
     },
-    "domain_tags": [
-      "CYBER",
-      "INTEL",
-      "IT"
-    ],
+    "domain_tags": ["CYBER", "INTEL", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_d6a93d64-7d1",
       "site": "mock_gpt",
@@ -6099,10 +5387,7 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Electrical Engineering",
-          "Systems Engineering"
-        ],
+        "fields": ["Electrical Engineering", "Systems Engineering"],
         "acceptsEquivalency": true
       },
       "languages": null,
@@ -6152,28 +5437,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25S"
-      ],
-      "afsc": [
-        "3D1X7"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["25S"],
+      "afsc": ["3D1X7"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "SATCOM Technician",
-        "SATCOM Engineer"
-      ]
+      "billetKeywords": ["SATCOM Technician", "SATCOM Engineer"]
     },
-    "domain_tags": [
-      "SATCOM",
-      "COMMS",
-      "ISR"
-    ],
+    "domain_tags": ["SATCOM", "COMMS", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_fd994d9b-403",
       "site": "mock_gpt",
@@ -6289,16 +5559,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Russian",
-        "German"
-      ],
+      "languages": ["Russian", "German"],
       "preferred": [
         "Prior EUCOM J2 or component experience",
         "Familiarity with NATO structures",
@@ -6345,30 +5609,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35M",
-        "35N"
-      ],
-      "afsc": [
-        "1N0X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["35F", "35M", "35N"],
+      "afsc": ["1N0X1"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All Source Analyst",
-        "Intelligence Specialist"
-      ]
+      "billetKeywords": ["All Source Analyst", "Intelligence Specialist"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_3b83d537-f4a",
       "site": "mock_gpt",
@@ -6470,9 +5717,7 @@
       "normalizedAnnualUSD": 200000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP"
-      ],
+      "certs": ["CISSP"],
       "licenses": [],
       "required": [
         "Active TS/SCI clearance and US citizenship",
@@ -6488,15 +5733,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science"
-        ],
+        "fields": ["Cybersecurity", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python"
-      ],
+      "languages": ["Python"],
       "preferred": [
         "Prior experience with Navy N6/N2",
         "Experience with zero trust architectures",
@@ -6523,13 +5763,7 @@
       "Support incident response and forensics",
       "Coordinate with Navy and joint stakeholders"
     ],
-    "tools_tech": [
-      "ACAS",
-      "HBSS",
-      "Splunk",
-      "Windows Server",
-      "RHEL"
-    ],
+    "tools_tech": ["ACAS", "HBSS", "Splunk", "Windows Server", "RHEL"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -6544,29 +5778,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25D",
-        "17C"
-      ],
-      "afsc": [
-        "3D0X3"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["25D", "17C"],
+      "afsc": ["3D0X3"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cybersecurity Engineer",
-        "IAM"
-      ]
+      "billetKeywords": ["Cybersecurity Engineer", "IAM"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_cc5cf199-41b",
       "site": "mock_gpt",
@@ -6668,10 +5886,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CompTIA Network+"
-      ],
+      "certs": ["CompTIA Security+", "CompTIA Network+"],
       "licenses": null,
       "required": [
         "3+ years Windows and Linux administration",
@@ -6692,11 +5907,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "PowerShell",
-        "Bash"
-      ],
+      "languages": ["English", "PowerShell", "Bash"],
       "preferred": [
         "Prior OCONUS or NATO support experience",
         "Experience with SCCM or similar tools",
@@ -6746,29 +5957,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U"
-      ],
-      "afsc": [
-        "3D0X2",
-        "3D0X3"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy"
-      ],
+      "mos": ["25B", "25U"],
+      "afsc": ["3D0X2", "3D0X3"],
+      "service": ["Army", "AirForce", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "System Administrator",
-        "Network Operations"
-      ]
+      "billetKeywords": ["System Administrator", "Network Operations"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_f98a5a72-d6c",
       "site": "mock_gpt",
@@ -6872,11 +6067,7 @@
       "normalizedAnnualUSD": 180000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "GCIA",
-        "CompTIA Security+"
-      ],
+      "certs": ["CISSP", "GCIA", "CompTIA Security+"],
       "licenses": null,
       "required": [
         "5+ years in SOC or cyber defense operations",
@@ -6897,11 +6088,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "PowerShell"
-      ],
+      "languages": ["English", "Python", "PowerShell"],
       "preferred": [
         "Prior USAFE or EUCOM mission experience",
         "Experience with Hunt operations",
@@ -6951,28 +6138,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D"
-      ],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["17C", "25D"],
+      "afsc": ["1B4X1"],
+      "service": ["AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Defense",
-        "SOC Analyst"
-      ]
+      "billetKeywords": ["Cyber Defense", "SOC Analyst"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_29e8d9ed-7f4",
       "site": "mock_gpt",
@@ -7074,9 +6246,7 @@
       "normalizedAnnualUSD": 185000
     },
     "qualifications_data": {
-      "certs": [
-        "AWS Certified Solutions Architect"
-      ],
+      "certs": ["AWS Certified Solutions Architect"],
       "licenses": [],
       "required": [
         "Active TS/SCI clearance and US citizenship",
@@ -7092,16 +6262,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Information Systems"
-        ],
+        "fields": ["Computer Science", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python",
-        "Bash"
-      ],
+      "languages": ["Python", "Bash"],
       "preferred": [
         "AWS Solutions Architect certification",
         "Prior EUCOM or Army Europe experience",
@@ -7150,28 +6314,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B"
-      ],
-      "afsc": [
-        "3D0X2"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy"
-      ],
+      "mos": ["25B"],
+      "afsc": ["3D0X2"],
+      "service": ["Army", "AirForce", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cloud Engineer",
-        "Systems Engineer"
-      ]
+      "billetKeywords": ["Cloud Engineer", "Systems Engineer"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER",
-      "ISR"
-    ],
+    "domain_tags": ["IT", "CYBER", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_51b82108-5e0",
       "site": "mock_gpt",
@@ -7289,15 +6438,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Electrical Engineering",
-          "Systems Engineering"
-        ],
+        "fields": ["Electrical Engineering", "Systems Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Experience with maritime ISR platforms",
         "Familiarity with WGS and CBSP systems",
@@ -7346,21 +6490,11 @@
     "military_mapping": {
       "mos": null,
       "afsc": null,
-      "service": [
-        "Navy",
-        "AirForce"
-      ],
+      "service": ["Navy", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "SATCOM Engineer",
-        "RF Engineer"
-      ]
+      "billetKeywords": ["SATCOM Engineer", "RF Engineer"]
     },
-    "domain_tags": [
-      "SATCOM",
-      "ISR",
-      "COMMS"
-    ],
+    "domain_tags": ["SATCOM", "ISR", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_70529ba4-a20",
       "site": "mock_gpt",
@@ -7478,16 +6612,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Arabic"
-      ],
+      "languages": ["English", "Arabic"],
       "preferred": [
         "Prior deployment to CENTCOM AOR",
         "Language skills in Arabic or Farsi",
@@ -7535,31 +6663,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N",
-        "35M"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["35F", "35N", "35M"],
+      "afsc": ["1N0X1", "1N4X1"],
+      "service": ["AirForce", "Army", "Navy", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All-Source Analyst",
-        "Targeting Analyst"
-      ]
+      "billetKeywords": ["All-Source Analyst", "Targeting Analyst"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_7ff2499f-9ab",
       "site": "mock_gpt",
@@ -7677,18 +6787,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Data Engineering"
-        ],
+        "fields": ["Computer Science", "Data Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python",
-        "SQL",
-        "Java",
-        "English"
-      ],
+      "languages": ["Python", "SQL", "Java", "English"],
       "preferred": [
         "ISR or intelligence community experience",
         "Experience with Palantir platforms",
@@ -7737,28 +6839,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F"
-      ],
-      "afsc": [
-        "1N0X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["35F"],
+      "afsc": ["1N0X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISR Analyst",
-        "Data Engineer"
-      ]
+      "billetKeywords": ["ISR Analyst", "Data Engineer"]
     },
-    "domain_tags": [
-      "IT",
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["IT", "INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_a2376547-25f",
       "site": "mock_gpt",
@@ -7862,9 +6949,7 @@
       "normalizedAnnualUSD": 300000
     },
     "qualifications_data": {
-      "certs": [
-        "AWS Solutions Architect Professional"
-      ],
+      "certs": ["AWS Solutions Architect Professional"],
       "licenses": null,
       "required": [
         "10+ years in systems or cloud architecture",
@@ -7878,16 +6963,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Information Systems"
-        ],
+        "fields": ["Computer Science", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python"
-      ],
+      "languages": ["English", "Python"],
       "preferred": [
         "Prior INDOPACOM or Navy experience",
         "AWS Certified Solutions Architect Professional",
@@ -7936,29 +7015,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B"
-      ],
-      "afsc": [
-        "3D0X2"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army",
-        "SpaceForce"
-      ],
+      "mos": ["25B"],
+      "afsc": ["3D0X2"],
+      "service": ["Navy", "AirForce", "Army", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Enterprise Architect",
-        "Cloud Architect"
-      ]
+      "billetKeywords": ["Enterprise Architect", "Cloud Architect"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER",
-      "COMMS"
-    ],
+    "domain_tags": ["IT", "CYBER", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_378ef04e-69f",
       "site": "mock_gpt",
@@ -8079,10 +7142,7 @@
         "fields": [],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "French"
-      ],
+      "languages": ["English", "French"],
       "preferred": [
         "Prior AFRICOM deployment",
         "Language skills in French or local dialects",
@@ -8128,29 +7188,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35N",
-        "35S"
-      ],
-      "afsc": [
-        "1N4X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy"
-      ],
+      "mos": ["35N", "35S"],
+      "afsc": ["1N4X1"],
+      "service": ["Army", "AirForce", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "SIGINT Analyst",
-        "ISR Analyst"
-      ]
+      "billetKeywords": ["SIGINT Analyst", "ISR Analyst"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR",
-      "EW"
-    ],
+    "domain_tags": ["INTEL", "ISR", "EW"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_8b4f1457-cad",
       "site": "mock_gpt",
@@ -8266,18 +7310,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Software Engineering"
-        ],
+        "fields": ["Computer Science", "Software Engineering"],
         "acceptsEquivalency": false
       },
-      "languages": [
-        "Java",
-        "C#",
-        "Python",
-        "English"
-      ],
+      "languages": ["Java", "C#", "Python", "English"],
       "preferred": [
         "Internship or project in defense domain",
         "Experience with REST APIs",
@@ -8303,15 +7339,7 @@
       "Assist with prototyping new capabilities",
       "Follow secure coding best practices"
     ],
-    "tools_tech": [
-      "Java",
-      "C#",
-      ".NET",
-      "Git",
-      "JIRA",
-      "Jenkins",
-      "Linux"
-    ],
+    "tools_tech": ["Java", "C#", ".NET", "Git", "JIRA", "Jenkins", "Linux"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -8326,27 +7354,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B"
-      ],
-      "afsc": [
-        "3D0X4"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["25B"],
+      "afsc": ["3D0X4"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Software Developer",
-        "Applications Developer"
-      ]
+      "billetKeywords": ["Software Developer", "Applications Developer"]
     },
-    "domain_tags": [
-      "IT",
-      "INTEL"
-    ],
+    "domain_tags": ["IT", "INTEL"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_93d22636-f15",
       "site": "mock_gpt",
@@ -8446,11 +7460,7 @@
       "normalizedAnnualUSD": 140000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CCNA",
-        "CCNP"
-      ],
+      "certs": ["CompTIA Security+", "CCNA", "CCNP"],
       "licenses": [],
       "required": [
         "3+ years network engineering experience",
@@ -8464,10 +7474,7 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Network Engineering",
-          "Information Systems"
-        ],
+        "fields": ["Network Engineering", "Information Systems"],
         "acceptsEquivalency": true
       },
       "languages": [],
@@ -8517,28 +7524,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N",
-        "25B"
-      ],
-      "afsc": [
-        "3D1X2"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25N", "25B"],
+      "afsc": ["3D1X2"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Network Engineer",
-        "Communications Specialist"
-      ]
+      "billetKeywords": ["Network Engineer", "Communications Specialist"]
     },
-    "domain_tags": [
-      "COMMS",
-      "IT"
-    ],
+    "domain_tags": ["COMMS", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_77c0757a-ec7",
       "site": "mock_gpt",
@@ -8638,11 +7630,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "MCSA",
-        "VMware VCP"
-      ],
+      "certs": ["CompTIA Security+", "MCSA", "VMware VCP"],
       "licenses": [],
       "required": [
         "3+ years Windows and Linux server administration",
@@ -8656,16 +7644,10 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Information Technology",
-          "Computer Science"
-        ],
+        "fields": ["Information Technology", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "PowerShell",
-        "Bash"
-      ],
+      "languages": ["PowerShell", "Bash"],
       "preferred": [
         "Experience supporting EUCOM or joint HQ",
         "Familiarity with Ansible or PowerShell DSC",
@@ -8714,29 +7696,16 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U"
-      ],
-      "afsc": [
-        "3D0X2",
-        "3D0X4"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy"
-      ],
+      "mos": ["25B", "25U"],
+      "afsc": ["3D0X2", "3D0X4"],
+      "service": ["Army", "AirForce", "Navy"],
       "necOrRating": null,
       "billetKeywords": [
         "System Administrator",
         "Information Systems Specialist"
       ]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_7d04bd74-ff0",
       "site": "mock_gpt",
@@ -8839,12 +7808,7 @@
       "normalizedAnnualUSD": 175000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "GCIA",
-        "GCED",
-        "CISSP"
-      ],
+      "certs": ["CompTIA Security+", "GCIA", "GCED", "CISSP"],
       "licenses": [],
       "required": [
         "6+ years in cyber defense or SOC operations",
@@ -8858,16 +7822,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science"
-        ],
+        "fields": ["Cybersecurity", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python",
-        "PowerShell"
-      ],
+      "languages": ["Python", "PowerShell"],
       "preferred": [
         "Experience supporting USAFE or EUCOM",
         "Threat hunting and malware analysis skills",
@@ -8916,30 +7874,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D"
-      ],
-      "afsc": [
-        "1B4X1",
-        "3D0X3"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["17C", "25D"],
+      "afsc": ["1B4X1", "3D0X3"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Defense Analyst",
-        "Cyber Operations Specialist"
-      ]
+      "billetKeywords": ["Cyber Defense Analyst", "Cyber Operations Specialist"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_bd124744-300",
       "site": "mock_gpt",
@@ -9042,10 +7983,7 @@
       "normalizedAnnualUSD": 195000
     },
     "qualifications_data": {
-      "certs": [
-        "INCOSE CSEP",
-        "PMP"
-      ],
+      "certs": ["INCOSE CSEP", "PMP"],
       "licenses": [],
       "required": [
         "8+ years systems engineering experience",
@@ -9059,10 +7997,7 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Systems Engineering",
-          "Electrical Engineering"
-        ],
+        "fields": ["Systems Engineering", "Electrical Engineering"],
         "acceptsEquivalency": true
       },
       "languages": [],
@@ -9090,13 +8025,7 @@
       "Train operators on system capabilities and limits",
       "Support readiness drills and contingency ops"
     ],
-    "tools_tech": [
-      "DOORS",
-      "JIRA",
-      "MATLAB",
-      "Linux",
-      "Windows Server"
-    ],
+    "tools_tech": ["DOORS", "JIRA", "MATLAB", "Linux", "Windows Server"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -9111,30 +8040,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "14A",
-        "14H"
-      ],
-      "afsc": [
-        "13B",
-        "17S"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["14A", "14H"],
+      "afsc": ["13B", "17S"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Air Defense Officer",
-        "Systems Engineer"
-      ]
+      "billetKeywords": ["Air Defense Officer", "Systems Engineer"]
     },
-    "domain_tags": [
-      "ISR",
-      "EW",
-      "COMMS"
-    ],
+    "domain_tags": ["ISR", "EW", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_f6c4b369-b89",
       "site": "mock_gpt",
@@ -9250,10 +8162,7 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
       "languages": [],
@@ -9302,29 +8211,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N"
-      ],
-      "afsc": [
-        "1N1X1",
-        "1N0X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["35F", "35N"],
+      "afsc": ["1N1X1", "1N0X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISR Collection Manager",
-        "Intelligence Planner"
-      ]
+      "billetKeywords": ["ISR Collection Manager", "Intelligence Planner"]
     },
-    "domain_tags": [
-      "ISR",
-      "INTEL"
-    ],
+    "domain_tags": ["ISR", "INTEL"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_67bbe54d-f5a",
       "site": "mock_gpt",
@@ -9426,11 +8319,7 @@
       "normalizedAnnualUSD": 175000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CISSP",
-        "CASP+"
-      ],
+      "certs": ["CompTIA Security+", "CISSP", "CASP+"],
       "licenses": [],
       "required": [
         "6+ years cybersecurity engineering experience",
@@ -9444,16 +8333,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Information Assurance"
-        ],
+        "fields": ["Cybersecurity", "Information Assurance"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "PowerShell",
-        "Python"
-      ],
+      "languages": ["PowerShell", "Python"],
       "preferred": [
         "Experience supporting afloat platforms",
         "Knowledge of HBSS and ACAS",
@@ -9501,29 +8384,16 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D"
-      ],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "Navy",
-        "Army",
-        "AirForce"
-      ],
+      "mos": ["17C", "25D"],
+      "afsc": ["1B4X1"],
+      "service": ["Navy", "Army", "AirForce"],
       "necOrRating": null,
       "billetKeywords": [
         "Cybersecurity Engineer",
         "Information Assurance Officer"
       ]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_85a53506-be1",
       "site": "mock_gpt",
@@ -9625,11 +8495,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CEH",
-        "GCIA"
-      ],
+      "certs": ["CompTIA Security+", "CEH", "GCIA"],
       "licenses": [],
       "required": [
         "3+ years cyber operations or SOC experience",
@@ -9650,9 +8516,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior EUCOM or NATO cyber experience",
         "Experience with Splunk or Elastic",
@@ -9702,33 +8566,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D",
-        "35Q"
-      ],
-      "afsc": [
-        "1B4X1",
-        "3D0X3"
-      ],
-      "service": [
-        "Army",
-        "Navy",
-        "AirForce",
-        "Marines",
-        "SpaceForce"
-      ],
+      "mos": ["17C", "25D", "35Q"],
+      "afsc": ["1B4X1", "3D0X3"],
+      "service": ["Army", "Navy", "AirForce", "Marines", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Analyst",
-        "Defensive Cyberspace Ops"
-      ]
+      "billetKeywords": ["Cyber Analyst", "Defensive Cyberspace Ops"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER",
-      "SECURITY"
-    ],
+    "domain_tags": ["IT", "CYBER", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_65b9fde4-b73",
       "site": "mock_gpt",
@@ -9844,17 +8688,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Data Engineering"
-        ],
+        "fields": ["Computer Science", "Data Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python",
-        "SQL",
-        "Java"
-      ],
+      "languages": ["Python", "SQL", "Java"],
       "preferred": [
         "Experience with Palantir platforms",
         "Prior work in DoD or IC environments",
@@ -9901,30 +8738,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35G"
-      ],
-      "afsc": [
-        "1N0X1",
-        "14N"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["35F", "35G"],
+      "afsc": ["1N0X1", "14N"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Data Engineer",
-        "Operations Research Analyst"
-      ]
+      "billetKeywords": ["Data Engineer", "Operations Research Analyst"]
     },
-    "domain_tags": [
-      "IT",
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["IT", "INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_b20460b7-699",
       "site": "mock_gpt",
@@ -10026,11 +8846,7 @@
       "normalizedAnnualUSD": 120000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "MCSA",
-        "VMware VCP"
-      ],
+      "certs": ["CompTIA Security+", "MCSA", "VMware VCP"],
       "licenses": [],
       "required": [
         "3+ years Windows Server administration",
@@ -10044,16 +8860,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Information Technology",
-          "Computer Science"
-        ],
+        "fields": ["Information Technology", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "PowerShell"
-      ],
+      "languages": ["English", "PowerShell"],
       "preferred": [
         "Experience in Air Force or EUCOM environment",
         "PowerShell scripting for automation",
@@ -10101,27 +8911,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B"
-      ],
-      "afsc": [
-        "3D0X2"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25B"],
+      "afsc": ["3D0X2"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Systems Administrator",
-        "Network Operations"
-      ]
+      "billetKeywords": ["Systems Administrator", "Network Operations"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS"
-    ],
+    "domain_tags": ["IT", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_dd2513e4-6a4",
       "site": "mock_gpt",
@@ -10225,9 +9021,7 @@
       "normalizedAnnualUSD": 210000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Network+"
-      ],
+      "certs": ["CompTIA Network+"],
       "licenses": [],
       "required": [
         "5+ years supporting SATCOM systems",
@@ -10241,15 +9035,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Electrical Engineering",
-          "Information Technology"
-        ],
+        "fields": ["Electrical Engineering", "Information Technology"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Manufacturer SATCOM training certificates",
         "Experience with tactical SATCOM systems",
@@ -10295,28 +9084,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25S"
-      ],
-      "afsc": [
-        "3D1X7"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["25S"],
+      "afsc": ["3D1X7"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "SATCOM Operator",
-        "Telecommunications Specialist"
-      ]
+      "billetKeywords": ["SATCOM Operator", "Telecommunications Specialist"]
     },
-    "domain_tags": [
-      "SATCOM",
-      "COMMS",
-      "ISR"
-    ],
+    "domain_tags": ["SATCOM", "COMMS", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_fe4a842e-c7f",
       "site": "mock_gpt",
@@ -10420,10 +9194,7 @@
       "normalizedAnnualUSD": 200000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "CompTIA Security+"
-      ],
+      "certs": ["CISSP", "CompTIA Security+"],
       "licenses": [],
       "required": [
         "7+ years cybersecurity engineering work",
@@ -10437,15 +9208,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science"
-        ],
+        "fields": ["Cybersecurity", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "CISSP or CASP+ certification",
         "Experience with AEGIS or C4I systems",
@@ -10470,14 +9236,7 @@
       "Support afloat visits and inspections",
       "Mentor junior engineers on best practices"
     ],
-    "tools_tech": [
-      "ACAS",
-      "HBSS",
-      "Nessus",
-      "Splunk",
-      "Windows",
-      "Linux"
-    ],
+    "tools_tech": ["ACAS", "HBSS", "Nessus", "Splunk", "Windows", "Linux"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -10494,20 +9253,11 @@
     "military_mapping": {
       "mos": [],
       "afsc": [],
-      "service": [
-        "Navy"
-      ],
+      "service": ["Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Information Systems Security Manager",
-        "Cyber Lead"
-      ]
+      "billetKeywords": ["Information Systems Security Manager", "Cyber Lead"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_a1ce7463-2ca",
       "site": "mock_gpt",
@@ -10624,16 +9374,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Korean (desired)"
-      ],
+      "languages": ["English", "Korean (desired)"],
       "preferred": [
         "Prior INDOPACOM or Korea intel experience",
         "Graduate-level education in related field",
@@ -10679,31 +9423,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N",
-        "35M"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N4X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["35F", "35N", "35M"],
+      "afsc": ["1N0X1", "1N4X1"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All-Source Analyst",
-        "Fusion Cell Analyst"
-      ]
+      "billetKeywords": ["All-Source Analyst", "Fusion Cell Analyst"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_ee78b725-301",
       "site": "mock_gpt",
@@ -10825,17 +9551,10 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Information Technology",
-          "Computer Science"
-        ],
+        "fields": ["Information Technology", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Bash",
-        "PowerShell"
-      ],
+      "languages": ["English", "Bash", "PowerShell"],
       "preferred": [
         "VMware vSphere or Hyper-V administration experience",
         "Experience with Ansible, PowerShell, or Bash scripting",
@@ -10889,28 +9608,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U"
-      ],
-      "afsc": [
-        "3D0X2",
-        "3D0X3"
-      ],
-      "service": [
-        "Army",
-        "AirForce"
-      ],
+      "mos": ["25B", "25U"],
+      "afsc": ["3D0X2", "3D0X3"],
+      "service": ["Army", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "System Administrator",
-        "Network Operations"
-      ]
+      "billetKeywords": ["System Administrator", "Network Operations"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_6eb2b835-a32",
       "site": "mock_gpt",
@@ -11014,11 +9718,7 @@
       "normalizedAnnualUSD": 260000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "GCIH",
-        "GCIA"
-      ],
+      "certs": ["CISSP", "GCIH", "GCIA"],
       "licenses": [],
       "required": [
         "10+ years in cyber defense or operations",
@@ -11032,15 +9732,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science"
-        ],
+        "fields": ["Cybersecurity", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "CISSP and GIAC-level certifications",
         "Prior work in INDOPACOM theater",
@@ -11089,25 +9784,12 @@
     },
     "military_mapping": {
       "mos": [],
-      "afsc": [
-        "1B4X1",
-        "17S"
-      ],
-      "service": [
-        "AirForce",
-        "SpaceForce"
-      ],
+      "afsc": ["1B4X1", "17S"],
+      "service": ["AirForce", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "DCO Lead",
-        "Cyber Operations Flight Commander"
-      ]
+      "billetKeywords": ["DCO Lead", "Cyber Operations Flight Commander"]
     },
-    "domain_tags": [
-      "CYBER",
-      "SECURITY",
-      "IT"
-    ],
+    "domain_tags": ["CYBER", "SECURITY", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_cc059f6e-425",
       "site": "mock_gpt",
@@ -11209,10 +9891,7 @@
       "normalizedAnnualUSD": 145000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CEH"
-      ],
+      "certs": ["CompTIA Security+", "CEH"],
       "licenses": [],
       "required": [
         "3+ years working in SOC or cyber defense",
@@ -11226,16 +9905,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Information Technology"
-        ],
+        "fields": ["Cybersecurity", "Information Technology"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Spanish (desired)"
-      ],
+      "languages": ["English", "Spanish (desired)"],
       "preferred": [
         "Experience with Navy or DoD networks",
         "Familiarity with Splunk or ArcSight",
@@ -11282,28 +9955,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C"
-      ],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["17C"],
+      "afsc": ["1B4X1"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "SOC Analyst",
-        "Cyber Defense Analyst"
-      ]
+      "billetKeywords": ["SOC Analyst", "Cyber Defense Analyst"]
     },
-    "domain_tags": [
-      "CYBER",
-      "SECURITY",
-      "IT"
-    ],
+    "domain_tags": ["CYBER", "SECURITY", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_e145768b-5a5",
       "site": "mock_gpt",
@@ -11405,11 +10063,7 @@
       "normalizedAnnualUSD": 170000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CCNA",
-        "CCNP (preferred)"
-      ],
+      "certs": ["CompTIA Security+", "CCNA", "CCNP (preferred)"],
       "licenses": [],
       "required": [
         "5+ years experience as a network engineer",
@@ -11425,15 +10079,10 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Information Technology",
-          "Networking"
-        ],
+        "fields": ["Information Technology", "Networking"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "CCNP or higher Cisco certification",
         "Experience with Army tactical networks",
@@ -11487,24 +10136,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N",
-        "25B"
-      ],
+      "mos": ["25N", "25B"],
       "afsc": [],
-      "service": [
-        "Army"
-      ],
+      "service": ["Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Network Engineer",
-        "Signal Support"
-      ]
+      "billetKeywords": ["Network Engineer", "Signal Support"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS"
-    ],
+    "domain_tags": ["IT", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_06a124d2-0f2",
       "site": "mock_gpt",
@@ -11609,11 +10247,7 @@
       "normalizedAnnualUSD": 260000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "Security+",
-        "CAP (preferred)"
-      ],
+      "certs": ["CISSP", "Security+", "CAP (preferred)"],
       "licenses": [],
       "required": [
         "8+ years IA or cybersecurity experience",
@@ -11629,15 +10263,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Information Assurance"
-        ],
+        "fields": ["Cybersecurity", "Information Assurance"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Experience in AFRICOM or CENTCOM AOR",
         "Prior work at Camp Lemonnier or similar sites",
@@ -11691,29 +10320,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25D",
-        "17C"
-      ],
-      "afsc": [
-        "3D0X3"
-      ],
-      "service": [
-        "Navy",
-        "Army",
-        "AirForce"
-      ],
+      "mos": ["25D", "17C"],
+      "afsc": ["3D0X3"],
+      "service": ["Navy", "Army", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISSM",
-        "Cybersecurity Manager"
-      ]
+      "billetKeywords": ["ISSM", "Cybersecurity Manager"]
     },
-    "domain_tags": [
-      "CYBER",
-      "SECURITY",
-      "IT"
-    ],
+    "domain_tags": ["CYBER", "SECURITY", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_81bfea5f-979",
       "site": "mock_gpt",
@@ -11817,12 +10430,7 @@
       "normalizedAnnualUSD": 195000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "GCIA",
-        "GCED",
-        "CISSP (preferred)"
-      ],
+      "certs": ["CompTIA Security+", "GCIA", "GCED", "CISSP (preferred)"],
       "licenses": [],
       "required": [
         "5+ years in cyber defense or SOC operations",
@@ -11838,17 +10446,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science"
-        ],
+        "fields": ["Cybersecurity", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "PowerShell"
-      ],
+      "languages": ["English", "Python", "PowerShell"],
       "preferred": [
         "Prior 616 AOC or cyber squadron experience",
         "Threat hunting and adversary emulation skills",
@@ -11902,29 +10503,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D"
-      ],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["17C", "25D"],
+      "afsc": ["1B4X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Analyst",
-        "Defensive Cyber Operations"
-      ]
+      "billetKeywords": ["Cyber Analyst", "Defensive Cyber Operations"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_8873814e-23c",
       "site": "mock_gpt",
@@ -12047,17 +10632,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Engineering"
-        ],
+        "fields": ["Computer Science", "Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "Bash"
-      ],
+      "languages": ["English", "Python", "Bash"],
       "preferred": [
         "AWS certification (Solutions Architect or DevOps)",
         "Experience with DevSecOps in DoD environments",
@@ -12111,27 +10689,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B"
-      ],
-      "afsc": [
-        "3D0X2"
-      ],
-      "service": [
-        "Navy",
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["25B"],
+      "afsc": ["3D0X2"],
+      "service": ["Navy", "AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Systems Engineer",
-        "DevOps Engineer"
-      ]
+      "billetKeywords": ["Systems Engineer", "DevOps Engineer"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_efc6f496-9f3",
       "site": "mock_gpt",
@@ -12235,9 +10799,7 @@
       "normalizedAnnualUSD": 240000
     },
     "qualifications_data": {
-      "certs": [
-        "INCOSE CSEP (preferred)"
-      ],
+      "certs": ["INCOSE CSEP (preferred)"],
       "licenses": [],
       "required": [
         "8+ years experience as a systems engineer",
@@ -12253,15 +10815,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Systems Engineering",
-          "Electrical Engineering"
-        ],
+        "fields": ["Systems Engineering", "Electrical Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "AEGIS or AEGIS Ashore experience",
         "INCOSE CSEP or similar certification",
@@ -12317,20 +10874,11 @@
     "military_mapping": {
       "mos": [],
       "afsc": [],
-      "service": [
-        "Navy"
-      ],
+      "service": ["Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Combat Systems Engineer",
-        "C2 Engineer"
-      ]
+      "billetKeywords": ["Combat Systems Engineer", "C2 Engineer"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS",
-      "EW"
-    ],
+    "domain_tags": ["IT", "COMMS", "EW"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_8dc2f202-e54",
       "site": "mock_gpt",
@@ -12450,15 +10998,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior 7 AF or AOC ISR experience",
         "Familiarity with PRISM or GCCS-J",
@@ -12512,27 +11055,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F"
-      ],
-      "afsc": [
-        "1N1X1",
-        "1N0X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["35F"],
+      "afsc": ["1N1X1", "1N0X1"],
+      "service": ["AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Collection Manager",
-        "ISR Operations"
-      ]
+      "billetKeywords": ["Collection Manager", "ISR Operations"]
     },
-    "domain_tags": [
-      "ISR",
-      "INTEL"
-    ],
+    "domain_tags": ["ISR", "INTEL"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_d96c6f72-12a",
       "site": "mock_gpt",
@@ -12636,12 +11165,7 @@
       "normalizedAnnualUSD": 190000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CISSP",
-        "GCIA",
-        "GCIH"
-      ],
+      "certs": ["CompTIA Security+", "CISSP", "GCIA", "GCIH"],
       "licenses": null,
       "required": [
         "5+ years in SOC, incident response, or hunt roles",
@@ -12661,10 +11185,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python",
-        "PowerShell"
-      ],
+      "languages": ["Python", "PowerShell"],
       "preferred": [
         "CISSP, GCIA, GCIH, or CEH certifications",
         "Prior CENTCOM or AFCYBER experience",
@@ -12717,21 +11238,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "35Q",
-        "25D"
-      ],
-      "afsc": [
-        "1B4X1",
-        "3D0X3"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["17C", "35Q", "25D"],
+      "afsc": ["1B4X1", "3D0X3"],
+      "service": ["AirForce", "Army", "Navy", "Marines"],
       "necOrRating": null,
       "billetKeywords": [
         "Cyber Analyst",
@@ -12739,11 +11248,7 @@
         "SOC Operator"
       ]
     },
-    "domain_tags": [
-      "CYBER",
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["CYBER", "INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_247eb0df-bd4",
       "site": "mock_gpt",
@@ -12845,12 +11350,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CompTIA Network+",
-        "MCSA",
-        "RHCSA"
-      ],
+      "certs": ["CompTIA Security+", "CompTIA Network+", "MCSA", "RHCSA"],
       "licenses": null,
       "required": [
         "3+ years administering Windows and Linux servers",
@@ -12871,10 +11371,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "PowerShell",
-        "Bash"
-      ],
+      "languages": ["PowerShell", "Bash"],
       "preferred": [
         "Experience supporting USAF or NATO networks",
         "ITIL Foundation or similar service management training",
@@ -12927,20 +11424,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U",
-        "17C"
-      ],
-      "afsc": [
-        "3D0X2",
-        "3D0X3"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25B", "25U", "17C"],
+      "afsc": ["3D0X2", "3D0X3"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
       "billetKeywords": [
         "System Administrator",
@@ -12948,10 +11434,7 @@
         "Cyber Defense"
       ]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_6509e83e-63c",
       "site": "mock_gpt",
@@ -13072,9 +11555,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Korean"
-      ],
+      "languages": ["Korean"],
       "preferred": [
         "Prior service at Corps, Division, or J2/J3",
         "Korean language familiarity or regional studies",
@@ -13125,30 +11606,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N",
-        "35M"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N4X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce"
-      ],
+      "mos": ["35F", "35N", "35M"],
+      "afsc": ["1N0X1", "1N4X1"],
+      "service": ["Army", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All-Source Analyst",
-        "G2 Analyst",
-        "J2 Planner"
-      ]
+      "billetKeywords": ["All-Source Analyst", "G2 Analyst", "J2 Planner"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_97d170be-9a3",
       "site": "mock_gpt",
@@ -13250,9 +11714,7 @@
       "normalizedAnnualUSD": 115000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+ (within 6 months)"
-      ],
+      "certs": ["CompTIA Security+ (within 6 months)"],
       "licenses": [],
       "required": [
         "0-2 years cybersecurity or IT experience",
@@ -13268,16 +11730,10 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Cybersecurity",
-          "Information Technology"
-        ],
+        "fields": ["Cybersecurity", "Information Technology"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python"
-      ],
+      "languages": ["English", "Python"],
       "preferred": [
         "Internship or lab experience in cybersecurity",
         "Familiarity with SIEM and vulnerability scanners",
@@ -13332,24 +11788,12 @@
     },
     "military_mapping": {
       "mos": [],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "Navy",
-        "AirForce"
-      ],
+      "afsc": ["1B4X1"],
+      "service": ["Navy", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cyber Defense",
-        "SOC Analyst"
-      ]
+      "billetKeywords": ["Cyber Defense", "SOC Analyst"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_01197eed-39c",
       "site": "mock_gpt",
@@ -13470,15 +11914,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior CAOC or AOC intel floor experience",
         "Targeting and collection management exposure",
@@ -13532,28 +11971,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35N"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["35F", "35N"],
+      "afsc": ["1N0X1", "1N4X1"],
+      "service": ["AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All-Source Analyst",
-        "Targeting Analyst"
-      ]
+      "billetKeywords": ["All-Source Analyst", "Targeting Analyst"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_022172e0-872",
       "site": "mock_gpt",
@@ -13655,12 +12079,7 @@
       "normalizedAnnualUSD": 145000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CEH",
-        "GCIA",
-        "GCED"
-      ],
+      "certs": ["CompTIA Security+", "CEH", "GCIA", "GCED"],
       "licenses": [],
       "required": [
         "3+ years in SOC, incident response, or cyber defense",
@@ -13674,18 +12093,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Computer Science",
-          "Information Systems"
-        ],
+        "fields": ["Cybersecurity", "Computer Science", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python",
-        "PowerShell",
-        "German"
-      ],
+      "languages": ["Python", "PowerShell", "German"],
       "preferred": [
         "Experience supporting EUCOM or NATO networks",
         "GIAC or CEH certifications",
@@ -13736,22 +12147,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D",
-        "35Q"
-      ],
-      "afsc": [
-        "1B4X1",
-        "3D0X3"
-      ],
-      "service": [
-        "Army",
-        "Navy",
-        "AirForce",
-        "Marines",
-        "SpaceForce"
-      ],
+      "mos": ["17C", "25D", "35Q"],
+      "afsc": ["1B4X1", "3D0X3"],
+      "service": ["Army", "Navy", "AirForce", "Marines", "SpaceForce"],
       "necOrRating": null,
       "billetKeywords": [
         "Cyber Network Defender",
@@ -13759,11 +12157,7 @@
         "Defensive Cyberspace Operations"
       ]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_8125de13-652",
       "site": "mock_gpt",
@@ -13881,15 +12275,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior assignment in CAOC or JOC",
         "Experience with manned and unmanned ISR",
@@ -13934,27 +12323,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F"
-      ],
-      "afsc": [
-        "1N1X1",
-        "14N"
-      ],
-      "service": [
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["35F"],
+      "afsc": ["1N1X1", "14N"],
+      "service": ["AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISR Collection Manager",
-        "Targeting Analyst"
-      ]
+      "billetKeywords": ["ISR Collection Manager", "Targeting Analyst"]
     },
-    "domain_tags": [
-      "ISR",
-      "INTEL"
-    ],
+    "domain_tags": ["ISR", "INTEL"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_04d5866c-ba6",
       "site": "mock_gpt",
@@ -14068,16 +12443,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "International Relations",
-          "Criminal Justice"
-        ],
+        "fields": ["International Relations", "Criminal Justice"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Spanish",
-        "English"
-      ],
+      "languages": ["Spanish", "English"],
       "preferred": [
         "Internship with DoD or law enforcement",
         "Experience with geospatial tools",
@@ -14121,28 +12490,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F"
-      ],
-      "afsc": [
-        "1N0X1"
-      ],
-      "service": [
-        "Army",
-        "Navy",
-        "AirForce",
-        "Marines"
-      ],
+      "mos": ["35F"],
+      "afsc": ["1N0X1"],
+      "service": ["Army", "Navy", "AirForce", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Intelligence Analyst",
-        "Counterdrug Analyst"
-      ]
+      "billetKeywords": ["Intelligence Analyst", "Counterdrug Analyst"]
     },
-    "domain_tags": [
-      "INTEL",
-      "SECURITY"
-    ],
+    "domain_tags": ["INTEL", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_09a67140-094",
       "site": "mock_gpt",
@@ -14244,10 +12598,7 @@
       "normalizedAnnualUSD": 155000
     },
     "qualifications_data": {
-      "certs": [
-        "CCNA",
-        "CompTIA Security+"
-      ],
+      "certs": ["CCNA", "CompTIA Security+"],
       "licenses": null,
       "required": [
         "4+ years configuring Cisco routers and switches",
@@ -14261,15 +12612,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Network Engineering",
-          "Information Systems"
-        ],
+        "fields": ["Network Engineering", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "CCNP or equivalent experience",
         "Prior INDOPACOM or PACAF experience",
@@ -14319,28 +12665,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N",
-        "25B"
-      ],
-      "afsc": [
-        "3D1X2"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25N", "25B"],
+      "afsc": ["3D1X2"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Network Engineer",
-        "Network Technician"
-      ]
+      "billetKeywords": ["Network Engineer", "Network Technician"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS"
-    ],
+    "domain_tags": ["IT", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_09eb07d4-7ff",
       "site": "mock_gpt",
@@ -14454,16 +12785,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "International Relations",
-          "Intelligence Studies"
-        ],
+        "fields": ["International Relations", "Intelligence Studies"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "German",
-        "Russian"
-      ],
+      "languages": ["German", "Russian"],
       "preferred": [
         "Previous EUCOM or NATO experience",
         "Regional expertise in Europe or Russia",
@@ -14511,30 +12836,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35A"
-      ],
-      "afsc": [
-        "1N0X1",
-        "14N"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["35F", "35A"],
+      "afsc": ["1N0X1", "14N"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "All-Source Analyst",
-        "Intelligence Officer"
-      ]
+      "billetKeywords": ["All-Source Analyst", "Intelligence Officer"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_0f22d247-548",
       "site": "mock_gpt",
@@ -14634,10 +12942,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "MCSA or equivalent"
-      ],
+      "certs": ["CompTIA Security+", "MCSA or equivalent"],
       "licenses": null,
       "required": [
         "3+ years administering Windows Server in production",
@@ -14651,16 +12956,10 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Information Technology",
-          "Computer Science"
-        ],
+        "fields": ["Information Technology", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "PowerShell",
-        "Bash"
-      ],
+      "languages": ["PowerShell", "Bash"],
       "preferred": [
         "Prior EUCOM or NATO support experience",
         "Experience with Ansible or PowerShell DSC",
@@ -14708,28 +13007,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U"
-      ],
-      "afsc": [
-        "3D0X2",
-        "3D0X4"
-      ],
-      "service": [
-        "Army",
-        "AirForce"
-      ],
+      "mos": ["25B", "25U"],
+      "afsc": ["3D0X2", "3D0X4"],
+      "service": ["Army", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "System Administrator",
-        "Network Operations"
-      ]
+      "billetKeywords": ["System Administrator", "Network Operations"]
     },
-    "domain_tags": [
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_13b26b02-ee4",
       "site": "mock_gpt",
@@ -14845,15 +13129,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Systems Engineering",
-          "Electrical Engineering"
-        ],
+        "fields": ["Systems Engineering", "Electrical Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "Prior AEGIS or BMD program experience",
         "INCOSE certification or similar credential",
@@ -14878,14 +13157,7 @@
       "Mentor and guide junior engineering staff",
       "Provide on-call technical support during exercises"
     ],
-    "tools_tech": [
-      "DOORS",
-      "MATLAB",
-      "Linux",
-      "Windows",
-      "JIRA",
-      "Confluence"
-    ],
+    "tools_tech": ["DOORS", "MATLAB", "Linux", "Windows", "JIRA", "Confluence"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -14902,19 +13174,11 @@
     "military_mapping": {
       "mos": [],
       "afsc": [],
-      "service": [
-        "Navy"
-      ],
+      "service": ["Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "AEGIS",
-        "Combat Systems Engineer"
-      ]
+      "billetKeywords": ["AEGIS", "Combat Systems Engineer"]
     },
-    "domain_tags": [
-      "IT",
-      "ISR"
-    ],
+    "domain_tags": ["IT", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_14e00d58-983",
       "site": "mock_gpt",
@@ -15032,15 +13296,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Systems Engineering",
-          "Electrical Engineering"
-        ],
+        "fields": ["Systems Engineering", "Electrical Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "AEGIS or AEGIS Ashore experience",
         "INCOSE certification or equivalent",
@@ -15089,21 +13348,11 @@
     "military_mapping": {
       "mos": null,
       "afsc": null,
-      "service": [
-        "Navy",
-        "Army",
-        "AirForce"
-      ],
+      "service": ["Navy", "Army", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Systems Engineer",
-        "Air Defense"
-      ]
+      "billetKeywords": ["Systems Engineer", "Air Defense"]
     },
-    "domain_tags": [
-      "IT",
-      "ISR"
-    ],
+    "domain_tags": ["IT", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_14e29329-4b0",
       "site": "mock_gpt",
@@ -15205,10 +13454,7 @@
       "normalizedAnnualUSD": 170000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CCNA"
-      ],
+      "certs": ["CompTIA Security+", "CCNA"],
       "licenses": [],
       "required": [
         "Active Secret clearance and US citizenship",
@@ -15224,15 +13470,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Information Systems",
-          "Computer Engineering"
-        ],
+        "fields": ["Information Systems", "Computer Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python"
-      ],
+      "languages": ["Python"],
       "preferred": [
         "CCNP or higher Cisco certification",
         "Previous Al Udeid or CENTCOM experience",
@@ -15282,29 +13523,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N",
-        "25B"
-      ],
-      "afsc": [
-        "3D1X2"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25N", "25B"],
+      "afsc": ["3D1X2"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Network Engineer",
-        "Network Operations"
-      ]
+      "billetKeywords": ["Network Engineer", "Network Operations"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS",
-      "SATCOM"
-    ],
+    "domain_tags": ["IT", "COMMS", "SATCOM"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_272a8e3a-a42",
       "site": "mock_gpt",
@@ -15408,10 +13633,7 @@
       "normalizedAnnualUSD": 260000
     },
     "qualifications_data": {
-      "certs": [
-        "CCNP",
-        "CCIE"
-      ],
+      "certs": ["CCNP", "CCIE"],
       "licenses": null,
       "required": [
         "10+ years enterprise or service provider networking",
@@ -15480,32 +13702,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N",
-        "25B"
-      ],
-      "afsc": [
-        "3D1X2",
-        "3D0X2"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy",
-        "SpaceForce"
-      ],
+      "mos": ["25N", "25B"],
+      "afsc": ["3D1X2", "3D0X2"],
+      "service": ["AirForce", "Army", "Navy", "SpaceForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Network Architect",
-        "Network Engineer",
-        "J6 Planner"
-      ]
+      "billetKeywords": ["Network Architect", "Network Engineer", "J6 Planner"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "COMMS", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_162df7d1-414",
       "site": "mock_gpt",
@@ -15625,16 +13828,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Korean"
-      ],
+      "languages": ["English", "Korean"],
       "preferred": [
         "Korean language familiarity or DLPT score",
         "Prior assignment in Korea or INDOPACOM",
@@ -15682,21 +13879,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35N",
-        "35S",
-        "35F"
-      ],
-      "afsc": [
-        "1N4X1",
-        "1N0X1"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["35N", "35S", "35F"],
+      "afsc": ["1N4X1", "1N0X1"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
       "billetKeywords": [
         "SIGINT Analyst",
@@ -15704,11 +13889,7 @@
         "Targeting Analyst"
       ]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR",
-      "EW"
-    ],
+    "domain_tags": ["INTEL", "ISR", "EW"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_3110f386-763",
       "site": "mock_gpt",
@@ -15810,10 +13991,7 @@
       "normalizedAnnualUSD": 135000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CompTIA Network+"
-      ],
+      "certs": ["CompTIA Security+", "CompTIA Network+"],
       "licenses": [],
       "required": [
         "3+ years Windows and Linux administration",
@@ -15829,16 +14007,10 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Information Technology",
-          "Computer Science"
-        ],
+        "fields": ["Information Technology", "Computer Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "PowerShell",
-        "Bash"
-      ],
+      "languages": ["PowerShell", "Bash"],
       "preferred": [
         "Experience with VMware vSphere",
         "Familiarity with SCCM or similar tools",
@@ -15889,31 +14061,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B",
-        "25U"
-      ],
-      "afsc": [
-        "3D0X2",
-        "3D0X4"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["25B", "25U"],
+      "afsc": ["3D0X2", "3D0X4"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Systems Administrator",
-        "S6",
-        "G6"
-      ]
+      "billetKeywords": ["Systems Administrator", "S6", "G6"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER"
-    ],
+    "domain_tags": ["IT", "CYBER"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_41857657-6bc",
       "site": "mock_gpt",
@@ -16033,15 +14187,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "Political Science"
-        ],
+        "fields": ["Intelligence Studies", "Political Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "French"
-      ],
+      "languages": ["French"],
       "preferred": [
         "Prior AFRICOM experience",
         "Language skills in French or local dialects",
@@ -16087,30 +14236,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35G"
-      ],
-      "afsc": [
-        "1N1X1",
-        "1N0X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Marines"
-      ],
+      "mos": ["35F", "35G"],
+      "afsc": ["1N1X1", "1N0X1"],
+      "service": ["AirForce", "Army", "Marines"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISR Analyst",
-        "FMV",
-        "All-Source"
-      ]
+      "billetKeywords": ["ISR Analyst", "FMV", "All-Source"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_d9fc66e0-89c",
       "site": "mock_gpt",
@@ -16214,10 +14346,7 @@
       "normalizedAnnualUSD": 230000
     },
     "qualifications_data": {
-      "certs": [
-        "CISSP",
-        "CISM"
-      ],
+      "certs": ["CISSP", "CISM"],
       "licenses": [],
       "required": [
         "8+ years DoD cybersecurity experience",
@@ -16231,15 +14360,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Cybersecurity",
-          "Information Assurance"
-        ],
+        "fields": ["Cybersecurity", "Information Assurance"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English"
-      ],
+      "languages": ["English"],
       "preferred": [
         "CISSP-ISSMP or similar advanced cert",
         "Prior EUCOM or Army Europe experience",
@@ -16286,25 +14410,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25D",
-        "17C"
-      ],
+      "mos": ["25D", "17C"],
       "afsc": [],
-      "service": [
-        "Army"
-      ],
+      "service": ["Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "ISSM",
-        "Cybersecurity Manager"
-      ]
+      "billetKeywords": ["ISSM", "Cybersecurity Manager"]
     },
-    "domain_tags": [
-      "CYBER",
-      "SECURITY",
-      "IT"
-    ],
+    "domain_tags": ["CYBER", "SECURITY", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_1d39badb-030",
       "site": "mock_gpt",
@@ -16406,9 +14518,7 @@
       "normalizedAnnualUSD": 220000
     },
     "qualifications_data": {
-      "certs": [
-        "AWS Solutions Architect – Professional"
-      ],
+      "certs": ["AWS Solutions Architect – Professional"],
       "licenses": null,
       "required": [
         "8+ years systems engineering or cloud architecture",
@@ -16422,15 +14532,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Computer Science",
-          "Information Systems"
-        ],
+        "fields": ["Computer Science", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python"
-      ],
+      "languages": ["Python"],
       "preferred": [
         "AWS Solutions Architect Professional",
         "Prior EUCOM or NATO experience",
@@ -16476,28 +14581,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25B"
-      ],
-      "afsc": [
-        "17D"
-      ],
-      "service": [
-        "AirForce",
-        "SpaceForce",
-        "Army"
-      ],
+      "mos": ["25B"],
+      "afsc": ["17D"],
+      "service": ["AirForce", "SpaceForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Cloud Architect",
-        "Systems Engineer"
-      ]
+      "billetKeywords": ["Cloud Architect", "Systems Engineer"]
     },
-    "domain_tags": [
-      "IT",
-      "CYBER",
-      "SECURITY"
-    ],
+    "domain_tags": ["IT", "CYBER", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_430f1c3b-652",
       "site": "mock_gpt",
@@ -16600,9 +14690,7 @@
       "normalizedAnnualUSD": 155000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Network+"
-      ],
+      "certs": ["CompTIA Network+"],
       "licenses": [],
       "required": [
         "3+ years in NOC or network support",
@@ -16618,10 +14706,7 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Information Technology",
-          "Networking"
-        ],
+        "fields": ["Information Technology", "Networking"],
         "acceptsEquivalency": true
       },
       "languages": null,
@@ -16671,27 +14756,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25N"
-      ],
-      "afsc": [
-        "3D1X2"
-      ],
-      "service": [
-        "Navy",
-        "Army",
-        "AirForce"
-      ],
+      "mos": ["25N"],
+      "afsc": ["3D1X2"],
+      "service": ["Navy", "Army", "AirForce"],
       "necOrRating": null,
-      "billetKeywords": [
-        "NOC",
-        "Network Watchstander"
-      ]
+      "billetKeywords": ["NOC", "Network Watchstander"]
     },
-    "domain_tags": [
-      "IT",
-      "COMMS"
-    ],
+    "domain_tags": ["IT", "COMMS"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_71056647-bba",
       "site": "mock_gpt",
@@ -16807,15 +14878,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "Political Science"
-        ],
+        "fields": ["Intelligence Studies", "Political Science"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Japanese"
-      ],
+      "languages": ["Japanese"],
       "preferred": [
         "TS/SCI eligibility or upgrade in progress",
         "Prior intel internship or service experience",
@@ -16842,11 +14908,7 @@
       "Support watch and alert functions as needed",
       "Follow analytic standards and tradecraft"
     ],
-    "tools_tech": [
-      "JWICS tools",
-      "Microsoft Office",
-      "Analyst Notebook"
-    ],
+    "tools_tech": ["JWICS tools", "Microsoft Office", "Analyst Notebook"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -16861,27 +14923,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F"
-      ],
-      "afsc": [
-        "1N0X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["35F"],
+      "afsc": ["1N0X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Intel Analyst",
-        "Intelligence Specialist"
-      ]
+      "billetKeywords": ["Intel Analyst", "Intelligence Specialist"]
     },
-    "domain_tags": [
-      "INTEL",
-      "ISR"
-    ],
+    "domain_tags": ["INTEL", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_225abfca-29f",
       "site": "mock_gpt",
@@ -16986,12 +15034,7 @@
       "normalizedAnnualUSD": 185000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+",
-        "CISSP",
-        "GCIH",
-        "GCIA"
-      ],
+      "certs": ["CompTIA Security+", "CISSP", "GCIH", "GCIA"],
       "licenses": [],
       "required": [
         "Active TS/SCI and US citizenship",
@@ -17014,11 +15057,7 @@
         ],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "Python",
-        "PowerShell"
-      ],
+      "languages": ["English", "Python", "PowerShell"],
       "preferred": [
         "Prior CENTCOM or contingency deployment",
         "CISSP, GCIA, GCED, or GCIH certification",
@@ -17077,21 +15116,9 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C",
-        "25D",
-        "35Q"
-      ],
-      "afsc": [
-        "1B4X1",
-        "3D0X3"
-      ],
-      "service": [
-        "Army",
-        "AirForce",
-        "Navy",
-        "Marines"
-      ],
+      "mos": ["17C", "25D", "35Q"],
+      "afsc": ["1B4X1", "3D0X3"],
+      "service": ["Army", "AirForce", "Navy", "Marines"],
       "necOrRating": null,
       "billetKeywords": [
         "Cyber Network Defender",
@@ -17100,12 +15127,7 @@
         "Information Assurance"
       ]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY",
-      "ISR"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_38d2dbef-d01",
       "site": "mock_gpt",
@@ -17223,15 +15245,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Intelligence Studies",
-          "International Relations"
-        ],
+        "fields": ["Intelligence Studies", "International Relations"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Korean"
-      ],
+      "languages": ["Korean"],
       "preferred": [
         "Prior Korea AOR or USFK experience",
         "Formal collection manager training",
@@ -17258,12 +15275,7 @@
       "Support crisis and contingency operations",
       "Update databases and tracking tools"
     ],
-    "tools_tech": [
-      "PRISM",
-      "GEOINT tools",
-      "JWICS apps",
-      "Microsoft Office"
-    ],
+    "tools_tech": ["PRISM", "GEOINT tools", "JWICS apps", "Microsoft Office"],
     "compliance_data": {
       "itar": true,
       "drugTest": true,
@@ -17278,29 +15290,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "35F",
-        "35G"
-      ],
-      "afsc": [
-        "1N0X1",
-        "1N1X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["35F", "35G"],
+      "afsc": ["1N0X1", "1N1X1"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Collection Manager",
-        "ISR Planner"
-      ]
+      "billetKeywords": ["Collection Manager", "ISR Planner"]
     },
-    "domain_tags": [
-      "ISR",
-      "INTEL"
-    ],
+    "domain_tags": ["ISR", "INTEL"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_2928c270-68c",
       "site": "mock_gpt",
@@ -17419,16 +15415,10 @@
       ],
       "education": {
         "level": "BACHELOR",
-        "fields": [
-          "Electrical Engineering",
-          "RF Engineering"
-        ],
+        "fields": ["Electrical Engineering", "RF Engineering"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "English",
-        "MATLAB"
-      ],
+      "languages": ["English", "MATLAB"],
       "preferred": [
         "Prior military or DoD RF experience",
         "Experience with EW or SIGINT systems",
@@ -17477,24 +15467,12 @@
     },
     "military_mapping": {
       "mos": [],
-      "afsc": [
-        "3D1X3"
-      ],
-      "service": [
-        "AirForce",
-        "Navy"
-      ],
+      "afsc": ["3D1X3"],
+      "service": ["AirForce", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "Spectrum Manager",
-        "RF Engineer"
-      ]
+      "billetKeywords": ["Spectrum Manager", "RF Engineer"]
     },
-    "domain_tags": [
-      "EW",
-      "COMMS",
-      "ISR"
-    ],
+    "domain_tags": ["EW", "COMMS", "ISR"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_3dbdc1de-e4c",
       "site": "mock_gpt",
@@ -17594,9 +15572,7 @@
       "normalizedAnnualUSD": 140000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Security+"
-      ],
+      "certs": ["CompTIA Security+"],
       "licenses": null,
       "required": [
         "3+ years working in a SOC or cyber defense role",
@@ -17610,15 +15586,10 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Cybersecurity",
-          "Information Systems"
-        ],
+        "fields": ["Cybersecurity", "Information Systems"],
         "acceptsEquivalency": true
       },
-      "languages": [
-        "Python"
-      ],
+      "languages": ["Python"],
       "preferred": [
         "Experience supporting INDOPACOM or PACAF",
         "Scripting skills for automation (Python)",
@@ -17664,27 +15635,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "17C"
-      ],
-      "afsc": [
-        "1B4X1"
-      ],
-      "service": [
-        "AirForce",
-        "Army"
-      ],
+      "mos": ["17C"],
+      "afsc": ["1B4X1"],
+      "service": ["AirForce", "Army"],
       "necOrRating": null,
-      "billetKeywords": [
-        "SOC Analyst",
-        "Cyber Defense"
-      ]
+      "billetKeywords": ["SOC Analyst", "Cyber Defense"]
     },
-    "domain_tags": [
-      "CYBER",
-      "IT",
-      "SECURITY"
-    ],
+    "domain_tags": ["CYBER", "IT", "SECURITY"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_5474bb40-a0f",
       "site": "mock_gpt",
@@ -17784,10 +15741,7 @@
       "normalizedAnnualUSD": 165000
     },
     "qualifications_data": {
-      "certs": [
-        "CompTIA Network+",
-        "GMDSS maintainer"
-      ],
+      "certs": ["CompTIA Network+", "GMDSS maintainer"],
       "licenses": [],
       "required": [
         "4+ years SATCOM or RF engineering experience",
@@ -17801,10 +15755,7 @@
       ],
       "education": {
         "level": "ASSOCIATE",
-        "fields": [
-          "Electronics",
-          "Telecommunications"
-        ],
+        "fields": ["Electronics", "Telecommunications"],
         "acceptsEquivalency": true
       },
       "languages": [],
@@ -17853,28 +15804,13 @@
       "validThrough": null
     },
     "military_mapping": {
-      "mos": [
-        "25S"
-      ],
-      "afsc": [
-        "3D1X2"
-      ],
-      "service": [
-        "AirForce",
-        "Army",
-        "Navy"
-      ],
+      "mos": ["25S"],
+      "afsc": ["3D1X2"],
+      "service": ["AirForce", "Army", "Navy"],
       "necOrRating": null,
-      "billetKeywords": [
-        "SATCOM Technician",
-        "SATCOM Engineer"
-      ]
+      "billetKeywords": ["SATCOM Technician", "SATCOM Engineer"]
     },
-    "domain_tags": [
-      "SATCOM",
-      "COMMS",
-      "IT"
-    ],
+    "domain_tags": ["SATCOM", "COMMS", "IT"],
     "source_data": {
       "url": "https://mock.military.contractors/jobs/mock_40cb0810-1ff",
       "site": "mock_gpt",

@@ -1,9 +1,9 @@
-import type { ClassValue } from "clsx"
-import { clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import type { ClassValue } from "clsx";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 /**
@@ -12,7 +12,7 @@ export function cn(...inputs: ClassValue[]) {
  * @returns Full path like "/jobs/senior-engineer-booz-allen-washington-dc"
  */
 export function getJobUrl(slug: string): string {
-  return `/jobs/${slug}`
+  return `/jobs/${slug}`;
 }
 
 /**
@@ -22,5 +22,5 @@ export function getJobUrl(slug: string): string {
  * @returns Display format (e.g., "TS/SCI", "TOP SECRET")
  */
 export function formatClearance(level: string): string {
-  return level.replace(/_/g, '/')
+  return level.replace(/_/g, "/");
 }

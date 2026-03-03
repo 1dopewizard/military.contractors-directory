@@ -1,25 +1,27 @@
 <script setup lang="ts">
-import type { WithClassAsProps } from "./interface"
-import { ArrowRight } from "lucide-vue-next"
-import { cn } from '@/app/lib/utils'
-import { Button } from '@/app/components/ui/button'
-import { useCarousel } from "./useCarousel"
+import type { WithClassAsProps } from "./interface";
+import { ArrowRight } from "lucide-vue-next";
+import { cn } from "@/app/lib/utils";
+import { Button } from "@/app/components/ui/button";
+import { useCarousel } from "./useCarousel";
 
-const props = defineProps<WithClassAsProps>()
+const props = defineProps<WithClassAsProps>();
 
-const { orientation, canScrollNext, scrollNext } = useCarousel()
+const { orientation, canScrollNext, scrollNext } = useCarousel();
 </script>
 
 <template>
   <Button
     :disabled="!canScrollNext"
-    :class="cn(
-      'touch-manipulation absolute h-8 w-8 rounded-full p-0',
-      orientation === 'horizontal'
-        ? '-right-12 top-1/2 -translate-y-1/2'
-        : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
-      props.class,
-    )"
+    :class="
+      cn(
+        'absolute h-8 w-8 touch-manipulation rounded-full p-0',
+        orientation === 'horizontal'
+          ? 'top-1/2 -right-12 -translate-y-1/2'
+          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+        props.class,
+      )
+    "
     variant="ghost"
     @click="scrollNext"
   >

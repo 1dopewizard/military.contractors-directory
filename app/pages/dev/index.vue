@@ -11,77 +11,99 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/app/components/ui/breadcrumb'
+} from "@/app/components/ui/breadcrumb";
 
-type DevView = 
-  | 'scraped-jobs'
-  | 'logo-test'
-  | 'logo-listings'
-  | 'lockheed-company'
-  | 'job-details'
-  | 'chat-attachments'
-  | 'chat-attachments-append'
-  | 'chat-messages'
-  | 'chat-request'
-  | 'chat-tools'
-  | 'use-object'
+type DevView =
+  | "scraped-jobs"
+  | "logo-test"
+  | "logo-listings"
+  | "lockheed-company"
+  | "job-details"
+  | "chat-attachments"
+  | "chat-attachments-append"
+  | "chat-messages"
+  | "chat-request"
+  | "chat-tools"
+  | "use-object";
 
 interface NavItem {
-  id: DevView
-  label: string
-  icon: string
+  id: DevView;
+  label: string;
+  icon: string;
 }
 
 interface NavGroup {
-  title: string
-  items: NavItem[]
+  title: string;
+  items: NavItem[];
 }
 
-
-
 useHead({
-  title: 'Dev - Development Tools',
+  title: "Dev - Development Tools",
   meta: [
     {
-      name: 'description',
-      content: 'Development page for testing various components and features'
-    }
-  ]
-})
+      name: "description",
+      content: "Development page for testing various components and features",
+    },
+  ],
+});
 
-const activeView = ref<DevView>('scraped-jobs')
+const activeView = ref<DevView>("scraped-jobs");
 
 const navGroups: NavGroup[] = [
   {
-    title: 'Components',
+    title: "Components",
     items: [
-      { id: 'scraped-jobs', label: 'Scraped Jobs', icon: 'mdi:briefcase-search' },
-      { id: 'logo-test', label: 'Logo Test', icon: 'mdi:image-outline' },
-      { id: 'logo-listings', label: 'Logo Listings', icon: 'mdi:briefcase-outline' },
-      { id: 'lockheed-company', label: 'Lockheed Martin Page', icon: 'mdi:airplane' },
-      { id: 'job-details', label: 'Job Details Page', icon: 'mdi:file-document-outline' }
-    ]
+      {
+        id: "scraped-jobs",
+        label: "Scraped Jobs",
+        icon: "mdi:briefcase-search",
+      },
+      { id: "logo-test", label: "Logo Test", icon: "mdi:image-outline" },
+      {
+        id: "logo-listings",
+        label: "Logo Listings",
+        icon: "mdi:briefcase-outline",
+      },
+      {
+        id: "lockheed-company",
+        label: "Lockheed Martin Page",
+        icon: "mdi:airplane",
+      },
+      {
+        id: "job-details",
+        label: "Job Details Page",
+        icon: "mdi:file-document-outline",
+      },
+    ],
   },
   {
-    title: 'AI SDK Components',
+    title: "AI SDK Components",
     items: [
-      { id: 'chat-attachments', label: 'Chat Attachments', icon: 'mdi:attachment' },
-      { id: 'chat-attachments-append', label: 'Chat Attachments Append', icon: 'mdi:attachment-plus' },
-      { id: 'chat-messages', label: 'Chat Messages', icon: 'mdi:message-text' },
-      { id: 'chat-request', label: 'Chat Request', icon: 'mdi:send' },
-      { id: 'chat-tools', label: 'Chat Tools', icon: 'mdi:tools' },
-      { id: 'use-object', label: 'Use Object', icon: 'mdi:code-json' }
-    ]
-  }
-]
+      {
+        id: "chat-attachments",
+        label: "Chat Attachments",
+        icon: "mdi:attachment",
+      },
+      {
+        id: "chat-attachments-append",
+        label: "Chat Attachments Append",
+        icon: "mdi:attachment-plus",
+      },
+      { id: "chat-messages", label: "Chat Messages", icon: "mdi:message-text" },
+      { id: "chat-request", label: "Chat Request", icon: "mdi:send" },
+      { id: "chat-tools", label: "Chat Tools", icon: "mdi:tools" },
+      { id: "use-object", label: "Use Object", icon: "mdi:code-json" },
+    ],
+  },
+];
 
 const activeLabel = computed(() => {
   for (const group of navGroups) {
-    const item = group.items.find(i => i.id === activeView.value)
-    if (item) return item.label
+    const item = group.items.find((i) => i.id === activeView.value);
+    if (item) return item.label;
   }
-  return 'Select Component'
-})
+  return "Select Component";
+});
 </script>
 
 <template>
@@ -89,7 +111,7 @@ const activeLabel = computed(() => {
     <PageHeader padding="py-8">
       <!-- Breadcrumbs -->
       <Breadcrumb class="mb-8">
-        <BreadcrumbList class="text-xs font-mono uppercase tracking-wider">
+        <BreadcrumbList class="font-mono text-xs tracking-wider uppercase">
           <BreadcrumbItem>
             <BreadcrumbLink as-child>
               <NuxtLink to="/">Home</NuxtLink>
@@ -104,26 +126,35 @@ const activeLabel = computed(() => {
 
       <!-- Header Section -->
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-primary/5 text-primary text-[10px] font-mono font-bold uppercase tracking-widest mb-4 border border-primary/20">
-          <div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+        <div
+          class="bg-primary/5 text-primary border-primary/20 mb-4 inline-flex items-center gap-2 rounded-md border px-2.5 py-1 font-mono text-[10px] font-bold tracking-widest uppercase"
+        >
+          <div class="bg-primary h-1.5 w-1.5 animate-pulse rounded-full"></div>
           Developer Portal
         </div>
-        
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4 font-mono">
+
+        <h1
+          class="text-foreground mb-4 font-mono text-3xl font-bold tracking-tight md:text-4xl"
+        >
           COMPONENT PLAYGROUND
         </h1>
-        
-        <p class="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-          Test and validate UI components, API integrations, and experimental features.
+
+        <p class="text-muted-foreground max-w-2xl text-lg leading-relaxed">
+          Test and validate UI components, API integrations, and experimental
+          features.
         </p>
       </div>
     </PageHeader>
 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-8 -mt-8 relative z-20">
+    <div
+      class="relative z-20 container mx-auto -mt-8 max-w-7xl px-4 py-8 sm:px-6 lg:px-8"
+    >
       <div class="space-y-6">
         <!-- Component Selector -->
         <div class="flex items-center gap-4">
-          <label class="text-xs font-bold uppercase tracking-widest text-muted-foreground font-mono shrink-0">
+          <label
+            class="text-muted-foreground shrink-0 font-mono text-xs font-bold tracking-widest uppercase"
+          >
             Component
           </label>
           <Select v-model="activeView">
@@ -131,11 +162,14 @@ const activeLabel = computed(() => {
               <SelectValue :placeholder="activeLabel" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup v-for="(group, index) in navGroups" :key="group.title">
+              <SelectGroup
+                v-for="(group, index) in navGroups"
+                :key="group.title"
+              >
                 <SelectLabel>{{ group.title }}</SelectLabel>
-                <SelectItem 
-                  v-for="item in group.items" 
-                  :key="item.id" 
+                <SelectItem
+                  v-for="item in group.items"
+                  :key="item.id"
                   :value="item.id"
                 >
                   <div class="flex items-center gap-2">
@@ -143,7 +177,10 @@ const activeLabel = computed(() => {
                     <span>{{ item.label }}</span>
                   </div>
                 </SelectItem>
-                <SelectSeparator v-if="index < navGroups.length - 1" class="my-1" />
+                <SelectSeparator
+                  v-if="index < navGroups.length - 1"
+                  class="my-1"
+                />
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -156,7 +193,9 @@ const activeLabel = computed(() => {
         <LockheedMartinPage v-else-if="activeView === 'lockheed-company'" />
         <JobDetailsPage v-else-if="activeView === 'job-details'" />
         <ChatAttachments v-else-if="activeView === 'chat-attachments'" />
-        <ChatAttachmentsAppend v-else-if="activeView === 'chat-attachments-append'" />
+        <ChatAttachmentsAppend
+          v-else-if="activeView === 'chat-attachments-append'"
+        />
         <ChatMessages v-else-if="activeView === 'chat-messages'" />
         <ChatRequest v-else-if="activeView === 'chat-request'" />
         <ChatTools v-else-if="activeView === 'chat-tools'" />

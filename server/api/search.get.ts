@@ -3,36 +3,36 @@
  * @description Simple contractor search endpoint
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { and, or, like, desc, asc, sql } from 'drizzle-orm'
+import { getDb, schema } from "@/server/utils/db";
+import { and, or, like, desc, asc, sql } from "drizzle-orm";
 
-const DEFAULT_LIMIT = 20
-const MAX_LIMIT = 50
+const DEFAULT_LIMIT = 20;
+const MAX_LIMIT = 50;
 
 export default defineEventHandler(async (event) => {
-  const query = getQuery(event)
-  const q = (query.q as string || '').trim()
+  const query = getQuery(event);
+  const q = ((query.q as string) || "").trim();
 
-  const limit = Math.min(Number(query.limit) || DEFAULT_LIMIT, MAX_LIMIT)
-  const offset = Number(query.offset) || 0
-  const sort = (query.sort as string) || 'rank'
+  const limit = Math.min(Number(query.limit) || DEFAULT_LIMIT, MAX_LIMIT);
+  const offset = Number(query.offset) || 0;
+  const sort = (query.sort as string) || "rank";
 
-  const db = getDb()
+  const db = getDb();
 
   try {
     // Build contractor search query
-    const conditions = []
-    
+    const conditions = [];
+
     if (q) {
-      const searchPattern = `%${q}%`
+      const searchPattern = `%${q}%`;
       conditions.push(
         or(
           like(schema.contractor.name, searchPattern),
           like(schema.contractor.slug, searchPattern),
           like(schema.contractor.description, searchPattern),
-          like(schema.contractor.headquarters, searchPattern)
-        )!
-      )
+          like(schema.contractor.headquarters, searchPattern),
+        )!,
+      );
     }
 
     const contractors = await db
@@ -40,20 +40,20 @@ export default defineEventHandler(async (event) => {
       .from(schema.contractor)
       .where(conditions.length > 0 ? and(...conditions) : undefined)
       .orderBy(
-        sort === 'name' 
-          ? asc(schema.contractor.name) 
-          : asc(schema.contractor.defenseNewsRank)
+        sort === "name"
+          ? asc(schema.contractor.name)
+          : asc(schema.contractor.defenseNewsRank),
       )
       .limit(limit)
-      .offset(offset)
+      .offset(offset);
 
     // Count total results
     const [countResult] = await db
       .select({ count: sql<number>`count(*)` })
       .from(schema.contractor)
-      .where(conditions.length > 0 ? and(...conditions) : undefined)
-    
-    const totalCount = countResult?.count ?? 0
+      .where(conditions.length > 0 ? and(...conditions) : undefined);
+
+    const totalCount = countResult?.count ?? 0;
 
     return {
       query: q,
@@ -76,15 +76,16 @@ export default defineEventHandler(async (event) => {
         total: totalCount,
         has_more: offset + limit < totalCount,
       },
-      message: contractors.length === 0 && q 
-        ? `No contractors found for "${q}". Try a different search term.`
-        : undefined,
-    }
+      message:
+        contractors.length === 0 && q
+          ? `No contractors found for "${q}". Try a different search term.`
+          : undefined,
+    };
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error'
+    const message = error instanceof Error ? error.message : "Unknown error";
     throw createError({
       statusCode: 500,
       message: `Search error: ${message}`,
-    })
+    });
   }
-})
+});

@@ -4,31 +4,33 @@
  * @description Creates or updates a program for the company's profile
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, and } from 'drizzle-orm'
-import { requireAuth } from '@/server/utils/better-auth'
-import { z } from 'zod'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, and } from "drizzle-orm";
+import { requireAuth } from "@/server/utils/better-auth";
+import { z } from "zod";
 
 const programSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().min(1).max(100),
   category: z.string().max(50).optional(),
   description: z.string().max(200).optional(),
-  imageUrl: z.string().url().optional().or(z.literal('')),
+  imageUrl: z.string().url().optional().or(z.literal("")),
   sortOrder: z.number().int().min(0).max(10).default(0),
-})
+});
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-  const db = getDb()
-  const body = await readBody(event)
+  const user = await requireAuth(event);
+  const db = getDb();
+  const body = await readBody(event);
 
-  const parsed = programSchema.safeParse(body)
+  const parsed = programSchema.safeParse(body);
   if (!parsed.success) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Invalid input: ' + parsed.error.issues.map(i => i.message).join(', '),
-    })
+      statusMessage:
+        "Invalid input: " +
+        parsed.error.issues.map((i) => i.message).join(", "),
+    });
   }
 
   // Find claimed profile
@@ -38,27 +40,27 @@ export default defineEventHandler(async (event) => {
     .where(
       and(
         eq(schema.claimedProfile.userId, user.id),
-        eq(schema.claimedProfile.status, 'active')
-      )
+        eq(schema.claimedProfile.status, "active"),
+      ),
     )
-    .limit(1)
+    .limit(1);
 
-  let profileId = claimedProfile?.id
+  let profileId = claimedProfile?.id;
 
   if (!profileId) {
     const [contractorAccess] = await db
       .select()
       .from(schema.contractorUser)
       .where(eq(schema.contractorUser.userId, user.id))
-      .limit(1)
+      .limit(1);
 
-    if (!contractorAccess || contractorAccess.role === 'editor') {
+    if (!contractorAccess || contractorAccess.role === "editor") {
       throw createError({
         statusCode: 403,
-        statusMessage: 'You do not have permission to manage programs',
-      })
+        statusMessage: "You do not have permission to manage programs",
+      });
     }
-    profileId = contractorAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId;
   }
 
   if (parsed.data.id) {
@@ -76,11 +78,11 @@ export default defineEventHandler(async (event) => {
       .where(
         and(
           eq(schema.contractorProgram.id, parsed.data.id),
-          eq(schema.contractorProgram.claimedProfileId, profileId)
-        )
-      )
+          eq(schema.contractorProgram.claimedProfileId, profileId),
+        ),
+      );
 
-    return { success: true, id: parsed.data.id }
+    return { success: true, id: parsed.data.id };
   }
 
   // Create new program
@@ -94,7 +96,7 @@ export default defineEventHandler(async (event) => {
       imageUrl: parsed.data.imageUrl || null,
       sortOrder: parsed.data.sortOrder,
     })
-    .returning({ id: schema.contractorProgram.id })
+    .returning({ id: schema.contractorProgram.id });
 
-  return { success: true, id: newProgram?.id }
-})
+  return { success: true, id: newProgram?.id };
+});

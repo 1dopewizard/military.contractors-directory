@@ -4,8 +4,7 @@
   Search functionality has been moved to the global header omnibar.
 -->
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <PageHeader padding="pt-8 pb-4">

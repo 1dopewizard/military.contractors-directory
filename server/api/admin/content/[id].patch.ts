@@ -4,35 +4,35 @@
  * @description Admin action to approve or reject sponsored content
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq } from 'drizzle-orm'
-import { requireAdmin } from '@/server/utils/better-auth'
-import { z } from 'zod'
+import { getDb, schema } from "@/server/utils/db";
+import { eq } from "drizzle-orm";
+import { requireAdmin } from "@/server/utils/better-auth";
+import { z } from "zod";
 
 const actionSchema = z.object({
-  action: z.enum(['approve', 'reject']),
+  action: z.enum(["approve", "reject"]),
   reason: z.string().optional(),
-})
+});
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAdmin(event)
-  const db = getDb()
-  const contentId = getRouterParam(event, 'id')
-  const body = await readBody(event)
+  const user = await requireAdmin(event);
+  const db = getDb();
+  const contentId = getRouterParam(event, "id");
+  const body = await readBody(event);
 
   if (!contentId) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Content ID is required',
-    })
+      statusMessage: "Content ID is required",
+    });
   }
 
-  const parsed = actionSchema.safeParse(body)
+  const parsed = actionSchema.safeParse(body);
   if (!parsed.success) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Invalid input',
-    })
+      statusMessage: "Invalid input",
+    });
   }
 
   // Get the content
@@ -40,46 +40,46 @@ export default defineEventHandler(async (event) => {
     .select()
     .from(schema.sponsoredContent)
     .where(eq(schema.sponsoredContent.id, contentId))
-    .limit(1)
+    .limit(1);
 
   if (!content) {
     throw createError({
       statusCode: 404,
-      statusMessage: 'Content not found',
-    })
+      statusMessage: "Content not found",
+    });
   }
 
-  if (content.status !== 'pending_review') {
+  if (content.status !== "pending_review") {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Content has already been reviewed',
-    })
+      statusMessage: "Content has already been reviewed",
+    });
   }
 
-  if (parsed.data.action === 'approve') {
+  if (parsed.data.action === "approve") {
     await db
       .update(schema.sponsoredContent)
       .set({
-        status: 'approved',
+        status: "approved",
         reviewedBy: user.id,
         reviewedAt: new Date(),
         updatedAt: new Date(),
       })
-      .where(eq(schema.sponsoredContent.id, contentId))
+      .where(eq(schema.sponsoredContent.id, contentId));
 
-    return { success: true, status: 'approved' }
+    return { success: true, status: "approved" };
   } else {
     await db
       .update(schema.sponsoredContent)
       .set({
-        status: 'rejected',
+        status: "rejected",
         reviewedBy: user.id,
         reviewedAt: new Date(),
         rejectionReason: parsed.data.reason || null,
         updatedAt: new Date(),
       })
-      .where(eq(schema.sponsoredContent.id, contentId))
+      .where(eq(schema.sponsoredContent.id, contentId));
 
-    return { success: true, status: 'rejected' }
+    return { success: true, status: "rejected" };
   }
-})
+});

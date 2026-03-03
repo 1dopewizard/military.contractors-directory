@@ -5,47 +5,61 @@
 
 <script setup lang="ts">
 interface Stats {
-  total: number
-  active: number
-  pending: number
-  draft: number
-  totalImpressions: number
-  totalClicks: number
+  total: number;
+  active: number;
+  pending: number;
+  draft: number;
+  totalImpressions: number;
+  totalClicks: number;
 }
 
 interface Props {
-  stats: Stats
-  ctr: string
+  stats: Stats;
+  ctr: string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
 
 <template>
-  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-    <Card class="p-4 bg-transparent border border-transparent">
-      <p class="text-2xl font-bold font-mono text-foreground">{{ stats.total }}</p>
-      <p class="text-xs text-muted-foreground">Total Ads</p>
+  <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+    <Card class="border border-transparent bg-transparent p-4">
+      <p class="text-foreground font-mono text-2xl font-bold">
+        {{ stats.total }}
+      </p>
+      <p class="text-muted-foreground text-xs">Total Ads</p>
     </Card>
-    <Card class="p-4 bg-transparent border border-transparent">
-      <p class="text-2xl font-bold font-mono text-green-600 dark:text-green-400">{{ stats.active }}</p>
-      <p class="text-xs text-muted-foreground">Active</p>
+    <Card class="border border-transparent bg-transparent p-4">
+      <p
+        class="font-mono text-2xl font-bold text-green-600 dark:text-green-400"
+      >
+        {{ stats.active }}
+      </p>
+      <p class="text-muted-foreground text-xs">Active</p>
     </Card>
-    <Card class="p-4 bg-transparent border border-transparent">
-      <p class="text-2xl font-bold font-mono text-amber-600 dark:text-amber-400">{{ stats.pending }}</p>
-      <p class="text-xs text-muted-foreground">Pending</p>
+    <Card class="border border-transparent bg-transparent p-4">
+      <p
+        class="font-mono text-2xl font-bold text-amber-600 dark:text-amber-400"
+      >
+        {{ stats.pending }}
+      </p>
+      <p class="text-muted-foreground text-xs">Pending</p>
     </Card>
-    <Card class="p-4 bg-transparent border border-transparent">
-      <p class="text-2xl font-bold font-mono text-muted-foreground">{{ stats.draft }}</p>
-      <p class="text-xs text-muted-foreground">Drafts</p>
+    <Card class="border border-transparent bg-transparent p-4">
+      <p class="text-muted-foreground font-mono text-2xl font-bold">
+        {{ stats.draft }}
+      </p>
+      <p class="text-muted-foreground text-xs">Drafts</p>
     </Card>
-    <Card class="p-4 bg-transparent border border-transparent">
-      <p class="text-2xl font-bold font-mono text-foreground">{{ stats.totalImpressions.toLocaleString() }}</p>
-      <p class="text-xs text-muted-foreground">Impressions</p>
+    <Card class="border border-transparent bg-transparent p-4">
+      <p class="text-foreground font-mono text-2xl font-bold">
+        {{ stats.totalImpressions.toLocaleString() }}
+      </p>
+      <p class="text-muted-foreground text-xs">Impressions</p>
     </Card>
-    <Card class="p-4 bg-transparent border border-transparent">
-      <p class="text-2xl font-bold font-mono text-primary">{{ ctr }}%</p>
-      <p class="text-xs text-muted-foreground">CTR</p>
+    <Card class="border border-transparent bg-transparent p-4">
+      <p class="text-primary font-mono text-2xl font-bold">{{ ctr }}%</p>
+      <p class="text-muted-foreground text-xs">CTR</p>
     </Card>
   </div>
 </template>

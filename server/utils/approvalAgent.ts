@@ -3,45 +3,51 @@
  * @description LLM-based agent that evaluates job submissions and makes approval decisions
  */
 
-import { createOpenAI } from '@ai-sdk/openai'
-import { generateObject } from 'ai'
-import { z } from 'zod'
+import { createOpenAI } from "@ai-sdk/openai";
+import { generateObject } from "ai";
+import { z } from "zod";
 
 // Agent decision schema
 export const approvalDecisionSchema = z.object({
-  decision: z.enum(['approve', 'soft_approve', 'review']),
+  decision: z.enum(["approve", "soft_approve", "review"]),
   confidence: z.number().min(0).max(100),
-  reasoning: z.string().describe('Human-readable explanation of the decision'),
-  flags: z.array(z.string()).describe('Array of concern flags like unknown_company, no_clearance, generic_description'),
-})
+  reasoning: z.string().describe("Human-readable explanation of the decision"),
+  flags: z
+    .array(z.string())
+    .describe(
+      "Array of concern flags like unknown_company, no_clearance, generic_description",
+    ),
+});
 
-export type ApprovalDecision = z.infer<typeof approvalDecisionSchema>
+export type ApprovalDecision = z.infer<typeof approvalDecisionSchema>;
 
 // Input for the agent
 export interface ApprovalAgentInput {
   job: {
-    title: string
-    company: string
-    location: string
-    location_type?: string | null
-    clearance_required?: string | null
-    clearance_level?: string | null
-    description: string
-    requirements?: string[]
-    salary_min?: number | null
-    salary_max?: number | null
-  }
+    title: string;
+    company: string;
+    location: string;
+    location_type?: string | null;
+    clearance_required?: string | null;
+    clearance_level?: string | null;
+    description: string;
+    requirements?: string[];
+    salary_min?: number | null;
+    salary_max?: number | null;
+  };
   submitter: {
-    name: string
-    email: string
-    company: string
-  }
-  sourceType: 'url' | 'paste'
-  sourceUrl?: string | null
-  knownCompanies: string[]
+    name: string;
+    email: string;
+    company: string;
+  };
+  sourceType: "url" | "paste";
+  sourceUrl?: string | null;
+  knownCompanies: string[];
 }
 
-const buildSystemPrompt = (knownCompanies: string[]) => `You are an approval agent for military.contractors, a job platform for veterans transitioning to defense contractor roles.
+const buildSystemPrompt = (
+  knownCompanies: string[],
+) => `You are an approval agent for military.contractors, a job platform for veterans transitioning to defense contractor roles.
 
 Evaluate job submissions and decide:
 - "approve": Definitely legitimate defense contractor job, auto-publish immediately
@@ -49,7 +55,7 @@ Evaluate job submissions and decide:
 - "review": Uncertain or suspicious, requires human review
 
 ## STRONG APPROVAL SIGNALS (high confidence, 80-100):
-- Company matches known defense contractors: ${knownCompanies.join(', ')}
+- Company matches known defense contractors: ${knownCompanies.join(", ")}
 - Requires TS/SCI or Top Secret clearance
 - Mentions specific programs (F-35, AEGIS, JSOC, SOCOM) or contract vehicles (IDIQ, BPA)
 - Professional job description with specific technical requirements
@@ -79,49 +85,49 @@ Evaluate job submissions and decide:
 
 Always provide clear reasoning for your decision. When uncertain, prefer "soft_approve" over "review" if there are some positive signals.
 
-Output ONLY valid JSON matching the schema.`
+Output ONLY valid JSON matching the schema.`;
 
 export async function runApprovalAgent(
   input: ApprovalAgentInput,
-  openaiApiKey: string
+  openaiApiKey: string,
 ): Promise<ApprovalDecision> {
   const openai = createOpenAI({
     apiKey: openaiApiKey,
-  })
+  });
 
-  const systemPrompt = buildSystemPrompt(input.knownCompanies)
+  const systemPrompt = buildSystemPrompt(input.knownCompanies);
 
   const userPrompt = `Evaluate this job submission:
 
 ## Job Details
 - Title: ${input.job.title}
 - Company: ${input.job.company}
-- Location: ${input.job.location} (${input.job.location_type || 'not specified'})
-- Clearance: ${input.job.clearance_required || input.job.clearance_level || 'not specified'}
-- Salary: ${input.job.salary_min && input.job.salary_max ? `$${input.job.salary_min.toLocaleString()}-$${input.job.salary_max.toLocaleString()}` : 'not specified'}
+- Location: ${input.job.location} (${input.job.location_type || "not specified"})
+- Clearance: ${input.job.clearance_required || input.job.clearance_level || "not specified"}
+- Salary: ${input.job.salary_min && input.job.salary_max ? `$${input.job.salary_min.toLocaleString()}-$${input.job.salary_max.toLocaleString()}` : "not specified"}
 
 ## Description
 ${input.job.description}
 
 ## Requirements
-${input.job.requirements?.slice(0, 5).join('\n- ') || 'not specified'}
+${input.job.requirements?.slice(0, 5).join("\n- ") || "not specified"}
 
 ## Submitter Info
 - Name: ${input.submitter.name}
 - Email: ${input.submitter.email}
 - Company Claimed: ${input.submitter.company}
 - Source Type: ${input.sourceType}
-${input.sourceUrl ? `- Source URL: ${input.sourceUrl}` : ''}
+${input.sourceUrl ? `- Source URL: ${input.sourceUrl}` : ""}
 
-Analyze and provide your approval decision.`
+Analyze and provide your approval decision.`;
 
   const { object } = await generateObject({
-    model: openai('gpt-5.1'),
+    model: openai("gpt-5.1"),
     schema: approvalDecisionSchema,
     system: systemPrompt,
     prompt: userPrompt,
     temperature: 0.3,
-  })
+  });
 
-  return object
+  return object;
 }

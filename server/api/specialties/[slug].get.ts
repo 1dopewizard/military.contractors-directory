@@ -4,20 +4,20 @@
  * @description Returns specialty details with contractors in that specialty
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, asc, desc } from 'drizzle-orm'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, asc, desc } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
-  const slug = getRouterParam(event, 'slug')
+  const slug = getRouterParam(event, "slug");
 
   if (!slug) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Specialty slug is required',
-    })
+      statusMessage: "Specialty slug is required",
+    });
   }
 
-  const db = getDb()
+  const db = getDb();
 
   try {
     // Get specialty by slug
@@ -25,13 +25,13 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(schema.specialty)
       .where(eq(schema.specialty.slug, slug.toLowerCase()))
-      .limit(1)
+      .limit(1);
 
     if (!specialty) {
       throw createError({
         statusCode: 404,
         statusMessage: `Specialty "${slug}" not found`,
-      })
+      });
     }
 
     // Get contractors in this specialty
@@ -53,10 +53,10 @@ export default defineEventHandler(async (event) => {
       .from(schema.contractorSpecialty)
       .innerJoin(
         schema.contractor,
-        eq(schema.contractorSpecialty.contractorId, schema.contractor.id)
+        eq(schema.contractorSpecialty.contractorId, schema.contractor.id),
       )
       .where(eq(schema.contractorSpecialty.specialtyId, specialty.id))
-      .orderBy(asc(schema.contractor.defenseNewsRank))
+      .orderBy(asc(schema.contractor.defenseNewsRank));
 
     // Get related specialties (most common co-occurring specialties)
     const relatedSpecialties = await db
@@ -67,7 +67,7 @@ export default defineEventHandler(async (event) => {
         icon: schema.specialty.icon,
       })
       .from(schema.specialty)
-      .limit(5)
+      .limit(5);
 
     return {
       id: specialty.id,
@@ -80,17 +80,19 @@ export default defineEventHandler(async (event) => {
         isPrimary: cs.isPrimary,
       })),
       contractorCount: contractorSpecialties.length,
-      relatedSpecialties: relatedSpecialties.filter(s => s.id !== specialty.id),
-    }
+      relatedSpecialties: relatedSpecialties.filter(
+        (s) => s.id !== specialty.id,
+      ),
+    };
   } catch (error) {
     if ((error as { statusCode?: number })?.statusCode) {
-      throw error
+      throw error;
     }
 
-    const message = error instanceof Error ? error.message : 'Unknown error'
+    const message = error instanceof Error ? error.message : "Unknown error";
     throw createError({
       statusCode: 500,
       statusMessage: `Failed to fetch specialty: ${message}`,
-    })
+    });
   }
-})
+});

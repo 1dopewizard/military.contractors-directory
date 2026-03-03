@@ -14,7 +14,11 @@
           "clearance_required": "TS/SCI",
           "description": "Lead critical infrastructure protection assessments with TS/SCI clearance. Mentor junior analysts and coordinate with mission partners on defensive posture improvements.",
           "snippet": "TS/SCI + sponsor-ready role focused on critical infrastructure protection.",
-          "requirements": ["TS/SCI eligible", "8570 IAT II", "5+ years cyber defense"],
+          "requirements": [
+            "TS/SCI eligible",
+            "8570 IAT II",
+            "5+ years cyber defense"
+          ],
           "posted_at": "2024-01-15T10:00:00Z",
           "formatted_salary": "$120K - $180K USD",
           "formatted_date": "2 days ago"
@@ -48,7 +52,11 @@
           "clearance_required": "Secret",
           "description": "Oversee international defense portfolio delivery with multinational stakeholders. Own contract execution, risk management, and in-country partner coordination.",
           "snippet": "International assignment with rotational travel and premium allowances.",
-          "requirements": ["Secret clearance", "PMP or DAWIA III", "OCONUS experience"],
+          "requirements": [
+            "Secret clearance",
+            "PMP or DAWIA III",
+            "OCONUS experience"
+          ],
           "posted_at": "2024-01-11T10:00:00Z",
           "formatted_salary": "$150K - $205K USD",
           "formatted_date": "6 days ago"
@@ -65,7 +73,11 @@
           "clearance_required": "Secret",
           "description": "Maintain distributed DoD network enclaves with zero trust tooling. Schedule patch cycles, respond to HBSS events, and support accreditation packages.",
           "snippet": "Remote-friendly role with Security+ and ITIL bonus.",
-          "requirements": ["Security+ CE", "Linux/Windows hardening", "HBSS experience"],
+          "requirements": [
+            "Security+ CE",
+            "Linux/Windows hardening",
+            "HBSS experience"
+          ],
           "posted_at": "2024-01-14T10:00:00Z",
           "formatted_salary": "$82K - $110K USD",
           "formatted_date": "3 days ago"
@@ -82,7 +94,11 @@
           "clearance_required": "TS/SCI",
           "description": "Support intelligence operations with analysis and reporting. TS/SCI with poly required. Work with cutting-edge tools and collaborate with interagency partners.",
           "snippet": "Analytical role supporting national security missions.",
-          "requirements": ["TS/SCI with poly", "Intelligence analysis experience", "Strong analytical skills"],
+          "requirements": [
+            "TS/SCI with poly",
+            "Intelligence analysis experience",
+            "Strong analytical skills"
+          ],
           "posted_at": "2024-01-10T10:00:00Z",
           "formatted_salary": "$100K - $145K USD",
           "formatted_date": "7 days ago"
@@ -104,7 +120,13 @@
         "clearance_required": "TS/SCI",
         "description": "Lead critical infrastructure protection assessments with TS/SCI clearance. Mentor junior analysts and coordinate with mission partners on defensive posture improvements. Drive proactive hunt missions with DHS and interagency stakeholders. Design detection analytics and validation plans for emerging threats. Deliver executive-ready briefings with mission-aligned recommendations.",
         "snippet": "TS/SCI + sponsor-ready role focused on critical infrastructure protection.",
-        "requirements": ["TS/SCI eligible", "8570 IAT II", "5+ years cyber defense", "Experience with MITRE ATT&CK", "Prior DHS or DoD hunt support"],
+        "requirements": [
+          "TS/SCI eligible",
+          "8570 IAT II",
+          "5+ years cyber defense",
+          "Experience with MITRE ATT&CK",
+          "Prior DHS or DoD hunt support"
+        ],
         "responsibilities": [
           "Drive proactive hunt missions with DHS and interagency stakeholders",
           "Design detection analytics and validation plans for emerging threats",
@@ -172,4 +194,3 @@
     }
   }
 }
-

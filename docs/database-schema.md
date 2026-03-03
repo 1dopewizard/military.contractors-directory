@@ -11,7 +11,7 @@ Stores military occupational specialty data scraped from COOL API and official b
 ```sql
 CREATE TABLE mos_codes (
   id                       uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  
+
   -- Core identity
   branch                   text NOT NULL,
   code                     text NOT NULL,
@@ -19,65 +19,65 @@ CREATE TABLE mos_codes (
   rank                     text NOT NULL,
   description              text,
   source_url               text NOT NULL,
-  
+
   -- Classification
   mos_category             text NOT NULL DEFAULT 'UNCLASSIFIED',
   source                   text DEFAULT 'UNKNOWN',
-  
+
   -- LLM Enrichment: Skills & Tools
   core_skills              jsonb DEFAULT '[]',
   tools_platforms          jsonb DEFAULT '[]',
   mission_domains          jsonb DEFAULT '[]',
   environments             jsonb DEFAULT '[]',
-  
+
   -- LLM Enrichment: Career Mapping
   civilian_roles           jsonb DEFAULT '[]',
   role_families            jsonb DEFAULT '[]',
   company_archetypes       jsonb DEFAULT '[]',
-  
+
   -- LLM Enrichment: Profiles
   clearance_profile        jsonb,
   deployment_profile       jsonb,
   seniority_distribution   jsonb,
   pay_band_hint            text,
-  
+
   -- LLM Enrichment: Certifications
   common_certs             jsonb DEFAULT '[]',
   training_paths           jsonb,
-  
+
   -- LLM Enrichment: Summary
   summarized_description   text,
-  
+
   -- Computed stats (updated by job mapping pipeline)
   job_count_total          integer DEFAULT 0,
   job_count_oconus         integer DEFAULT 0,
   job_count_conus          integer DEFAULT 0,
-  
+
   -- Enrichment metadata
   enrichment_version       integer DEFAULT 0,
   last_enriched_at         timestamptz,
   embedding                vector(1536),
-  
+
   created_at               timestamptz NOT NULL DEFAULT now(),
   updated_at               timestamptz NOT NULL DEFAULT now(),
-  
+
   UNIQUE (branch, code)
 );
 ```
 
 ### `mos_category` Vocabulary
 
-| Value | Description |
-|-------|-------------|
-| `IT_CYBER` | IT, cybersecurity, signals, networks, comms |
-| `INTELLIGENCE` | Intel analysis, SIGINT, counterintel |
-| `LOGISTICS` | Supply chain, transportation |
-| `MEDICAL` | Healthcare, medical services |
-| `AVIATION` | Flight ops, aircraft maintenance |
-| `COMBAT` | Infantry, armor, artillery |
-| `ENGINEERING` | Construction, utilities, EOD |
-| `SUPPORT` | Admin, legal, finance, HR |
-| `UNCLASSIFIED` | Default for uncategorized MOS codes |
+| Value          | Description                                 |
+| -------------- | ------------------------------------------- |
+| `IT_CYBER`     | IT, cybersecurity, signals, networks, comms |
+| `INTELLIGENCE` | Intel analysis, SIGINT, counterintel        |
+| `LOGISTICS`    | Supply chain, transportation                |
+| `MEDICAL`      | Healthcare, medical services                |
+| `AVIATION`     | Flight ops, aircraft maintenance            |
+| `COMBAT`       | Infantry, armor, artillery                  |
+| `ENGINEERING`  | Construction, utilities, EOD                |
+| `SUPPORT`      | Admin, legal, finance, HR                   |
+| `UNCLASSIFIED` | Default for uncategorized MOS codes         |
 
 ### `companies` Table
 
@@ -118,25 +118,25 @@ CREATE TABLE jobs (
   company_id           uuid REFERENCES companies(id),
   description          text NOT NULL,
   snippet              text,
-  
+
   -- Location
   location             text NOT NULL,
   location_type        text,           -- 'CONUS', 'OCONUS', 'Remote', 'Hybrid'
   theater              text,           -- 'CENTCOM', 'EUCOM', etc.
   is_oconus            boolean,
   location_data        jsonb,          -- Structured location details
-  
+
   -- Compensation
   salary_min           integer,
   salary_max           integer,
   currency             text DEFAULT 'USD',
   compensation_data    jsonb,          -- Full compensation details
-  
+
   -- Clearance
   clearance_required   text,
   clearance_data       jsonb,          -- Detailed clearance requirements
   sponsor_category     text DEFAULT 'NOT_SPECIFIED',
-  
+
   -- Job Details
   requirements         text[],
   seniority            text,
@@ -148,30 +148,30 @@ CREATE TABLE jobs (
   compliance_data      jsonb,          -- Compliance requirements
   domain_tags          jsonb,          -- Domain classifications
   military_mapping     jsonb,          -- MOS mapping hints from source
-  
+
   -- Source tracking
   source_site          text,
   external_id          text,
   source_data          jsonb,          -- Raw source metadata
   posting_data         jsonb,          -- Posted/expires dates
   employer_data        jsonb,          -- Employer info from source
-  
+
   -- Status
   status               text DEFAULT 'PENDING_REVIEW',
   is_active            boolean DEFAULT true,
   featured             boolean DEFAULT false,
   posted_at            timestamptz DEFAULT now(),
   expires_at           timestamptz,
-  
+
   -- Ownership
   created_by           uuid,
-  
+
   -- AI fields
   embedding            vector(1536),
-  
+
   created_at           timestamptz DEFAULT now(),
   updated_at           timestamptz DEFAULT now(),
-  
+
   UNIQUE (source_site, external_id)
 );
 ```

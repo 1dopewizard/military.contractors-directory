@@ -21,11 +21,7 @@
     "embedding": null,
     "matched_mos_codes": [],
     "priority": 1,
-    "industries": [
-      "Defense",
-      "Intelligence",
-      "Cyber"
-    ]
+    "industries": ["Defense", "Intelligence", "Cyber"]
   },
   {
     "id": "79d0351c-d783-4bb9-93d3-d4d72a308a3d",
@@ -49,10 +45,7 @@
     "embedding": null,
     "matched_mos_codes": [],
     "priority": 1,
-    "industries": [
-      "Defense",
-      "Engineering"
-    ]
+    "industries": ["Defense", "Engineering"]
   },
   {
     "id": "d04e5f25-e28e-4749-91c7-1d5b40f57ea8",
@@ -76,11 +69,7 @@
     "embedding": null,
     "matched_mos_codes": [],
     "priority": 1,
-    "industries": [
-      "Defense",
-      "IT Services",
-      "Cyber"
-    ]
+    "industries": ["Defense", "IT Services", "Cyber"]
   },
   {
     "id": "d5738865-26af-485b-a173-3dbfc96f0fb9",
@@ -104,11 +93,7 @@
     "embedding": null,
     "matched_mos_codes": [],
     "priority": 1,
-    "industries": [
-      "Defense",
-      "Intelligence",
-      "IT Services"
-    ]
+    "industries": ["Defense", "Intelligence", "IT Services"]
   },
   {
     "id": "0cf41a92-066f-4c74-89e7-454f8f542141",
@@ -132,9 +117,6 @@
     "embedding": null,
     "matched_mos_codes": [],
     "priority": 1,
-    "industries": [
-      "Cyber",
-      "Training"
-    ]
+    "industries": ["Cyber", "Training"]
   }
 ]

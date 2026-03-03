@@ -4,39 +4,39 @@
  * @description Create a new HR/contractor contact (admin or recruiter) (Drizzle-backed)
  */
 
-import { z } from 'zod'
-import { requireAdminOrRecruiter } from '@/server/utils/better-auth'
-import { getDb, schema } from '@/server/utils/db'
-import { randomUUID } from 'crypto'
+import { z } from "zod";
+import { requireAdminOrRecruiter } from "@/server/utils/better-auth";
+import { getDb, schema } from "@/server/utils/db";
+import { randomUUID } from "crypto";
 
 const createSchema = z.object({
   contractorId: z.string(),
-  name: z.string().min(2, 'Contact name is required'),
+  name: z.string().min(2, "Contact name is required"),
   email: z.string().email(),
   title: z.string().optional(),
   phone: z.string().optional(),
-  isPrimary: z.boolean().optional()
-})
+  isPrimary: z.boolean().optional(),
+});
 
 export default defineEventHandler(async (event) => {
-  await requireAdminOrRecruiter(event)
+  await requireAdminOrRecruiter(event);
 
-  const body = await readBody(event)
+  const body = await readBody(event);
 
-  const parsed = createSchema.safeParse(body)
+  const parsed = createSchema.safeParse(body);
   if (!parsed.success) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Validation failed',
-      data: parsed.error.flatten()
-    })
+      statusMessage: "Validation failed",
+      data: parsed.error.flatten(),
+    });
   }
 
-  const db = getDb()
+  const db = getDb();
 
   try {
-    const id = randomUUID()
-    const now = new Date()
+    const id = randomUUID();
+    const now = new Date();
 
     await db.insert(schema.contractorContact).values({
       id,
@@ -48,22 +48,22 @@ export default defineEventHandler(async (event) => {
       isPrimary: parsed.data.isPrimary ?? false,
       createdAt: now,
       updatedAt: now,
-    })
+    });
 
     return {
       success: true,
-      contact: { 
-        id, 
+      contact: {
+        id,
         ...parsed.data,
         created_at: now.toISOString(),
         updated_at: now.toISOString(),
-      }
-    }
+      },
+    };
   } catch (error) {
-    console.error('Failed to create contractor contact:', error)
+    console.error("Failed to create contractor contact:", error);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to create contact'
-    })
+      statusMessage: "Failed to create contact",
+    });
   }
-})
+});

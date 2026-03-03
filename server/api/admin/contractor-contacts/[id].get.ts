@@ -4,23 +4,23 @@
  * @description Get a single HR/contractor contact (admin or recruiter) (Drizzle-backed)
  */
 
-import { requireAdminOrRecruiter } from '@/server/utils/better-auth'
-import { getDb, schema } from '@/server/utils/db'
-import { eq } from 'drizzle-orm'
+import { requireAdminOrRecruiter } from "@/server/utils/better-auth";
+import { getDb, schema } from "@/server/utils/db";
+import { eq } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
-  await requireAdminOrRecruiter(event)
+  await requireAdminOrRecruiter(event);
 
-  const id = getRouterParam(event, 'id')
+  const id = getRouterParam(event, "id");
 
   if (!id) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Contact ID is required'
-    })
+      statusMessage: "Contact ID is required",
+    });
   }
 
-  const db = getDb()
+  const db = getDb();
 
   try {
     // Get contact with contractor info
@@ -30,18 +30,21 @@ export default defineEventHandler(async (event) => {
         contractor: schema.contractor,
       })
       .from(schema.contractorContact)
-      .leftJoin(schema.contractor, eq(schema.contractor.id, schema.contractorContact.contractorId))
+      .leftJoin(
+        schema.contractor,
+        eq(schema.contractor.id, schema.contractorContact.contractorId),
+      )
       .where(eq(schema.contractorContact.id, id))
-      .limit(1)
+      .limit(1);
 
     if (!result) {
       throw createError({
         statusCode: 404,
-        statusMessage: 'Contact not found'
-      })
+        statusMessage: "Contact not found",
+      });
     }
 
-    const { contact, contractor } = result
+    const { contact, contractor } = result;
 
     return {
       contact: {
@@ -55,16 +58,16 @@ export default defineEventHandler(async (event) => {
         is_primary: contact.isPrimary,
         created_at: contact.createdAt?.toISOString() ?? null,
         updated_at: contact.updatedAt?.toISOString() ?? null,
-      }
-    }
+      },
+    };
   } catch (error) {
-    const err = error as { statusCode?: number }
-    if (err.statusCode) throw error
-    
-    console.error('Failed to fetch contractor contact:', error)
+    const err = error as { statusCode?: number };
+    if (err.statusCode) throw error;
+
+    console.error("Failed to fetch contractor contact:", error);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch contact'
-    })
+      statusMessage: "Failed to fetch contact",
+    });
   }
-})
+});

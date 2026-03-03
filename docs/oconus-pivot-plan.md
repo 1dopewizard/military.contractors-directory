@@ -30,14 +30,14 @@ military.contractors is pivoting to become an **OCONUS-only** contractor job pla
 
 ## Phase Overview
 
-| Phase | Name | Duration | Key Deliverables |
-|-------|------|----------|------------------|
-| **A** | Data & Schema Foundation | 3-4 days | Theaters table, bases table, clearance fields, CONUS job removal |
-| **B** | Frontend OCONUS Transformation | 4-5 days | Homepage redesign, theater navigation, search filters |
-| **C** | Candidate Capture Enhancement | 2-3 days | Clearance attestation, ETS date, deployment readiness |
-| **D** | SEO & Content | 3-4 days | Theater landing pages, base pages, sitemap updates |
-| **E** | Scraper Refocus | 3-4 days | OCONUS employer scrapers, theater extraction |
-| **F** | Employer & Placement | 2-3 days | /employers page, placement pipeline completion |
+| Phase | Name                           | Duration | Key Deliverables                                                 |
+| ----- | ------------------------------ | -------- | ---------------------------------------------------------------- |
+| **A** | Data & Schema Foundation       | 3-4 days | Theaters table, bases table, clearance fields, CONUS job removal |
+| **B** | Frontend OCONUS Transformation | 4-5 days | Homepage redesign, theater navigation, search filters            |
+| **C** | Candidate Capture Enhancement  | 2-3 days | Clearance attestation, ETS date, deployment readiness            |
+| **D** | SEO & Content                  | 3-4 days | Theater landing pages, base pages, sitemap updates               |
+| **E** | Scraper Refocus                | 3-4 days | OCONUS employer scrapers, theater extraction                     |
+| **F** | Employer & Placement           | 2-3 days | /employers page, placement pipeline completion                   |
 
 **Total Estimated Duration:** 3-4 weeks
 
@@ -65,7 +65,7 @@ CREATE TABLE theaters (
 
 -- Seed data
 INSERT INTO theaters (code, name, region, countries, major_bases) VALUES
-  ('CENTCOM', 'U.S. Central Command', 'Middle East', 
+  ('CENTCOM', 'U.S. Central Command', 'Middle East',
    ARRAY['Kuwait', 'Qatar', 'UAE', 'Bahrain', 'Iraq', 'Jordan', 'Saudi Arabia', 'Afghanistan'],
    ARRAY['Camp Arifjan', 'Al Udeid Air Base', 'Ali Al Salem', 'Camp Buehring', 'Al Dhafra']),
   ('EUCOM', 'U.S. European Command', 'Europe',
@@ -164,7 +164,7 @@ CREATE INDEX idx_jobs_oconus_active ON jobs (is_oconus, is_active) WHERE is_ocon
 
 ```sql
 -- Delete CONUS jobs (non-OCONUS)
-DELETE FROM job_mos_mappings 
+DELETE FROM job_mos_mappings
 WHERE job_id IN (SELECT id FROM jobs WHERE is_oconus = false OR is_oconus IS NULL);
 
 DELETE FROM mos_job_rankings
@@ -184,6 +184,7 @@ See Appendix A for full job seed data covering all theaters.
 ### B1. Homepage Redesign (`app/pages/index.vue`)
 
 **Changes:**
+
 - Replace generic hero with OCONUS-focused messaging
 - Add theater selector (CENTCOM, EUCOM, INDOPACOM, AFRICOM, SOUTHCOM)
 - Show "Featured OCONUS Positions" instead of generic featured jobs
@@ -191,6 +192,7 @@ See Appendix A for full job seed data covering all theaters.
 - Update footer/value props to emphasize overseas contractor specialization
 
 **New Components:**
+
 - `TheaterSelector.vue` — clickable theater cards/buttons
 - `TheaterStats.vue` — job counts per theater
 - `FeaturedOCONUSJobs.vue` — featured OCONUS positions
@@ -198,6 +200,7 @@ See Appendix A for full job seed data covering all theaters.
 ### B2. Search Page Updates (`app/pages/search.vue`)
 
 **Changes:**
+
 - Add theater filter as primary filter (before MOS/keyword)
 - Add country filter (cascades from theater selection)
 - Add base filter (cascades from country selection)
@@ -205,6 +208,7 @@ See Appendix A for full job seed data covering all theaters.
 - Update market snapshot to show OCONUS-specific stats
 
 **Filter Order:**
+
 1. Theater (CENTCOM, EUCOM, INDOPACOM, AFRICOM, SOUTHCOM, All)
 2. Country (filtered by theater)
 3. Clearance Level
@@ -214,6 +218,7 @@ See Appendix A for full job seed data covering all theaters.
 ### B3. Job Card Updates (`app/components/Jobs/JobCard.vue`)
 
 **Changes:**
+
 - Add theater badge prominently (color-coded by theater)
 - Show base name when available
 - Emphasize per diem / COLA / hardship pay indicators
@@ -222,6 +227,7 @@ See Appendix A for full job seed data covering all theaters.
 ### B4. Job Detail Updates (`app/pages/jobs/[slug].vue`)
 
 **Changes:**
+
 - Add theater context section
 - Show base information with link to base page
 - Add "What to expect" section for OCONUS life (housing, per diem, etc.)
@@ -230,6 +236,7 @@ See Appendix A for full job seed data covering all theaters.
 ### B5. Navigation Updates
 
 **Changes:**
+
 - Add theater dropdown in header nav
 - Update mobile nav with theater quick links
 - Add "OCONUS" branding element to header
@@ -241,6 +248,7 @@ See Appendix A for full job seed data covering all theaters.
 ### C1. Enhanced Job Alert Signup
 
 **New Fields:**
+
 - Preferred theaters (multi-select)
 - Clearance level (dropdown)
 - Clearance status (dropdown)
@@ -250,6 +258,7 @@ See Appendix A for full job seed data covering all theaters.
 - Willing to deploy in 30 days (checkbox)
 
 **UI/UX:**
+
 - Two-step signup: Basic (email, MOS) → Enhanced (clearance, deployment readiness)
 - Optional but encouraged for better job matching
 - Trust signal: "Self-reported. Employers verify during hiring."
@@ -257,6 +266,7 @@ See Appendix A for full job seed data covering all theaters.
 ### C2. Clearance Confidence Score
 
 **Implementation:** Server-side computed field based on:
+
 - MOS correlation (certain MOSes require clearances)
 - Resume content analysis (if uploaded)
 - Engagement patterns (clicks on TS/SCI jobs)
@@ -267,6 +277,7 @@ See Appendix A for full job seed data covering all theaters.
 ### C3. Express Interest Enhancement
 
 **Updates:**
+
 - Pre-fill clearance data from profile
 - Add "deployment timeline" field
 - Capture "currently in theater" status for hot candidates
@@ -278,6 +289,7 @@ See Appendix A for full job seed data covering all theaters.
 ### D1. Theater Landing Pages
 
 **Routes:**
+
 - `/oconus` — All OCONUS jobs overview
 - `/oconus/centcom` — CENTCOM theater page
 - `/oconus/eucom` — EUCOM theater page
@@ -286,6 +298,7 @@ See Appendix A for full job seed data covering all theaters.
 - `/oconus/southcom` — SOUTHCOM theater page
 
 **Content:**
+
 - Theater description and context
 - Job listings for theater
 - Top employers in theater
@@ -296,12 +309,14 @@ See Appendix A for full job seed data covering all theaters.
 ### D2. Country Pages
 
 **Routes:**
+
 - `/oconus/centcom/kuwait`
 - `/oconus/eucom/germany`
 - `/oconus/indopacom/japan`
 - etc.
 
 **Content:**
+
 - Country overview for contractors
 - Bases in country
 - Job listings filtered to country
@@ -310,12 +325,14 @@ See Appendix A for full job seed data covering all theaters.
 ### D3. Base Pages
 
 **Routes:**
+
 - `/oconus/centcom/camp-arifjan`
 - `/oconus/eucom/ramstein`
 - `/oconus/indopacom/camp-humphreys`
 - etc.
 
 **Content:**
+
 - Base overview
 - Current job openings at base
 - Typical employers
@@ -324,10 +341,12 @@ See Appendix A for full job seed data covering all theaters.
 ### D4. MOS + Theater Combo Pages
 
 **Routes:**
+
 - `/oconus/centcom/mos/25b`
 - `/oconus/eucom/mos/35f`
 
 **Content:**
+
 - MOS-specific jobs in theater
 - Combines MOS expertise with geographic focus
 
@@ -344,16 +363,17 @@ See Appendix A for full job seed data covering all theaters.
 
 ### E1. Priority Employer List
 
-| Tier | Employers | OCONUS Footprint |
-|------|-----------|------------------|
-| **1** | KBR, V2X, Amentum | Massive (LOGCAP, base ops) |
-| **2** | PAE, Fluor, CACI | Large (support, IT, intel) |
-| **3** | Leidos, ManTech, Peraton | Selective programs |
-| **4** | L3Harris, Viasat | Comms/SATCOM overseas |
+| Tier  | Employers                | OCONUS Footprint           |
+| ----- | ------------------------ | -------------------------- |
+| **1** | KBR, V2X, Amentum        | Massive (LOGCAP, base ops) |
+| **2** | PAE, Fluor, CACI         | Large (support, IT, intel) |
+| **3** | Leidos, ManTech, Peraton | Selective programs         |
+| **4** | L3Harris, Viasat         | Comms/SATCOM overseas      |
 
 ### E2. Scraper Enhancements
 
 **New extraction fields:**
+
 - `theater` — detect from location text
 - `base_name` — extract specific base/installation
 - `country` — parse from location
@@ -362,6 +382,7 @@ See Appendix A for full job seed data covering all theaters.
 - `rotation_schedule` — e.g., "90 days on / 30 days off"
 
 **Theater Detection Logic:**
+
 ```python
 THEATER_KEYWORDS = {
     'CENTCOM': ['kuwait', 'qatar', 'iraq', 'bahrain', 'uae', 'jordan', 'saudi', 'arifjan', 'udeid'],
@@ -385,12 +406,14 @@ THEATER_KEYWORDS = {
 ### F1. `/employers` Page Redesign
 
 **Messaging:**
+
 - "We Fill Your Hardest OCONUS Positions"
 - Emphasize cleared veteran pipeline
 - Highlight theater coverage
 - Contingency placement model
 
 **Form:**
+
 - Company name
 - Contact info
 - Role title
@@ -401,6 +424,7 @@ THEATER_KEYWORDS = {
 ### F2. Placement Pipeline Completion
 
 **Remaining work from Phase 3 of original PRD:**
+
 - Admin candidates tab with OCONUS-specific filters
 - Placement tracking (kanban/table view)
 - Employer contacts management
@@ -420,7 +444,7 @@ INSERT INTO jobs (
 ) VALUES
 -- Kuwait
 ('Senior Network Engineer', 'KBR', 'Camp Arifjan, Kuwait', true, 'CENTCOM', 'OCONUS',
- 'TS/SCI', 145000, 175000, 
+ 'TS/SCI', 145000, 175000,
  'Provide enterprise network engineering support for theater-wide communications infrastructure. Manage Cisco routers, switches, and firewalls across multiple tactical and strategic networks.',
  'Enterprise network engineering for CENTCOM theater operations',
  'ACTIVE', true, 'admin_created'),
@@ -696,58 +720,58 @@ INSERT INTO jobs (
 
 ### New Files
 
-| File | Purpose |
-|------|---------|
-| `app/pages/oconus/index.vue` | OCONUS overview page |
-| `app/pages/oconus/[theater].vue` | Theater landing page |
-| `app/pages/oconus/[theater]/[country].vue` | Country page |
-| `app/pages/oconus/[theater]/bases/[slug].vue` | Base detail page |
-| `app/components/Theater/TheaterSelector.vue` | Theater selection component |
-| `app/components/Theater/TheaterCard.vue` | Theater display card |
-| `app/components/Theater/TheaterStats.vue` | Theater statistics |
-| `app/composables/useTheaters.ts` | Theater data composable |
-| `app/composables/useBases.ts` | Base data composable |
-| `server/api/theaters/index.get.ts` | List theaters API |
-| `server/api/theaters/[code].get.ts` | Theater detail API |
-| `server/api/bases/index.get.ts` | List bases API |
-| `server/api/bases/[slug].get.ts` | Base detail API |
+| File                                          | Purpose                     |
+| --------------------------------------------- | --------------------------- |
+| `app/pages/oconus/index.vue`                  | OCONUS overview page        |
+| `app/pages/oconus/[theater].vue`              | Theater landing page        |
+| `app/pages/oconus/[theater]/[country].vue`    | Country page                |
+| `app/pages/oconus/[theater]/bases/[slug].vue` | Base detail page            |
+| `app/components/Theater/TheaterSelector.vue`  | Theater selection component |
+| `app/components/Theater/TheaterCard.vue`      | Theater display card        |
+| `app/components/Theater/TheaterStats.vue`     | Theater statistics          |
+| `app/composables/useTheaters.ts`              | Theater data composable     |
+| `app/composables/useBases.ts`                 | Base data composable        |
+| `server/api/theaters/index.get.ts`            | List theaters API           |
+| `server/api/theaters/[code].get.ts`           | Theater detail API          |
+| `server/api/bases/index.get.ts`               | List bases API              |
+| `server/api/bases/[slug].get.ts`              | Base detail API             |
 
 ### Modified Files
 
-| File | Changes |
-|------|---------|
-| `app/pages/index.vue` | OCONUS-focused homepage |
-| `app/pages/search.vue` | Add theater filters |
-| `app/components/Jobs/JobCard.vue` | Theater badges |
-| `app/components/Jobs/JobFilters.vue` | Theater/country filters |
-| `app/components/Search/SearchInput.vue` | Theater context |
-| `app/composables/useJobs.ts` | Filter by theater |
-| `server/api/jobs/index.get.ts` | Theater filtering |
-| `server/api/search.get.ts` | Theater in search params |
+| File                                    | Changes                  |
+| --------------------------------------- | ------------------------ |
+| `app/pages/index.vue`                   | OCONUS-focused homepage  |
+| `app/pages/search.vue`                  | Add theater filters      |
+| `app/components/Jobs/JobCard.vue`       | Theater badges           |
+| `app/components/Jobs/JobFilters.vue`    | Theater/country filters  |
+| `app/components/Search/SearchInput.vue` | Theater context          |
+| `app/composables/useJobs.ts`            | Filter by theater        |
+| `server/api/jobs/index.get.ts`          | Theater filtering        |
+| `server/api/search.get.ts`              | Theater in search params |
 
 ---
 
 ## Appendix C: Success Metrics
 
-| Metric | Current | Target (3 months) |
-|--------|---------|-------------------|
-| Total OCONUS jobs | 13 | 500+ |
-| Theaters with jobs | 3 | 5 |
-| Job alert signups | ~10/month | 100/month |
-| Placement consent rate | 20% | 40% |
-| Organic search traffic (OCONUS terms) | ~0 | 500/month |
-| Placements | 0 | 2-3 |
+| Metric                                | Current   | Target (3 months) |
+| ------------------------------------- | --------- | ----------------- |
+| Total OCONUS jobs                     | 13        | 500+              |
+| Theaters with jobs                    | 3         | 5                 |
+| Job alert signups                     | ~10/month | 100/month         |
+| Placement consent rate                | 20%       | 40%               |
+| Organic search traffic (OCONUS terms) | ~0        | 500/month         |
+| Placements                            | 0         | 2-3               |
 
 ---
 
 ## Appendix D: Risk Mitigation
 
-| Risk | Mitigation |
-|------|------------|
-| Limited OCONUS job supply | Focus scrapers on OCONUS-heavy employers (KBR, V2X, Amentum) |
-| Candidates want CONUS too | Clear messaging: "We specialize in OCONUS. For CONUS, try ClearanceJobs." |
+| Risk                          | Mitigation                                                                  |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| Limited OCONUS job supply     | Focus scrapers on OCONUS-heavy employers (KBR, V2X, Amentum)                |
+| Candidates want CONUS too     | Clear messaging: "We specialize in OCONUS. For CONUS, try ClearanceJobs."   |
 | Employer relationships harder | Lead with value: "We have OCONUS-ready candidates you can't find elsewhere" |
-| SEO takes time | Invest in theater/base landing pages for long-tail keywords |
+| SEO takes time                | Invest in theater/base landing pages for long-tail keywords                 |
 
 ---
 
@@ -757,4 +781,3 @@ INSERT INTO jobs (
 2. **Phase A kickoff** — Create migrations, seed data
 3. **Weekly check-ins** — Track progress against phases
 4. **Launch announcement** — Once Phase B complete, soft launch OCONUS positioning
-

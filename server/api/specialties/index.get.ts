@@ -7,14 +7,15 @@
  * - includeCounts: boolean - include contractor count per specialty (default: false)
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { asc, sql } from 'drizzle-orm'
+import { getDb, schema } from "@/server/utils/db";
+import { asc, sql } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
-  const query = getQuery(event)
-  const includeCounts = query.includeCounts === 'true' || query.includeCounts === true
+  const query = getQuery(event);
+  const includeCounts =
+    query.includeCounts === "true" || query.includeCounts === true;
 
-  const db = getDb()
+  const db = getDb();
 
   try {
     if (includeCounts) {
@@ -30,12 +31,12 @@ export default defineEventHandler(async (event) => {
             SELECT COUNT(*)
             FROM ${schema.contractorSpecialty}
             WHERE ${schema.contractorSpecialty.specialtyId} = ${schema.specialty.id}
-          )`.as('contractorCount'),
+          )`.as("contractorCount"),
           createdAt: schema.specialty.createdAt,
           updatedAt: schema.specialty.updatedAt,
         })
         .from(schema.specialty)
-        .orderBy(asc(schema.specialty.name))
+        .orderBy(asc(schema.specialty.name));
 
       return {
         specialties: specialties.map((specialty) => ({
@@ -48,7 +49,7 @@ export default defineEventHandler(async (event) => {
           createdAt: specialty.createdAt,
           updatedAt: specialty.updatedAt,
         })),
-      }
+      };
     } else {
       // Simple list without counts
       const specialties = await db
@@ -62,7 +63,7 @@ export default defineEventHandler(async (event) => {
           updatedAt: schema.specialty.updatedAt,
         })
         .from(schema.specialty)
-        .orderBy(asc(schema.specialty.name))
+        .orderBy(asc(schema.specialty.name));
 
       return {
         specialties: specialties.map((specialty) => ({
@@ -74,13 +75,13 @@ export default defineEventHandler(async (event) => {
           createdAt: specialty.createdAt,
           updatedAt: specialty.updatedAt,
         })),
-      }
+      };
     }
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error'
+    const message = error instanceof Error ? error.message : "Unknown error";
     throw createError({
       statusCode: 500,
       statusMessage: `Failed to fetch specialties: ${message}`,
-    })
+    });
   }
-})
+});

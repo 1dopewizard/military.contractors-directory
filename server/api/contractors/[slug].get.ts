@@ -4,20 +4,20 @@
  * @description Returns single contractor details with specialties, locations, and claimed profile data
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, and, asc } from 'drizzle-orm'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, and, asc } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
-  const slug = getRouterParam(event, 'slug')
+  const slug = getRouterParam(event, "slug");
 
   if (!slug) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Contractor slug is required',
-    })
+      statusMessage: "Contractor slug is required",
+    });
   }
 
-  const db = getDb()
+  const db = getDb();
 
   try {
     // Get contractor by slug
@@ -25,13 +25,13 @@ export default defineEventHandler(async (event) => {
       .select()
       .from(schema.contractor)
       .where(eq(schema.contractor.slug, slug.toLowerCase()))
-      .limit(1)
+      .limit(1);
 
     if (!contractor) {
       throw createError({
         statusCode: 404,
         statusMessage: `Contractor "${slug}" not found`,
-      })
+      });
     }
 
     // Get all specialties for this contractor
@@ -47,15 +47,15 @@ export default defineEventHandler(async (event) => {
       .from(schema.contractorSpecialty)
       .innerJoin(
         schema.specialty,
-        eq(schema.contractorSpecialty.specialtyId, schema.specialty.id)
+        eq(schema.contractorSpecialty.specialtyId, schema.specialty.id),
       )
-      .where(eq(schema.contractorSpecialty.contractorId, contractor.id))
+      .where(eq(schema.contractorSpecialty.contractorId, contractor.id));
 
     // Get all locations for this contractor
     const locations = await db
       .select()
       .from(schema.contractorLocation)
-      .where(eq(schema.contractorLocation.contractorId, contractor.id))
+      .where(eq(schema.contractorLocation.contractorId, contractor.id));
 
     // Transform specialties
     const specialties = contractorSpecialties.map((cs) => ({
@@ -65,10 +65,11 @@ export default defineEventHandler(async (event) => {
       description: cs.specialtyDescription ?? null,
       icon: cs.specialtyIcon ?? null,
       isPrimary: cs.isPrimary ?? false,
-    }))
+    }));
 
     // Find primary specialty
-    const primarySpecialty = specialties.find((s) => s.isPrimary) ?? specialties[0] ?? null
+    const primarySpecialty =
+      specialties.find((s) => s.isPrimary) ?? specialties[0] ?? null;
 
     // Transform locations
     const locationsFormatted = locations.map((loc) => ({
@@ -77,7 +78,7 @@ export default defineEventHandler(async (event) => {
       state: loc.state ?? null,
       country: loc.country,
       isHeadquarters: loc.isHeadquarters ?? false,
-    }))
+    }));
 
     // Check for claimed profile
     const [claimedProfile] = await db
@@ -90,69 +91,73 @@ export default defineEventHandler(async (event) => {
       .where(
         and(
           eq(schema.claimedProfile.contractorId, contractor.id),
-          eq(schema.claimedProfile.status, 'active')
-        )
+          eq(schema.claimedProfile.status, "active"),
+        ),
       )
-      .limit(1)
+      .limit(1);
 
     // Get benefits if claimed
     let benefits: Array<{
-      id: string
-      icon: string
-      title: string
-      description: string
-    }> = []
+      id: string;
+      icon: string;
+      title: string;
+      description: string;
+    }> = [];
     if (claimedProfile) {
       const benefitsData = await db
         .select()
         .from(schema.contractorBenefit)
         .where(eq(schema.contractorBenefit.claimedProfileId, claimedProfile.id))
-        .orderBy(asc(schema.contractorBenefit.sortOrder))
+        .orderBy(asc(schema.contractorBenefit.sortOrder));
 
-      benefits = benefitsData.map(b => ({
+      benefits = benefitsData.map((b) => ({
         id: b.id,
         icon: b.icon,
         title: b.title,
         description: b.description,
-      }))
+      }));
     }
 
     // Get programs if claimed
     let programs: Array<{
-      id: string
-      name: string
-      category: string | null
-      description: string | null
-    }> = []
+      id: string;
+      name: string;
+      category: string | null;
+      description: string | null;
+    }> = [];
     if (claimedProfile) {
       const programsData = await db
         .select()
         .from(schema.contractorProgram)
         .where(eq(schema.contractorProgram.claimedProfileId, claimedProfile.id))
-        .orderBy(asc(schema.contractorProgram.sortOrder))
+        .orderBy(asc(schema.contractorProgram.sortOrder));
 
-      programs = programsData.map(p => ({
+      programs = programsData.map((p) => ({
         id: p.id,
         name: p.name,
         category: p.category,
         description: p.description,
-      }))
+      }));
     }
 
     // Get approved spotlight content if premium tier
-    let spotlight = null
-    if (claimedProfile && (claimedProfile.tier === 'premium' || claimedProfile.tier === 'enterprise')) {
+    let spotlight = null;
+    if (
+      claimedProfile &&
+      (claimedProfile.tier === "premium" ||
+        claimedProfile.tier === "enterprise")
+    ) {
       const [spotlightData] = await db
         .select()
         .from(schema.sponsoredContent)
         .where(
           and(
             eq(schema.sponsoredContent.claimedProfileId, claimedProfile.id),
-            eq(schema.sponsoredContent.type, 'spotlight'),
-            eq(schema.sponsoredContent.status, 'approved')
-          )
+            eq(schema.sponsoredContent.type, "spotlight"),
+            eq(schema.sponsoredContent.status, "approved"),
+          ),
         )
-        .limit(1)
+        .limit(1);
 
       if (spotlightData) {
         spotlight = {
@@ -161,36 +166,43 @@ export default defineEventHandler(async (event) => {
           mediaUrl: spotlightData.mediaUrl,
           ctaText: spotlightData.ctaText,
           ctaUrl: spotlightData.ctaUrl,
-        }
+        };
       }
     }
 
     // Get approved testimonials if premium tier
     let testimonials: Array<{
-      id: string
-      quote: string
-      employeeName: string
-      employeeTitle: string
-      employeePhotoUrl: string | null
-    }> = []
-    if (claimedProfile && (claimedProfile.tier === 'premium' || claimedProfile.tier === 'enterprise')) {
+      id: string;
+      quote: string;
+      employeeName: string;
+      employeeTitle: string;
+      employeePhotoUrl: string | null;
+    }> = [];
+    if (
+      claimedProfile &&
+      (claimedProfile.tier === "premium" ||
+        claimedProfile.tier === "enterprise")
+    ) {
       const testimonialsData = await db
         .select()
         .from(schema.contractorTestimonial)
         .where(
           and(
-            eq(schema.contractorTestimonial.claimedProfileId, claimedProfile.id),
-            eq(schema.contractorTestimonial.status, 'approved')
-          )
-        )
+            eq(
+              schema.contractorTestimonial.claimedProfileId,
+              claimedProfile.id,
+            ),
+            eq(schema.contractorTestimonial.status, "approved"),
+          ),
+        );
 
-      testimonials = testimonialsData.map(t => ({
+      testimonials = testimonialsData.map((t) => ({
         id: t.id,
         quote: t.quote,
         employeeName: t.employeeName,
         employeeTitle: t.employeeTitle,
         employeePhotoUrl: t.employeePhotoUrl,
-      }))
+      }));
     }
 
     // Return contractor with related data
@@ -218,27 +230,29 @@ export default defineEventHandler(async (event) => {
       primarySpecialty,
       locations: locationsFormatted,
       // Claimed profile data
-      claimedProfile: claimedProfile ? {
-        tier: claimedProfile.tier,
-        verifiedAt: claimedProfile.verifiedAt?.toISOString() ?? null,
-      } : null,
+      claimedProfile: claimedProfile
+        ? {
+            tier: claimedProfile.tier,
+            verifiedAt: claimedProfile.verifiedAt?.toISOString() ?? null,
+          }
+        : null,
       benefits,
       programs,
       spotlight,
       testimonials,
       createdAt: contractor.createdAt?.toISOString() ?? null,
       updatedAt: contractor.updatedAt?.toISOString() ?? null,
-    }
+    };
   } catch (error) {
     // Re-throw HTTP errors
     if ((error as { statusCode?: number })?.statusCode) {
-      throw error
+      throw error;
     }
 
-    const message = error instanceof Error ? error.message : 'Unknown error'
+    const message = error instanceof Error ? error.message : "Unknown error";
     throw createError({
       statusCode: 500,
       statusMessage: `Failed to fetch contractor: ${message}`,
-    })
+    });
   }
-})
+});

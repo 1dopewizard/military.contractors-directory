@@ -3,83 +3,94 @@
  * @description TypeScript types for featured ads and featured jobs
  */
 
-import type { SponsorCategory } from './legacy-types'
+import type { SponsorCategory } from "./legacy-types";
 
 /** Re-export for convenience */
-export type { SponsorCategory }
+export type { SponsorCategory };
 
 /** Ad status enum matching database */
-export type AdStatus = 'draft' | 'pending_review' | 'pending_payment' | 'active' | 'paused' | 'expired' | 'cancelled'
+export type AdStatus =
+  | "draft"
+  | "pending_review"
+  | "pending_payment"
+  | "active"
+  | "paused"
+  | "expired"
+  | "cancelled";
 
 /** Ad type enum matching database */
-export type AdType = 'company_spotlight' | 'featured_job'
+export type AdType = "company_spotlight" | "featured_job";
 
 /** Location type for jobs */
-export type AdLocationType = 'CONUS' | 'OCONUS' | 'Remote' | 'Hybrid'
+export type AdLocationType = "CONUS" | "OCONUS" | "Remote" | "Hybrid";
 
 /** Standard clearance levels */
-export type ClearanceLevel = 'None' | 'Public Trust' | 'Secret' | 'Top Secret' | 'TS/SCI' | 'TS/SCI w/ Poly'
+export type ClearanceLevel =
+  | "None"
+  | "Public Trust"
+  | "Secret"
+  | "Top Secret"
+  | "TS/SCI"
+  | "TS/SCI w/ Poly";
 
 /** Industry categories for company spotlight badges */
-export type AdIndustry = 
-  | 'Defense' 
-  | 'Intelligence' 
-  | 'Cyber' 
-  | 'Aerospace' 
-  | 'IT Services' 
-  | 'Logistics' 
-  | 'Engineering' 
-  | 'Healthcare' 
-  | 'Training'
-
-
+export type AdIndustry =
+  | "Defense"
+  | "Intelligence"
+  | "Cyber"
+  | "Aerospace"
+  | "IT Services"
+  | "Logistics"
+  | "Engineering"
+  | "Healthcare"
+  | "Training";
 
 /**
  * Company spotlight ad (brand awareness)
  * Displayed in search sidebar to promote company/brand
  */
 export interface FeaturedAd {
-  id: string
+  id: string;
   /** Company or organization name */
-  advertiser: string
+  advertiser: string;
   /** Short brand tagline (max 50 chars) */
-  tagline: string
+  tagline: string;
   /** Primary headline - the hook (max 80 chars) */
-  headline: string
+  headline: string;
   /** Body copy - value proposition and details (max 200 chars) */
-  description: string
+  description: string;
   /** Industry categories for badge display (max 3) */
-  industries: AdIndustry[]
+  industries: AdIndustry[];
   /** Call-to-action button text (max 25 chars) */
-  cta_text: string
+  cta_text: string;
   /** Destination URL */
-  cta_url: string
+  cta_url: string;
   /** Current status */
-  status: AdStatus
+  status: AdStatus;
   /** When ad becomes active */
-  starts_at: string | null
+  starts_at: string | null;
   /** When ad expires */
-  ends_at: string | null
+  ends_at: string | null;
   /** Total impressions */
-  impressions: number
+  impressions: number;
   /** Total clicks */
-  clicks: number
+  clicks: number;
   /** User who created the ad */
-  created_by: string | null
+  created_by: string | null;
   /** Creation timestamp */
-  created_at: string
+  created_at: string;
   /** Last update timestamp */
-  updated_at: string
+  updated_at: string;
   /** Admin who reviewed the ad */
-  reviewed_by: string | null
+  reviewed_by: string | null;
   /** When the ad was reviewed */
-  reviewed_at: string | null
+  reviewed_at: string | null;
   /** Reason for rejection (if rejected) */
-  rejection_reason: string | null
+  rejection_reason: string | null;
   /** MOS codes matched via embedding similarity (auto-generated) */
-  matched_mos_codes?: string[]
+  matched_mos_codes?: string[];
   /** Priority tier for placement (1 = standard, 2 = premium) */
-  priority?: number
+  priority?: number;
 }
 
 /**
@@ -87,65 +98,69 @@ export interface FeaturedAd {
  * Displayed in search sidebar to promote specific job opening
  */
 export interface FeaturedJob {
-  id: string
+  id: string;
   /** Job title (max 60 chars) */
-  title: string
+  title: string;
   /** Company/organization name */
-  company: string
+  company: string;
   /** Work location (e.g. "Arlington, VA" or "Kuwait City") */
-  location: string
+  location: string;
   /** Work location type for badge display */
-  location_type: AdLocationType | null
+  location_type: AdLocationType | null;
   /** Required clearance level */
-  clearance: string
+  clearance: string;
   /** Clearance sponsorship category */
-  sponsor_category: SponsorCategory
+  sponsor_category: SponsorCategory;
   /** Salary or compensation range */
-  salary: string
+  salary: string;
   /** Primary selling point (max 120 chars) */
-  pitch: string
+  pitch: string;
   /** URL to apply or learn more */
-  apply_url: string
+  apply_url: string;
   /** Current status */
-  status: AdStatus
+  status: AdStatus;
   /** When ad becomes active */
-  starts_at: string | null
+  starts_at: string | null;
   /** When ad expires */
-  ends_at: string | null
+  ends_at: string | null;
   /** Total impressions */
-  impressions: number
+  impressions: number;
   /** Total clicks */
-  clicks: number
+  clicks: number;
   /** User who created the ad */
-  created_by: string | null
+  created_by: string | null;
   /** Creation timestamp */
-  created_at: string
+  created_at: string;
   /** Last update timestamp */
-  updated_at: string
+  updated_at: string;
   /** Admin who reviewed the ad */
-  reviewed_by: string | null
+  reviewed_by: string | null;
   /** When the ad was reviewed */
-  reviewed_at: string | null
+  reviewed_at: string | null;
   /** Reason for rejection (if rejected) */
-  rejection_reason: string | null
+  rejection_reason: string | null;
   /** MOS codes matched via embedding similarity (auto-generated) */
-  matched_mos_codes?: string[]
+  matched_mos_codes?: string[];
   /** Priority tier for placement (1 = standard, 2 = premium) */
-  priority?: number
+  priority?: number;
 }
 
 /** Ad placement tier */
-export type AdPlacementTier = 'standard' | 'premium'
+export type AdPlacementTier = "standard" | "premium";
 
 /** Featured listing request status */
-export type FeaturedListingStatus = 'pending' | 'approved' | 'rejected' | 'expired'
+export type FeaturedListingStatus =
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "expired";
 
 /** Request data stored when employer requests featured status */
 export interface FeaturedRequestData {
-  contact_name: string
-  contact_email: string
-  contact_phone?: string
-  requested_at: string
+  contact_name: string;
+  contact_email: string;
+  contact_phone?: string;
+  requested_at: string;
 }
 
 /**
@@ -153,65 +168,65 @@ export interface FeaturedRequestData {
  * Time-based placement managed by admin
  */
 export interface FeaturedListing {
-  id: string
-  job_id: string
+  id: string;
+  job_id: string;
   /** Display order (lower = first) */
-  display_order: number
+  display_order: number;
   /** When featuring starts */
-  starts_at: string
+  starts_at: string;
   /** When featuring ends */
-  ends_at: string
+  ends_at: string;
   /** Pinned to top */
-  is_pinned: boolean
+  is_pinned: boolean;
   /** Total impressions */
-  impressions: number
+  impressions: number;
   /** Total clicks */
-  clicks: number
+  clicks: number;
   /** Request status: pending, approved, rejected, expired */
-  status?: FeaturedListingStatus
+  status?: FeaturedListingStatus;
   /** Contact info for pending requests */
-  request_data?: FeaturedRequestData | null
+  request_data?: FeaturedRequestData | null;
   /** Creation timestamp */
-  created_at: string
+  created_at: string;
   /** Last update timestamp */
-  updated_at: string
+  updated_at: string;
 }
 
 /**
  * Form input for creating a company spotlight ad
  */
 export interface FeaturedAdInput {
-  advertiser: string
-  tagline: string
-  headline: string
-  description: string
+  advertiser: string;
+  tagline: string;
+  headline: string;
+  description: string;
   /** Industry categories for badge display (max 3) */
-  industries: AdIndustry[]
-  cta_text: string
-  cta_url: string
-  starts_at?: string
-  ends_at?: string
+  industries: AdIndustry[];
+  cta_text: string;
+  cta_url: string;
+  starts_at?: string;
+  ends_at?: string;
   /** Placement tier (1 = standard, 2 = premium) */
-  priority?: number
+  priority?: number;
 }
 
 /**
  * Form input for creating a featured job ad
  */
 export interface FeaturedJobInput {
-  title: string
-  company: string
+  title: string;
+  company: string;
   /** Location string (e.g. "Arlington, VA" or "Kuwait City") */
-  location: string
+  location: string;
   /** Work location type for badge display */
-  location_type: AdLocationType
-  clearance: string
-  sponsor_category?: SponsorCategory
-  salary: string
-  pitch: string
-  apply_url: string
-  starts_at?: string
-  ends_at?: string
+  location_type: AdLocationType;
+  clearance: string;
+  sponsor_category?: SponsorCategory;
+  salary: string;
+  pitch: string;
+  apply_url: string;
+  starts_at?: string;
+  ends_at?: string;
   /** Placement tier (1 = standard, 2 = premium) */
-  priority?: number
+  priority?: number;
 }

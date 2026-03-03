@@ -1,44 +1,44 @@
 <script setup lang="ts">
 interface Props {
-  open: boolean
-  title?: string
-  description?: string
-  confirmText?: string
-  cancelText?: string
-  variant?: 'default' | 'destructive'
-  loading?: boolean
+  open: boolean;
+  title?: string;
+  description?: string;
+  confirmText?: string;
+  cancelText?: string;
+  variant?: "default" | "destructive";
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: 'Are you sure?',
-  description: 'This action cannot be undone.',
-  confirmText: 'Continue',
-  cancelText: 'Cancel',
-  variant: 'default',
-  loading: false
-})
+  title: "Are you sure?",
+  description: "This action cannot be undone.",
+  confirmText: "Continue",
+  cancelText: "Cancel",
+  variant: "default",
+  loading: false,
+});
 
 const emit = defineEmits<{
-  'update:open': [value: boolean]
-  'confirm': []
-  'cancel': []
-}>()
+  "update:open": [value: boolean];
+  confirm: [];
+  cancel: [];
+}>();
 
 const handleConfirm = () => {
-  emit('confirm')
-}
+  emit("confirm");
+};
 
 const handleCancel = () => {
-  emit('cancel')
-  emit('update:open', false)
-}
+  emit("cancel");
+  emit("update:open", false);
+};
 
 const handleOpenChange = (value: boolean) => {
-  emit('update:open', value)
+  emit("update:open", value);
   if (!value) {
-    emit('cancel')
+    emit("cancel");
   }
-}
+};
 </script>
 
 <template>
@@ -55,11 +55,15 @@ const handleOpenChange = (value: boolean) => {
           {{ cancelText }}
         </AlertDialogCancel>
         <AlertDialogAction
-          :class="variant === 'destructive' ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90' : ''"
+          :class="
+            variant === 'destructive'
+              ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90'
+              : ''
+          "
           :disabled="loading"
           @click="handleConfirm"
         >
-          <Spinner v-if="loading" class="w-4 h-4 mr-1.5" />
+          <Spinner v-if="loading" class="mr-1.5 h-4 w-4" />
           {{ confirmText }}
         </AlertDialogAction>
       </AlertDialogFooter>

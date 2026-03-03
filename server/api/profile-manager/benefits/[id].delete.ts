@@ -4,20 +4,20 @@
  * @description Deletes a benefit from the company's profile
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, and } from 'drizzle-orm'
-import { requireAuth } from '@/server/utils/better-auth'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, and } from "drizzle-orm";
+import { requireAuth } from "@/server/utils/better-auth";
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-  const db = getDb()
-  const benefitId = getRouterParam(event, 'id')
+  const user = await requireAuth(event);
+  const db = getDb();
+  const benefitId = getRouterParam(event, "id");
 
   if (!benefitId) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Benefit ID is required',
-    })
+      statusMessage: "Benefit ID is required",
+    });
   }
 
   // Find claimed profile
@@ -27,27 +27,27 @@ export default defineEventHandler(async (event) => {
     .where(
       and(
         eq(schema.claimedProfile.userId, user.id),
-        eq(schema.claimedProfile.status, 'active')
-      )
+        eq(schema.claimedProfile.status, "active"),
+      ),
     )
-    .limit(1)
+    .limit(1);
 
-  let profileId = claimedProfile?.id
+  let profileId = claimedProfile?.id;
 
   if (!profileId) {
     const [contractorAccess] = await db
       .select()
       .from(schema.contractorUser)
       .where(eq(schema.contractorUser.userId, user.id))
-      .limit(1)
+      .limit(1);
 
-    if (!contractorAccess || contractorAccess.role === 'editor') {
+    if (!contractorAccess || contractorAccess.role === "editor") {
       throw createError({
         statusCode: 403,
-        statusMessage: 'You do not have permission to manage benefits',
-      })
+        statusMessage: "You do not have permission to manage benefits",
+      });
     }
-    profileId = contractorAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId;
   }
 
   await db
@@ -55,9 +55,9 @@ export default defineEventHandler(async (event) => {
     .where(
       and(
         eq(schema.contractorBenefit.id, benefitId),
-        eq(schema.contractorBenefit.claimedProfileId, profileId)
-      )
-    )
+        eq(schema.contractorBenefit.claimedProfileId, profileId),
+      ),
+    );
 
-  return { success: true }
-})
+  return { success: true };
+});

@@ -4,13 +4,16 @@
 -->
 
 <script setup lang="ts">
-import { Skeleton } from '@/app/components/ui/skeleton'
+import { Skeleton } from "@/app/components/ui/skeleton";
 
-withDefaults(defineProps<{
-  count?: number
-}>(), {
-  count: 6
-})
+withDefaults(
+  defineProps<{
+    count?: number;
+  }>(),
+  {
+    count: 6,
+  },
+);
 </script>
 
 <template>
@@ -18,7 +21,7 @@ withDefaults(defineProps<{
     <div
       v-for="i in count"
       :key="i"
-      class="px-4 py-4 border border-border/30 bg-card/30 space-y-3"
+      class="border-border/30 bg-card/30 space-y-3 border px-4 py-4"
     >
       <!-- Name + Rank row -->
       <div class="flex items-center gap-3">

@@ -1,106 +1,124 @@
 <script setup lang="ts">
-import { CalendarDate, CalendarDateTime, toCalendarDateTime, parseAbsoluteToLocal, getLocalTimeZone } from '@internationalized/date'
-import type { DateValue } from '@internationalized/date'
+import {
+  CalendarDate,
+  CalendarDateTime,
+  toCalendarDateTime,
+  parseAbsoluteToLocal,
+  getLocalTimeZone,
+} from "@internationalized/date";
+import type { DateValue } from "@internationalized/date";
 
 interface Props {
-  modelValue?: string | null
-  placeholder?: string
-  disabled?: boolean
-  minDate?: Date
-  maxDate?: Date
+  modelValue?: string | null;
+  placeholder?: string;
+  disabled?: boolean;
+  minDate?: Date;
+  maxDate?: Date;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  placeholder: 'Select date and time',
-  disabled: false
-})
+  placeholder: "Select date and time",
+  disabled: false,
+});
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string]
-}>()
+  "update:modelValue": [value: string];
+}>();
 
-const open = ref(false)
+const open = ref(false);
 
 // Convert ISO string to CalendarDateTime for the calendar
 const calendarValue = computed<DateValue | undefined>({
   get() {
-    if (!props.modelValue) return undefined
+    if (!props.modelValue) return undefined;
     try {
-      const date = new Date(props.modelValue)
-      if (isNaN(date.getTime())) return undefined
+      const date = new Date(props.modelValue);
+      if (isNaN(date.getTime())) return undefined;
       return new CalendarDateTime(
         date.getFullYear(),
         date.getMonth() + 1,
         date.getDate(),
         date.getHours(),
-        date.getMinutes()
-      )
+        date.getMinutes(),
+      );
     } catch {
-      return undefined
+      return undefined;
     }
   },
   set(val) {
-    if (!val) return
+    if (!val) return;
     // Convert CalendarDateTime back to ISO string in local time
-    const jsDate = new Date(val.year, val.month - 1, val.day, hours.value, minutes.value)
-    emit('update:modelValue', jsDate.toISOString())
-  }
-})
+    const jsDate = new Date(
+      val.year,
+      val.month - 1,
+      val.day,
+      hours.value,
+      minutes.value,
+    );
+    emit("update:modelValue", jsDate.toISOString());
+  },
+});
 
 // Separate time inputs
 const hours = computed({
   get() {
-    if (!props.modelValue) return 0
-    const date = new Date(props.modelValue)
-    return isNaN(date.getTime()) ? 0 : date.getHours()
+    if (!props.modelValue) return 0;
+    const date = new Date(props.modelValue);
+    return isNaN(date.getTime()) ? 0 : date.getHours();
   },
   set(val: number) {
-    updateTime(val, minutes.value)
-  }
-})
+    updateTime(val, minutes.value);
+  },
+});
 
 const minutes = computed({
   get() {
-    if (!props.modelValue) return 0
-    const date = new Date(props.modelValue)
-    return isNaN(date.getTime()) ? 0 : date.getMinutes()
+    if (!props.modelValue) return 0;
+    const date = new Date(props.modelValue);
+    return isNaN(date.getTime()) ? 0 : date.getMinutes();
   },
   set(val: number) {
-    updateTime(hours.value, val)
-  }
-})
+    updateTime(hours.value, val);
+  },
+});
 
 const updateTime = (h: number, m: number) => {
-  if (!props.modelValue) return
-  const date = new Date(props.modelValue)
-  if (isNaN(date.getTime())) return
-  date.setHours(h, m)
-  emit('update:modelValue', date.toISOString())
-}
+  if (!props.modelValue) return;
+  const date = new Date(props.modelValue);
+  if (isNaN(date.getTime())) return;
+  date.setHours(h, m);
+  emit("update:modelValue", date.toISOString());
+};
 
 const handleDateSelect = (val: DateValue | undefined) => {
-  if (!val) return
-  const jsDate = new Date(val.year, val.month - 1, val.day, hours.value, minutes.value)
-  emit('update:modelValue', jsDate.toISOString())
-}
+  if (!val) return;
+  const jsDate = new Date(
+    val.year,
+    val.month - 1,
+    val.day,
+    hours.value,
+    minutes.value,
+  );
+  emit("update:modelValue", jsDate.toISOString());
+};
 
 // Format display value
 const displayValue = computed(() => {
-  if (!props.modelValue) return ''
-  const date = new Date(props.modelValue)
-  if (isNaN(date.getTime())) return ''
-  return date.toLocaleString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
-  })
-})
+  if (!props.modelValue) return "";
+  const date = new Date(props.modelValue);
+  if (isNaN(date.getTime())) return "";
+  return date.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+});
 
 // Pad numbers for display
-const padNumber = (n: number, len = 2) => String(n).padStart(len, '0')
+const padNumber = (n: number, len = 2) => String(n).padStart(len, "0");
 </script>
 
 <template>
@@ -111,7 +129,7 @@ const padNumber = (n: number, len = 2) => String(n).padStart(len, '0')
         :disabled="disabled"
         :class="[
           'w-full justify-start text-left font-normal',
-          !modelValue && 'text-muted-foreground'
+          !modelValue && 'text-muted-foreground',
         ]"
       >
         <Icon name="mdi:calendar-clock" class="mr-2 h-4 w-4" />
@@ -128,28 +146,30 @@ const padNumber = (n: number, len = 2) => String(n).padStart(len, '0')
         />
         <Separator class="my-3" />
         <div class="flex items-center gap-2">
-          <Label class="text-xs text-muted-foreground shrink-0">Time:</Label>
+          <Label class="text-muted-foreground shrink-0 text-xs">Time:</Label>
           <div class="flex items-center gap-1">
             <Input
               type="number"
               :model-value="hours"
-              @update:model-value="(v: string | number) => hours = Number(v)"
+              @update:model-value="(v: string | number) => (hours = Number(v))"
               min="0"
               max="23"
-              class="w-14 h-8 text-center"
+              class="h-8 w-14 text-center"
             />
             <span class="text-muted-foreground">:</span>
             <Input
               type="number"
               :model-value="minutes"
-              @update:model-value="(v: string | number) => minutes = Number(v)"
+              @update:model-value="
+                (v: string | number) => (minutes = Number(v))
+              "
               min="0"
               max="59"
-              class="w-14 h-8 text-center"
+              class="h-8 w-14 text-center"
             />
           </div>
-          <span class="text-xs text-muted-foreground ml-auto">
-            {{ hours >= 12 ? 'PM' : 'AM' }}
+          <span class="text-muted-foreground ml-auto text-xs">
+            {{ hours >= 12 ? "PM" : "AM" }}
           </span>
         </div>
       </div>

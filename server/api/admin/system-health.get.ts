@@ -3,30 +3,30 @@
  * @description Returns system health metrics for admin dashboard (Drizzle-backed)
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, count, isNotNull } from 'drizzle-orm'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, count, isNotNull } from "drizzle-orm";
 
 interface SystemHealth {
   database: {
-    status: 'connected' | 'error'
-    latencyMs: number | null
-  }
+    status: "connected" | "error";
+    latencyMs: number | null;
+  };
   contractors: {
-    total: number
-    withLogos: number
-  }
+    total: number;
+    withLogos: number;
+  };
   claims: {
-    pending: number
-    approved: number
-  }
+    pending: number;
+    approved: number;
+  };
   content: {
-    pendingReview: number
-  }
+    pendingReview: number;
+  };
 }
 
 export default defineEventHandler(async (_event): Promise<SystemHealth> => {
-  const db = getDb()
-  const startTime = Date.now()
+  const db = getDb();
+  const startTime = Date.now();
 
   try {
     // Query database in parallel for all stats
@@ -40,20 +40,32 @@ export default defineEventHandler(async (_event): Promise<SystemHealth> => {
       // Total contractors
       db.select({ count: count() }).from(schema.contractor),
       // Contractors with logos
-      db.select({ count: count() }).from(schema.contractor).where(isNotNull(schema.contractor.logoUrl)),
+      db
+        .select({ count: count() })
+        .from(schema.contractor)
+        .where(isNotNull(schema.contractor.logoUrl)),
       // Pending claims
-      db.select({ count: count() }).from(schema.claimedProfile).where(eq(schema.claimedProfile.status, 'pending')),
+      db
+        .select({ count: count() })
+        .from(schema.claimedProfile)
+        .where(eq(schema.claimedProfile.status, "pending")),
       // Approved claims
-      db.select({ count: count() }).from(schema.claimedProfile).where(eq(schema.claimedProfile.status, 'active')),
+      db
+        .select({ count: count() })
+        .from(schema.claimedProfile)
+        .where(eq(schema.claimedProfile.status, "active")),
       // Pending content (sponsored content pending review)
-      db.select({ count: count() }).from(schema.sponsoredContent).where(eq(schema.sponsoredContent.status, 'pending_review')),
-    ])
+      db
+        .select({ count: count() })
+        .from(schema.sponsoredContent)
+        .where(eq(schema.sponsoredContent.status, "pending_review")),
+    ]);
 
-    const latencyMs = Date.now() - startTime
+    const latencyMs = Date.now() - startTime;
 
     return {
       database: {
-        status: 'connected',
+        status: "connected",
         latencyMs,
       },
       contractors: {
@@ -67,13 +79,13 @@ export default defineEventHandler(async (_event): Promise<SystemHealth> => {
       content: {
         pendingReview: pendingContentResult[0]?.count ?? 0,
       },
-    }
+    };
   } catch (error) {
     // If database query fails, return error state
-    console.error('[system-health] Database query failed:', error)
+    console.error("[system-health] Database query failed:", error);
     return {
       database: {
-        status: 'error',
+        status: "error",
         latencyMs: null,
       },
       contractors: {
@@ -87,6 +99,6 @@ export default defineEventHandler(async (_event): Promise<SystemHealth> => {
       content: {
         pendingReview: 0,
       },
-    }
+    };
   }
-})
+});

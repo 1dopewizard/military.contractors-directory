@@ -125,11 +125,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/General_Dynamics",
     "stockTicker": "GD",
     "isPublic": true,
-    "specialties": [
-      "aerospace-defense",
-      "land-systems",
-      "naval-maritime"
-    ],
+    "specialties": ["aerospace-defense", "land-systems", "naval-maritime"],
     "keyProducts": [
       "Gulfstream business and special mission aircraft (e.g., G500/G600/G700)",
       "M1A2 Abrams main battle tank",
@@ -269,11 +265,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/HII_(company)",
     "stockTicker": "HII",
     "isPublic": true,
-    "specialties": [
-      "naval-maritime",
-      "logistics-support",
-      "cybersecurity-it"
-    ],
+    "specialties": ["naval-maritime", "logistics-support", "cybersecurity-it"],
     "keyProducts": [
       "Ford-class aircraft carriers (e.g., USS Gerald R. Ford CVN-78)",
       "Nimitz-class aircraft carrier construction and refueling & complex overhauls (RCOH)",
@@ -737,11 +729,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Textron",
     "stockTicker": "TXT",
     "isPublic": true,
-    "specialties": [
-      "aerospace-defense",
-      "land-systems",
-      "electronics-sensors"
-    ],
+    "specialties": ["aerospace-defense", "land-systems", "electronics-sensors"],
     "keyProducts": [
       "Bell V-22 Osprey (with Boeing)",
       "Bell V-280 Valor",
@@ -845,10 +833,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Oshkosh_Corporation",
     "stockTicker": "OSK",
     "isPublic": true,
-    "specialties": [
-      "land-systems",
-      "logistics-support"
-    ],
+    "specialties": ["land-systems", "logistics-support"],
     "keyProducts": [
       "Joint Light Tactical Vehicle (JLTV)",
       "Family of Medium Tactical Vehicles (FMTV A2)",
@@ -880,11 +865,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/BWX_Technologies",
     "stockTicker": "BWXT",
     "isPublic": true,
-    "specialties": [
-      "naval-maritime",
-      "research-development",
-      "space-systems"
-    ],
+    "specialties": ["naval-maritime", "research-development", "space-systems"],
     "keyProducts": [
       "U.S. Navy nuclear propulsion components and reactors for aircraft carriers",
       "U.S. Navy nuclear propulsion components and reactors for submarines",
@@ -916,11 +897,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Viasat",
     "stockTicker": "VSAT",
     "isPublic": true,
-    "specialties": [
-      "space-systems",
-      "electronics-sensors",
-      "cybersecurity-it"
-    ],
+    "specialties": ["space-systems", "electronics-sensors", "cybersecurity-it"],
     "keyProducts": [
       "Viasat Link 16 Tactical Data Link Terminals (including MIDS and small form-factor radios)",
       "Viasat SATCOM Solutions for Government & Defense (fixed, mobile, and airborne terminals)",
@@ -1780,10 +1757,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/AM_General",
     "stockTicker": null,
     "isPublic": false,
-    "specialties": [
-      "land-systems",
-      "logistics-support"
-    ],
+    "specialties": ["land-systems", "logistics-support"],
     "keyProducts": [
       "HMMWV (High Mobility Multipurpose Wheeled Vehicle / Humvee) family",
       "JLTV A2 (Joint Light Tactical Vehicle A2 variants, including for U.S. Army and partners)",
@@ -2211,11 +2185,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Leonardo_DRS",
     "stockTicker": "DRS",
     "isPublic": true,
-    "specialties": [
-      "electronics-sensors",
-      "naval-maritime",
-      "land-systems"
-    ],
+    "specialties": ["electronics-sensors", "naval-maritime", "land-systems"],
     "keyProducts": [
       "Naval power systems and ship electronics",
       "Infrared sensors and EO/IR systems",
@@ -2247,11 +2217,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/BAE_Systems",
     "stockTicker": null,
     "isPublic": false,
-    "specialties": [
-      "electronics-sensors",
-      "land-systems",
-      "naval-maritime"
-    ],
+    "specialties": ["electronics-sensors", "land-systems", "naval-maritime"],
     "keyProducts": [
       "Electronic warfare systems and countermeasures",
       "Bradley Fighting Vehicle and AMPV",

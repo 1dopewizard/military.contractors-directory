@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import type { ComboboxSeparatorProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import { ComboboxSeparator } from "reka-ui"
-import { cn } from '@/app/lib/utils'
+import type { ComboboxSeparatorProps } from "reka-ui";
+import type { HTMLAttributes } from "vue";
+import { reactiveOmit } from "@vueuse/core";
+import { ComboboxSeparator } from "reka-ui";
+import { cn } from "@/app/lib/utils";
 
-const props = defineProps<ComboboxSeparatorProps & { class?: HTMLAttributes["class"] }>()
+const props = defineProps<
+  ComboboxSeparatorProps & { class?: HTMLAttributes["class"] }
+>();
 
-const delegatedProps = reactiveOmit(props, "class")
+const delegatedProps = reactiveOmit(props, "class");
 </script>
 
 <template>
   <ComboboxSeparator
     v-bind="delegatedProps"
-    :class="cn('-mx-1 h-px bg-border', props.class)"
+    :class="cn('bg-border -mx-1 h-px', props.class)"
   >
     <slot />
   </ComboboxSeparator>

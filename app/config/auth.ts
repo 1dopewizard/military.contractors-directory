@@ -10,18 +10,18 @@
 /**
  * Admin email whitelist
  * Users with these emails have full admin access to the platform.
- * 
+ *
  * TODO: Consider moving to environment variables or database-driven
  * admin management for production deployments.
  */
-export const ADMIN_EMAILS = ['1dopewizard@gmail.com'] as const
+export const ADMIN_EMAILS = ["1dopewizard@gmail.com"] as const;
 
 /**
  * Check if an email is an admin email
  */
 export function isAdminEmail(email: string | null | undefined): boolean {
-  if (!email) return false
-  return ADMIN_EMAILS.includes(email as typeof ADMIN_EMAILS[number])
+  if (!email) return false;
+  return ADMIN_EMAILS.includes(email as (typeof ADMIN_EMAILS)[number]);
 }
 
 // ============================================================================
@@ -32,9 +32,9 @@ export function isAdminEmail(email: string | null | undefined): boolean {
  * Available user roles in the system
  */
 export const USER_ROLES = {
-  ADMIN: 'admin',
-  RECRUITER: 'recruiter',
-  USER: 'user',
-} as const
+  ADMIN: "admin",
+  RECRUITER: "recruiter",
+  USER: "user",
+} as const;
 
-export type UserRole = typeof USER_ROLES[keyof typeof USER_ROLES]
+export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];

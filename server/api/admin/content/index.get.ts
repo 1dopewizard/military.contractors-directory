@@ -4,13 +4,13 @@
  * @description Returns all pending sponsored content for admin review
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, desc } from 'drizzle-orm'
-import { requireAdmin } from '@/server/utils/better-auth'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, desc } from "drizzle-orm";
+import { requireAdmin } from "@/server/utils/better-auth";
 
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
-  const db = getDb()
+  await requireAdmin(event);
+  const db = getDb();
 
   const content = await db
     .select({
@@ -25,12 +25,18 @@ export default defineEventHandler(async (event) => {
       contractorSlug: schema.contractor.slug,
     })
     .from(schema.sponsoredContent)
-    .innerJoin(schema.claimedProfile, eq(schema.sponsoredContent.claimedProfileId, schema.claimedProfile.id))
-    .innerJoin(schema.contractor, eq(schema.claimedProfile.contractorId, schema.contractor.id))
-    .where(eq(schema.sponsoredContent.status, 'pending_review'))
-    .orderBy(desc(schema.sponsoredContent.createdAt))
+    .innerJoin(
+      schema.claimedProfile,
+      eq(schema.sponsoredContent.claimedProfileId, schema.claimedProfile.id),
+    )
+    .innerJoin(
+      schema.contractor,
+      eq(schema.claimedProfile.contractorId, schema.contractor.id),
+    )
+    .where(eq(schema.sponsoredContent.status, "pending_review"))
+    .orderBy(desc(schema.sponsoredContent.createdAt));
 
-  return content.map(item => ({
+  return content.map((item) => ({
     id: item.id,
     type: item.type,
     status: item.status,
@@ -41,5 +47,5 @@ export default defineEventHandler(async (event) => {
       name: item.contractorName,
       slug: item.contractorSlug,
     },
-  }))
-})
+  }));
+});

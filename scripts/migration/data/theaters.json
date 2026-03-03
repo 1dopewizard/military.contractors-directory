@@ -94,15 +94,8 @@
     "name": "U.S. Africa Command",
     "description": "Manages operations across the African continent. Specialized roles in counterterrorism and security cooperation.",
     "region": "Africa",
-    "countries": [
-      "Djibouti",
-      "Kenya",
-      "Niger",
-      "Somalia"
-    ],
-    "major_bases": [
-      "Camp Lemonnier"
-    ],
+    "countries": ["Djibouti", "Kenya", "Niger", "Somalia"],
+    "major_bases": ["Camp Lemonnier"],
     "job_count": 10,
     "avg_salary_min": 140000,
     "avg_salary_max": 170000,
@@ -115,16 +108,8 @@
     "name": "U.S. Southern Command",
     "description": "Oversees Central and South America, Caribbean. Focus on counter-narcotics and security partnerships.",
     "region": "Americas",
-    "countries": [
-      "Honduras",
-      "Colombia",
-      "Cuba",
-      "Panama"
-    ],
-    "major_bases": [
-      "Soto Cano Air Base",
-      "Guantanamo Bay"
-    ],
+    "countries": ["Honduras", "Colombia", "Cuba", "Panama"],
+    "major_bases": ["Soto Cano Air Base", "Guantanamo Bay"],
     "job_count": 8,
     "avg_salary_min": 115000,
     "avg_salary_max": 145000,

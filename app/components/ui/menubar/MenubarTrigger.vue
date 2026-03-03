@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import type { MenubarTriggerProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import { MenubarTrigger, useForwardProps } from "reka-ui"
-import { cn } from '@/app/lib/utils'
+import type { MenubarTriggerProps } from "reka-ui";
+import type { HTMLAttributes } from "vue";
+import { reactiveOmit } from "@vueuse/core";
+import { MenubarTrigger, useForwardProps } from "reka-ui";
+import { cn } from "@/app/lib/utils";
 
-const props = defineProps<MenubarTriggerProps & { class?: HTMLAttributes["class"] }>()
+const props = defineProps<
+  MenubarTriggerProps & { class?: HTMLAttributes["class"] }
+>();
 
-const delegatedProps = reactiveOmit(props, "class")
+const delegatedProps = reactiveOmit(props, "class");
 
-const forwardedProps = useForwardProps(delegatedProps)
+const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const forwardedProps = useForwardProps(delegatedProps)
     v-bind="forwardedProps"
     :class="
       cn(
-        'flex cursor-default select-none items-center rounded-sm px-3 py-1 text-sm font-medium outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground',
+        'focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex cursor-default items-center rounded-sm px-3 py-1 text-sm font-medium outline-none select-none',
         props.class,
       )
     "

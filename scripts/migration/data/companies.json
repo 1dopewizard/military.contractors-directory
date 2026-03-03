@@ -12,17 +12,8 @@
     "employee_count": "10,000+",
     "founded_year": 1968,
     "stock_symbol": null,
-    "domains": [
-      "Cyber",
-      "Intel",
-      "IT/Comms",
-      "Analytics"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM"
-    ],
+    "domains": ["Cyber", "Intel", "IT/Comms", "Analytics"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:09:40.769959+00:00",
     "updated_at": "2025-12-10T16:06:36.550012+00:00"
@@ -40,18 +31,8 @@
     "employee_count": "26,000+",
     "founded_year": 2013,
     "stock_symbol": "SAIC",
-    "domains": [
-      "IT/Comms",
-      "Engineering",
-      "Intel",
-      "Space"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["IT/Comms", "Engineering", "Intel", "Space"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM", "INDOPACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:09:41.121902+00:00",
     "updated_at": "2025-12-10T16:06:36.550012+00:00"
@@ -69,17 +50,8 @@
     "employee_count": "14,000+",
     "founded_year": 2017,
     "stock_symbol": null,
-    "domains": [
-      "Intel",
-      "Cyber",
-      "Space",
-      "Mission Support"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Intel", "Cyber", "Space", "Mission Support"],
+    "theaters": ["NORTHCOM", "EUCOM", "INDOPACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:09:40.982387+00:00",
     "updated_at": "2025-12-10T16:06:36.550012+00:00"
@@ -97,18 +69,8 @@
     "employee_count": "100,000+",
     "founded_year": 1995,
     "stock_symbol": "LMT",
-    "domains": [
-      "Aerospace",
-      "Cyber",
-      "Missiles",
-      "Space"
-    ],
-    "theaters": [
-      "CONUS",
-      "EUCOM",
-      "PACOM",
-      "CENTCOM"
-    ],
+    "domains": ["Aerospace", "Cyber", "Missiles", "Space"],
+    "theaters": ["CONUS", "EUCOM", "PACOM", "CENTCOM"],
     "is_prime_contractor": true,
     "created_at": "2025-11-21T19:20:39.6049+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -126,18 +88,8 @@
     "employee_count": "180,000+",
     "founded_year": 2020,
     "stock_symbol": "RTX",
-    "domains": [
-      "Missiles",
-      "Cyber",
-      "Intelligence",
-      "Space"
-    ],
-    "theaters": [
-      "CONUS",
-      "EUCOM",
-      "CENTCOM",
-      "PACOM"
-    ],
+    "domains": ["Missiles", "Cyber", "Intelligence", "Space"],
+    "theaters": ["CONUS", "EUCOM", "CENTCOM", "PACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-11-21T19:20:39.6049+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -155,17 +107,8 @@
     "employee_count": "90,000+",
     "founded_year": 1994,
     "stock_symbol": "NOC",
-    "domains": [
-      "Aerospace",
-      "Cyber",
-      "Space",
-      "Intelligence"
-    ],
-    "theaters": [
-      "CONUS",
-      "EUCOM",
-      "PACOM"
-    ],
+    "domains": ["Aerospace", "Cyber", "Space", "Intelligence"],
+    "theaters": ["CONUS", "EUCOM", "PACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-11-21T19:20:39.6049+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -183,17 +126,8 @@
     "employee_count": "100,000+",
     "founded_year": 1952,
     "stock_symbol": "GD",
-    "domains": [
-      "IT",
-      "Combat Systems",
-      "Shipbuilding",
-      "Aviation"
-    ],
-    "theaters": [
-      "CONUS",
-      "EUCOM",
-      "CENTCOM"
-    ],
+    "domains": ["IT", "Combat Systems", "Shipbuilding", "Aviation"],
+    "theaters": ["CONUS", "EUCOM", "CENTCOM"],
     "is_prime_contractor": true,
     "created_at": "2025-11-21T19:20:39.6049+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -211,18 +145,8 @@
     "employee_count": "30,000+",
     "founded_year": 1914,
     "stock_symbol": "BAH",
-    "domains": [
-      "Cyber",
-      "Intelligence",
-      "Analytics",
-      "Engineering"
-    ],
-    "theaters": [
-      "CONUS",
-      "CENTCOM",
-      "EUCOM",
-      "PACOM"
-    ],
+    "domains": ["Cyber", "Intelligence", "Analytics", "Engineering"],
+    "theaters": ["CONUS", "CENTCOM", "EUCOM", "PACOM"],
     "is_prime_contractor": false,
     "created_at": "2025-11-21T19:20:39.6049+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -240,18 +164,8 @@
     "employee_count": "45,000+",
     "founded_year": 2013,
     "stock_symbol": "LDOS",
-    "domains": [
-      "IT",
-      "Cyber",
-      "Engineering",
-      "Intelligence"
-    ],
-    "theaters": [
-      "CONUS",
-      "CENTCOM",
-      "EUCOM",
-      "AFRICOM"
-    ],
+    "domains": ["IT", "Cyber", "Engineering", "Intelligence"],
+    "theaters": ["CONUS", "CENTCOM", "EUCOM", "AFRICOM"],
     "is_prime_contractor": false,
     "created_at": "2025-11-21T19:20:39.6049+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -269,18 +183,8 @@
     "employee_count": "16,000+",
     "founded_year": 1944,
     "stock_symbol": "PSN",
-    "domains": [
-      "Cyber",
-      "Intel",
-      "Infrastructure",
-      "Space"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Cyber", "Intel", "Infrastructure", "Space"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM", "INDOPACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:33.212587+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -298,17 +202,8 @@
     "employee_count": "23,000+",
     "founded_year": 1962,
     "stock_symbol": "CACI",
-    "domains": [
-      "Intel",
-      "Cyber",
-      "Mission Support",
-      "EW"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "EUCOM",
-      "NORTHCOM"
-    ],
+    "domains": ["Intel", "Cyber", "Mission Support", "EW"],
+    "theaters": ["CENTCOM", "EUCOM", "NORTHCOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:09:40.416382+00:00",
     "updated_at": "2025-12-10T16:06:36.550012+00:00"
@@ -326,16 +221,8 @@
     "employee_count": "140,000+",
     "founded_year": 1916,
     "stock_symbol": "BA",
-    "domains": [
-      "Aerospace",
-      "Defense Systems",
-      "Cybersecurity"
-    ],
-    "theaters": [
-      "CONUS",
-      "EUCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Aerospace", "Defense Systems", "Cybersecurity"],
+    "theaters": ["CONUS", "EUCOM", "INDOPACOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T23:40:27.083839+00:00",
     "updated_at": "2025-12-10T16:06:26.522772+00:00"
@@ -353,18 +240,8 @@
     "employee_count": "50,000+",
     "founded_year": 2020,
     "stock_symbol": null,
-    "domains": [
-      "IT/Comms",
-      "Aviation",
-      "Logistics",
-      "Intel"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "EUCOM",
-      "INDOPACOM",
-      "AFRICOM"
-    ],
+    "domains": ["IT/Comms", "Aviation", "Logistics", "Intel"],
+    "theaters": ["CENTCOM", "EUCOM", "INDOPACOM", "AFRICOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:09:40.031482+00:00",
     "updated_at": "2025-12-10T16:06:36.550012+00:00"
@@ -382,17 +259,8 @@
     "employee_count": "60,000+",
     "founded_year": 1947,
     "stock_symbol": "J",
-    "domains": [
-      "Engineering",
-      "IT/Comms",
-      "Environmental",
-      "Intel"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM"
-    ],
+    "domains": ["Engineering", "IT/Comms", "Environmental", "Intel"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:33.304265+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -410,16 +278,8 @@
     "employee_count": "12,000+",
     "founded_year": 2002,
     "stock_symbol": "ACN",
-    "domains": [
-      "IT/Comms",
-      "Consulting",
-      "Cloud",
-      "Analytics"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM"
-    ],
+    "domains": ["IT/Comms", "Consulting", "Cloud", "Analytics"],
+    "theaters": ["NORTHCOM", "EUCOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:33.47919+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -437,17 +297,8 @@
     "employee_count": "6,000+",
     "founded_year": 1951,
     "stock_symbol": "AIR",
-    "domains": [
-      "Aviation",
-      "Logistics",
-      "MRO"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "EUCOM",
-      "INDOPACOM",
-      "AFRICOM"
-    ],
+    "domains": ["Aviation", "Logistics", "MRO"],
+    "theaters": ["CENTCOM", "EUCOM", "INDOPACOM", "AFRICOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:33.682271+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -465,18 +316,8 @@
     "employee_count": "4,500+",
     "founded_year": 1963,
     "stock_symbol": null,
-    "domains": [
-      "Aviation",
-      "Space",
-      "EW",
-      "ISR"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Aviation", "Space", "EW", "ISR"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM", "INDOPACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:33.863339+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -494,19 +335,8 @@
     "employee_count": "47,000+",
     "founded_year": 2019,
     "stock_symbol": "LHX",
-    "domains": [
-      "Communications",
-      "ISR",
-      "Space",
-      "Aviation"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM",
-      "INDOPACOM",
-      "AFRICOM"
-    ],
+    "domains": ["Communications", "ISR", "Space", "Aviation"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM", "INDOPACOM", "AFRICOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:34.05528+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -524,18 +354,8 @@
     "employee_count": "6,000+",
     "founded_year": 1986,
     "stock_symbol": "VSAT",
-    "domains": [
-      "Communications",
-      "Space",
-      "Cyber",
-      "ISR"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "EUCOM",
-      "INDOPACOM",
-      "AFRICOM"
-    ],
+    "domains": ["Communications", "Space", "Cyber", "ISR"],
+    "theaters": ["CENTCOM", "EUCOM", "INDOPACOM", "AFRICOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:34.258789+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -553,18 +373,8 @@
     "employee_count": "3,500+",
     "founded_year": 2003,
     "stock_symbol": "PLTR",
-    "domains": [
-      "Analytics",
-      "AI/ML",
-      "Intel",
-      "C2"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Analytics", "AI/ML", "Intel", "C2"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM", "INDOPACOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:34.480018+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -582,18 +392,8 @@
     "employee_count": "14,000+",
     "founded_year": 2022,
     "stock_symbol": "VVX",
-    "domains": [
-      "LOGCAP/Base Ops",
-      "Aviation",
-      "IT/Comms",
-      "Logistics"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "EUCOM",
-      "INDOPACOM",
-      "AFRICOM"
-    ],
+    "domains": ["LOGCAP/Base Ops", "Aviation", "IT/Comms", "Logistics"],
+    "theaters": ["CENTCOM", "EUCOM", "INDOPACOM", "AFRICOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:32.992738+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -611,17 +411,8 @@
     "employee_count": "40,000+",
     "founded_year": 1912,
     "stock_symbol": "FLR",
-    "domains": [
-      "Engineering",
-      "LOGCAP/Base Ops",
-      "Construction",
-      "Logistics"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "EUCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Engineering", "LOGCAP/Base Ops", "Construction", "Logistics"],
+    "theaters": ["CENTCOM", "EUCOM", "INDOPACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:33.120119+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -639,18 +430,8 @@
     "employee_count": "30,000+",
     "founded_year": 1952,
     "stock_symbol": "GD",
-    "domains": [
-      "IT/Comms",
-      "Cyber",
-      "Cloud",
-      "Mission Support"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["IT/Comms", "Cyber", "Cloud", "Mission Support"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM", "INDOPACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:33.395903+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -668,16 +449,8 @@
     "employee_count": "8,000+",
     "founded_year": 1976,
     "stock_symbol": "GIB",
-    "domains": [
-      "IT/Comms",
-      "Consulting",
-      "Cyber",
-      "Analytics"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM"
-    ],
+    "domains": ["IT/Comms", "Consulting", "Cyber", "Analytics"],
+    "theaters": ["NORTHCOM", "EUCOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:33.583239+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -695,17 +468,8 @@
     "employee_count": "2,500+",
     "founded_year": 1994,
     "stock_symbol": null,
-    "domains": [
-      "Aviation",
-      "ISR",
-      "Training",
-      "Mission Support"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "AFRICOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Aviation", "ISR", "Training", "Mission Support"],
+    "theaters": ["CENTCOM", "AFRICOM", "INDOPACOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:33.770607+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -723,18 +487,8 @@
     "employee_count": "35,000+",
     "founded_year": 1999,
     "stock_symbol": "BAESY",
-    "domains": [
-      "Combat Systems",
-      "Cyber",
-      "Electronics",
-      "Intel"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "CENTCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Combat Systems", "Cyber", "Electronics", "Intel"],
+    "theaters": ["NORTHCOM", "EUCOM", "CENTCOM", "INDOPACOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:18:33.968215+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -752,17 +506,8 @@
     "employee_count": "7,500+",
     "founded_year": 1968,
     "stock_symbol": "DRS",
-    "domains": [
-      "Electronics",
-      "Sensors",
-      "Force Protection",
-      "Naval"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "EUCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Electronics", "Sensors", "Force Protection", "Naval"],
+    "theaters": ["NORTHCOM", "EUCOM", "INDOPACOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:34.156133+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -780,17 +525,8 @@
     "employee_count": "2,500+",
     "founded_year": 2017,
     "stock_symbol": null,
-    "domains": [
-      "Autonomous Systems",
-      "AI/ML",
-      "C2",
-      "Counter-UAS"
-    ],
-    "theaters": [
-      "NORTHCOM",
-      "INDOPACOM",
-      "CENTCOM"
-    ],
+    "domains": ["Autonomous Systems", "AI/ML", "C2", "Counter-UAS"],
+    "theaters": ["NORTHCOM", "INDOPACOM", "CENTCOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:34.36401+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -808,17 +544,8 @@
     "employee_count": "5,000+",
     "founded_year": 2010,
     "stock_symbol": null,
-    "domains": [
-      "Security",
-      "Training",
-      "Risk Management",
-      "Force Protection"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "AFRICOM",
-      "EUCOM"
-    ],
+    "domains": ["Security", "Training", "Risk Management", "Force Protection"],
+    "theaters": ["CENTCOM", "AFRICOM", "EUCOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:34.58064+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -836,18 +563,8 @@
     "employee_count": "3,000+",
     "founded_year": 1989,
     "stock_symbol": null,
-    "domains": [
-      "Linguist Services",
-      "Intel",
-      "IT/Comms",
-      "Mission Support"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "AFRICOM",
-      "EUCOM",
-      "INDOPACOM"
-    ],
+    "domains": ["Linguist Services", "Intel", "IT/Comms", "Mission Support"],
+    "theaters": ["CENTCOM", "AFRICOM", "EUCOM", "INDOPACOM"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T19:18:34.670113+00:00",
     "updated_at": "2025-12-10T16:06:13.303777+00:00"
@@ -865,14 +582,8 @@
     "employee_count": "1,500,000+",
     "founded_year": 2006,
     "stock_symbol": "AMZN",
-    "domains": [
-      "Cloud Computing",
-      "IT Infrastructure",
-      "Cybersecurity"
-    ],
-    "theaters": [
-      "CONUS"
-    ],
+    "domains": ["Cloud Computing", "IT Infrastructure", "Cybersecurity"],
+    "theaters": ["CONUS"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T23:40:27.083839+00:00",
     "updated_at": "2025-12-10T16:06:26.522772+00:00"
@@ -890,14 +601,8 @@
     "employee_count": "220,000+",
     "founded_year": 2018,
     "stock_symbol": "MSFT",
-    "domains": [
-      "Cloud Computing",
-      "Enterprise Software",
-      "AI/ML"
-    ],
-    "theaters": [
-      "CONUS"
-    ],
+    "domains": ["Cloud Computing", "Enterprise Software", "AI/ML"],
+    "theaters": ["CONUS"],
     "is_prime_contractor": false,
     "created_at": "2025-12-08T23:40:27.083839+00:00",
     "updated_at": "2025-12-10T16:06:26.522772+00:00"
@@ -915,18 +620,8 @@
     "employee_count": "25,000+",
     "founded_year": 1901,
     "stock_symbol": "KBR",
-    "domains": [
-      "IT/Comms",
-      "LOGCAP/Base Ops",
-      "Engineering",
-      "Logistics"
-    ],
-    "theaters": [
-      "CENTCOM",
-      "EUCOM",
-      "INDOPACOM",
-      "AFRICOM"
-    ],
+    "domains": ["IT/Comms", "LOGCAP/Base Ops", "Engineering", "Logistics"],
+    "theaters": ["CENTCOM", "EUCOM", "INDOPACOM", "AFRICOM"],
     "is_prime_contractor": true,
     "created_at": "2025-12-08T19:09:39.699699+00:00",
     "updated_at": "2025-12-10T16:06:36.550012+00:00"

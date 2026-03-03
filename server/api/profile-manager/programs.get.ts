@@ -4,13 +4,13 @@
  * @description Returns programs for the company's claimed profile
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq, and, asc } from 'drizzle-orm'
-import { requireAuth } from '@/server/utils/better-auth'
+import { getDb, schema } from "@/server/utils/db";
+import { eq, and, asc } from "drizzle-orm";
+import { requireAuth } from "@/server/utils/better-auth";
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-  const db = getDb()
+  const user = await requireAuth(event);
+  const db = getDb();
 
   // Find claimed profile
   const [claimedProfile] = await db
@@ -19,31 +19,31 @@ export default defineEventHandler(async (event) => {
     .where(
       and(
         eq(schema.claimedProfile.userId, user.id),
-        eq(schema.claimedProfile.status, 'active')
-      )
+        eq(schema.claimedProfile.status, "active"),
+      ),
     )
-    .limit(1)
+    .limit(1);
 
-  let profileId = claimedProfile?.id
+  let profileId = claimedProfile?.id;
 
   if (!profileId) {
     const [contractorAccess] = await db
       .select({ claimedProfileId: schema.contractorUser.claimedProfileId })
       .from(schema.contractorUser)
       .where(eq(schema.contractorUser.userId, user.id))
-      .limit(1)
+      .limit(1);
 
     if (!contractorAccess) {
-      return []
+      return [];
     }
-    profileId = contractorAccess.claimedProfileId
+    profileId = contractorAccess.claimedProfileId;
   }
 
   const programs = await db
     .select()
     .from(schema.contractorProgram)
     .where(eq(schema.contractorProgram.claimedProfileId, profileId))
-    .orderBy(asc(schema.contractorProgram.sortOrder))
+    .orderBy(asc(schema.contractorProgram.sortOrder));
 
-  return programs
-})
+  return programs;
+});

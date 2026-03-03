@@ -4,28 +4,30 @@
  * @description Creates a pending claimed profile request
  */
 
-import { getDb, schema } from '@/server/utils/db'
-import { eq } from 'drizzle-orm'
-import { requireAuth } from '@/server/utils/better-auth'
-import { z } from 'zod'
+import { getDb, schema } from "@/server/utils/db";
+import { eq } from "drizzle-orm";
+import { requireAuth } from "@/server/utils/better-auth";
+import { z } from "zod";
 
 const claimSchema = z.object({
   contractorId: z.string().uuid(),
-  verificationMethod: z.enum(['email_domain', 'manual', 'document']),
-  tier: z.enum(['claimed', 'premium', 'enterprise']).default('claimed'),
-})
+  verificationMethod: z.enum(["email_domain", "manual", "document"]),
+  tier: z.enum(["claimed", "premium", "enterprise"]).default("claimed"),
+});
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-  const db = getDb()
-  const body = await readBody(event)
+  const user = await requireAuth(event);
+  const db = getDb();
+  const body = await readBody(event);
 
-  const parsed = claimSchema.safeParse(body)
+  const parsed = claimSchema.safeParse(body);
   if (!parsed.success) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Invalid input: ' + parsed.error.issues.map(i => i.message).join(', '),
-    })
+      statusMessage:
+        "Invalid input: " +
+        parsed.error.issues.map((i) => i.message).join(", "),
+    });
   }
 
   // Check if contractor exists
@@ -33,13 +35,13 @@ export default defineEventHandler(async (event) => {
     .select()
     .from(schema.contractor)
     .where(eq(schema.contractor.id, parsed.data.contractorId))
-    .limit(1)
+    .limit(1);
 
   if (!contractor) {
     throw createError({
       statusCode: 404,
-      statusMessage: 'Contractor not found',
-    })
+      statusMessage: "Contractor not found",
+    });
   }
 
   // Check if contractor is already claimed
@@ -47,13 +49,13 @@ export default defineEventHandler(async (event) => {
     .select()
     .from(schema.claimedProfile)
     .where(eq(schema.claimedProfile.contractorId, parsed.data.contractorId))
-    .limit(1)
+    .limit(1);
 
   if (existingClaim) {
     throw createError({
       statusCode: 409,
-      statusMessage: 'This contractor profile has already been claimed',
-    })
+      statusMessage: "This contractor profile has already been claimed",
+    });
   }
 
   // Create pending claim
@@ -63,16 +65,16 @@ export default defineEventHandler(async (event) => {
       contractorId: parsed.data.contractorId,
       userId: user.id,
       tier: parsed.data.tier,
-      status: 'pending',
+      status: "pending",
       verificationMethod: parsed.data.verificationMethod,
     })
-    .returning()
+    .returning();
 
   if (!newClaim) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to create claim',
-    })
+      statusMessage: "Failed to create claim",
+    });
   }
 
   return {
@@ -88,5 +90,5 @@ export default defineEventHandler(async (event) => {
         slug: contractor.slug,
       },
     },
-  }
-})
+  };
+});

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue"
-import { Spinner } from "@/app/components/ui/spinner"
-import { cn } from "@/app/lib/utils"
+import type { HTMLAttributes } from "vue";
+import { Spinner } from "@/app/components/ui/spinner";
+import { cn } from "@/app/lib/utils";
 
 const props = withDefaults(
   defineProps<{
-    class?: HTMLAttributes["class"]
-    spinnerClass?: HTMLAttributes["class"]
-    text?: string
-    fullscreen?: boolean
+    class?: HTMLAttributes["class"];
+    spinnerClass?: HTMLAttributes["class"];
+    text?: string;
+    fullscreen?: boolean;
   }>(),
   {
     text: undefined,
     fullscreen: false,
-  }
-)
+  },
+);
 </script>
 
 <template>
@@ -23,13 +23,13 @@ const props = withDefaults(
       cn(
         'flex items-center justify-center',
         fullscreen ? 'min-h-screen' : 'py-12',
-        props.class
+        props.class,
       )
     "
   >
     <div class="flex flex-col items-center gap-4">
-      <Spinner :class="cn('w-8 h-8 text-muted-foreground', spinnerClass)" />
-      <p v-if="text" class="text-sm text-muted-foreground">
+      <Spinner :class="cn('text-muted-foreground h-8 w-8', spinnerClass)" />
+      <p v-if="text" class="text-muted-foreground text-sm">
         {{ text }}
       </p>
     </div>

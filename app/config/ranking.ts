@@ -13,16 +13,16 @@
  */
 export const RANKING_WEIGHTS = {
   /** LLM confidence score from job_mos_mappings */
-  confidence: 0.40,
+  confidence: 0.4,
   /** Sponsor category alignment with veteran clearance */
-  sponsorBoost: 0.20,
+  sponsorBoost: 0.2,
   /** Recency of job posting */
   recency: 0.15,
   /** Featured/promoted job status */
   featuredBoost: 0.15,
   /** Match strength categorical boost */
-  matchStrengthBoost: 0.10,
-} as const
+  matchStrengthBoost: 0.1,
+} as const;
 
 // ============================================================================
 // Decay & Boost Parameters
@@ -39,7 +39,7 @@ export const RECENCY_DECAY = {
   maxAgeDays: 90,
   /** Minimum recency score (floor) */
   minScore: 0.1,
-} as const
+} as const;
 
 /**
  * Boost values for categorical fields
@@ -61,7 +61,7 @@ export const CATEGORY_BOOSTS = {
   },
   /** Featured listing boost */
   featured: 0.25,
-} as const
+} as const;
 
 // ============================================================================
 // Top-K Configuration
@@ -75,8 +75,8 @@ export const TOP_K_CONFIG = {
   /** Minimum confidence score to include in rankings */
   minConfidenceThreshold: 0.3,
   /** Minimum match strength to include */
-  minMatchStrength: 'WEAK' as const,
-} as const
+  minMatchStrength: "WEAK" as const,
+} as const;
 
 // ============================================================================
 // Scoring Functions
@@ -87,21 +87,21 @@ export const TOP_K_CONFIG = {
  */
 export function calculateRecencyScore(daysSincePosted: number): number {
   if (daysSincePosted >= RECENCY_DECAY.maxAgeDays) {
-    return RECENCY_DECAY.minScore
+    return RECENCY_DECAY.minScore;
   }
-  const decay = Math.exp(-daysSincePosted / RECENCY_DECAY.halfLifeDays)
-  return Math.max(decay, RECENCY_DECAY.minScore)
+  const decay = Math.exp(-daysSincePosted / RECENCY_DECAY.halfLifeDays);
+  return Math.max(decay, RECENCY_DECAY.minScore);
 }
 
 /**
  * Calculate composite ranking score for a job-MOS pairing
  */
 export function calculateRankingScore(params: {
-  confidenceScore: number
-  matchStrength: 'STRONG' | 'MEDIUM' | 'WEAK'
-  sponsorCategory: keyof typeof CATEGORY_BOOSTS.sponsorCategory
-  isFeatured: boolean
-  daysSincePosted: number
+  confidenceScore: number;
+  matchStrength: "STRONG" | "MEDIUM" | "WEAK";
+  sponsorCategory: keyof typeof CATEGORY_BOOSTS.sponsorCategory;
+  isFeatured: boolean;
+  daysSincePosted: number;
 }): number {
   const {
     confidenceScore,
@@ -109,26 +109,28 @@ export function calculateRankingScore(params: {
     sponsorCategory,
     isFeatured,
     daysSincePosted,
-  } = params
+  } = params;
 
-  const w = RANKING_WEIGHTS
+  const w = RANKING_WEIGHTS;
 
   // Confidence component (0-1 normalized)
-  const confidenceComponent = confidenceScore * w.confidence
+  const confidenceComponent = confidenceScore * w.confidence;
 
   // Match strength component
   const matchStrengthComponent =
-    CATEGORY_BOOSTS.matchStrength[matchStrength] * w.matchStrengthBoost
+    CATEGORY_BOOSTS.matchStrength[matchStrength] * w.matchStrengthBoost;
 
   // Sponsor category component
   const sponsorComponent =
-    CATEGORY_BOOSTS.sponsorCategory[sponsorCategory] * w.sponsorBoost
+    CATEGORY_BOOSTS.sponsorCategory[sponsorCategory] * w.sponsorBoost;
 
   // Featured boost component
-  const featuredComponent = isFeatured ? CATEGORY_BOOSTS.featured * w.featuredBoost : 0
+  const featuredComponent = isFeatured
+    ? CATEGORY_BOOSTS.featured * w.featuredBoost
+    : 0;
 
   // Recency component
-  const recencyComponent = calculateRecencyScore(daysSincePosted) * w.recency
+  const recencyComponent = calculateRecencyScore(daysSincePosted) * w.recency;
 
   return (
     confidenceComponent +
@@ -136,6 +138,5 @@ export function calculateRankingScore(params: {
     sponsorComponent +
     featuredComponent +
     recencyComponent
-  )
+  );
 }
-

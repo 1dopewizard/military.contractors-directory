@@ -273,12 +273,12 @@ const getSpecialtyIcon = (slug: string): string => {
     <!-- Hero Section - Search Centric -->
     <section class="relative">
       <div
-        class="mx-auto px-4 sm:px-6 lg:px-8 pt-[clamp(4rem,12vh,8rem)] pb-12 container"
+        class="container mx-auto px-4 pt-[clamp(4rem,12vh,8rem)] pb-12 sm:px-6 lg:px-8"
       >
         <div class="mx-auto max-w-3xl text-center">
           <!-- Primary headline - Large and commanding -->
           <h1
-            class="font-bold text-foreground text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight"
+            class="text-foreground text-4xl leading-[1.1] font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           >
             Find Defense
             <br />
@@ -286,7 +286,7 @@ const getSpecialtyIcon = (slug: string): string => {
           </h1>
 
           <!-- Subheadline -->
-          <p class="mt-6 text-muted-foreground text-lg sm:text-xl">
+          <p class="text-muted-foreground mt-6 text-lg sm:text-xl">
             Search {{ totalContractors }} U.S. defense contractors by name,
             specialty, or location.
           </p>
@@ -294,11 +294,11 @@ const getSpecialtyIcon = (slug: string): string => {
           <!-- Search Bar - Hero Element -->
           <div class="relative mx-auto mt-10 max-w-2xl">
             <form @submit.prevent="handleSearch">
-              <InputGroup class="shadow-none rounded-none h-14 sm:h-16">
+              <InputGroup class="h-14 rounded-none shadow-none sm:h-16">
                 <InputGroupAddon align="inline-start" class="pl-5 sm:pl-6">
                   <Icon
                     name="mdi:magnify"
-                    class="w-5 sm:w-6 h-5 sm:h-6 text-muted-foreground"
+                    class="text-muted-foreground h-5 w-5 sm:h-6 sm:w-6"
                   />
                 </InputGroupAddon>
                 <InputGroupInput
@@ -314,9 +314,9 @@ const getSpecialtyIcon = (slug: string): string => {
                 <InputGroupButton
                   variant="ghost"
                   type="submit"
-                  class="px-5 sm:px-6 h-full"
+                  class="h-full px-5 sm:px-6"
                 >
-                  <Icon name="mdi:arrow-right" class="w-5 sm:w-6 h-5 sm:h-6" />
+                  <Icon name="mdi:arrow-right" class="h-5 w-5 sm:h-6 sm:w-6" />
                 </InputGroupButton>
               </InputGroup>
             </form>
@@ -324,12 +324,12 @@ const getSpecialtyIcon = (slug: string): string => {
             <!-- Autocomplete Dropdown -->
             <div
               v-if="showSuggestions && (suggestions.length > 0 || isSearching)"
-              class="top-full right-0 left-0 z-50 absolute bg-card shadow-lg mt-1 border border-border"
+              class="bg-card border-border absolute top-full right-0 left-0 z-50 mt-1 border shadow-lg"
             >
               <!-- Loading state -->
               <div
                 v-if="isSearching && suggestions.length === 0"
-                class="px-4 py-3 text-muted-foreground text-sm"
+                class="text-muted-foreground px-4 py-3 text-sm"
               >
                 Searching...
               </div>
@@ -340,7 +340,7 @@ const getSpecialtyIcon = (slug: string): string => {
                   v-for="(contractor, index) in suggestions"
                   :key="contractor.id"
                   type="button"
-                  class="flex items-center gap-3 px-4 py-3 w-full text-left transition-colors"
+                  class="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors"
                   :class="
                     index === highlightedIndex
                       ? 'bg-muted'
@@ -351,15 +351,15 @@ const getSpecialtyIcon = (slug: string): string => {
                 >
                   <Icon
                     name="mdi:domain"
-                    class="w-4 h-4 text-muted-foreground shrink-0"
+                    class="text-muted-foreground h-4 w-4 shrink-0"
                   />
-                  <div class="flex-1 min-w-0">
-                    <div class="font-medium text-foreground truncate">
+                  <div class="min-w-0 flex-1">
+                    <div class="text-foreground truncate font-medium">
                       {{ contractor.name }}
                     </div>
                     <div
                       v-if="contractor.headquarters"
-                      class="text-muted-foreground text-xs truncate"
+                      class="text-muted-foreground truncate text-xs"
                     >
                       {{ contractor.headquarters }}
                     </div>
@@ -375,7 +375,7 @@ const getSpecialtyIcon = (slug: string): string => {
 
                 <!-- View all results hint -->
                 <div
-                  class="px-4 py-2 border-border border-t text-muted-foreground text-xs"
+                  class="border-border text-muted-foreground border-t px-4 py-2 text-xs"
                 >
                   Press Enter to search all results
                 </div>
@@ -384,7 +384,7 @@ const getSpecialtyIcon = (slug: string): string => {
           </div>
 
           <!-- Quick filters -->
-          <div class="flex flex-wrap justify-center gap-2 mt-6">
+          <div class="mt-6 flex flex-wrap justify-center gap-2">
             <NuxtLink
               v-for="specialty in specialties.slice(0, 5)"
               :key="specialty.id"
@@ -392,13 +392,13 @@ const getSpecialtyIcon = (slug: string): string => {
                 path: '/companies',
                 query: { specialty: specialty.slug },
               }"
-              class="px-3 py-1.5 border border-transparent hover:border-border text-muted-foreground hover:text-foreground text-sm transition-colors"
+              class="hover:border-border text-muted-foreground hover:text-foreground border border-transparent px-3 py-1.5 text-sm transition-colors"
             >
               {{ specialty.name }}
             </NuxtLink>
             <NuxtLink
               to="/companies"
-              class="px-3 py-1.5 text-primary hover:text-primary/80 text-sm transition-colors"
+              class="text-primary hover:text-primary/80 px-3 py-1.5 text-sm transition-colors"
             >
               View all
             </NuxtLink>
@@ -409,36 +409,36 @@ const getSpecialtyIcon = (slug: string): string => {
 
     <!-- Stats Section -->
     <section class="">
-      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-8 container">
+      <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-4xl">
-          <div class="grid grid-cols-3 divide-x divide-border">
-            <div class="px-4 sm:px-8 text-center">
+          <div class="divide-border grid grid-cols-3 divide-x">
+            <div class="px-4 text-center sm:px-8">
               <div
-                class="font-bold tabular-nums text-foreground text-2xl sm:text-3xl md:text-4xl tracking-tight"
+                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl md:text-4xl"
               >
                 {{ totalContractors }}
               </div>
-              <div class="mt-1 text-muted-foreground text-xs sm:text-sm">
+              <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
                 U.S. Contractors
               </div>
             </div>
-            <div class="px-4 sm:px-8 text-center">
+            <div class="px-4 text-center sm:px-8">
               <div
-                class="font-bold tabular-nums text-foreground text-2xl sm:text-3xl md:text-4xl tracking-tight"
+                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl md:text-4xl"
               >
                 {{ specialties.length }}
               </div>
-              <div class="mt-1 text-muted-foreground text-xs sm:text-sm">
+              <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
                 Specialties
               </div>
             </div>
-            <div class="px-4 sm:px-8 text-center">
+            <div class="px-4 text-center sm:px-8">
               <div
-                class="font-bold tabular-nums text-foreground text-2xl sm:text-3xl md:text-4xl tracking-tight"
+                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl md:text-4xl"
               >
                 {{ formatTotalRevenue(totalDefenseRevenue) }}
               </div>
-              <div class="mt-1 text-muted-foreground text-xs sm:text-sm">
+              <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
                 Defense Revenue
               </div>
             </div>
@@ -449,10 +449,10 @@ const getSpecialtyIcon = (slug: string): string => {
 
     <!-- Featured Contractors Section -->
     <section class="">
-      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
+      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-5xl">
-          <div class="flex justify-between items-baseline mb-8">
-            <h2 class="font-bold text-foreground text-xl sm:text-2xl">
+          <div class="mb-8 flex items-baseline justify-between">
+            <h2 class="text-foreground text-xl font-bold sm:text-2xl">
               Featured Contractors
             </h2>
             <NuxtLink
@@ -466,20 +466,20 @@ const getSpecialtyIcon = (slug: string): string => {
           <!-- Loading State -->
           <div
             v-if="contractorsPending"
-            class="gap-px grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-border"
+            class="bg-border grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3"
           >
             <div
               v-for="i in 6"
               :key="i"
-              class="bg-background p-6 animate-pulse"
+              class="bg-background animate-pulse p-6"
             >
               <div class="space-y-3">
                 <div class="flex justify-between">
-                  <div class="bg-muted w-2/3 h-5" />
-                  <div class="bg-muted w-8 h-5" />
+                  <div class="bg-muted h-5 w-2/3" />
+                  <div class="bg-muted h-5 w-8" />
                 </div>
-                <div class="bg-muted/50 w-1/2 h-4" />
-                <div class="bg-muted/50 w-1/3 h-4" />
+                <div class="bg-muted/50 h-4 w-1/2" />
+                <div class="bg-muted/50 h-4 w-1/3" />
               </div>
             </div>
           </div>
@@ -487,24 +487,24 @@ const getSpecialtyIcon = (slug: string): string => {
           <!-- Contractors Grid -->
           <div
             v-else
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-transparent border-border border-t border-l"
+            class="border-border grid grid-cols-1 border-t border-l bg-transparent sm:grid-cols-2 lg:grid-cols-3"
           >
             <NuxtLink
               v-for="contractor in topContractors"
               :key="contractor.id"
               :to="`/companies/${contractor.slug}`"
-              class="group hover:bg-muted/50 p-5 sm:p-6 border-border border-r border-b transition-colors"
+              class="group hover:bg-muted/50 border-border border-r border-b p-5 transition-colors sm:p-6"
             >
               <div class="space-y-3">
                 <h3
-                  class="font-semibold text-foreground group-hover:text-primary text-base leading-tight transition-colors"
+                  class="text-foreground group-hover:text-primary text-base leading-tight font-semibold transition-colors"
                 >
                   {{ contractor.name }}
                 </h3>
-                <div class="space-y-1 text-muted-foreground text-sm">
+                <div class="text-muted-foreground space-y-1 text-sm">
                   <div
                     v-if="contractor.defenseRevenue != null"
-                    class="font-medium text-foreground"
+                    class="text-foreground font-medium"
                   >
                     {{ formatRevenue(contractor.defenseRevenue) }} defense
                     revenue
@@ -525,22 +525,22 @@ const getSpecialtyIcon = (slug: string): string => {
 
     <!-- Browse by Specialty Section -->
     <section class="">
-      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
+      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-5xl">
-          <h2 class="mb-8 font-bold text-foreground text-xl sm:text-2xl">
+          <h2 class="text-foreground mb-8 text-xl font-bold sm:text-2xl">
             Browse by Specialty
           </h2>
 
           <!-- Loading State -->
           <div
             v-if="specialtiesPending"
-            class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5"
+            class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5"
           >
-            <div v-for="i in 10" :key="i" class="p-4 animate-pulse">
+            <div v-for="i in 10" :key="i" class="animate-pulse p-4">
               <div class="space-y-2">
-                <div class="bg-muted w-6 h-6" />
-                <div class="bg-muted w-3/4 h-4" />
-                <div class="bg-muted/50 w-1/2 h-3" />
+                <div class="bg-muted h-6 w-6" />
+                <div class="bg-muted h-4 w-3/4" />
+                <div class="bg-muted/50 h-3 w-1/2" />
               </div>
             </div>
           </div>
@@ -548,7 +548,7 @@ const getSpecialtyIcon = (slug: string): string => {
           <!-- Specialty Grid -->
           <div
             v-else
-            class="gap-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5"
+            class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5"
           >
             <NuxtLink
               v-for="specialty in specialties"
@@ -557,22 +557,22 @@ const getSpecialtyIcon = (slug: string): string => {
                 path: '/companies',
                 query: { specialty: specialty.slug },
               }"
-              class="group p-4 border border-transparent hover:border-border transition-colors"
+              class="group hover:border-border border border-transparent p-4 transition-colors"
             >
-              <div class="mb-2 text-primary">
+              <div class="text-primary mb-2">
                 <Icon
                   :name="getSpecialtyIcon(specialty.slug)"
-                  class="w-5 h-5"
+                  class="h-5 w-5"
                 />
               </div>
               <div
-                class="font-medium text-foreground group-hover:text-primary text-sm transition-colors"
+                class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
               >
                 {{ specialty.name }}
               </div>
               <div
                 v-if="specialty.contractorCount"
-                class="mt-1 text-muted-foreground text-xs"
+                class="text-muted-foreground mt-1 text-xs"
               >
                 {{ specialty.contractorCount }} contractors
               </div>
@@ -584,12 +584,12 @@ const getSpecialtyIcon = (slug: string): string => {
 
     <!-- CTA Section -->
     <section class="">
-      <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
+      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">
-          <h2 class="font-semibold text-foreground text-lg sm:text-xl">
+          <h2 class="text-foreground text-lg font-semibold sm:text-xl">
             Are you a defense contractor?
           </h2>
-          <p class="mt-2 text-muted-foreground text-sm sm:text-base">
+          <p class="text-muted-foreground mt-2 text-sm sm:text-base">
             Claim your company profile to manage your presence and reach job
             seekers.
           </p>
