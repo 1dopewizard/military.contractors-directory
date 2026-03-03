@@ -12,6 +12,17 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      meta: [
+        { property: "og:image", content: "/og-image.svg" },
+        { property: "og:site_name", content: "military.contractors" },
+      ],
+      script: [
+        {
+          src: "https://plausible.io/js/script.js",
+          "data-domain": "military.contractors",
+          defer: true,
+        },
+      ],
     },
     pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: { name: "page", mode: "out-in" },
@@ -53,6 +64,11 @@ export default defineNuxtConfig({
     openaiApiKey: "",
     assistantId: "",
     resendApiKey: process.env.RESEND_API_KEY || "",
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY || "",
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || "",
+    stripeClaimedPriceId: process.env.STRIPE_CLAIMED_PRICE_ID || "",
+    stripePremiumPriceId: process.env.STRIPE_PREMIUM_PRICE_ID || "",
+    betterAuthSecret: process.env.BETTER_AUTH_SECRET || "",
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
       siteName: "military.contractors",
@@ -95,6 +111,8 @@ export default defineNuxtConfig({
     "/advertiser/**": { ssr: false },
     "/admin/**": { ssr: false },
     "/auth/login": { ssr: false },
+    "/insights/**": { isr: 3600 },
+    "/companies/**": { isr: 3600 },
   },
   components: [
     {

@@ -1,57 +1,60 @@
 # military.contractors
 
-**The definitive directory of defense contractors.**
-
-Authoritative company profiles for 48+ U.S. defense contractors with structured data on headquarters, employee count, specialties, and Defense News rankings. Employers can claim and enhance their profiles.
-
----
+Defense contractor intelligence platform -- company directory, industry insights, claimed profiles SaaS, and staffing pipeline.
 
 ## What this is
 
-A comprehensive directory of defense contractors providing:
+1. **Defense Contractor Directory** -- 103+ company profiles with specialties, locations, revenue data, and employer-managed claimed profiles
+2. **Industry Insights** -- Timely analysis on hiring surges, contractor pay, MOS demand, and career strategy
+3. **Claimed Profiles SaaS** -- Employers claim and enhance their company pages ($149-$399/month)
+4. **Job Alerts** -- Email subscriptions for job notifications by MOS and specialty
 
-1. **Company profiles** — Structured data on each contractor (HQ, employees, revenue, specialties)
-2. **Browse by specialty** — Find contractors by capability (cybersecurity, aerospace, logistics, etc.)
-3. **Browse by location** — Find contractors by state
-4. **Claimed profiles** — Employers can verify and enhance their company pages
-5. **SEO-optimized** — Every contractor page ranks for "[Company] contractor" searches
+## Revenue Model
 
-This is a **reference directory** that aggregates and structures public data to make it easy to research defense contractors.
+- **Claimed profiles:** $149-$399/month SaaS for employers
+- **Placement fees:** $10K-$50K per successful hire (future)
+- **Sponsored listings:** $299-$999/month featured jobs (future)
 
----
+## Pages
 
-## Features
+| Page | URL | Description |
+|------|-----|-------------|
+| Homepage | `/` | Search + top contractors + browse by specialty |
+| Companies | `/companies` | Browse 103+ defense contractors |
+| Company Profile | `/companies/[slug]` | Full company profile |
+| By Specialty | `/companies/specialty/[slug]` | 10 specialty categories |
+| By Location | `/companies/location/[state]` | 16+ states |
+| Insights Hub | `/insights` | Industry analysis articles |
+| Hiring Surge | `/insights/defense-hiring-surge-2026` | Iran conflict analysis |
+| Contractors Hiring | `/insights/contractors-hiring-now` | Company breakdown |
+| MOS Demand | `/insights/mos-demand-middle-east` | In-demand specialties |
+| Pay & Tax Guide | `/insights/contractor-pay-tax-guide` | Compensation guide |
+| For Companies | `/for-companies` | Claimed profiles pricing |
+| Profile Manager | `/profile-manager` | Employer dashboard |
+| Claim Profile | `/profile-manager/claim` | Claim flow |
+| Admin | `/admin` | Admin dashboard |
+| Login | `/auth/login` | Magic link auth |
+| About | `/about` | Services page |
+| Contact | `/contact` | Contact form |
+| Privacy | `/privacy` | Privacy policy |
+| Terms | `/terms` | Terms of service |
 
-### Public Pages
+## Tech stack
 
-| Page               | URL                             | Description                                  |
-| ------------------ | ------------------------------- | -------------------------------------------- |
-| Homepage           | `/`                             | Search, top contractors, browse by specialty |
-| Contractor profile | `/contractors/[slug]`           | Full company profile with stats and details  |
-| Browse all         | `/contractors`                  | Paginated list with search and filters       |
-| By specialty       | `/contractors/specialty/[slug]` | Contractors in a specific specialty          |
-| By location        | `/contractors/location/[state]` | Contractors in a specific state              |
-| Top contractors    | `/top-defense-contractors`      | Ranked list of top defense contractors       |
-| For employers      | `/for-employers`                | Marketing page for claimed profiles          |
-
-### Employer Dashboard
-
-| Page       | URL                      | Description             |
-| ---------- | ------------------------ | ----------------------- |
-| Dashboard  | `/profile-manager`       | Manage claimed profile  |
-| Claim flow | `/profile-manager/claim` | Claim a company profile |
-
-### Admin Dashboard
-
-| Section        | Description                      |
-| -------------- | -------------------------------- |
-| Overview       | Site stats and metrics           |
-| Claims         | Review pending claim requests    |
-| Content Review | Approve/reject sponsored content |
-| Contractors    | Manage contractor profiles       |
-| Users          | User management                  |
-
----
+| Layer | Technology |
+|-------|-----------|
+| Framework | Nuxt 4 |
+| UI | Tailwind CSS v4, shadcn-vue |
+| Database | Drizzle ORM + libsql (SQLite) |
+| Auth | Better Auth (magic link via Resend) |
+| Billing | Stripe |
+| Validation | Zod + vee-validate |
+| Email | Resend |
+| Icons | Iconify (MDI) |
+| Logging | pino |
+| Analytics | Plausible |
+| Testing | Vitest |
+| Deployment | Coolify (VPS) |
 
 ## Repository layout
 
@@ -59,64 +62,46 @@ This is a **reference directory** that aggregates and structures public data to 
 military.contractors/
 ├── app/
 │   ├── components/
-│   │   ├── Contractors/        # Contractor cards, skeletons
+│   │   ├── Auth/                 # Login, auth button
+│   │   ├── Contractors/          # Company cards, skeletons
 │   │   ├── Dashboard/
-│   │   │   ├── Admin/          # Admin dashboard components
-│   │   │   ├── ProfileManager/ # Employer dashboard components
-│   │   │   └── Account/        # User account components
-│   │   └── ui/                 # shadcn-vue components
-│   ├── composables/            # Vue composables
-│   ├── layouts/                # Page layouts
+│   │   │   ├── Admin/            # Admin dashboard components
+│   │   │   └── ProfileManager/   # Employer dashboard
+│   │   ├── Featured/             # Alert signup, featured cards
+│   │   ├── Layout/               # Page layout, search
+│   │   └── ui/                   # shadcn-vue (auto-imported)
+│   ├── composables/              # useAuth, useJsonLd, useLogger
+│   ├── config/                   # Auth config
+│   ├── layouts/                  # default, homepage, dashboard
+│   ├── lib/                      # Auth client, utils
+│   ├── middleware/                # auth, admin, profile-manager
 │   └── pages/
-│       ├── index.vue           # Homepage
-│       ├── contractors/        # Contractor pages
-│       │   ├── index.vue       # Browse all
-│       │   ├── [slug].vue      # Contractor profile
-│       │   ├── specialty/      # By specialty
-│       │   └── location/       # By location
-│       ├── top-defense-contractors.vue
-│       ├── for-employers/      # Employer landing
-│       ├── profile-manager/    # Employer dashboard
-│       ├── admin/              # Admin dashboard
-│       └── auth/               # Authentication
+│       ├── admin/                # Admin dashboard
+│       ├── auth/                 # Login, callback
+│       ├── companies/            # Contractor directory
+│       ├── for-companies/        # Pricing page
+│       ├── insights/             # Industry analysis
+│       ├── profile-manager/      # Employer dashboard
+│       └── ...                   # Static pages
 ├── server/
 │   ├── api/
-│   │   ├── contractors/        # Contractor endpoints
-│   │   ├── specialties/        # Specialty endpoints
-│   │   ├── locations/          # Location endpoints
-│   │   ├── profile-manager/    # Employer endpoints
-│   │   └── admin/              # Admin endpoints
+│   │   ├── admin/                # Admin endpoints
+│   │   ├── alerts/               # Job alert subscriptions
+│   │   ├── billing/              # Stripe integration
+│   │   ├── contractors/          # Directory API
+│   │   ├── locations/            # Location API
+│   │   ├── profile-manager/      # Claimed profiles
+│   │   ├── specialties/          # Specialty API
+│   │   └── users/                # User endpoints
 │   ├── database/
-│   │   ├── schema/             # Drizzle schema
-│   │   │   ├── directory.ts    # contractor, specialty, location
-│   │   │   ├── claimed.ts      # claimedProfile, benefits, programs
-│   │   │   ├── auth.ts         # Better Auth tables
-│   │   │   └── ...
-│   │   └── migrations/         # Database migrations
-│   └── utils/                  # DB, auth, logger utilities
+│   │   └── schema/               # Drizzle schema files
+│   ├── routes/                   # Sitemap, auth handler
+│   └── utils/                    # DB, email, auth, stripe, logging
 ├── scripts/
-│   ├── seed/                   # Data seeding scripts
-│   ├── deploy.sh               # VPS deployment
-│   └── start-dev.sh            # Development script
-├── public/
-│   └── logos/
-│       └── companies/          # Company logos
-├── drizzle.config.ts
-├── nuxt.config.ts
+│   └── seed/                     # Seed data + scripts
+├── prd.md                        # Product requirements
 └── package.json
 ```
-
----
-
-## Tech stack
-
-- **Framework:** Nuxt 4, Vue 3
-- **UI:** TailwindCSS, shadcn-vue
-- **Database:** libSQL (SQLite), Drizzle ORM
-- **Auth:** Better Auth
-- **Testing:** Vitest
-
----
 
 ## Getting started
 
@@ -130,124 +115,103 @@ pnpm install
 
 Create `.env`:
 
-```bash
+```
 DATABASE_URL=file:./server/database/app.db
 BETTER_AUTH_SECRET=your-secret-here
+RESEND_API_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_CLAIMED_PRICE_ID=
+STRIPE_PREMIUM_PRICE_ID=
+NUXT_PUBLIC_SITE_URL=https://military.contractors
 ```
 
-### 3. Run database migrations
+### 3. Set up database
 
 ```bash
 pnpm db:migrate
-```
-
-### 4. Seed data (optional)
-
-```bash
 pnpm tsx scripts/seed/seed-contractors.ts
 ```
 
-### 5. Run development server
+### 4. Run development server
 
 ```bash
 pnpm dev
 ```
 
-The app will be available at http://localhost:3000.
-
-### 6. Build for production
+### 5. Build for production
 
 ```bash
-pnpm build
-pnpm start
+pnpm build && pnpm start
 ```
 
----
+## API endpoints
 
-## Available scripts
+### Contractor Directory
 
-| Command            | Description                     |
-| ------------------ | ------------------------------- |
-| `pnpm dev`         | Start development server        |
-| `pnpm build`       | Build for production            |
-| `pnpm start`       | Start production server         |
-| `pnpm preview`     | Preview production build        |
-| `pnpm db:generate` | Generate Drizzle migrations     |
-| `pnpm db:migrate`  | Run database migrations         |
-| `pnpm db:push`     | Push schema directly (dev only) |
-| `pnpm db:studio`   | Open Drizzle Studio             |
-| `pnpm test`        | Run tests                       |
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | /api/contractors | Paginated list with filters |
+| GET | /api/contractors/[slug] | Contractor detail |
+| GET | /api/contractors/by-location/[state] | By state |
+| GET | /api/specialties | All specialties |
+| GET | /api/specialties/[slug] | Specialty detail |
+| GET | /api/locations | Location list |
 
----
+### Billing
 
-## Database schema (key tables)
+| Method | Path | Purpose |
+|--------|------|---------|
+| POST | /api/billing/create-checkout | Stripe checkout |
+| POST | /api/billing/webhook | Stripe webhooks |
+| GET | /api/billing/portal | Customer portal |
 
-### Directory Tables
+### Profile Manager
 
-| Table                 | Purpose                          |
-| --------------------- | -------------------------------- |
-| `contractor`          | Defense contractor profiles      |
-| `specialty`           | Specialty/capability taxonomy    |
-| `contractorSpecialty` | Contractor-to-specialty mappings |
-| `contractorLocation`  | Contractor office locations      |
+| Method | Path | Purpose |
+|--------|------|---------|
+| POST | /api/profile-manager/claim | Submit claim |
+| GET | /api/profile-manager/profile | Get profile |
+| PATCH | /api/profile-manager/profile | Update profile |
+| GET/POST | /api/profile-manager/benefits | Manage benefits |
+| GET/POST | /api/profile-manager/programs | Manage programs |
 
-### Claimed Profiles Tables
+### Admin
 
-| Table                 | Purpose                          |
-| --------------------- | -------------------------------- |
-| `claimedProfile`      | Employer-claimed profile records |
-| `employerUser`        | Users linked to claimed profiles |
-| `employerBenefit`     | "Why Work Here" benefits         |
-| `employerProgram`     | Notable programs/products        |
-| `employerTestimonial` | Employee testimonials            |
-| `sponsoredContent`    | Spotlight content blocks         |
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | /api/admin/system-health | System metrics |
+| GET/PATCH | /api/admin/claims | Claim review |
+| GET/PATCH | /api/admin/content | Content review |
+| GET | /api/admin/users | User management |
 
-### Auth Tables
+### Alerts
 
-| Table     | Purpose           |
-| --------- | ----------------- |
-| `user`    | User accounts     |
-| `session` | Active sessions   |
-| `account` | OAuth connections |
+| Method | Path | Purpose |
+|--------|------|---------|
+| POST | /api/alerts/subscribe | Subscribe |
+| GET | /api/alerts/unsubscribe | Unsubscribe |
 
----
+### Other
 
-## Deployment
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | /api/search | Global search |
+| GET | /sitemap.xml | Dynamic sitemap |
 
-### VPS setup
+## SEO
 
-```bash
-# Run setup script on VPS
-./scripts/setup-vps.sh
-
-# Clone and deploy
-git clone <repo> /var/www/military.contractors
-cd /var/www/military.contractors
-pnpm install
-pnpm build
-
-# Start with pm2
-pm2 start .output/server/index.mjs --name military-contractors
-pm2 save
-```
-
-### Deploy updates
-
-```bash
-./scripts/deploy.sh
-```
-
----
+- SSR on all public pages
+- 130+ URLs in dynamic sitemap
+- Schema.org: WebSite, WebPage, Organization, Article, CollectionPage, BreadcrumbList
+- Unique meta tags, OG tags, canonical URLs on every page
+- 2 content silos: /companies (103+), /insights (5+)
+- Plausible analytics (privacy-friendly, no cookie banner)
 
 ## Documentation
 
-| Document         | Purpose                  |
-| ---------------- | ------------------------ |
-| `prd.md`         | Product requirements     |
-| `.cursor/plans/` | Implementation plans     |
-| `AGENTS.md`      | Cursor/agent conventions |
-| `docs/`          | Feature documentation    |
+| Document | Purpose |
+|----------|---------|
+| prd.md | Product requirements and roadmap |
 
----
-
-See `prd.md` for full product requirements and roadmap.
+See `prd.md` for full product requirements.

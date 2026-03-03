@@ -190,6 +190,52 @@ export function useCollectionPageSchema(options: {
 }
 
 /**
+ * Article schema for insights/blog pages
+ *
+ * @see https://developers.google.com/search/docs/appearance/structured-data/article
+ */
+export function useArticleSchema(options: {
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  author?: string;
+  image?: string;
+  url?: string;
+}) {
+  const config = useRuntimeConfig();
+  const baseUrl = config.public.siteUrl || "https://military.contractors";
+  const route = useRoute();
+
+  useJsonLd({
+    "@type": "Article",
+    headline: options.headline,
+    description: options.description,
+    datePublished: options.datePublished,
+    dateModified: options.dateModified || options.datePublished,
+    author: {
+      "@type": "Organization",
+      name: options.author || "military.contractors",
+      url: baseUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "military.contractors",
+      url: baseUrl,
+    },
+    image: options.image
+      ? options.image.startsWith("http")
+        ? options.image
+        : `${baseUrl}${options.image}`
+      : undefined,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": options.url || `${baseUrl}${route.path}`,
+    },
+  });
+}
+
+/**
  * BreadcrumbList schema for navigation
  *
  * @see https://developers.google.com/search/docs/appearance/structured-data/breadcrumb

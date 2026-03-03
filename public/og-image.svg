@@ -1,0 +1,19 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#grid)" opacity="0.08"/>
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#808080" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect x="48" y="48" width="64" height="40" rx="0" fill="#e5e5e5"/>
+  <text x="80" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#0a0a0a" text-anchor="middle">MC</text>
+  <text x="128" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#e5e5e5">military.contractors</text>
+  <text x="48" y="260" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#fafafa" letter-spacing="-1">Defense Contractor</text>
+  <text x="48" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#fafafa" letter-spacing="-1">Intelligence Platform</text>
+  <text x="48" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#a3a3a3">Company Directory &bull; Industry Insights &bull; Claimed Profiles</text>
+  <rect x="48" y="500" width="200" height="48" fill="#fafafa"/>
+  <text x="148" y="531" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#0a0a0a" text-anchor="middle">Browse Companies</text>
+  <rect x="268" y="500" width="200" height="48" fill="none" stroke="#a3a3a3" stroke-width="1"/>
+  <text x="368" y="531" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="#fafafa" text-anchor="middle">Read Insights</text>
+</svg>
