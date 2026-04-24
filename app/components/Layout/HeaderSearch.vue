@@ -21,7 +21,7 @@ onMounted(() => {
       @click="searchOpen = true"
     >
       <Icon name="mdi:magnify" class="mr-2 h-4 w-4" />
-      <span class="hidden lg:inline-flex">Search contractors...</span>
+      <span class="hidden lg:inline-flex">Search intelligence...</span>
       <span class="inline-flex lg:hidden">Search...</span>
       <Kbd
         class="pointer-events-none absolute top-1/2 right-1.5 hidden -translate-y-1/2 sm:inline-flex"

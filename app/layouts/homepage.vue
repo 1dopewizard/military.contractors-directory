@@ -48,6 +48,21 @@ watch(
           </span>
         </NuxtLink>
 
+        <nav class="hidden items-center gap-6 lg:flex">
+          <NuxtLink
+            to="/companies"
+            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
+          >
+            Companies
+          </NuxtLink>
+          <NuxtLink
+            to="/about"
+            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
+          >
+            About
+          </NuxtLink>
+        </nav>
+
         <div class="flex items-center gap-2 sm:gap-4">
           <!-- Header Search (hidden on mobile, shown on md+) -->
           <div class="hidden md:block">
@@ -80,6 +95,21 @@ watch(
         <div class="mt-4 mb-6">
           <HeaderSearch />
         </div>
+
+        <nav class="flex flex-col gap-3">
+          <NuxtLink
+            to="/companies"
+            class="text-foreground hover:text-primary text-sm transition-colors"
+          >
+            Companies
+          </NuxtLink>
+          <NuxtLink
+            to="/about"
+            class="text-foreground hover:text-primary text-sm transition-colors"
+          >
+            About
+          </NuxtLink>
+        </nav>
 
         <div class="mt-4">
           <AuthButton />

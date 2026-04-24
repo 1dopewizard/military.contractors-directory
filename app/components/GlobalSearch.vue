@@ -181,7 +181,7 @@ const browseBySpecialty = (slug: string) => {
       <input
         ref="searchInputRef"
         v-model="searchQuery"
-        placeholder="Search contractors..."
+        placeholder="Search contractor intelligence..."
         class="placeholder:text-muted-foreground flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50"
         @keydown.enter="navigateToSearch()"
       />
@@ -296,7 +296,7 @@ const browseBySpecialty = (slug: string) => {
         <CommandSeparator v-if="recentSearches.length > 0" />
 
         <!-- Quick browse -->
-        <CommandGroup heading="Browse by Specialty">
+        <CommandGroup heading="Browse by Category">
           <CommandItem
             v-for="specialty in specialtyLinks"
             :key="specialty.slug"

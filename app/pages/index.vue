@@ -1,7 +1,6 @@
 <!--
-  @file Homepage - Defense Contractor Directory
-  @description Primary landing page featuring contractor directory, search, top contractors, and specialty browsing
-  @usage Landing page at /
+  @file Homepage - Open contractor intelligence explorer
+  @description Primary landing page for public defense contractor intelligence, award exploration, and directory browsing
 -->
 
 <script setup lang="ts">
@@ -10,158 +9,31 @@ definePageMeta({
 });
 
 useHead({
-  title: "U.S. Defense Contractor Directory | military.contractors",
+  title: "Open Defense Contractor Intelligence | military.contractors",
   meta: [
     {
       name: "description",
       content:
-        "Comprehensive directory of U.S. defense contractors from the Defense News Top 100. Browse by specialty, search by name, and explore company profiles.",
+        "Ask questions about U.S. defense contractors, public awards, agencies, NAICS/PSC categories, locations, and spending trends.",
     },
     {
       name: "keywords",
       content:
-        "defense contractors, military contractors, defense industry, aerospace defense, defense companies, DoD contractors, top 100 defense contractors",
+        "defense contractors, USAspending, federal awards, defense contracts, NAICS, PSC, contractor intelligence",
     },
   ],
 });
 
-// Schema.org structured data
-useWebSiteSchema();
-useWebPageSchema({
-  name: "U.S. Defense Contractor Directory",
+useWebSiteSchema({
   description:
-    "Comprehensive directory of U.S. defense contractors featuring company profiles, specialties, and revenue data.",
+    "Open intelligence on U.S. defense contractors, public awards, agencies, categories, and spending trends.",
+});
+useWebPageSchema({
+  name: "Open Defense Contractor Intelligence",
+  description:
+    "Explore U.S. defense contractors with structured public award data and source-backed summaries.",
 });
 
-// Search state
-const searchQuery = ref("");
-const router = useRouter();
-const searchInputRef = ref<HTMLInputElement | null>(null);
-const showSuggestions = ref(false);
-const highlightedIndex = ref(-1);
-
-// Autocomplete results
-interface AutocompleteContractor {
-  id: string;
-  slug: string;
-  name: string;
-  headquarters: string | null;
-  defenseNewsRank: number | null;
-}
-
-const suggestions = ref<AutocompleteContractor[]>([]);
-const isSearching = ref(false);
-
-// Debounced autocomplete fetch
-const debouncedFetch = useDebounceFn(async (query: string) => {
-  if (!query.trim() || query.length < 2) {
-    suggestions.value = [];
-    isSearching.value = false;
-    return;
-  }
-
-  isSearching.value = true;
-  try {
-    const response = await $fetch<{ contractors: AutocompleteContractor[] }>(
-      `/api/contractors?q=${encodeURIComponent(query)}&limit=5`,
-    );
-    suggestions.value = response.contractors;
-  } catch {
-    suggestions.value = [];
-  } finally {
-    isSearching.value = false;
-  }
-}, 200);
-
-watch(searchQuery, (query) => {
-  highlightedIndex.value = -1;
-  if (query.trim().length >= 2) {
-    isSearching.value = true;
-    showSuggestions.value = true;
-    debouncedFetch(query);
-  } else {
-    suggestions.value = [];
-    showSuggestions.value = false;
-    isSearching.value = false;
-  }
-});
-
-// Handle search submission
-const handleSearch = () => {
-  showSuggestions.value = false;
-  const q = searchQuery.value.trim();
-  if (q) {
-    router.push({ path: "/companies", query: { q } });
-  } else {
-    router.push("/companies");
-  }
-};
-
-// Navigate directly to contractor
-const selectContractor = (slug: string) => {
-  showSuggestions.value = false;
-  searchQuery.value = "";
-  router.push(`/companies/${slug}`);
-};
-
-const handleKeydown = (e: KeyboardEvent) => {
-  if (!showSuggestions.value || suggestions.value.length === 0) return;
-
-  switch (e.key) {
-    case "ArrowDown":
-      e.preventDefault();
-      highlightedIndex.value = Math.min(
-        highlightedIndex.value + 1,
-        suggestions.value.length - 1,
-      );
-      break;
-    case "ArrowUp":
-      e.preventDefault();
-      highlightedIndex.value = Math.max(highlightedIndex.value - 1, -1);
-      break;
-    case "Tab":
-      e.preventDefault();
-      if (e.shiftKey) {
-        highlightedIndex.value =
-          highlightedIndex.value <= 0
-            ? suggestions.value.length - 1
-            : highlightedIndex.value - 1;
-      } else {
-        highlightedIndex.value =
-          highlightedIndex.value >= suggestions.value.length - 1
-            ? 0
-            : highlightedIndex.value + 1;
-      }
-      break;
-    case "Enter": {
-      const selected = suggestions.value[highlightedIndex.value];
-      if (highlightedIndex.value >= 0 && selected) {
-        e.preventDefault();
-        selectContractor(selected.slug);
-      }
-      break;
-    }
-    case "Escape":
-      showSuggestions.value = false;
-      highlightedIndex.value = -1;
-      break;
-  }
-};
-
-// Close suggestions on blur (with delay to allow click)
-const handleBlur = () => {
-  setTimeout(() => {
-    showSuggestions.value = false;
-  }, 200);
-};
-
-const handleFocus = () => {
-  if (searchQuery.value.trim().length >= 2 && suggestions.value.length > 0) {
-    showSuggestions.value = true;
-  }
-};
-
-// Contractor response type
 interface ContractorResponse {
   contractors: Array<{
     id: string;
@@ -189,14 +61,46 @@ interface Specialty {
   contractorCount?: number;
 }
 
-// Fetch top contractors
+interface ExplorerResult {
+  id: string;
+  query: string;
+  summary: string;
+  resultType: string;
+  filtersUsed: Array<{ label: string; value: string }>;
+  table: Array<Record<string, string | number | null>>;
+  cards: Array<{ label: string; value: string; detail: string }>;
+  chart: Array<{
+    key: string;
+    label: string;
+    obligation: number;
+    awardCount: number;
+  }>;
+  sourceLinks: Array<{ label: string; url: string }>;
+  sourceMetadata: {
+    freshness: string;
+    structuredRecords: number;
+  };
+  cached: boolean;
+}
+
+const explorerQuery = ref("Top Department of the Navy contractors");
+const explorerResult = ref<ExplorerResult | null>(null);
+const explorerPending = ref(false);
+const explorerError = ref<string | null>(null);
+
+const exampleQueries = [
+  "Compare Lockheed Martin and RTX",
+  "Show cyber awards in Virginia",
+  "Top NAICS 541512 contractors",
+  "Which contractors have missile awards?",
+];
+
 const { data: topContractorsData, pending: contractorsPending } =
   useFetch<ContractorResponse>("/api/contractors?sort=rank&limit=6", {
     lazy: true,
     default: () => ({ contractors: [], total: 0 }),
   });
 
-// Fetch all contractors for stats
 const { data: allContractorsData } = useFetch<ContractorResponse>(
   "/api/contractors?limit=50",
   {
@@ -205,7 +109,6 @@ const { data: allContractorsData } = useFetch<ContractorResponse>(
   },
 );
 
-// Fetch specialties with counts
 const { data: specialtiesData, pending: specialtiesPending } = useFetch<{
   specialties: Specialty[];
 }>("/api/specialties?includeCounts=true", {
@@ -213,42 +116,81 @@ const { data: specialtiesData, pending: specialtiesPending } = useFetch<{
   default: () => ({ specialties: [] }),
 });
 
-// Computed values
 const topContractors = computed(
   () => topContractorsData.value?.contractors ?? [],
 );
 const totalContractors = computed(() => allContractorsData.value?.total ?? 0);
 const specialties = computed(() => specialtiesData.value?.specialties ?? []);
+const tableKeys = computed(() =>
+  explorerResult.value?.table[0] ? Object.keys(explorerResult.value.table[0]) : [],
+);
 
-// Calculate total defense revenue from all contractors
 const totalDefenseRevenue = computed(() => {
   const contractors = allContractorsData.value?.contractors ?? [];
-  const total = contractors.reduce(
-    (sum, c) => sum + (c.defenseRevenue ?? 0),
-    0,
-  );
-  return total;
+  return contractors.reduce((sum, c) => sum + (c.defenseRevenue ?? 0), 0);
 });
 
-// Format revenue for display (in billions)
+const maxChartValue = computed(() => {
+  const chart = explorerResult.value?.chart ?? [];
+  return chart.reduce((max, item) => Math.max(max, item.obligation), 0);
+});
+
 const formatRevenue = (revenue: number | null | undefined): string => {
   if (revenue == null) return "N/A";
-  if (revenue >= 1) {
-    return `$${revenue.toFixed(1)}B`;
-  }
-  const millions = revenue * 1000;
-  return `$${millions.toFixed(0)}M`;
+  if (revenue >= 1) return `$${revenue.toFixed(1)}B`;
+  return `$${(revenue * 1000).toFixed(0)}M`;
 };
 
-// Format total revenue (sum of all defense revenue)
+const formatObligation = (value: number | null | undefined): string => {
+  if (typeof value !== "number") return "N/A";
+  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M`;
+  return `$${value.toLocaleString()}`;
+};
+
 const formatTotalRevenue = (revenue: number): string => {
-  if (revenue >= 1000) {
-    return `$${(revenue / 1000).toFixed(1)}T`;
-  }
+  if (revenue >= 1000) return `$${(revenue / 1000).toFixed(1)}T`;
   return `$${revenue.toFixed(0)}B`;
 };
 
-// Specialty icon mapping
+const formatCell = (value: string | number | null): string => {
+  if (value === null) return "N/A";
+  if (typeof value === "number") {
+    return value > 100000 ? formatObligation(value) : value.toString();
+  }
+  return value;
+};
+
+const chartWidth = (value: number): string => {
+  if (!maxChartValue.value) return "0%";
+  return `${Math.max(6, Math.round((value / maxChartValue.value) * 100))}%`;
+};
+
+const runExplorer = async () => {
+  const query = explorerQuery.value.trim();
+  if (!query) return;
+
+  explorerPending.value = true;
+  explorerError.value = null;
+
+  try {
+    explorerResult.value = await $fetch<ExplorerResult>("/api/explorer/query", {
+      method: "POST",
+      body: { query },
+    });
+  } catch (error) {
+    explorerError.value =
+      error instanceof Error ? error.message : "Explorer query failed";
+  } finally {
+    explorerPending.value = false;
+  }
+};
+
+const useExample = (query: string) => {
+  explorerQuery.value = query;
+  runExplorer();
+};
+
 const specialtyIcons: Record<string, string> = {
   "aerospace-defense": "mdi:airplane",
   "cybersecurity-it": "mdi:shield-lock",
@@ -262,184 +204,243 @@ const specialtyIcons: Record<string, string> = {
   "research-development": "mdi:flask",
 };
 
-// Get icon for specialty
 const getSpecialtyIcon = (slug: string): string => {
   return specialtyIcons[slug] || "mdi:domain";
 };
+
+onMounted(() => {
+  runExplorer();
+});
 </script>
 
 <template>
   <div class="min-h-full">
-    <!-- Hero Section - Search Centric -->
-    <section class="relative">
+    <section>
       <div
-        class="container mx-auto px-4 pt-[clamp(4rem,12vh,8rem)] pb-12 sm:px-6 lg:px-8"
+        class="container mx-auto px-4 pt-[clamp(3rem,9vh,6rem)] pb-10 sm:px-6 lg:px-8"
       >
-        <div class="mx-auto max-w-3xl text-center">
-          <!-- Primary headline - Large and commanding -->
-          <h1
-            class="text-foreground text-4xl leading-[1.1] font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
-          >
-            Find Defense
-            <br />
-            Contractors
-          </h1>
-
-          <!-- Subheadline -->
-          <p class="text-muted-foreground mt-6 text-lg sm:text-xl">
-            Search {{ totalContractors }} U.S. defense contractors by name,
-            specialty, or location.
-          </p>
-
-          <!-- Search Bar - Hero Element -->
-          <div class="relative mx-auto mt-10 max-w-2xl">
-            <form @submit.prevent="handleSearch">
-              <InputGroup class="h-14 rounded-none shadow-none sm:h-16">
-                <InputGroupAddon align="inline-start" class="pl-5 sm:pl-6">
-                  <Icon
-                    name="mdi:magnify"
-                    class="text-muted-foreground h-5 w-5 sm:h-6 sm:w-6"
-                  />
-                </InputGroupAddon>
-                <InputGroupInput
-                  ref="searchInputRef"
-                  v-model="searchQuery"
-                  placeholder="Search contractors..."
-                  class="text-base sm:text-lg"
-                  autocomplete="off"
-                  @keydown="handleKeydown"
-                  @blur="handleBlur"
-                  @focus="handleFocus"
-                />
-                <InputGroupButton
-                  variant="ghost"
-                  type="submit"
-                  class="h-full px-5 sm:px-6"
-                >
-                  <Icon name="mdi:arrow-right" class="h-5 w-5 sm:h-6 sm:w-6" />
-                </InputGroupButton>
-              </InputGroup>
-            </form>
-
-            <!-- Autocomplete Dropdown -->
-            <div
-              v-if="showSuggestions && (suggestions.length > 0 || isSearching)"
-              class="bg-card border-border absolute top-full right-0 left-0 z-50 mt-1 border shadow-lg"
+        <div class="mx-auto max-w-5xl">
+          <div class="max-w-3xl">
+            <Badge variant="outline" class="mb-5">Public award intelligence</Badge>
+            <h1
+              class="text-foreground text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl md:text-6xl"
             >
-              <!-- Loading state -->
-              <div
-                v-if="isSearching && suggestions.length === 0"
-                class="text-muted-foreground px-4 py-3 text-sm"
-              >
-                Searching...
-              </div>
-
-              <!-- Results -->
-              <template v-else>
-                <button
-                  v-for="(contractor, index) in suggestions"
-                  :key="contractor.id"
-                  type="button"
-                  class="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors"
-                  :class="
-                    index === highlightedIndex
-                      ? 'bg-muted'
-                      : 'hover:bg-muted/50'
-                  "
-                  @mousedown.prevent="selectContractor(contractor.slug)"
-                  @mouseenter="highlightedIndex = index"
-                >
-                  <Icon
-                    name="mdi:domain"
-                    class="text-muted-foreground h-4 w-4 shrink-0"
-                  />
-                  <div class="min-w-0 flex-1">
-                    <div class="text-foreground truncate font-medium">
-                      {{ contractor.name }}
-                    </div>
-                    <div
-                      v-if="contractor.headquarters"
-                      class="text-muted-foreground truncate text-xs"
-                    >
-                      {{ contractor.headquarters }}
-                    </div>
-                  </div>
-                  <Badge
-                    v-if="contractor.defenseNewsRank"
-                    variant="secondary"
-                    class="shrink-0"
-                  >
-                    #{{ contractor.defenseNewsRank }}
-                  </Badge>
-                </button>
-
-                <!-- View all results hint -->
-                <div
-                  class="border-border text-muted-foreground border-t px-4 py-2 text-xs"
-                >
-                  Press Enter to search all results
-                </div>
-              </template>
-            </div>
+              Open Defense Contractor Intelligence
+            </h1>
+            <p class="text-muted-foreground mt-5 max-w-2xl text-lg sm:text-xl">
+              Ask questions about contractors, awards, agencies, locations,
+              NAICS/PSC categories, and spending trends.
+            </p>
           </div>
 
-          <!-- Quick filters -->
-          <div class="mt-6 flex flex-wrap justify-center gap-2">
-            <NuxtLink
-              v-for="specialty in specialties.slice(0, 5)"
-              :key="specialty.id"
-              :to="{
-                path: '/companies',
-                query: { specialty: specialty.slug },
-              }"
-              class="hover:border-border text-muted-foreground hover:text-foreground border border-transparent px-3 py-1.5 text-sm transition-colors"
-            >
-              {{ specialty.name }}
-            </NuxtLink>
-            <NuxtLink
-              to="/companies"
-              class="text-primary hover:text-primary/80 px-3 py-1.5 text-sm transition-colors"
-            >
-              View all
-            </NuxtLink>
+          <div class="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_0.95fr]">
+            <div class="border-border bg-background border p-4 sm:p-5">
+              <form class="space-y-4" @submit.prevent="runExplorer">
+                <Label for="explorer-query">Explorer query</Label>
+                <Textarea
+                  id="explorer-query"
+                  v-model="explorerQuery"
+                  class="min-h-28 resize-none rounded-none"
+                  placeholder="Ask about contractors, agencies, locations, NAICS/PSC, or award keywords..."
+                />
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <Button type="submit" :disabled="explorerPending">
+                    <Icon
+                      v-if="explorerPending"
+                      name="mdi:loading"
+                      class="mr-2 h-4 w-4 animate-spin"
+                    />
+                    <Icon v-else name="mdi:database-search" class="mr-2 h-4 w-4" />
+                    Run query
+                  </Button>
+                  <p class="text-muted-foreground text-xs">
+                    Summaries are generated only from structured matched records.
+                  </p>
+                </div>
+              </form>
+
+              <div class="mt-5 flex flex-wrap gap-2">
+                <button
+                  v-for="query in exampleQueries"
+                  :key="query"
+                  type="button"
+                  class="border-border text-muted-foreground hover:text-foreground border px-3 py-1.5 text-left text-xs transition-colors"
+                  @click="useExample(query)"
+                >
+                  {{ query }}
+                </button>
+              </div>
+            </div>
+
+            <div class="border-border bg-background border p-4 sm:p-5">
+              <div v-if="explorerPending" class="flex min-h-64 items-center">
+                <LoadingText text="Querying structured award data" />
+              </div>
+
+              <div v-else-if="explorerError" class="min-h-64">
+                <Empty>
+                  <EmptyMedia variant="icon">
+                    <Icon name="mdi:alert-circle-outline" class="size-5" />
+                  </EmptyMedia>
+                  <EmptyContent>
+                    <EmptyTitle>Explorer Error</EmptyTitle>
+                    <EmptyDescription>{{ explorerError }}</EmptyDescription>
+                  </EmptyContent>
+                </Empty>
+              </div>
+
+              <div v-else-if="explorerResult" class="space-y-5">
+                <div>
+                  <div class="mb-2 flex flex-wrap items-center gap-2">
+                    <Badge variant="secondary">{{ explorerResult.resultType }}</Badge>
+                    <Badge v-if="explorerResult.cached" variant="outline">
+                      Cached
+                    </Badge>
+                  </div>
+                  <p class="text-foreground text-sm leading-relaxed">
+                    {{ explorerResult.summary }}
+                  </p>
+                </div>
+
+                <div
+                  v-if="explorerResult.filtersUsed.length"
+                  class="flex flex-wrap gap-2"
+                >
+                  <Badge
+                    v-for="filter in explorerResult.filtersUsed"
+                    :key="`${filter.label}-${filter.value}`"
+                    variant="outline"
+                  >
+                    {{ filter.label }}: {{ filter.value }}
+                  </Badge>
+                </div>
+
+                <div class="grid gap-3 sm:grid-cols-3">
+                  <div
+                    v-for="card in explorerResult.cards"
+                    :key="card.label"
+                    class="border-border border p-3"
+                  >
+                    <p class="text-muted-foreground text-xs">{{ card.label }}</p>
+                    <p class="text-foreground mt-1 text-lg font-semibold">
+                      {{ card.value }}
+                    </p>
+                    <p class="text-muted-foreground mt-1 text-xs">
+                      {{ card.detail }}
+                    </p>
+                  </div>
+                </div>
+
+                <div v-if="explorerResult.chart.length" class="space-y-2">
+                  <div
+                    v-for="item in explorerResult.chart"
+                    :key="item.key"
+                    class="grid grid-cols-[4rem_1fr_5rem] items-center gap-3 text-xs"
+                  >
+                    <span class="text-muted-foreground">{{ item.label }}</span>
+                    <div class="bg-muted h-2">
+                      <div
+                        class="bg-primary h-2"
+                        :style="{ width: chartWidth(item.obligation) }"
+                      />
+                    </div>
+                    <span class="text-right tabular-nums">
+                      {{ formatObligation(item.obligation) }}
+                    </span>
+                  </div>
+                </div>
+
+                <div
+                  v-if="explorerResult.table.length"
+                  class="border-border overflow-x-auto border"
+                >
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead
+                          v-for="key in tableKeys"
+                          :key="key"
+                          class="whitespace-nowrap capitalize"
+                        >
+                          {{ key.replace(/([A-Z])/g, " $1") }}
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow
+                        v-for="(row, index) in explorerResult.table.slice(0, 5)"
+                        :key="index"
+                      >
+                        <TableCell
+                          v-for="key in tableKeys"
+                          :key="key"
+                          class="max-w-72 align-top text-xs"
+                        >
+                          {{ formatCell(row[key]) }}
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
+
+                <div class="border-border border-t pt-4">
+                  <p class="text-muted-foreground mb-2 text-xs">
+                    {{ explorerResult.sourceMetadata.structuredRecords }}
+                    structured records. {{ explorerResult.sourceMetadata.freshness }}
+                  </p>
+                  <div class="flex flex-wrap gap-3">
+                    <NuxtLink
+                      v-for="source in explorerResult.sourceLinks.slice(0, 4)"
+                      :key="source.url"
+                      :to="source.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary text-xs hover:underline"
+                    >
+                      {{ source.label }}
+                      <Icon name="mdi:open-in-new" class="ml-1 inline h-3 w-3" />
+                    </NuxtLink>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="">
+    <section>
       <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-4xl">
+        <div class="mx-auto max-w-5xl">
           <div class="divide-border grid grid-cols-3 divide-x">
             <div class="px-4 text-center sm:px-8">
               <div
-                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl md:text-4xl"
+                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl"
               >
                 {{ totalContractors }}
               </div>
               <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
-                U.S. Contractors
+                Contractors
               </div>
             </div>
             <div class="px-4 text-center sm:px-8">
               <div
-                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl md:text-4xl"
+                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl"
               >
                 {{ specialties.length }}
               </div>
               <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
-                Specialties
+                Categories
               </div>
             </div>
             <div class="px-4 text-center sm:px-8">
               <div
-                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl md:text-4xl"
+                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl"
               >
                 {{ formatTotalRevenue(totalDefenseRevenue) }}
               </div>
               <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
-                Defense Revenue
+                Defense Revenue Context
               </div>
             </div>
           </div>
@@ -447,13 +448,12 @@ const getSpecialtyIcon = (slug: string): string => {
       </div>
     </section>
 
-    <!-- Featured Contractors Section -->
-    <section class="">
+    <section>
       <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-5xl">
           <div class="mb-8 flex items-baseline justify-between">
             <h2 class="text-foreground text-xl font-bold sm:text-2xl">
-              Featured Contractors
+              Major Contractors
             </h2>
             <NuxtLink
               to="/companies"
@@ -463,28 +463,19 @@ const getSpecialtyIcon = (slug: string): string => {
             </NuxtLink>
           </div>
 
-          <!-- Loading State -->
           <div
             v-if="contractorsPending"
             class="bg-border grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3"
           >
-            <div
-              v-for="i in 6"
-              :key="i"
-              class="bg-background animate-pulse p-6"
-            >
+            <div v-for="i in 6" :key="i" class="bg-background animate-pulse p-6">
               <div class="space-y-3">
-                <div class="flex justify-between">
-                  <div class="bg-muted h-5 w-2/3" />
-                  <div class="bg-muted h-5 w-8" />
-                </div>
+                <div class="bg-muted h-5 w-2/3" />
                 <div class="bg-muted/50 h-4 w-1/2" />
                 <div class="bg-muted/50 h-4 w-1/3" />
               </div>
             </div>
           </div>
 
-          <!-- Contractors Grid -->
           <div
             v-else
             class="border-border grid grid-cols-1 border-t border-l bg-transparent sm:grid-cols-2 lg:grid-cols-3"
@@ -507,7 +498,7 @@ const getSpecialtyIcon = (slug: string): string => {
                     class="text-foreground font-medium"
                   >
                     {{ formatRevenue(contractor.defenseRevenue) }} defense
-                    revenue
+                    revenue context
                   </div>
                   <div v-if="contractor.headquarters" class="truncate">
                     {{ contractor.headquarters }}
@@ -523,15 +514,13 @@ const getSpecialtyIcon = (slug: string): string => {
       </div>
     </section>
 
-    <!-- Browse by Specialty Section -->
-    <section class="">
+    <section>
       <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-5xl">
           <h2 class="text-foreground mb-8 text-xl font-bold sm:text-2xl">
-            Browse by Specialty
+            Browse by Category
           </h2>
 
-          <!-- Loading State -->
           <div
             v-if="specialtiesPending"
             class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5"
@@ -545,18 +534,11 @@ const getSpecialtyIcon = (slug: string): string => {
             </div>
           </div>
 
-          <!-- Specialty Grid -->
-          <div
-            v-else
-            class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5"
-          >
+          <div v-else class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
             <NuxtLink
               v-for="specialty in specialties"
               :key="specialty.id"
-              :to="{
-                path: '/companies',
-                query: { specialty: specialty.slug },
-              }"
+              :to="{ path: '/companies', query: { specialty: specialty.slug } }"
               class="group hover:border-border border border-transparent p-4 transition-colors"
             >
               <div class="text-primary mb-2">
@@ -577,26 +559,6 @@ const getSpecialtyIcon = (slug: string): string => {
                 {{ specialty.contractorCount }} contractors
               </div>
             </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="">
-      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-foreground text-lg font-semibold sm:text-xl">
-            Are you a defense contractor?
-          </h2>
-          <p class="text-muted-foreground mt-2 text-sm sm:text-base">
-            Claim your company profile to manage your presence and reach job
-            seekers.
-          </p>
-          <div class="mt-6">
-            <Button variant="outline" as-child>
-              <NuxtLink to="/for-companies"> Learn more </NuxtLink>
-            </Button>
           </div>
         </div>
       </div>

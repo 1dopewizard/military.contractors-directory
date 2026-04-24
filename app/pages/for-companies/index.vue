@@ -11,7 +11,7 @@ useHead({
     {
       name: "description",
       content:
-        "Claim your company profile on military.contractors. Stand out to veteran job seekers, control your narrative, and showcase your culture.",
+        "Claim your company profile on military.contractors to keep public contractor intelligence accurate and maintain source-backed company context.",
     },
   ],
 });
@@ -32,9 +32,9 @@ const tiers = [
     description: "Take control of your profile",
     features: [
       "Edit description & links",
-      "Verified employer badge",
+      "Verified profile badge",
       "Upload logo",
-      "Why Work Here section",
+      "Public profile highlights",
       "Notable programs list",
       "Basic analytics",
     ],
@@ -50,7 +50,7 @@ const tiers = [
     features: [
       "Everything in Claimed",
       "Spotlight content block",
-      "Employee testimonials",
+      "Enhanced source and profile context",
       "Priority in search",
       "Advanced analytics",
       "Dedicated support",
@@ -76,8 +76,8 @@ const tiers = [
           Claim Your Company Profile
         </h1>
         <p class="text-muted-foreground mt-4 max-w-2xl text-lg">
-          Stand out to job seekers researching defense contractors. Control your
-          narrative and showcase what makes your company a great place to work.
+          Keep your public contractor profile accurate, verify company context,
+          and add source-backed information for researchers.
         </p>
         <div class="mt-8 flex flex-wrap gap-4">
           <Button as-child>
@@ -100,7 +100,7 @@ const tiers = [
           <div>
             <h3 class="text-foreground font-medium">Build Trust</h3>
             <p class="text-muted-foreground mt-1 text-sm">
-              A verified badge shows candidates your profile is authentic and
+              A verified badge shows researchers your profile is authentic and
               maintained.
             </p>
           </div>
@@ -111,16 +111,17 @@ const tiers = [
             </p>
           </div>
           <div>
-            <h3 class="text-foreground font-medium">Attract Talent</h3>
+            <h3 class="text-foreground font-medium">Add Context</h3>
             <p class="text-muted-foreground mt-1 text-sm">
-              Showcase your culture, benefits, and programs to job seekers.
+              Add programs, aliases, links, and profile context that public data
+              sources may miss.
             </p>
           </div>
           <div>
             <h3 class="text-foreground font-medium">Track Performance</h3>
             <p class="text-muted-foreground mt-1 text-sm">
-              See how many people view your profile and click to your careers
-              page.
+              See how researchers use your profile and which public links they
+              follow.
             </p>
           </div>
         </div>

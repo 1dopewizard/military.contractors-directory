@@ -58,7 +58,8 @@ useHead({
             </p>
             <p>
               <span class="text-foreground font-medium">Local Storage:</span> We
-              store your preferences (saved jobs, search filters) locally in
+              store your preferences (recent searches, filters, and display
+              settings) locally in
               your browser. This data never leaves your device unless you choose
               to sync it.
             </p>

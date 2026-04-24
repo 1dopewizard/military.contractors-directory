@@ -50,8 +50,7 @@ definePageMeta({
       </h1>
 
       <p class="text-muted-foreground mb-8">
-        You will no longer receive job alert emails from military.contractors.
-        If this was a mistake, you can always subscribe again from any MOS page.
+        You will no longer receive email updates from military.contractors.
       </p>
 
       <div class="flex flex-col justify-center gap-3 sm:flex-row">
@@ -63,9 +62,9 @@ definePageMeta({
         </Button>
 
         <Button as-child variant="link">
-          <NuxtLink to="/jobs">
-            <Icon name="mdi:briefcase-search" class="mr-2 h-4 w-4" />
-            Browse Jobs
+          <NuxtLink to="/companies">
+            <Icon name="mdi:domain-search" class="mr-2 h-4 w-4" />
+            Browse Companies
           </NuxtLink>
         </Button>
       </div>

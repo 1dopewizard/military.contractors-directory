@@ -1,11 +1,11 @@
 /**
  * @file Dynamic sitemap URL source
  * @route GET /api/__sitemap__/urls
- * @description Generates dynamic sitemap URLs for contractors, specialties, and static pages
+ * @description Generates dynamic sitemap URLs for contractor intelligence pages
  */
 
 import { getDb, schema } from "@/server/utils/db";
-import { eq, desc } from "drizzle-orm";
+import { desc } from "drizzle-orm";
 
 interface SitemapUrl {
   loc: string;
@@ -64,33 +64,8 @@ export default defineEventHandler(async () => {
       priority: 0.6,
     });
 
-    // Add bases (if they exist)
-    try {
-      const bases = await db
-        .select({
-          slug: schema.base.slug,
-          updatedAt: schema.base.updatedAt,
-        })
-        .from(schema.base)
-        .where(eq(schema.base.isActive, true))
-        .orderBy(desc(schema.base.updatedAt));
-
-      for (const base of bases) {
-        urls.push({
-          loc: `${baseUrl}/bases/${base.slug}`,
-          lastmod: base.updatedAt?.toISOString() ?? null,
-          changefreq: "monthly",
-          priority: 0.5,
-        });
-      }
-    } catch {
-      // Bases table may not exist, skip
-    }
-
     return urls;
-  } catch (error) {
-    console.error("Sitemap generation error:", error);
-    // Return empty array on error to not break sitemap
+  } catch {
     return [];
   }
 });

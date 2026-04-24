@@ -1,109 +1,83 @@
 # military.contractors
 
-Defense contractor intelligence platform -- company directory, industry insights, claimed profiles SaaS, and staffing pipeline.
+Open intelligence on U.S. defense contractors.
 
-## What this is
+## What This Is
 
-1. **Defense Contractor Directory** -- 103+ company profiles with specialties, locations, revenue data, and employer-managed claimed profiles
-2. **Industry Insights** -- Timely analysis on hiring surges, contractor pay, MOS demand, and career strategy
-3. **Claimed Profiles SaaS** -- Employers claim and enhance their company pages ($149-$399/month)
-4. **Job Alerts** -- Email subscriptions for job notifications by MOS and specialty
+`military.contractors` is a public contractor intelligence directory for researching U.S. defense companies, public award activity, agencies, NAICS/PSC categories, locations, and spending trends.
 
-## Revenue Model
+The product is no longer positioned as a job board, MOS translation tool, or career alert platform. Job, MOS, alert, and OCONUS code paths that remain in the repository are legacy compatibility surfaces unless they support contractor intelligence.
 
-- **Claimed profiles:** $149-$399/month SaaS for employers
-- **Placement fees:** $10K-$50K per successful hire (future)
-- **Sponsored listings:** $299-$999/month featured jobs (future)
+## Current Product Pillars
+
+1. **Contractor Directory**: structured company profiles with specialties, headquarters, locations, revenue context, identifiers, and source links.
+2. **Award Intelligence**: USAspending-shaped award records, obligation totals, agency/category rollups, and yearly trends.
+3. **Explorer**: plain-English questions routed through strict structured plans and deterministic backend operations.
+4. **Claimed Profiles**: existing profile claim/admin infrastructure remains available, but it is not the v1 monetization focus.
 
 ## Pages
 
 | Page | URL | Description |
-|------|-----|-------------|
-| Homepage | `/` | Search + top contractors + browse by specialty |
-| Companies | `/companies` | Browse 103+ defense contractors |
-| Company Profile | `/companies/[slug]` | Full company profile |
-| By Specialty | `/companies/specialty/[slug]` | 10 specialty categories |
-| By Location | `/companies/location/[state]` | 16+ states |
-| Insights Hub | `/insights` | Industry analysis articles |
-| Hiring Surge | `/insights/defense-hiring-surge-2026` | Iran conflict analysis |
-| Contractors Hiring | `/insights/contractors-hiring-now` | Company breakdown |
-| MOS Demand | `/insights/mos-demand-middle-east` | In-demand specialties |
-| Pay & Tax Guide | `/insights/contractor-pay-tax-guide` | Compensation guide |
-| For Companies | `/for-companies` | Claimed profiles pricing |
-| Profile Manager | `/profile-manager` | Employer dashboard |
+| --- | --- | --- |
+| Homepage | `/` | Contractor intelligence explorer, top contractors, and specialty browsing |
+| Companies | `/companies` | Browse defense contractors by name, specialty, location, and revenue |
+| Company Profile | `/companies/[slug]` | Contractor profile with intelligence panels and public award context |
+| By Specialty | `/companies/specialty/[slug]` | Contractor category pages |
+| By Location | `/companies/location/[state]` | Contractor location pages |
+| For Companies | `/for-companies` | Claimed profile information |
+| Profile Manager | `/profile-manager` | Claimed profile dashboard |
 | Claim Profile | `/profile-manager/claim` | Claim flow |
 | Admin | `/admin` | Admin dashboard |
 | Login | `/auth/login` | Magic link auth |
-| About | `/about` | Services page |
+| About | `/about` | Product explanation |
 | Contact | `/contact` | Contact form |
 | Privacy | `/privacy` | Privacy policy |
 | Terms | `/terms` | Terms of service |
 
-## Tech stack
+## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
+| --- | --- |
 | Framework | Nuxt 4 |
 | UI | Tailwind CSS v4, shadcn-vue |
 | Database | Drizzle ORM + libsql (SQLite) |
-| Auth | Better Auth (magic link via Resend) |
+| Auth | Better Auth |
 | Billing | Stripe |
 | Validation | Zod + vee-validate |
-| Email | Resend |
 | Icons | Iconify (MDI) |
 | Logging | pino |
-| Analytics | Plausible |
 | Testing | Vitest |
 | Deployment | Coolify (VPS) |
 
-## Repository layout
+## Repository Layout
 
-```
+```text
 military.contractors/
 ├── app/
-│   ├── components/
-│   │   ├── Auth/                 # Login, auth button
-│   │   ├── Contractors/          # Company cards, skeletons
-│   │   ├── Dashboard/
-│   │   │   ├── Admin/            # Admin dashboard components
-│   │   │   └── ProfileManager/   # Employer dashboard
-│   │   ├── Featured/             # Alert signup, featured cards
-│   │   ├── Layout/               # Page layout, search
-│   │   └── ui/                   # shadcn-vue (auto-imported)
-│   ├── composables/              # useAuth, useJsonLd, useLogger
-│   ├── config/                   # Auth config
-│   ├── layouts/                  # default, homepage, dashboard
-│   ├── lib/                      # Auth client, utils
-│   ├── middleware/                # auth, admin, profile-manager
-│   └── pages/
-│       ├── admin/                # Admin dashboard
-│       ├── auth/                 # Login, callback
-│       ├── companies/            # Contractor directory
-│       ├── for-companies/        # Pricing page
-│       ├── insights/             # Industry analysis
-│       ├── profile-manager/      # Employer dashboard
-│       └── ...                   # Static pages
+│   ├── components/              # Vue components and shadcn-vue wrappers
+│   ├── composables/             # useAuth, useJsonLd, useLogger
+│   ├── layouts/                 # default, homepage, dashboard
+│   └── pages/                   # public pages and dashboards
 ├── server/
 │   ├── api/
-│   │   ├── admin/                # Admin endpoints
-│   │   ├── alerts/               # Job alert subscriptions
-│   │   ├── billing/              # Stripe integration
-│   │   ├── contractors/          # Directory API
-│   │   ├── locations/            # Location API
-│   │   ├── profile-manager/      # Claimed profiles
-│   │   ├── specialties/          # Specialty API
-│   │   └── users/                # User endpoints
+│   │   ├── contractors/         # Directory API
+│   │   ├── explorer/            # Intelligence explorer API
+│   │   ├── intelligence/        # Public award intelligence API
+│   │   └── profile-manager/     # Claimed profile API
 │   ├── database/
-│   │   └── schema/               # Drizzle schema files
-│   ├── routes/                   # Sitemap, auth handler
-│   └── utils/                    # DB, email, auth, stripe, logging
+│   │   ├── migrations/          # Drizzle/libsql migrations
+│   │   └── schema/              # Drizzle schema files
+│   ├── routes/                  # Sitemap, auth handler
+│   └── utils/                   # DB, auth, intelligence, logging
+├── docs/
+│   └── open-contractor-intelligence-pivot-plan.md
 ├── scripts/
-│   └── seed/                     # Seed data + scripts
-├── prd.md                        # Product requirements
+│   └── seed/                    # Seed data and scripts
+├── prd.md
 └── package.json
 ```
 
-## Getting started
+## Getting Started
 
 ### 1. Install dependencies
 
@@ -115,7 +89,7 @@ pnpm install
 
 Create `.env`:
 
-```
+```env
 DATABASE_URL=file:./server/database/app.db
 BETTER_AUTH_SECRET=your-secret-here
 RESEND_API_KEY=
@@ -145,73 +119,49 @@ pnpm dev
 pnpm build && pnpm start
 ```
 
-## API endpoints
+## API Endpoints
 
 ### Contractor Directory
 
 | Method | Path | Purpose |
-|--------|------|---------|
-| GET | /api/contractors | Paginated list with filters |
-| GET | /api/contractors/[slug] | Contractor detail |
-| GET | /api/contractors/by-location/[state] | By state |
-| GET | /api/specialties | All specialties |
-| GET | /api/specialties/[slug] | Specialty detail |
-| GET | /api/locations | Location list |
+| --- | --- | --- |
+| GET | `/api/contractors` | Paginated contractor list with filters |
+| GET | `/api/contractors/[slug]` | Contractor detail |
+| GET | `/api/contractors/by-location/[state]` | Contractors by state |
+| GET | `/api/specialties` | All specialties |
+| GET | `/api/specialties/[slug]` | Specialty detail |
+| GET | `/api/locations` | Location list |
 
-### Billing
+### Intelligence
 
 | Method | Path | Purpose |
-|--------|------|---------|
-| POST | /api/billing/create-checkout | Stripe checkout |
-| POST | /api/billing/webhook | Stripe webhooks |
-| GET | /api/billing/portal | Customer portal |
+| --- | --- | --- |
+| GET | `/api/intelligence/contractors/[slug]` | Contractor award intelligence |
+| GET | `/api/intelligence/top-contractors` | Ranked contractors by public obligations |
+| POST | `/api/explorer/query` | Structured plain-English explorer query |
+| GET | `/api/explorer/cache/[cacheId]` | Cached explorer result |
 
 ### Profile Manager
 
 | Method | Path | Purpose |
-|--------|------|---------|
-| POST | /api/profile-manager/claim | Submit claim |
-| GET | /api/profile-manager/profile | Get profile |
-| PATCH | /api/profile-manager/profile | Update profile |
-| GET/POST | /api/profile-manager/benefits | Manage benefits |
-| GET/POST | /api/profile-manager/programs | Manage programs |
-
-### Admin
-
-| Method | Path | Purpose |
-|--------|------|---------|
-| GET | /api/admin/system-health | System metrics |
-| GET/PATCH | /api/admin/claims | Claim review |
-| GET/PATCH | /api/admin/content | Content review |
-| GET | /api/admin/users | User management |
-
-### Alerts
-
-| Method | Path | Purpose |
-|--------|------|---------|
-| POST | /api/alerts/subscribe | Subscribe |
-| GET | /api/alerts/unsubscribe | Unsubscribe |
-
-### Other
-
-| Method | Path | Purpose |
-|--------|------|---------|
-| GET | /api/search | Global search |
-| GET | /sitemap.xml | Dynamic sitemap |
+| --- | --- | --- |
+| POST | `/api/profile-manager/claim` | Submit claim |
+| GET | `/api/profile-manager/profile` | Get profile |
+| PATCH | `/api/profile-manager/profile` | Update profile |
+| GET/POST | `/api/profile-manager/benefits` | Manage profile highlights |
+| GET/POST | `/api/profile-manager/programs` | Manage notable programs |
 
 ## SEO
 
-- SSR on all public pages
-- 130+ URLs in dynamic sitemap
-- Schema.org: WebSite, WebPage, Organization, Article, CollectionPage, BreadcrumbList
-- Unique meta tags, OG tags, canonical URLs on every page
-- 2 content silos: /companies (103+), /insights (5+)
-- Plausible analytics (privacy-friendly, no cookie banner)
+- SSR on public pages.
+- Dynamic sitemap for companies, specialties, and locations.
+- Schema.org: WebSite, WebPage, Organization, CollectionPage, BreadcrumbList, Dataset-ready intelligence pages.
+- Unique meta tags and canonical URLs on key pages.
+- Public source links are prominent on intelligence surfaces.
 
 ## Documentation
 
 | Document | Purpose |
-|----------|---------|
-| prd.md | Product requirements and roadmap |
-
-See `prd.md` for full product requirements.
+| --- | --- |
+| `prd.md` | Product requirements and roadmap |
+| `docs/open-contractor-intelligence-pivot-plan.md` | Pivot execution plan |

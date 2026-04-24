@@ -14,7 +14,7 @@ interface ContractorResponse {
   country: string | null;
   headquarters: string | null;
   founded: number | null;
-  employeeCount: number | null;
+  employeeCount: string | null;
   website: string | null;
   careersUrl: string | null;
   linkedinUrl: string | null;
@@ -82,6 +82,52 @@ interface ContractorResponse {
   updatedAt: string | null;
 }
 
+interface ContractorIntelligence {
+  summary: {
+    totalObligations: number;
+    awardCount: number;
+    latestFiscalYear: number | null;
+    topAgency: IntelligenceBucket | null;
+    topNaics: IntelligenceBucket | null;
+    topPsc: IntelligenceBucket | null;
+  };
+  aliases: string[];
+  identifiers: {
+    uei: string;
+    cageCode: string;
+  };
+  recentAwards: Array<{
+    id: string;
+    piid: string;
+    agency: string;
+    naicsCode: string;
+    naicsTitle: string;
+    pscCode: string;
+    pscTitle: string;
+    fiscalYear: number;
+    obligation: number;
+    description: string;
+    placeOfPerformance: string;
+    sourceUrl: string;
+  }>;
+  yearlyTrend: IntelligenceBucket[];
+  topAgencies: IntelligenceBucket[];
+  topNaics: IntelligenceBucket[];
+  topPsc: IntelligenceBucket[];
+  sourceLinks: Array<{ label: string; url: string }>;
+  sourceMetadata: {
+    freshness: string;
+    structuredRecords: number;
+  };
+}
+
+interface IntelligenceBucket {
+  key: string;
+  label: string;
+  obligation: number;
+  awardCount: number;
+}
+
 const route = useRoute();
 const logger = useLogger("ContractorProfilePage");
 
@@ -101,6 +147,15 @@ const {
   },
 );
 
+const { data: intelligence } = useFetch<ContractorIntelligence | null>(
+  () => `/api/intelligence/contractors/${slug.value}`,
+  {
+    lazy: true,
+    watch: [slug],
+    default: () => null,
+  },
+);
+
 // Format revenue for display (already in billions from API)
 const formatRevenue = (revenue: number | null | undefined): string => {
   if (revenue == null) return "N/A";
@@ -116,6 +171,13 @@ const formatRevenue = (revenue: number | null | undefined): string => {
 const formatPercent = (percent: number | null | undefined): string => {
   if (percent == null) return "N/A";
   return `${Math.round(percent)}%`;
+};
+
+const formatObligation = (value: number | null | undefined): string => {
+  if (value == null) return "N/A";
+  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M`;
+  return `$${value.toLocaleString()}`;
 };
 
 // Get stock exchange (simplified logic - most US defense contractors are NYSE)
@@ -144,7 +206,7 @@ useHead(() => {
         name: "description",
         content:
           contractor.value.description?.slice(0, 160) ||
-          `${contractor.value.name} - U.S. defense contractor profile with company details, specialties, and career information.`,
+          `${contractor.value.name} - U.S. defense contractor profile with company details, specialties, public award context, and source links.`,
       },
     ],
   };
@@ -346,10 +408,156 @@ watchEffect(() => {
               </div>
             </section>
 
+            <!-- Public Award Intelligence -->
+            <section v-if="intelligence" class="mb-8">
+              <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <h2 class="text-foreground text-lg font-bold">
+                    Public Award Intelligence
+                  </h2>
+                  <p class="text-muted-foreground mt-1 text-sm">
+                    Structured award records with source-backed totals and
+                    categories.
+                  </p>
+                </div>
+                <Badge variant="outline">
+                  {{ intelligence.sourceMetadata.structuredRecords }} records
+                </Badge>
+              </div>
+
+              <div class="grid gap-3 sm:grid-cols-3">
+                <div class="border-border border p-4">
+                  <p class="text-muted-foreground text-xs">Matched obligations</p>
+                  <p class="text-foreground mt-1 text-xl font-semibold">
+                    {{ formatObligation(intelligence.summary.totalObligations) }}
+                  </p>
+                  <p class="text-muted-foreground mt-1 text-xs">
+                    {{ intelligence.summary.awardCount }} public award records
+                  </p>
+                </div>
+                <div class="border-border border p-4">
+                  <p class="text-muted-foreground text-xs">Top agency</p>
+                  <p class="text-foreground mt-1 text-base font-semibold">
+                    {{ intelligence.summary.topAgency?.label || "N/A" }}
+                  </p>
+                  <p class="text-muted-foreground mt-1 text-xs">
+                    {{
+                      formatObligation(
+                        intelligence.summary.topAgency?.obligation,
+                      )
+                    }}
+                  </p>
+                </div>
+                <div class="border-border border p-4">
+                  <p class="text-muted-foreground text-xs">Top category</p>
+                  <p class="text-foreground mt-1 text-base font-semibold">
+                    {{ intelligence.summary.topNaics?.label || "N/A" }}
+                  </p>
+                  <p class="text-muted-foreground mt-1 text-xs">
+                    NAICS {{ intelligence.summary.topNaics?.key || "N/A" }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-6 lg:grid-cols-2">
+                <div class="border-border border">
+                  <div class="border-border border-b px-4 py-3">
+                    <h3 class="text-foreground text-sm font-semibold">
+                      Recent Awards
+                    </h3>
+                  </div>
+                  <div class="divide-border divide-y">
+                    <div
+                      v-for="award in intelligence.recentAwards.slice(0, 5)"
+                      :key="award.id"
+                      class="p-4"
+                    >
+                      <div class="mb-2 flex items-start justify-between gap-3">
+                        <p class="text-foreground text-sm font-medium">
+                          {{ award.agency }}
+                        </p>
+                        <Badge variant="secondary">FY{{ award.fiscalYear }}</Badge>
+                      </div>
+                      <p class="text-muted-foreground text-sm leading-relaxed">
+                        {{ award.description }}
+                      </p>
+                      <div
+                        class="text-muted-foreground mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs"
+                      >
+                        <span>{{ formatObligation(award.obligation) }}</span>
+                        <span>NAICS {{ award.naicsCode }}</span>
+                        <span>PSC {{ award.pscCode }}</span>
+                      </div>
+                      <NuxtLink
+                        :to="award.sourceUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-primary mt-2 inline-flex text-xs hover:underline"
+                      >
+                        Source record
+                        <Icon name="mdi:open-in-new" class="ml-1 h-3 w-3" />
+                      </NuxtLink>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="border-border border">
+                    <div class="border-border border-b px-4 py-3">
+                      <h3 class="text-foreground text-sm font-semibold">
+                        Yearly Trend
+                      </h3>
+                    </div>
+                    <div class="space-y-3 p-4">
+                      <div
+                        v-for="year in intelligence.yearlyTrend"
+                        :key="year.key"
+                        class="flex items-center justify-between gap-4 text-sm"
+                      >
+                        <span class="text-muted-foreground">{{ year.label }}</span>
+                        <span class="text-foreground font-medium">
+                          {{ formatObligation(year.obligation) }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="border-border border">
+                    <div class="border-border border-b px-4 py-3">
+                      <h3 class="text-foreground text-sm font-semibold">
+                        Top PSC Categories
+                      </h3>
+                    </div>
+                    <div class="space-y-3 p-4">
+                      <div
+                        v-for="psc in intelligence.topPsc.slice(0, 4)"
+                        :key="psc.key"
+                        class="text-sm"
+                      >
+                        <div class="flex items-center justify-between gap-4">
+                          <span class="text-foreground">{{ psc.label }}</span>
+                          <span class="text-muted-foreground text-xs">
+                            {{ formatObligation(psc.obligation) }}
+                          </span>
+                        </div>
+                        <p class="text-muted-foreground mt-1 text-xs">
+                          PSC {{ psc.key }} · {{ psc.awardCount }} awards
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-muted-foreground mt-4 text-xs">
+                {{ intelligence.sourceMetadata.freshness }}
+              </p>
+            </section>
+
             <!-- Specialties Section -->
             <section v-if="contractor.specialties?.length" class="mb-8">
               <h2 class="text-foreground mb-4 text-lg font-bold">
-                Areas of Expertise
+                Contractor Categories
               </h2>
               <div class="flex flex-wrap gap-3">
                 <NuxtLink
@@ -384,29 +592,6 @@ watchEffect(() => {
                     Primary
                   </Badge>
                 </NuxtLink>
-              </div>
-            </section>
-
-            <!-- Why Work Here Section (Claimed Profiles) -->
-            <section v-if="contractor.benefits?.length" class="mb-8">
-              <h2 class="text-foreground mb-4 text-lg font-bold">
-                Why Work Here
-              </h2>
-              <div class="grid gap-4 sm:grid-cols-3">
-                <div
-                  v-for="benefit in contractor.benefits"
-                  :key="benefit.id"
-                  class="rounded-lg p-4"
-                >
-                  <Icon
-                    :name="benefit.icon"
-                    class="text-primary mb-2 h-8 w-8"
-                  />
-                  <h3 class="mb-1 font-semibold">{{ benefit.title }}</h3>
-                  <p class="text-muted-foreground text-sm">
-                    {{ benefit.description }}
-                  </p>
-                </div>
               </div>
             </section>
 
@@ -482,47 +667,6 @@ watchEffect(() => {
               </Card>
             </section>
 
-            <!-- Testimonials Section (Premium Tier) -->
-            <section v-if="contractor.testimonials?.length" class="mb-8">
-              <h2 class="text-foreground mb-4 text-lg font-bold">
-                What Employees Say
-              </h2>
-              <div class="space-y-4">
-                <Card
-                  v-for="testimonial in contractor.testimonials"
-                  :key="testimonial.id"
-                  class="p-4"
-                >
-                  <div class="flex items-start gap-4">
-                    <div
-                      class="bg-muted flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
-                    >
-                      <img
-                        v-if="testimonial.employeePhotoUrl"
-                        :src="testimonial.employeePhotoUrl"
-                        :alt="testimonial.employeeName"
-                        class="h-full w-full rounded-full object-cover"
-                      />
-                      <Icon
-                        v-else
-                        name="mdi:account"
-                        class="text-muted-foreground h-6 w-6"
-                      />
-                    </div>
-                    <div>
-                      <p class="text-muted-foreground mb-2 italic">
-                        "{{ testimonial.quote }}"
-                      </p>
-                      <p class="font-medium">{{ testimonial.employeeName }}</p>
-                      <p class="text-muted-foreground text-sm">
-                        {{ testimonial.employeeTitle }}
-                      </p>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            </section>
-
             <!-- Claim CTA (Unclaimed Profiles) -->
             <div
               v-if="!contractor.claimedProfile"
@@ -533,7 +677,7 @@ watchEffect(() => {
                 to="/for-companies"
                 class="text-primary hover:underline"
               >
-                Claim this profile to update information and add content
+                Claim this profile to update public company context
                 <Icon name="mdi:arrow-right" class="ml-1 inline h-4 w-4" />
               </NuxtLink>
             </div>
@@ -571,26 +715,6 @@ watchEffect(() => {
                         >
                           <Icon name="mdi:web" class="mr-2 h-4 w-4" />
                           Website
-                          <Icon
-                            name="mdi:open-in-new"
-                            class="ml-auto h-3 w-3 opacity-50"
-                          />
-                        </NuxtLink>
-                      </Button>
-                      <Button
-                        v-if="contractor.careersUrl"
-                        as-child
-                        variant="default"
-                        size="sm"
-                        class="w-full justify-start"
-                      >
-                        <NuxtLink
-                          :to="contractor.careersUrl"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Icon name="mdi:briefcase" class="mr-2 h-4 w-4" />
-                          Careers
                           <Icon
                             name="mdi:open-in-new"
                             class="ml-auto h-3 w-3 opacity-50"
@@ -676,6 +800,47 @@ watchEffect(() => {
                     <p v-else class="text-muted-foreground text-sm">
                       Private Company
                     </p>
+                  </div>
+
+                  <!-- Public Identifiers -->
+                  <div v-if="intelligence" class="border-border/30 border-b p-4">
+                    <div class="mb-3 flex items-center gap-2">
+                      <Icon
+                        name="mdi:identifier"
+                        class="text-muted-foreground h-4 w-4"
+                      />
+                      <span
+                        class="text-muted-foreground text-xs font-bold tracking-widest uppercase"
+                        >Identifiers</span
+                      >
+                    </div>
+                    <dl class="space-y-2 text-sm">
+                      <div class="flex justify-between gap-4">
+                        <dt class="text-muted-foreground">UEI</dt>
+                        <dd class="font-mono text-xs">
+                          {{ intelligence.identifiers.uei }}
+                        </dd>
+                      </div>
+                      <div class="flex justify-between gap-4">
+                        <dt class="text-muted-foreground">CAGE</dt>
+                        <dd class="font-mono text-xs">
+                          {{ intelligence.identifiers.cageCode }}
+                        </dd>
+                      </div>
+                      <div v-if="intelligence.aliases.length">
+                        <dt class="text-muted-foreground mb-1">Aliases</dt>
+                        <dd class="flex flex-wrap gap-1">
+                          <Badge
+                            v-for="alias in intelligence.aliases"
+                            :key="alias"
+                            variant="outline"
+                            class="text-[10px]"
+                          >
+                            {{ alias }}
+                          </Badge>
+                        </dd>
+                      </div>
+                    </dl>
                   </div>
 
                   <!-- Quick Stats -->

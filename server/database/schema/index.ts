@@ -12,6 +12,9 @@ export * from "./core";
 // Directory (contractors, specialties, locations)
 export * from "./directory";
 
+// Public award and contractor intelligence
+export * from "./intelligence";
+
 // Jobs (kept for future re-integration)
 export * from "./jobs";
 

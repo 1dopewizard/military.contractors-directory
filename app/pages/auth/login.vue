@@ -14,7 +14,7 @@ useHead({
   meta: [
     {
       name: "description",
-      content: "Sign in to manage your featured ads and job listings.",
+      content: "Sign in to manage your claimed contractor profile.",
     },
   ],
 });
@@ -47,10 +47,10 @@ const handleMagicLinkSent = () => {
 // Value props for the right side
 const benefits = [
   {
-    icon: "mdi:bullhorn-outline",
-    title: "Create & manage ads",
+    icon: "mdi:shield-check-outline",
+    title: "Verify profile context",
     description:
-      "Post featured jobs and partner spotlights to reach thousands of cleared veterans.",
+      "Manage claimed company details, identifiers, links, and public profile context.",
   },
   {
     icon: "mdi:chart-line",
@@ -60,9 +60,9 @@ const benefits = [
   },
   {
     icon: "mdi:clock-outline",
-    title: "Control your campaigns",
+    title: "Control your profile",
     description:
-      "Pause, resume, or modify your ads anytime from your dashboard.",
+      "Update profile content and source-backed context from your dashboard.",
   },
 ];
 </script>
@@ -115,14 +115,14 @@ const benefits = [
         <p
           class="text-primary mb-4 font-mono text-xs tracking-widest uppercase"
         >
-          Advertiser Dashboard
+          Profile Dashboard
         </p>
         <h2 class="text-foreground mb-4 text-2xl font-bold tracking-tight">
-          Reach veterans ready for their next mission
+          Keep contractor intelligence accurate
         </h2>
         <p class="text-muted-foreground mb-8">
-          Create featured content that appears alongside job searches — native,
-          non-intrusive, and targeted to cleared professionals.
+          Maintain a verified company profile with public links, programs, and
+          context researchers can trust.
         </p>
 
         <!-- Benefits List -->
@@ -149,27 +149,27 @@ const benefits = [
         <!-- Stats -->
         <div class="border-border/50 mt-10 flex gap-8 border-t pt-8">
           <div>
-            <p class="text-foreground font-mono text-2xl font-bold">4,000+</p>
-            <p class="text-muted-foreground text-xs">MOSes indexed</p>
+            <p class="text-foreground font-mono text-2xl font-bold">100+</p>
+            <p class="text-muted-foreground text-xs">companies</p>
           </div>
           <div>
-            <p class="text-foreground font-mono text-2xl font-bold">5</p>
-            <p class="text-muted-foreground text-xs">branches</p>
+            <p class="text-foreground font-mono text-2xl font-bold">10</p>
+            <p class="text-muted-foreground text-xs">categories</p>
           </div>
           <div>
-            <p class="text-foreground font-mono text-2xl font-bold">$299</p>
-            <p class="text-muted-foreground text-xs">starting price</p>
+            <p class="text-foreground font-mono text-2xl font-bold">24/7</p>
+            <p class="text-muted-foreground text-xs">profile access</p>
           </div>
         </div>
 
         <!-- Testimonial placeholder -->
         <div class="bg-background border-border/50 mt-8 rounded border p-4">
           <p class="text-muted-foreground text-sm italic">
-            "We filled 3 cleared positions in the first week. The targeting is
-            incredibly precise."
+            "Verified profile context helps researchers understand who we are
+            and where to find authoritative company information."
           </p>
           <p class="text-muted-foreground mt-2 text-xs">
-            — Talent Acquisition, Defense Contractor
+            — Profile Manager, Defense Contractor
           </p>
         </div>
       </div>

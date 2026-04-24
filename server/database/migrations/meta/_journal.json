@@ -50,6 +50,13 @@
       "when": 1769425000000,
       "tag": "0006_claimed_profiles",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1774483200000,
+      "tag": "0008_open_contractor_intelligence",
+      "breakpoints": true
     }
   ]
 }

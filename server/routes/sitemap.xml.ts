@@ -2,14 +2,12 @@ import { getDb, schema } from "@/server/utils/db";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const siteUrl =
-    config.public.siteUrl || "https://military.contractors";
+  const siteUrl = config.public.siteUrl || "https://military.contractors";
 
   // Static pages
   const staticPages = [
     { loc: "/", priority: "1.0", changefreq: "daily" },
     { loc: "/companies", priority: "0.9", changefreq: "daily" },
-    { loc: "/insights", priority: "0.9", changefreq: "daily" },
     { loc: "/for-companies", priority: "0.7", changefreq: "monthly" },
     { loc: "/about", priority: "0.5", changefreq: "monthly" },
     { loc: "/contact", priority: "0.5", changefreq: "monthly" },
@@ -17,18 +15,22 @@ export default defineEventHandler(async (event) => {
     { loc: "/terms", priority: "0.3", changefreq: "yearly" },
   ];
 
-  // Insights pages
-  const insightsPages = [
-    { loc: "/insights/defense-hiring-surge-2026", priority: "0.8", changefreq: "weekly" },
-    { loc: "/insights/contractors-hiring-now", priority: "0.8", changefreq: "weekly" },
-    { loc: "/insights/mos-demand-middle-east", priority: "0.8", changefreq: "weekly" },
-    { loc: "/insights/contractor-pay-tax-guide", priority: "0.8", changefreq: "weekly" },
-  ];
-
   // Dynamic contractor pages
-  let contractorPages: Array<{ loc: string; priority: string; changefreq: string }> = [];
-  let specialtyPages: Array<{ loc: string; priority: string; changefreq: string }> = [];
-  let locationPages: Array<{ loc: string; priority: string; changefreq: string }> = [];
+  let contractorPages: Array<{
+    loc: string;
+    priority: string;
+    changefreq: string;
+  }> = [];
+  let specialtyPages: Array<{
+    loc: string;
+    priority: string;
+    changefreq: string;
+  }> = [];
+  let locationPages: Array<{
+    loc: string;
+    priority: string;
+    changefreq: string;
+  }> = [];
 
   try {
     const db = getDb();
@@ -74,7 +76,6 @@ export default defineEventHandler(async (event) => {
 
   const allPages = [
     ...staticPages,
-    ...insightsPages,
     ...contractorPages,
     ...specialtyPages,
     ...locationPages,

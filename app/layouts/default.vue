@@ -53,7 +53,6 @@ watch(
           </span>
         </NuxtLink>
 
-        <!-- Nav Links (Desktop) -->
         <nav class="hidden items-center gap-6 lg:flex">
           <NuxtLink
             to="/companies"
@@ -63,11 +62,11 @@ watch(
             Companies
           </NuxtLink>
           <NuxtLink
-            to="/insights"
+            to="/about"
             class="text-muted-foreground hover:text-foreground text-sm transition-colors"
             active-class="text-foreground"
           >
-            Insights
+            About
           </NuxtLink>
         </nav>
 
@@ -118,10 +117,10 @@ watch(
             Companies
           </NuxtLink>
           <NuxtLink
-            to="/insights"
+            to="/about"
             class="text-foreground hover:text-primary text-sm transition-colors"
           >
-            Insights
+            About
           </NuxtLink>
         </nav>
 

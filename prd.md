@@ -2,455 +2,181 @@
 
 ## 1. Summary
 
-**Product:** Military contracting career intelligence platform -- MOS career mapping, defense contractor directory, staffing placement pipeline, and industry insights.
+**Product:** Open intelligence layer for U.S. defense contractors.
 
-**Three revenue streams:**
+`military.contractors` helps researchers, analysts, business development teams, journalists, and industry professionals understand defense contractors through structured profiles, public award data, agencies, NAICS/PSC categories, locations, and spending trends.
 
-1. **Placement fees** ($10K-$50K per successful hire)
-2. **Claimed profiles SaaS** ($149-$399/month per employer)
-3. **Sponsored job listings** ($299-$999/month, future)
+The product is not a job board, MOS translator, or veteran career platform. Legacy job, MOS, alert, and OCONUS surfaces may remain for compatibility during the transition, but they are not public positioning or future product pillars.
 
-**SEO surface:** 1,500+ indexable URLs across 4 content silos (/companies, /insights, /jobs, /mos).
+## 2. Vision
 
----
+Defense contractor data is fragmented across USAspending, SAM.gov, company pages, press releases, and paywalled industry tools. The opportunity is a public, searchable, citation-forward intelligence layer that makes contractor activity easy to compare and verify.
 
-## 2. Vision & Strategic Context
+Primary thesis:
 
-Operation Epic Fury (launched February 28, 2026) and the resulting Iran conflict have created the largest defense spending surge since the Iraq War. The FY2026 defense budget of $858.9B is enacted, with $1.5T proposed for FY2027 -- a 74.6% year-over-year increase.
-
-Defense contractor stocks surged 5-11% in the first days of the conflict. PMCs are hiring aggressively (Constellis alone has 258+ active postings). Iran operations burn approximately $200M/day.
-
-military.contractors sits on an exact-match domain with a production-ready contractor directory, auth system, admin dashboard, and claimed profiles SaaS. The surge content strategy (insights silo) captures timely search traffic while the directory provides long-term platform value beyond any single conflict.
-
----
+> Open intelligence on U.S. defense contractors.
 
 ## 3. Competitive Landscape
 
 | Competitor | Focus | Weakness |
-|---|---|---|
-| Wikipedia | General encyclopedia | Only covers major contractors; not structured for comparison |
-| Crunchbase | Startups, tech companies | Weak defense coverage; tech-focused |
-| Bloomberg Government | Federal contracting intel | Paywalled; enterprise pricing |
-| GovWin | Contract opportunities | BD-focused; not company profiles |
-| LinkedIn | Professional network | No defense specialization |
-| ClearanceJobs | Cleared job board | Job-focused, no company directory |
-| Silent Professionals | SOF/PMC jobs | Niche, no company intelligence |
+| --- | --- | --- |
+| USAspending.gov | Raw federal spending data | Powerful but hard to explore by company narrative |
+| SAM.gov | Entity and opportunity data | Fragmented search and limited profile context |
+| Bloomberg Government | Federal contracting intelligence | Paywalled enterprise product |
+| GovWin | Opportunity and BD workflows | Paywalled, opportunity-led |
+| Wikipedia | General encyclopedia | Sparse structured award/category data |
+| Crunchbase | Startup/company data | Weak defense contracting coverage |
 
-**Our position:** The only platform combining defense contractor directory + industry insights + claimed profiles SaaS on an exact-match domain.
+**Position:** Public, structured contractor intelligence combining directory profiles, award summaries, source links, and AI-assisted exploration.
 
----
+## 4. Users
 
-## 4. User Personas
+### Industry Researcher
 
-### Veteran Career Researcher
-Enters company name or browses by specialty, researches potential employers, compares companies by size, revenue, specialties, and locations.
+Compares contractors, agencies, categories, and public spending trends without starting from raw government portals.
 
-### Active Job Seeker
-Reads insights articles, researches specific companies, explores contractor hiring data, uses platform to inform their job search strategy.
+### Business Development Analyst
 
-### Employer (HR/Recruiting)
-Claims company profile, manages presence, adds benefits/programs/testimonials, monitors profile analytics, pays for enhanced visibility.
+Finds top contractors by agency, NAICS, PSC, location, or keyword and follows source links back to USAspending/SAM records.
 
-### Industry Professional
-Researchers competitors, partners, or acquisition targets. Uses directory for quick reference on company basics.
+### Journalist Or Policy Researcher
 
----
+Needs accessible contractor context with visible source attribution and structured data behind summaries.
+
+### Contractor Profile Owner
+
+Claims a profile to keep public company context accurate. Claimed profiles remain available, but intelligence data and source attribution drive the product.
 
 ## 5. Site Architecture
 
-### 4 Content Silos
+| Surface | URL Pattern | Purpose |
+| --- | --- | --- |
+| Homepage Explorer | `/` | Plain-English contractor intelligence search |
+| Companies | `/companies` | Contractor directory and filters |
+| Company Profiles | `/companies/[slug]` | Company profile plus award intelligence |
+| Specialties | `/companies/specialty/[slug]` | Contractor category pages |
+| Locations | `/companies/location/[state]` | Contractor location pages |
+| Claimed Profiles | `/for-companies`, `/profile-manager/*` | Profile claim and management |
+| Admin | `/admin` | Admin review and operations |
 
-| Silo | URL Pattern | Page Count | Purpose |
-|---|---|---|---|
-| Companies | `/companies/*` | 130+ | Contractor directory and profiles |
-| Insights | `/insights/*` | 5+ | Timely analysis and career intelligence |
-| Jobs | `/jobs/*` | 4 | SEO content hub for job categories |
-| MOS | `/mos/*` | 1,334 | MOS career intelligence (future merge) |
-
-### Navigation
-
-**Header:** Companies | Insights | Search | Auth
-**Footer:** For Companies | About | Contact | Privacy | Terms
-
-### Page Table
-
-| Page | URL | Description |
-|---|---|---|
-| Homepage | `/` | Search + top contractors + browse by specialty |
-| Companies | `/companies` | Browse 103+ defense contractors with filters |
-| Company Profile | `/companies/[slug]` | Full company profile with claimed content |
-| By Specialty | `/companies/specialty/[slug]` | 10 specialty categories |
-| By Location | `/companies/location/[state]` | 16+ states |
-| Insights Hub | `/insights` | Industry analysis articles |
-| Hiring Surge | `/insights/defense-hiring-surge-2026` | Iran conflict analysis |
-| Contractors Hiring | `/insights/contractors-hiring-now` | Company-by-company breakdown |
-| MOS Demand | `/insights/mos-demand-middle-east` | In-demand specialties |
-| Pay & Tax Guide | `/insights/contractor-pay-tax-guide` | Compensation guide |
-| For Companies | `/for-companies` | Claimed profiles pricing |
-| Profile Manager | `/profile-manager` | Employer dashboard |
-| Claim Profile | `/profile-manager/claim` | Claim flow |
-| Admin | `/admin` | Admin dashboard |
-| Login | `/auth/login` | Magic link auth |
-| Callback | `/auth/callback` | Auth callback handler |
-| About | `/about` | Services page |
-| Contact | `/contact` | Contact form |
-| Privacy | `/privacy` | Privacy policy |
-| Terms | `/terms` | Terms of service |
-
----
+Legacy insights, job alerts, MOS, and OCONUS pages must not be linked from primary navigation or sitemap inputs after the pivot.
 
 ## 6. Contractor Directory
 
-### Data Source
-103+ company profiles seeded from Defense News Top 100 and supplemental contractor data.
+The directory remains the foundation and includes:
 
-### Browse & Search
-- Full-text search by company name
-- Filter by specialty (10 categories)
-- Filter by location (16+ states)
-- Sort by revenue or name
+- Company name, slug, overview, headquarters, locations, specialties.
+- Revenue context and public/private status.
+- External source links.
+- Claimed profile status where applicable.
+- Intelligence panels for public award records, agencies, categories, and obligations.
 
-### Company Profiles
-Each profile includes:
-- Company overview and description
-- Defense News rank, revenue, employee count
-- Stock ticker and public/private status
-- Specialties and capabilities
-- Office locations
-- External links (website, careers, LinkedIn, Wikipedia)
-- Claimed profile enhancements (benefits, programs, testimonials)
+## 7. Intelligence Data
 
-### Specialty Taxonomy
-Aerospace & Defense, Cybersecurity & IT, Intelligence & Analytics, Land Systems, Naval & Maritime, Space Systems, Professional Services, Logistics & Support, Electronics & Sensors, Research & Development.
+### Tables
 
----
+- `recipientEntity`: normalized recipient identity, UEI, CAGE, aliases, linked contractor.
+- `award`: award-level public contract records.
+- `awardTransaction`: transaction/obligation history.
+- `agency`: agency reference data.
+- `naicsCode`: NAICS reference data.
+- `pscCode`: PSC reference data.
+- `explorerQueryCache`: normalized plans, structured results, summaries, and source metadata.
 
-## 7. Insights Content Silo
+### Operations
 
-### Hub
-`/insights` -- Collection page with card grid linking to articles.
+- `searchAwards`
+- `getContractorIntelligence`
+- `getTopContractorsByAgency`
+- `getTopContractorsByNaics`
+- `getTopContractorsByPsc`
+- `compareContractors`
+- `getSpendingTrend`
 
-### Initial Articles (March 2026)
+Backend operations own totals, rankings, filtering, pagination, source attribution, and cache freshness.
 
-1. **Defense Contractor Hiring Surge 2026** -- Iran conflict impact, defense budget analysis, stock performance, hiring data
-2. **Which Defense Contractors Are Hiring Now** -- Company-by-company breakdown with active postings and pay ranges
-3. **MOS Codes Most in Demand for Middle East** -- Intelligence, cyber, SOF, combat MOS demand analysis
-4. **Military Contractor Pay & Tax Guide** -- FEIE ($132,900), combat zone benefits, compensation optimization
+## 8. Explorer MVP
 
-### Design
-- Schema.org Article structured data on each page
-- Breadcrumb navigation
-- Cross-linked to company profiles and other articles
-- CTAs to company browse and for-companies pages
+Users ask plain-English questions such as:
 
----
+- “Top Department of the Navy contractors by obligations”
+- “Compare Lockheed Martin and RTX”
+- “Show cyber awards in Virginia”
+- “Which contractors have missile awards?”
+- “Top NAICS 541512 contractors”
 
-## 8. Claimed Profiles System
+Supported query types:
 
-### Tier Structure
+- Company lookup
+- Company comparison
+- Agency top contractors
+- Category search by NAICS/PSC
+- Location search
+- Award keyword search
 
-| Feature | Free | Claimed ($149/mo) | Premium ($399/mo) |
-|---|---|---|---|
-| Basic profile | Yes | Yes | Yes |
-| Edit description & links | No | Yes | Yes |
-| Upload logo | No | Yes | Yes |
-| Verified badge | No | Yes | Yes |
-| "Why Work Here" section | No | Yes | Yes |
-| Notable programs | No | Yes | Yes |
-| Basic analytics | No | Yes | Yes |
-| Spotlight content | No | No | Yes |
-| Employee testimonials | No | No | Yes |
-| Priority in search | No | No | Yes |
+Explorer responses must include:
 
-### Claim Flow
-1. Employer visits `/for-companies` landing page
-2. Clicks "Get Started" → `/profile-manager/claim`
-3. Searches for their company in directory
-4. Verifies identity (email domain match or manual review)
-5. Selects tier → Stripe Checkout
-6. Stripe webhook activates claimed profile
-7. Gains access to `/profile-manager` dashboard
+- Validated structured query plan.
+- Filters used.
+- Generated summary.
+- Ranked table.
+- Cards or trend chart.
+- USAspending/SAM source metadata and source links.
 
-### Content Moderation
-- Basic profile edits publish immediately
-- Spotlight content and testimonials require admin approval
-- Admin dashboard at `/admin` for reviewing claims and content
+## 9. AI Rules
 
----
+- LLM plans must output strict JSON matching zod schemas.
+- The model can classify intent, extract filters, map plain English to categories, and write summaries.
+- The backend owns all math, rankings, filtering, source links, and cache freshness.
+- AI output must never appear without backing structured data.
+- Unsupported or ambiguous queries should return a clarification response rather than fabricated answers.
 
-## 9. Job Alert Subscriptions
+## 10. Public API
 
-- Email capture form on company profiles and insights pages
-- Fields: email (required), keywords, MOS codes, clearance levels, frequency
-- Backend stores subscription with unsubscribe token
-- Token-based unsubscribe via GET request
-- Duplicate emails update preferences rather than creating new records
-
----
-
-## 10. Authentication & Admin
-
-### Better Auth
-- Magic link authentication via Resend email
-- Role-based access: user, admin
-- Admin email whitelist
-- Session management with automatic refresh
-
-### Admin Dashboard (`/admin`)
-Tabbed interface:
-- **Overview:** System health, metrics, recent activity
-- **Claims:** Review pending claim requests, approve/reject
-- **Content:** Review sponsored content submissions
-- **Contractors:** Manage contractor profiles, HR contacts
-- **Users:** User management
-
----
-
-## 11. Revenue Model
-
-### Placement Fees (Primary -- future)
-- $10K-$50K per successful hire
-- Staffing pipeline via candidate and company intake forms
-
-### Claimed Profiles SaaS (Secondary)
-- $149-$399/month per profile
-- Stripe checkout and subscription management
-- Target: 10+ claimed profiles = $1,500-$4,000/month MRR
-- At 103 contractors, 10% claim rate = 10 profiles
-
-### Sponsored Job Listings (Future)
-- $299-$999/month per listing
-- Self-serve Stripe checkout
-- Featured placement across platform
-
-### Combined Revenue Projections
-
-| Scenario | Placements | SaaS MRR | Total Monthly |
-|---|---|---|---|
-| Early (mo 1-6) | $0 | $1,500 | $1,500 |
-| Growth (6-12) | $15K | $4K | $19K |
-| Established (12+) | $40K | $10K | $50K |
-
----
-
-## 12. SEO Strategy
-
-### Content Silos
-- `/companies` (103+ pages) -- company profiles
-- `/insights` (5+ pages) -- timely analysis
-- `/companies/specialty/*` (10 pages) -- specialty browse
-- `/companies/location/*` (16+ pages) -- location browse
-
-### Technical SEO
-- Server-side rendering on all public pages
-- Dynamic sitemap at `/sitemap.xml` (130+ URLs)
-- Schema.org structured data: WebSite, WebPage, Organization, Article, CollectionPage, BreadcrumbList
-- Unique meta tags, OG tags, canonical URLs on every page
-- Plausible analytics (privacy-friendly, no cookie banner)
-
-### Target Keywords
-- "[Company] defense contractor" (103+ variations)
-- "defense contractors hiring now"
-- "defense contractor hiring surge 2026"
-- "military contractor pay"
-- "defense contractors in [State]"
-- "[Specialty] defense contractors"
-
----
-
-## 13. Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | Nuxt 4 |
-| UI | Tailwind CSS v4, shadcn-vue |
-| Database | Drizzle ORM + libsql (SQLite) |
-| Auth | Better Auth (magic link via Resend) |
-| Billing | Stripe |
-| Validation | Zod + vee-validate |
-| Email | Resend |
-| Icons | Iconify (MDI) |
-| Logging | pino |
-| Analytics | Plausible |
-| Testing | Vitest |
-| Deployment | Coolify (VPS) |
-
----
-
-## 14. Database Schema
-
-### Directory
-- `contractor` -- 103+ defense contractor profiles
-- `specialty` -- 10 specialty categories
-- `contractorSpecialty` -- many-to-many mappings
-- `contractorLocation` -- office locations by state
-
-### Claimed Profiles
-- `claimedProfile` -- employer-claimed profile records (tiers: claimed/premium/enterprise)
-- `contractorUser` -- users linked to claimed profiles
-- `sponsoredContent` -- spotlight content blocks
-- `contractorBenefit` -- "Why Work Here" benefits
-- `contractorProgram` -- notable programs
-- `contractorTestimonial` -- employee testimonials
-
-### Auth
-- `user` -- user accounts with role and admin flags
-- `session` -- active sessions
-- `account` -- OAuth/provider connections
-- `verification` -- magic link tokens
-
-### Jobs
-- `job` -- job listings with structured data fields
-
-### CRM
-- `jobAlertSubscription` -- email alert subscriptions
-- `candidateActivity` -- candidate tracking
-- `placement` -- placement records
-- `contractorContact` -- HR contacts
-- `contractorNote` -- internal notes
-
-### Campaigns
-- `campaign`, `toastAd`, `featuredContractor`, `featuredListing`, `sponsoredAd`, `sponsoredJob`
-
-### Admin
-- `adminActivityLog` -- admin action audit trail
-- `recruiterAccess` -- recruiter permission grants
-
----
-
-## 15. API Endpoints
-
-### Contractor Directory
 | Method | Path | Purpose |
-|---|---|---|
-| GET | /api/contractors | Paginated list with filters |
-| GET | /api/contractors/[slug] | Contractor detail |
-| GET | /api/contractors/by-location/[state] | By state |
-| GET | /api/specialties | All specialties |
-| GET | /api/specialties/[slug] | Specialty detail |
-| GET | /api/locations | Location list |
+| --- | --- | --- |
+| GET | `/api/intelligence/contractors/[slug]` | Contractor intelligence profile |
+| GET | `/api/intelligence/top-contractors` | Top contractors by filters |
+| POST | `/api/explorer/query` | Planner and deterministic operation router |
+| GET | `/api/explorer/cache/[cacheId]` | Cached explorer result |
 
-### Billing
-| Method | Path | Purpose |
-|---|---|---|
-| POST | /api/billing/create-checkout | Stripe checkout session |
-| POST | /api/billing/webhook | Stripe webhooks |
-| GET | /api/billing/portal | Customer portal URL |
+## 11. SEO And AEO
 
-### Profile Manager
-| Method | Path | Purpose |
-|---|---|---|
-| POST | /api/profile-manager/claim | Submit claim |
-| GET | /api/profile-manager/profile | Get profile |
-| PATCH | /api/profile-manager/profile | Update profile |
-| GET/POST | /api/profile-manager/benefits | Manage benefits |
-| GET/POST | /api/profile-manager/programs | Manage programs |
+Indexable durable pages should focus on:
 
-### Admin
-| Method | Path | Purpose |
-|---|---|---|
-| GET | /api/admin/system-health | System metrics |
-| GET/PATCH | /api/admin/claims | Claim review |
-| GET/PATCH | /api/admin/content | Content review |
-| GET | /api/admin/users | User management |
+- Major contractor profiles.
+- Top contractors by agency.
+- Top contractors by NAICS/PSC.
+- Contractor location pages.
+- Agency and category explainers once enough source data exists.
 
-### Alerts
-| Method | Path | Purpose |
-|---|---|---|
-| POST | /api/alerts/subscribe | Subscribe to alerts |
-| GET | /api/alerts/unsubscribe | Token-based unsubscribe |
+Structured data should include Organization, WebPage, BreadcrumbList, CollectionPage, and Dataset where appropriate. Thin generated pages are not acceptable; each page needs visible structured data and source links.
 
-### Other
-| Method | Path | Purpose |
-|---|---|---|
-| GET | /api/search | Global search |
-| GET | /api/stats/homepage | Homepage statistics |
-| GET | /sitemap.xml | Dynamic sitemap |
+## 12. Monetization
 
----
+V1 focus is audience and durable data utility, not recruiting.
 
-## 16. Runtime Configuration
+Potential later monetization:
 
-| Variable | Purpose |
-|---|---|
-| `NUXT_PUBLIC_SITE_URL` | Public site URL |
-| `RESEND_API_KEY` | Resend email service |
-| `BETTER_AUTH_SECRET` | Auth encryption secret |
-| `STRIPE_SECRET_KEY` | Stripe API key |
-| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing |
-| `STRIPE_CLAIMED_PRICE_ID` | Stripe price for Claimed tier |
-| `STRIPE_PREMIUM_PRICE_ID` | Stripe price for Premium tier |
+- Claimed profile subscriptions.
+- Research exports.
+- Sponsored data reports clearly labeled as sponsored.
+- Enterprise alerting or saved intelligence workspaces.
 
----
+Placement fees, sponsored jobs, MOS career pages, and job alerts are not part of the v1 strategy.
 
-## 17. Success Metrics
+## 13. Test Plan
 
-### SEO
-- 130+ indexed pages
-- Top 10 for "[company] contractor" queries within 6 months
-- 25,000+ monthly organic traffic at scale
+- Unit tests for query planning, zod schema validation, and aggregation math.
+- API tests for stable response shapes and cache behavior.
+- UI tests for homepage explorer and company intelligence panels.
+- Regression check that MOS/job pages are not linked from primary navigation or sitemap.
 
-### Business
-- 10+ claimed profiles
-- $1,500+ MRR from SaaS
-- Insights pages driving 5,000+ monthly visits
+Verification commands:
 
-### Technical
-- All public pages SSR with <2s TTFB
-- Structured data validated on all page types
-- Zero downtime deployments
-
----
-
-## 18. Risks & Mitigations
-
-| Risk | Impact | Mitigation |
-|---|---|---|
-| SEO competition | Hard to rank | Focus on long-tail queries + exact-match domain advantage |
-| Data accuracy | User distrust | Multiple sources, clear timestamps, editorial review |
-| Low claim adoption | No SaaS revenue | Focus on traffic first, then employer outreach |
-| Iran conflict duration | Content goes stale | Insights designed as evergreen with timely hooks |
-| Stripe integration | Payment failures | Webhook retry logic, manual fallback process |
-| Auth security | Account compromise | Magic link (no passwords), session management, admin whitelist |
-
----
-
-## 19. Roadmap
-
-### Phase 1: Surge Content (Complete)
-- Insights hub and 4 articles
-- Nav updates, route rules, sitemap
-- useArticleSchema composable
-
-### Phase 2: Contractor Directory (Complete)
-- 103+ contractor profiles with browse/search
-- Specialty and location pages
-- Company profile pages with structured data
-
-### Phase 3: Auth & Admin (Complete)
-- Better Auth with magic link
-- Admin dashboard with claim/content review
-- Role-based middleware
-
-### Phase 4: Claimed Profiles & Stripe (Complete)
-- Claimed profiles system with tier structure
-- Stripe checkout, webhooks, customer portal
-- Profile manager dashboard
-
-### Phase 5: Job Alerts (Complete)
-- Alert subscription API
-- AlertSignupCard component
-- Token-based unsubscribe
-
-### Phase 6: Analytics & SEO (Complete)
-- Plausible analytics
-- Dynamic sitemap
-- Schema.org on all page types
-
-### Future
-- Sponsored job listings ($299-$999/month)
-- MOS career intelligence merge (1,334 pages)
-- Job matching and FTS5 search
-- Candidate/company intake forms
-- Expand to 200-300 contractors
-- USAspending contract data integration
+```bash
+pnpm test:run
+pnpm build
+pnpm db:generate
+pnpm db:migrate
+```

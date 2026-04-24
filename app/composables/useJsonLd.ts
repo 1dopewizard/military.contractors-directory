@@ -58,7 +58,7 @@ export function useWebSiteSchema(options?: {
     name: options?.name || "military.contractors",
     description:
       options?.description ||
-      "OCONUS contractor jobs for cleared veterans. Find overseas defense contractor positions matched to your military specialty.",
+      "Open intelligence on U.S. defense contractors, public awards, agencies, categories, and spending trends.",
     url:
       options?.url || config.public.siteUrl || "https://military.contractors",
     inLanguage: "en-US",

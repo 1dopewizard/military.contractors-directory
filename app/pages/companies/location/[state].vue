@@ -46,7 +46,7 @@ useHead(() => {
     meta: [
       {
         name: "description",
-        content: `Browse ${locationData.value.contractorCount} defense contractors with offices in ${locationData.value.state}. Find jobs and opportunities in the defense industry.`,
+        content: `Browse ${locationData.value.contractorCount} defense contractors with offices in ${locationData.value.state}. Explore company profiles and public contractor intelligence.`,
       },
     ],
   };
