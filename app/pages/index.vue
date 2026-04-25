@@ -1,6 +1,6 @@
 <!--
   @file Homepage - Open contractor intelligence explorer
-  @description Primary landing page for public defense contractor intelligence, award exploration, and directory browsing
+  @description Search-first landing page for public defense contractor intelligence
 -->
 
 <script setup lang="ts">
@@ -14,7 +14,7 @@ useHead({
     {
       name: "description",
       content:
-        "Ask questions about U.S. defense contractors, public awards, agencies, NAICS/PSC categories, locations, and spending trends.",
+        "Search U.S. defense contractors, public awards, agencies, NAICS/PSC categories, locations, and spending trends.",
     },
     {
       name: "keywords",
@@ -83,16 +83,37 @@ interface ExplorerResult {
   cached: boolean;
 }
 
-const explorerQuery = ref("Top Department of the Navy contractors");
+const explorerQuery = ref("");
 const explorerResult = ref<ExplorerResult | null>(null);
 const explorerPending = ref(false);
 const explorerError = ref<string | null>(null);
 
 const exampleQueries = [
-  "Compare Lockheed Martin and RTX",
-  "Show cyber awards in Virginia",
+  "Top Department of the Navy contractors",
   "Top NAICS 541512 contractors",
+  "Compare Lockheed Martin and RTX",
   "Which contractors have missile awards?",
+];
+
+const rankingLinks = [
+  { label: "Top Defense", to: "/rankings/top-defense-contractors" },
+  { label: "Navy", to: "/rankings/navy-contractors" },
+  { label: "Army", to: "/rankings/army-contractors" },
+  { label: "Air Force", to: "/rankings/air-force-contractors" },
+];
+
+const topicLinks = [
+  { label: "Cybersecurity", to: "/topics/cybersecurity" },
+  { label: "Missile Defense", to: "/topics/missile-defense" },
+  { label: "Shipbuilding", to: "/topics/shipbuilding" },
+  { label: "Space Systems", to: "/topics/space-systems" },
+];
+
+const categoryLinks = [
+  { label: "NAICS 541512", to: "/categories/naics/541512" },
+  { label: "NAICS 336611", to: "/categories/naics/336611" },
+  { label: "PSC 1410", to: "/categories/psc/1410" },
+  { label: "Agencies", to: "/agencies" },
 ];
 
 const { data: topContractorsData, pending: contractorsPending } =
@@ -109,7 +130,7 @@ const { data: allContractorsData } = useFetch<ContractorResponse>(
   },
 );
 
-const { data: specialtiesData, pending: specialtiesPending } = useFetch<{
+const { data: specialtiesData } = useFetch<{
   specialties: Specialty[];
 }>("/api/specialties?includeCounts=true", {
   lazy: true,
@@ -190,107 +211,100 @@ const useExample = (query: string) => {
   explorerQuery.value = query;
   runExplorer();
 };
-
-const specialtyIcons: Record<string, string> = {
-  "aerospace-defense": "mdi:airplane",
-  "cybersecurity-it": "mdi:shield-lock",
-  "intelligence-analytics": "mdi:brain",
-  "land-systems": "mdi:tank",
-  "naval-maritime": "mdi:anchor",
-  "space-systems": "mdi:rocket-launch",
-  "professional-services": "mdi:briefcase",
-  "logistics-support": "mdi:truck-delivery",
-  "electronics-sensors": "mdi:radar",
-  "research-development": "mdi:flask",
-};
-
-const getSpecialtyIcon = (slug: string): string => {
-  return specialtyIcons[slug] || "mdi:domain";
-};
-
-onMounted(() => {
-  runExplorer();
-});
 </script>
 
 <template>
   <div class="min-h-full">
     <section>
       <div
-        class="container mx-auto px-4 pt-[clamp(3rem,9vh,6rem)] pb-10 sm:px-6 lg:px-8"
+        class="container mx-auto px-4 pt-[clamp(2.5rem,8vh,4.5rem)] pb-6 sm:px-6 lg:px-8"
       >
-        <div class="mx-auto max-w-5xl">
-          <div class="max-w-3xl">
-            <Badge variant="outline" class="mb-5">Public award intelligence</Badge>
-            <h1
-              class="text-foreground text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl md:text-6xl"
+        <div class="mx-auto max-w-4xl text-center">
+          <Badge variant="outline" class="mb-5">Public award intelligence</Badge>
+          <h1
+            class="text-foreground text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
+          >
+            Open defense contractor intelligence.
+          </h1>
+          <p class="text-muted-foreground mx-auto mt-5 max-w-2xl text-lg sm:text-xl">
+            Search companies, agencies, NAICS/PSC codes, awards, and spending
+            trends from structured public records.
+          </p>
+
+          <form
+            class="border-border bg-background/80 mx-auto mt-7 flex max-w-3xl flex-col border p-2 text-left sm:flex-row sm:items-center"
+            @submit.prevent="runExplorer"
+          >
+            <Input
+              v-model="explorerQuery"
+              class="h-12 flex-1 border-0 bg-transparent px-3 text-base focus-visible:ring-0"
+              placeholder="Ask about Navy contractors, NAICS 541512, Lockheed vs RTX..."
+            />
+            <Button
+              type="submit"
+              class="mt-2 h-12 shrink-0 sm:mt-0"
+              :disabled="explorerPending"
             >
-              Open Defense Contractor Intelligence
-            </h1>
-            <p class="text-muted-foreground mt-5 max-w-2xl text-lg sm:text-xl">
-              Ask questions about contractors, awards, agencies, locations,
-              NAICS/PSC categories, and spending trends.
-            </p>
+              <Icon
+                v-if="explorerPending"
+                name="mdi:loading"
+                class="mr-2 h-4 w-4 animate-spin"
+              />
+              <Icon v-else name="mdi:database-search" class="mr-2 h-4 w-4" />
+              Search
+            </Button>
+          </form>
+
+          <div class="mx-auto mt-5 flex max-w-3xl flex-wrap justify-center gap-2">
+            <button
+              v-for="query in exampleQueries"
+              :key="query"
+              type="button"
+              class="border-border text-muted-foreground hover:text-foreground bg-background/70 border px-3 py-1.5 text-xs transition-colors"
+              @click="useExample(query)"
+            >
+              {{ query }}
+            </button>
           </div>
 
-          <div class="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_0.95fr]">
-            <div class="border-border bg-background border p-4 sm:p-5">
-              <form class="space-y-4" @submit.prevent="runExplorer">
-                <Label for="explorer-query">Explorer query</Label>
-                <Textarea
-                  id="explorer-query"
-                  v-model="explorerQuery"
-                  class="min-h-28 resize-none rounded-none"
-                  placeholder="Ask about contractors, agencies, locations, NAICS/PSC, or award keywords..."
-                />
-                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-                  <Button type="submit" :disabled="explorerPending">
-                    <Icon
-                      v-if="explorerPending"
-                      name="mdi:loading"
-                      class="mr-2 h-4 w-4 animate-spin"
-                    />
-                    <Icon v-else name="mdi:database-search" class="mr-2 h-4 w-4" />
-                    Run query
-                  </Button>
-                  <p class="text-muted-foreground text-xs">
-                    Summaries are generated only from structured matched records.
-                  </p>
-                </div>
-              </form>
+          <div
+            class="text-muted-foreground mt-5 flex flex-col items-center justify-center gap-2 text-xs sm:flex-row sm:gap-4"
+          >
+            <span>Source-backed USAspending records</span>
+            <span class="hidden text-muted-foreground/40 sm:inline">|</span>
+            <span>No model-generated totals</span>
+            <span class="hidden text-muted-foreground/40 sm:inline">|</span>
+            <NuxtLink to="/explorer" class="hover:text-foreground transition-colors">
+              Open full explorer
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
 
-              <div class="mt-5 flex flex-wrap gap-2">
-                <button
-                  v-for="query in exampleQueries"
-                  :key="query"
-                  type="button"
-                  class="border-border text-muted-foreground hover:text-foreground border px-3 py-1.5 text-left text-xs transition-colors"
-                  @click="useExample(query)"
-                >
-                  {{ query }}
-                </button>
-              </div>
+    <section v-if="explorerPending || explorerError || explorerResult">
+      <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-5xl">
+          <div class="border-border bg-background/80 border p-4 sm:p-5">
+            <div v-if="explorerPending" class="flex min-h-40 items-center">
+              <LoadingText text="Querying structured award data" />
             </div>
 
-            <div class="border-border bg-background border p-4 sm:p-5">
-              <div v-if="explorerPending" class="flex min-h-64 items-center">
-                <LoadingText text="Querying structured award data" />
-              </div>
+            <div v-else-if="explorerError" class="min-h-40">
+              <Empty>
+                <EmptyMedia variant="icon">
+                  <Icon name="mdi:alert-circle-outline" class="size-5" />
+                </EmptyMedia>
+                <EmptyContent>
+                  <EmptyTitle>Explorer Error</EmptyTitle>
+                  <EmptyDescription>{{ explorerError }}</EmptyDescription>
+                </EmptyContent>
+              </Empty>
+            </div>
 
-              <div v-else-if="explorerError" class="min-h-64">
-                <Empty>
-                  <EmptyMedia variant="icon">
-                    <Icon name="mdi:alert-circle-outline" class="size-5" />
-                  </EmptyMedia>
-                  <EmptyContent>
-                    <EmptyTitle>Explorer Error</EmptyTitle>
-                    <EmptyDescription>{{ explorerError }}</EmptyDescription>
-                  </EmptyContent>
-                </Empty>
-              </div>
-
-              <div v-else-if="explorerResult" class="space-y-5">
-                <div>
+            <div v-else-if="explorerResult" class="space-y-5">
+              <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div class="max-w-3xl">
                   <div class="mb-2 flex flex-wrap items-center gap-2">
                     <Badge variant="secondary">{{ explorerResult.resultType }}</Badge>
                     <Badge v-if="explorerResult.cached" variant="outline">
@@ -301,36 +315,42 @@ onMounted(() => {
                     {{ explorerResult.summary }}
                   </p>
                 </div>
-
-                <div
-                  v-if="explorerResult.filtersUsed.length"
-                  class="flex flex-wrap gap-2"
+                <NuxtLink
+                  to="/explorer"
+                  class="text-muted-foreground hover:text-foreground inline-flex shrink-0 items-center text-sm transition-colors"
                 >
-                  <Badge
-                    v-for="filter in explorerResult.filtersUsed"
-                    :key="`${filter.label}-${filter.value}`"
-                    variant="outline"
-                  >
-                    {{ filter.label }}: {{ filter.value }}
-                  </Badge>
-                </div>
+                  Continue in Explorer
+                  <Icon name="mdi:arrow-right" class="ml-1 h-4 w-4" />
+                </NuxtLink>
+              </div>
 
-                <div class="grid gap-3 sm:grid-cols-3">
-                  <div
-                    v-for="card in explorerResult.cards"
-                    :key="card.label"
-                    class="border-border border p-3"
-                  >
-                    <p class="text-muted-foreground text-xs">{{ card.label }}</p>
-                    <p class="text-foreground mt-1 text-lg font-semibold">
-                      {{ card.value }}
-                    </p>
-                    <p class="text-muted-foreground mt-1 text-xs">
-                      {{ card.detail }}
-                    </p>
-                  </div>
-                </div>
+              <div v-if="explorerResult.filtersUsed.length" class="flex flex-wrap gap-2">
+                <Badge
+                  v-for="filter in explorerResult.filtersUsed"
+                  :key="`${filter.label}-${filter.value}`"
+                  variant="outline"
+                >
+                  {{ filter.label }}: {{ filter.value }}
+                </Badge>
+              </div>
 
+              <div class="grid gap-3 sm:grid-cols-3">
+                <div
+                  v-for="card in explorerResult.cards"
+                  :key="card.label"
+                  class="border-border border p-3"
+                >
+                  <p class="text-muted-foreground text-xs">{{ card.label }}</p>
+                  <p class="text-foreground mt-1 text-lg font-semibold">
+                    {{ card.value }}
+                  </p>
+                  <p class="text-muted-foreground mt-1 text-xs">
+                    {{ card.detail }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
                 <div v-if="explorerResult.chart.length" class="space-y-2">
                   <div
                     v-for="item in explorerResult.chart"
@@ -382,25 +402,25 @@ onMounted(() => {
                     </TableBody>
                   </Table>
                 </div>
+              </div>
 
-                <div class="border-border border-t pt-4">
-                  <p class="text-muted-foreground mb-2 text-xs">
-                    {{ explorerResult.sourceMetadata.structuredRecords }}
-                    structured records. {{ explorerResult.sourceMetadata.freshness }}
-                  </p>
-                  <div class="flex flex-wrap gap-3">
-                    <NuxtLink
-                      v-for="source in explorerResult.sourceLinks.slice(0, 4)"
-                      :key="source.url"
-                      :to="source.url"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-primary text-xs hover:underline"
-                    >
-                      {{ source.label }}
-                      <Icon name="mdi:open-in-new" class="ml-1 inline h-3 w-3" />
-                    </NuxtLink>
-                  </div>
+              <div class="border-border border-t pt-4">
+                <p class="text-muted-foreground mb-2 text-xs">
+                  {{ explorerResult.sourceMetadata.structuredRecords }}
+                  structured records. {{ explorerResult.sourceMetadata.freshness }}
+                </p>
+                <div class="flex flex-wrap gap-3">
+                  <NuxtLink
+                    v-for="source in explorerResult.sourceLinks.slice(0, 4)"
+                    :key="source.url"
+                    :to="source.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-primary text-xs hover:underline"
+                  >
+                    {{ source.label }}
+                    <Icon name="mdi:open-in-new" class="ml-1 inline h-3 w-3" />
+                  </NuxtLink>
                 </div>
               </div>
             </div>
@@ -442,6 +462,57 @@ onMounted(() => {
               <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
                 Defense Revenue Context
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-3">
+          <div>
+            <h2 class="text-foreground text-xl font-bold">Rankings</h2>
+            <div class="border-border mt-4 border-t">
+              <NuxtLink
+                v-for="link in rankingLinks"
+                :key="link.to"
+                :to="link.to"
+                class="border-border hover:bg-muted/50 flex items-center justify-between border-b py-3 text-sm transition-colors"
+              >
+                <span>{{ link.label }}</span>
+                <Icon name="mdi:arrow-right" class="h-4 w-4" />
+              </NuxtLink>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-foreground text-xl font-bold">Topics</h2>
+            <div class="border-border mt-4 border-t">
+              <NuxtLink
+                v-for="link in topicLinks"
+                :key="link.to"
+                :to="link.to"
+                class="border-border hover:bg-muted/50 flex items-center justify-between border-b py-3 text-sm transition-colors"
+              >
+                <span>{{ link.label }}</span>
+                <Icon name="mdi:arrow-right" class="h-4 w-4" />
+              </NuxtLink>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-foreground text-xl font-bold">Categories</h2>
+            <div class="border-border mt-4 border-t">
+              <NuxtLink
+                v-for="link in categoryLinks"
+                :key="link.to"
+                :to="link.to"
+                class="border-border hover:bg-muted/50 flex items-center justify-between border-b py-3 text-sm transition-colors"
+              >
+                <span>{{ link.label }}</span>
+                <Icon name="mdi:arrow-right" class="h-4 w-4" />
+              </NuxtLink>
             </div>
           </div>
         </div>
@@ -507,56 +578,6 @@ onMounted(() => {
                     {{ contractor.primarySpecialty.name }}
                   </div>
                 </div>
-              </div>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-5xl">
-          <h2 class="text-foreground mb-8 text-xl font-bold sm:text-2xl">
-            Browse by Category
-          </h2>
-
-          <div
-            v-if="specialtiesPending"
-            class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5"
-          >
-            <div v-for="i in 10" :key="i" class="animate-pulse p-4">
-              <div class="space-y-2">
-                <div class="bg-muted h-6 w-6" />
-                <div class="bg-muted h-4 w-3/4" />
-                <div class="bg-muted/50 h-3 w-1/2" />
-              </div>
-            </div>
-          </div>
-
-          <div v-else class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-            <NuxtLink
-              v-for="specialty in specialties"
-              :key="specialty.id"
-              :to="{ path: '/companies', query: { specialty: specialty.slug } }"
-              class="group hover:border-border border border-transparent p-4 transition-colors"
-            >
-              <div class="text-primary mb-2">
-                <Icon
-                  :name="getSpecialtyIcon(specialty.slug)"
-                  class="h-5 w-5"
-                />
-              </div>
-              <div
-                class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
-              >
-                {{ specialty.name }}
-              </div>
-              <div
-                v-if="specialty.contractorCount"
-                class="text-muted-foreground mt-1 text-xs"
-              >
-                {{ specialty.contractorCount }} contractors
               </div>
             </NuxtLink>
           </div>

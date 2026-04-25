@@ -3,10 +3,26 @@ import { createResolver } from "nuxt/kit";
 import tailwindcss from "@tailwindcss/vite";
 
 const { resolve } = createResolver(import.meta.url);
+const publicSiteUrl =
+  process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const isLocalSiteUrl = /(^http:\/\/localhost\b|^http:\/\/127\.0\.0\.1\b)/.test(
+  publicSiteUrl,
+);
+const enablePlausible =
+  process.env.NODE_ENV === "production" && !isLocalSiteUrl;
+const enableLinkPrefetch =
+  process.env.NODE_ENV === "production" && !isLocalSiteUrl;
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        prefetch: enableLinkPrefetch,
+      },
+    },
+  },
   pages: true,
   ssr: true,
   app: {
@@ -16,13 +32,15 @@ export default defineNuxtConfig({
         { property: "og:image", content: "/og-image.svg" },
         { property: "og:site_name", content: "military.contractors" },
       ],
-      script: [
-        {
-          src: "https://plausible.io/js/script.js",
-          "data-domain": "military.contractors",
-          defer: true,
-        },
-      ],
+      script: enablePlausible
+        ? [
+            {
+              src: "https://plausible.io/js/script.js",
+              "data-domain": "military.contractors",
+              defer: true,
+            },
+          ]
+        : [],
     },
     pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: { name: "page", mode: "out-in" },
@@ -70,7 +88,7 @@ export default defineNuxtConfig({
     stripePremiumPriceId: process.env.STRIPE_PREMIUM_PRICE_ID || "",
     betterAuthSecret: process.env.BETTER_AUTH_SECRET || "",
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      siteUrl: publicSiteUrl,
       siteName: "military.contractors",
       directoryUrl:
         process.env.NUXT_PUBLIC_DIRECTORY_URL || "http://localhost:3001",
