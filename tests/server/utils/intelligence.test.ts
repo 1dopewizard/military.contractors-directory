@@ -21,6 +21,7 @@ import {
   dateToFiscalYear,
   fiscalYearToDateRange,
   normalizeUsaSpendingAward,
+  sanitizeUsaSpendingKeywords,
 } from "@/server/utils/usaspending";
 
 describe("contractor intelligence utilities", () => {
@@ -29,6 +30,14 @@ describe("contractor intelligence utilities", () => {
 
     expect(plan.intent).toBe("agency_top_contractors");
     expect(plan.agency).toBe("Department of the Navy");
+  });
+
+  it("does not extract AI from NAICS as a keyword", () => {
+    const plan = planExplorerQuery("Top NAICS 541512 contractors");
+
+    expect(plan.intent).toBe("category_search");
+    expect(plan.naics).toBe("541512");
+    expect(plan.keywords).not.toContain("ai");
   });
 
   it("plans a company comparison query", () => {
@@ -134,6 +143,19 @@ describe("USAspending adapter helpers", () => {
         }),
       ]),
     );
+  });
+
+  it("drops USAspending keywords shorter than the public API minimum", () => {
+    expect(sanitizeUsaSpendingKeywords(["ai", "cyber", " cyber "])).toEqual([
+      "cyber",
+    ]);
+
+    const filters = buildUsaSpendingFilters({
+      fiscalYears: [2026],
+      keywords: ["ai"],
+    });
+
+    expect(filters).not.toHaveProperty("keywords");
   });
 
   it("normalizes award search rows", () => {

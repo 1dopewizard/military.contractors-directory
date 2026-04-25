@@ -32,6 +32,7 @@ import {
   searchUsaSpendingAwards,
   slugify,
   sourceLinksForAwards,
+  sanitizeUsaSpendingKeywords,
   USA_SPENDING_BASE_URL,
   type UsaSpendingAwardSearchInput,
 } from "@/server/utils/usaspending";
@@ -829,10 +830,10 @@ function planToUsaSpendingInput(plan: ExplorerPlan): UsaSpendingAwardSearchInput
       Boolean(contractor),
     )
     .flatMap((contractor) => [contractor.name, ...contractor.aliases]);
-  const keywords = [
+  const keywords = sanitizeUsaSpendingKeywords([
     ...plan.keywords,
     ...(plan.location ? [plan.location] : []),
-  ];
+  ]);
 
   return {
     recipientSearchText: contractorNames.length ? contractorNames : undefined,
@@ -1494,7 +1495,10 @@ function extractCode(query: string, label: "naics" | "psc"): string | null {
 }
 
 function extractKeywords(normalized: string): string[] {
-  return keywordVocabulary.filter((keyword) => normalized.includes(keyword));
+  return keywordVocabulary.filter((keyword) => {
+    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp(`\\b${escaped}\\b`).test(normalized);
+  });
 }
 
 function normalizeText(value: string): string {

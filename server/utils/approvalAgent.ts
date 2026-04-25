@@ -122,7 +122,7 @@ ${input.sourceUrl ? `- Source URL: ${input.sourceUrl}` : ""}
 Analyze and provide your approval decision.`;
 
   const { object } = await generateObject({
-    model: openai("gpt-5.1"),
+    model: openai("gpt-5.4-nano"),
     schema: approvalDecisionSchema,
     system: systemPrompt,
     prompt: userPrompt,

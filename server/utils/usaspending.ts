@@ -263,8 +263,9 @@ export function buildUsaSpendingFilters(
     filters.recipient_search_text = input.recipientSearchText;
   }
 
-  if (input.keywords?.length) {
-    filters.keywords = input.keywords;
+  const keywords = sanitizeUsaSpendingKeywords(input.keywords ?? []);
+  if (keywords.length) {
+    filters.keywords = keywords;
   }
 
   const agencies = input.agencies ?? agencyFiltersForName(input.agency);
@@ -281,6 +282,16 @@ export function buildUsaSpendingFilters(
   }
 
   return filters;
+}
+
+export function sanitizeUsaSpendingKeywords(keywords: string[]): string[] {
+  return [
+    ...new Set(
+      keywords
+        .map((keyword) => keyword.trim())
+        .filter((keyword) => keyword.length >= 3),
+    ),
+  ];
 }
 
 export function agencyFiltersForName(
@@ -503,7 +514,7 @@ export function filtersToLabels(input: UsaSpendingFiltersInput): IntelligenceFil
       value: code,
       code,
     })),
-    ...(input.keywords ?? []).map((value) => ({
+    ...sanitizeUsaSpendingKeywords(input.keywords ?? []).map((value) => ({
       kind: "keyword" as const,
       label: "Keyword",
       value,

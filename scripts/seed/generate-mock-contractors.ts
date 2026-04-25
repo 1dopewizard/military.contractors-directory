@@ -386,7 +386,7 @@ Generate realistic data including:
 Return as JSON matching the schema.`;
 
   const { object } = await generateObject({
-    model: openai("gpt-5.1"),
+    model: openai("gpt-5.4-nano"),
     schema: ContractorDataSchema,
     system: SYSTEM_PROMPT,
     prompt,
