@@ -116,6 +116,16 @@ const navigateToSearch = (query?: string) => {
   router.push(q ? `/companies?q=${encodeURIComponent(q)}` : "/companies");
 };
 
+const navigateToExplorer = (query?: string) => {
+  const q = query || searchQuery.value.trim();
+  if (q) {
+    saveRecentSearch(q);
+  }
+  open.value = false;
+  searchQuery.value = "";
+  router.push(q ? `/explorer?q=${encodeURIComponent(q)}` : "/explorer");
+};
+
 const handleRecentSearch = (query: string) => {
   searchQuery.value = query;
 };
@@ -172,6 +182,33 @@ const browseBySpecialty = (slug: string) => {
   searchQuery.value = "";
   router.push(`/companies?specialty=${slug}`);
 };
+
+const quickLinks = [
+  {
+    value: "ranking-top-defense",
+    label: "Top defense contractors",
+    icon: "mdi:format-list-numbered",
+    to: "/rankings/top-defense-contractors",
+  },
+  {
+    value: "agencies",
+    label: "Browse agencies",
+    icon: "mdi:bank-outline",
+    to: "/agencies",
+  },
+  {
+    value: "topic-cyber",
+    label: "Cybersecurity topic",
+    icon: "mdi:shield-lock-outline",
+    to: "/topics/cybersecurity",
+  },
+];
+
+const navigateToQuickLink = (to: string) => {
+  open.value = false;
+  searchQuery.value = "";
+  router.push(to);
+};
 </script>
 
 <template>
@@ -200,7 +237,14 @@ const browseBySpecialty = (slug: string) => {
       <!-- Search results -->
       <template v-else-if="searchQuery.trim()">
         <CommandEmpty v-if="searchResults.length === 0">
-          No contractors found for "{{ searchQuery }}"
+          No contractors found for "{{ searchQuery }}".
+          <button
+            type="button"
+            class="text-primary ml-1 hover:underline"
+            @click="navigateToExplorer()"
+          >
+            Run in Explorer
+          </button>
         </CommandEmpty>
 
         <CommandGroup v-if="searchResults.length > 0" heading="Contractors">
@@ -257,6 +301,15 @@ const browseBySpecialty = (slug: string) => {
           >
             View all {{ totalResults }} results
             <Icon name="mdi:arrow-right" class="ml-2 h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            class="text-muted-foreground w-full justify-center"
+            @click="navigateToExplorer()"
+          >
+            Run query in Explorer
+            <Icon name="mdi:database-search" class="ml-2 h-4 w-4" />
           </Button>
         </div>
       </template>
@@ -316,6 +369,19 @@ const browseBySpecialty = (slug: string) => {
 
         <!-- Quick actions -->
         <CommandGroup heading="Quick Actions">
+          <CommandItem
+            v-for="link in quickLinks"
+            :key="link.value"
+            :value="link.value"
+            class="cursor-pointer"
+            @select="navigateToQuickLink(link.to)"
+          >
+            <Icon
+              :name="link.icon"
+              class="text-muted-foreground mr-2 h-4 w-4"
+            />
+            <span>{{ link.label }}</span>
+          </CommandItem>
           <CommandItem
             value="browse-all"
             class="cursor-pointer"

@@ -6,9 +6,7 @@ interface User {
   avatar_url: string | null;
   branch: string | null;
   clearance_level: string | null;
-  oconus_preference: boolean | null;
   preferred_regions: string[] | null;
-  preferred_theaters: string[] | null;
   created_at: string | null;
   updated_at: string | null;
 }

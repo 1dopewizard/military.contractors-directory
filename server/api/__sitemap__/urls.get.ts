@@ -5,6 +5,7 @@
  */
 
 import { getDb, schema } from "@/server/utils/db";
+import { rankingPresets, topicPresets } from "@/server/utils/intelligence";
 import { desc } from "drizzle-orm";
 
 interface SitemapUrl {
@@ -54,6 +55,53 @@ export default defineEventHandler(async () => {
         lastmod: specialty.updatedAt?.toISOString() ?? null,
         changefreq: "monthly",
         priority: 0.7,
+      });
+    }
+
+    for (const preset of rankingPresets) {
+      urls.push({
+        loc: `${baseUrl}/rankings/${preset.slug}`,
+        changefreq: "daily",
+        priority: 0.8,
+      });
+    }
+
+    for (const topic of topicPresets) {
+      urls.push({
+        loc: `${baseUrl}/topics/${topic.slug}`,
+        changefreq: "daily",
+        priority: 0.7,
+      });
+    }
+
+    for (const agencySlug of [
+      "department-of-defense",
+      "department-of-the-army",
+      "department-of-the-navy",
+      "department-of-the-air-force",
+      "defense-logistics-agency",
+      "defense-information-systems-agency",
+      "defense-intelligence-agency",
+    ]) {
+      urls.push({
+        loc: `${baseUrl}/agencies/${agencySlug}`,
+        changefreq: "daily",
+        priority: 0.7,
+      });
+    }
+
+    for (const categoryPath of [
+      "/categories/naics/541512",
+      "/categories/naics/336414",
+      "/categories/naics/336611",
+      "/categories/psc/1410",
+      "/categories/psc/5840",
+      "/categories/psc/D399",
+    ]) {
+      urls.push({
+        loc: `${baseUrl}${categoryPath}`,
+        changefreq: "weekly",
+        priority: 0.6,
       });
     }
 

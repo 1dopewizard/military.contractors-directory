@@ -10,7 +10,7 @@
 
 military.contractors is a public intelligence layer for researching U.S. defense contractors through structured company profiles, public award records, agency relationships, NAICS and PSC categories, locations, spending trends, source links, and AI-assisted exploration.
 
-The product is intentionally not a job board, MOS translation product, staffing marketplace, veteran transition funnel, or OCONUS career site. Existing job, MOS, alert, and career-oriented code paths are legacy compatibility surfaces unless they directly support contractor intelligence.
+The product is intentionally not a job board, MOS translation product, staffing marketplace, veteran transition funnel, or OCONUS career site. Public product surfaces are source-backed contractor intelligence, not career or recruiting workflows.
 
 ## 2. Why This Exists
 

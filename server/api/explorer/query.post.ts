@@ -1,14 +1,9 @@
 /**
  * @file POST /api/explorer/query
- * @description Plans and runs a deterministic contractor intelligence explorer query
+ * @description Plans and runs a DB-cached USAspending contractor intelligence query
  */
 
-import {
-  createQueryHash,
-  getExplorerMemoryCache,
-  runExplorerQuery,
-  setExplorerMemoryCache,
-} from "@/server/utils/intelligence";
+import { runExplorerQueryWithCache } from "@/server/utils/intelligence";
 import { z } from "zod";
 
 const bodySchema = z.object({
@@ -18,19 +13,22 @@ const bodySchema = z.object({
 
 export default defineEventHandler(async (event) => {
   const body = await readValidatedBody(event, bodySchema.parse);
-  const id = createQueryHash(body.query).slice(0, 16);
 
-  if (!body.refresh) {
-    const cached = getExplorerMemoryCache(id);
-    if (cached) {
-      return {
-        ...cached,
-        cached: true,
-      };
-    }
+  try {
+    return await runExplorerQueryWithCache(body.query, {
+      forceRefresh: body.refresh,
+      allowFreshRefresh: false,
+    });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Explorer query failed";
+    throw createError({
+      statusCode: 502,
+      statusMessage: message,
+      data: {
+        source: "usaspending",
+        query: body.query,
+      },
+    });
   }
-
-  const result = runExplorerQuery(body.query);
-  setExplorerMemoryCache(result);
-  return result;
 });

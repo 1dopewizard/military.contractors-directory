@@ -20,8 +20,8 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Project paths
-SOURCE_DIR="/home/aeo/Development/Projects/military.contractors"
-BACKUP_DIR="/home/aeo/Development/Projects/military.contractors-copy"
+SOURCE_DIR="/home/aeo/Development/Projects/military.contractors-directory/"
+BACKUP_DIR="/home/aeo/Development/Projects/military.contractors-directory/copy"
 
 # Function to print colored messages
 print_info() {
@@ -45,7 +45,7 @@ sync_full_backup() {
     local source="$1"
     local dest="$2"
     
-    print_info "Syncing full backup to military.contractors-copy..."
+    print_info "Syncing full backup to military.contractors-directory-copy..."
     print_info "Keeping: .git, .localdata (for disaster recovery)"
     
     # Remove old backup if it exists
@@ -88,4 +88,4 @@ echo ""
 print_success "Backup synchronized successfully!"
 echo ""
 print_info "Summary:"
-print_info "• military.contractors-copy: Full backup with .git & .localdata"
+print_info "• military.contractors-directory-copy: Full backup with .git & .localdata"

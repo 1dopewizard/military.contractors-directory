@@ -1,12 +1,18 @@
 /**
  * @file GET /api/intelligence/contractors/[slug]
- * @description Public award intelligence summary for a contractor profile
+ * @description Live USAspending-backed contractor intelligence profile
  */
 
-import { getContractorIntelligence } from "@/server/utils/intelligence";
+import { getContractorIntelligenceLive } from "@/server/utils/intelligence";
+import { z } from "zod";
+
+const querySchema = z.object({
+  refresh: z.coerce.boolean().optional().default(false),
+});
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, "slug");
+  const query = await getValidatedQuery(event, querySchema.parse);
 
   if (!slug) {
     throw createError({
@@ -15,14 +21,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const intelligence = getContractorIntelligence(slug);
-
-  if (!intelligence) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: `Contractor intelligence not found for "${slug}"`,
-    });
-  }
-
-  return intelligence;
+  return getContractorIntelligenceLive(slug, {
+    forceRefresh: query.refresh,
+  });
 });

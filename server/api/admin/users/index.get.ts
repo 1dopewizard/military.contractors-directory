@@ -22,9 +22,7 @@ export default defineEventHandler(async (event) => {
       avatar_url: schema.user.image,
       branch: schema.profile.branch,
       clearance_level: schema.profile.clearanceLevel,
-      oconus_preference: schema.profile.openToOconus,
       preferred_regions: schema.profile.preferredLocations,
-      preferred_theaters: schema.profile.preferredTheaters,
       created_at: schema.user.createdAt,
       updated_at: schema.user.updatedAt,
     })

@@ -1,9 +1,9 @@
 /**
  * @file GET /api/explorer/cache/[cacheId]
- * @description Returns a cached explorer result by stable cache ID
+ * @description Returns a persisted explorer result by cache ID or query hash
  */
 
-import { getExplorerMemoryCache } from "@/server/utils/intelligence";
+import { getExplorerResultFromCache } from "@/server/utils/intelligence";
 
 export default defineEventHandler(async (event) => {
   const cacheId = getRouterParam(event, "cacheId");
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const result = getExplorerMemoryCache(cacheId);
+  const result = await getExplorerResultFromCache(cacheId);
 
   if (!result) {
     throw createError({
@@ -24,8 +24,5 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return {
-    ...result,
-    cached: true,
-  };
+  return result;
 });

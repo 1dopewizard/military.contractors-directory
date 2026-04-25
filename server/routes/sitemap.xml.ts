@@ -1,4 +1,5 @@
 import { getDb, schema } from "@/server/utils/db";
+import { rankingPresets, topicPresets } from "@/server/utils/intelligence";
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -7,7 +8,10 @@ export default defineEventHandler(async (event) => {
   // Static pages
   const staticPages = [
     { loc: "/", priority: "1.0", changefreq: "daily" },
+    { loc: "/explorer", priority: "0.9", changefreq: "daily" },
     { loc: "/companies", priority: "0.9", changefreq: "daily" },
+    { loc: "/compare", priority: "0.7", changefreq: "weekly" },
+    { loc: "/agencies", priority: "0.8", changefreq: "daily" },
     { loc: "/for-companies", priority: "0.7", changefreq: "monthly" },
     { loc: "/about", priority: "0.5", changefreq: "monthly" },
     { loc: "/contact", priority: "0.5", changefreq: "monthly" },
@@ -31,6 +35,41 @@ export default defineEventHandler(async (event) => {
     priority: string;
     changefreq: string;
   }> = [];
+  const rankingPages = rankingPresets.map((preset) => ({
+    loc: `/rankings/${preset.slug}`,
+    priority: "0.8",
+    changefreq: "daily",
+  }));
+  const topicPages = topicPresets.map((topic) => ({
+    loc: `/topics/${topic.slug}`,
+    priority: "0.7",
+    changefreq: "daily",
+  }));
+  const agencyPages = [
+    "department-of-defense",
+    "department-of-the-army",
+    "department-of-the-navy",
+    "department-of-the-air-force",
+    "defense-logistics-agency",
+    "defense-information-systems-agency",
+    "defense-intelligence-agency",
+  ].map((slug) => ({
+    loc: `/agencies/${slug}`,
+    priority: "0.7",
+    changefreq: "daily",
+  }));
+  const categoryPages = [
+    "/categories/naics/541512",
+    "/categories/naics/336414",
+    "/categories/naics/336611",
+    "/categories/psc/1410",
+    "/categories/psc/5840",
+    "/categories/psc/D399",
+  ].map((loc) => ({
+    loc,
+    priority: "0.6",
+    changefreq: "weekly",
+  }));
 
   try {
     const db = getDb();
@@ -79,6 +118,10 @@ export default defineEventHandler(async (event) => {
     ...contractorPages,
     ...specialtyPages,
     ...locationPages,
+    ...agencyPages,
+    ...rankingPages,
+    ...topicPages,
+    ...categoryPages,
   ];
 
   const urls = allPages

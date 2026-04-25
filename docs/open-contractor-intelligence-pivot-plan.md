@@ -2,7 +2,7 @@
 
 ## Summary
 
-Reposition `military.contractors` from a contractor career/job platform into an open intelligence layer for U.S. defense contractors: company profiles, public award data, agencies, NAICS/PSC categories, spending trends, and AI-assisted exploration. MOS, job alerts, OCONUS content, and career translation are legacy surfaces unless directly useful for contractor intelligence.
+Reposition `military.contractors` as an open intelligence layer for U.S. defense contractors: company profiles, public award data, agencies, NAICS/PSC categories, spending trends, and structured follow-up exploration.
 
 ## Product Thesis
 
@@ -17,7 +17,7 @@ Primary promise:
 - Update product docs and public copy around contractor intelligence, public awards, agencies, categories, and spending trends.
 - Keep the directory foundation: `/companies`, `/companies/[slug]`, specialties, locations, contractor APIs, sitemap, auth/admin scaffolding, and claimed-profile infrastructure.
 - Remove MOS/job alert positioning from README, PRD, homepage, about, footer/nav copy, and sitemap inputs.
-- Treat existing job, MOS, alerts, and OCONUS implementation as legacy compatibility code until removed in a dedicated cleanup.
+- Remove public job, MOS, alert, OCONUS, and ad/recruiting surfaces from active routes and components.
 - Upgrade company profiles from career-oriented pages to intelligence profiles with identifiers, aliases, public award context, agencies, NAICS/PSC categories, spending trend, and USAspending links.
 - Add an explorer experience where users ask questions about contractors, awards, agencies, locations, NAICS/PSC, and spending.
 - Never present generated narrative without backing structured records, filters, and source links.
@@ -28,7 +28,7 @@ Add a USAspending/SAM-oriented schema layer:
 
 - `recipientEntity`: normalized recipient identity, UEI, CAGE, aliases, linked contractor.
 - `award`: award-level public contract records.
-- `awardTransaction`: transaction/obligation history where available.
+- `awardTransaction`: transaction/obligation history reserved for deeper award detail.
 - `agency`: agency reference data.
 - `naicsCode`: NAICS reference data.
 - `pscCode`: PSC reference data.
@@ -40,25 +40,33 @@ Keep existing `contractor`, `specialty`, and `contractorLocation`; extend rather
 
 Deterministic operations own totals, rankings, filtering, pagination, attribution, and freshness:
 
-- `searchAwards`
-- `getContractorIntelligence`
-- `getTopContractorsByAgency`
-- `getTopContractorsByNaics`
-- `getTopContractorsByPsc`
-- `compareContractors`
-- `getSpendingTrend`
+- Explorer planning and filter extraction.
+- USAspending award search and category rankings.
+- Contractor profiles over the last five fiscal years.
+- Agency, topic, NAICS, PSC, and ranking page rollups.
+- Follow-up refine, pivot, and answer workflows from structured cached results.
 
 ## Public API
 
 - `GET /api/intelligence/contractors/[slug]`
 - `GET /api/intelligence/top-contractors`
+- `GET /api/intelligence/recipients/resolve`
+- `GET /api/intelligence/awards`
+- `GET /api/intelligence/awards/[awardKey]`
+- `GET /api/intelligence/agencies`
+- `GET /api/intelligence/agencies/[agencySlug]`
+- `GET /api/intelligence/categories/[kind]/[code]`
+- `GET /api/intelligence/topics/[topicSlug]`
+- `GET /api/intelligence/rankings/[presetSlug]`
 - `POST /api/explorer/query`
+- `POST /api/explorer/follow-up`
 - `GET /api/explorer/cache/[cacheId]`
 
 ## AI Rules
 
 - Query plans must validate against strict zod schemas.
-- The model may classify intent, extract filters, map plain English to structured categories, and write summaries.
+- Deterministic planners classify intent, extract filters, and map plain English to structured categories by default.
+- LLMs may summarize or propose follow-ups only from structured rows when configured.
 - The backend owns numerical calculations, ranked results, pagination, source attribution, and cache freshness.
 - Explorer results must show structured filters, source metadata, ranked tables/cards, and source links.
 

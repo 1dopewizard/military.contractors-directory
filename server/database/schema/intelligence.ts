@@ -99,12 +99,17 @@ export const award = sqliteTable(
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
     awardId: text("awardId").notNull().unique(),
+    generatedAwardId: text("generatedAwardId"),
     piid: text("piid"),
     recipientEntityId: text("recipientEntityId")
       .notNull()
       .references(() => recipientEntity.id, { onDelete: "cascade" }),
+    recipientName: text("recipientName"),
+    recipientUei: text("recipientUei"),
     awardingAgencyId: text("awardingAgencyId").references(() => agency.id),
     fundingAgencyId: text("fundingAgencyId").references(() => agency.id),
+    awardingSubAgencyName: text("awardingSubAgencyName"),
+    fundingSubAgencyName: text("fundingSubAgencyName"),
     naicsCode: text("naicsCode").references(() => naicsCode.code),
     pscCode: text("pscCode").references(() => pscCode.code),
     fiscalYear: integer("fiscalYear").notNull(),
@@ -117,6 +122,8 @@ export const award = sqliteTable(
     periodStartDate: integer("periodStartDate", { mode: "timestamp" }),
     periodEndDate: integer("periodEndDate", { mode: "timestamp" }),
     sourceUrl: text("sourceUrl"),
+    sourceApi: text("sourceApi").default("usaspending"),
+    cachedAt: integer("cachedAt", { mode: "timestamp" }),
     raw: text("raw", { mode: "json" }).$type<Record<string, unknown>>(),
     createdAt: integer("createdAt", { mode: "timestamp" })
       .notNull()
@@ -170,6 +177,7 @@ export const explorerQueryCache = sqliteTable(
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
     query: text("query").notNull(),
+    normalizedQuery: text("normalizedQuery"),
     queryHash: text("queryHash").notNull().unique(),
     plan: text("plan", { mode: "json" }).$type<Record<string, unknown>>(),
     result: text("result", { mode: "json" }).$type<Record<string, unknown>>(),
@@ -177,7 +185,9 @@ export const explorerQueryCache = sqliteTable(
     sourceMetadata: text("sourceMetadata", { mode: "json" }).$type<
       Record<string, unknown>
     >(),
+    cacheStatus: text("cacheStatus").default("live"),
     refreshedAt: integer("refreshedAt", { mode: "timestamp" }).notNull(),
+    expiresAt: integer("expiresAt", { mode: "timestamp" }),
     createdAt: integer("createdAt", { mode: "timestamp" })
       .notNull()
       .$defaultFn(() => new Date()),

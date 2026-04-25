@@ -50,10 +50,28 @@ watch(
 
         <nav class="hidden items-center gap-6 lg:flex">
           <NuxtLink
+            to="/explorer"
+            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
+          >
+            Explorer
+          </NuxtLink>
+          <NuxtLink
             to="/companies"
             class="text-muted-foreground hover:text-foreground text-sm transition-colors"
           >
             Companies
+          </NuxtLink>
+          <NuxtLink
+            to="/rankings/top-defense-contractors"
+            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
+          >
+            Rankings
+          </NuxtLink>
+          <NuxtLink
+            to="/agencies"
+            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
+          >
+            Agencies
           </NuxtLink>
           <NuxtLink
             to="/about"
@@ -98,10 +116,28 @@ watch(
 
         <nav class="flex flex-col gap-3">
           <NuxtLink
+            to="/explorer"
+            class="text-foreground hover:text-primary text-sm transition-colors"
+          >
+            Explorer
+          </NuxtLink>
+          <NuxtLink
             to="/companies"
             class="text-foreground hover:text-primary text-sm transition-colors"
           >
             Companies
+          </NuxtLink>
+          <NuxtLink
+            to="/rankings/top-defense-contractors"
+            class="text-foreground hover:text-primary text-sm transition-colors"
+          >
+            Rankings
+          </NuxtLink>
+          <NuxtLink
+            to="/agencies"
+            class="text-foreground hover:text-primary text-sm transition-colors"
+          >
+            Agencies
           </NuxtLink>
           <NuxtLink
             to="/about"

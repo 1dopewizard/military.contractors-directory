@@ -5,21 +5,30 @@
 
 import { describe, expect, it } from "vitest";
 import {
+  createPlanHash,
   compareContractors,
   explorerPlanSchema,
+  formatMoney,
   getContractorIntelligence,
   getSpendingTrend,
   planExplorerQuery,
   runExplorerQuery,
   searchAwards,
 } from "@/server/utils/intelligence";
+import {
+  buildUsaSpendingFilters,
+  clampUsaSpendingStartDate,
+  dateToFiscalYear,
+  fiscalYearToDateRange,
+  normalizeUsaSpendingAward,
+} from "@/server/utils/usaspending";
 
 describe("contractor intelligence utilities", () => {
   it("plans an agency top-contractors query", () => {
     const plan = planExplorerQuery("Top Department of the Navy contractors");
 
     expect(plan.intent).toBe("agency_top_contractors");
-    expect(plan.agency).toBe("department of the navy");
+    expect(plan.agency).toBe("Department of the Navy");
   });
 
   it("plans a company comparison query", () => {
@@ -54,8 +63,14 @@ describe("contractor intelligence utilities", () => {
     const trend = getSpendingTrend(awards);
 
     expect(awards.length).toBeGreaterThan(0);
-    expect(awards.every((award) => award.agency.includes("Navy"))).toBe(true);
-    expect(trend[0]?.key).toBe("2025");
+    expect(
+      awards.every((award) =>
+        `${award.awardingAgency ?? ""} ${award.awardingSubAgency ?? ""}`.includes(
+          "Navy",
+        ),
+      ),
+    ).toBe(true);
+    expect(trend[0]?.key).toBe("2026");
   });
 
   it("builds contractor intelligence with source-backed totals", () => {
@@ -63,7 +78,7 @@ describe("contractor intelligence utilities", () => {
 
     expect(intelligence?.summary.awardCount).toBeGreaterThan(0);
     expect(intelligence?.summary.totalObligations).toBeGreaterThan(0);
-    expect(intelligence?.identifiers.uei).toBeTruthy();
+    expect(intelligence?.linkedRecipients[0]?.name).toContain("Lockheed");
     expect(intelligence?.sourceLinks[0]?.url).toContain("usaspending.gov");
   });
 
@@ -81,5 +96,71 @@ describe("contractor intelligence utilities", () => {
     expect(result.table.length).toBeGreaterThan(0);
     expect(result.cards[1]?.label).toBe("Obligations");
     expect(result.sourceMetadata.structuredRecords).toBeGreaterThan(0);
+  });
+
+  it("creates stable plan hashes", () => {
+    const plan = planExplorerQuery("Top Department of the Navy contractors");
+
+    expect(createPlanHash(plan, "Top Department of the Navy contractors")).toHaveLength(
+      64,
+    );
+    expect(formatMoney(1_200_000_000)).toBe("$1.2B");
+  });
+});
+
+describe("USAspending adapter helpers", () => {
+  it("clamps date windows to the USAspending public search minimum", () => {
+    expect(clampUsaSpendingStartDate("2001-10-01")).toBe("2007-10-01");
+    expect(fiscalYearToDateRange(2008).startDate).toBe("2007-10-01");
+  });
+
+  it("builds deterministic contract filters", () => {
+    const filters = buildUsaSpendingFilters({
+      agency: "Department of the Navy",
+      fiscalYears: [2026],
+      naicsCodes: ["541512"],
+      keywords: ["cyber"],
+    });
+
+    expect(filters.award_type_codes).toEqual(["A", "B", "C", "D"]);
+    expect(filters.naics_codes).toEqual({ require: ["541512"] });
+    expect(filters.keywords).toEqual(["cyber"]);
+    expect(filters.agencies).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: "awarding",
+          tier: "subtier",
+          name: "Department of the Navy",
+        }),
+      ]),
+    );
+  });
+
+  it("normalizes award search rows", () => {
+    const award = normalizeUsaSpendingAward({
+      internal_id: 1,
+      generated_internal_id: "CONT_AWD_TEST",
+      "Award ID": "N000001",
+      "Recipient Name": "TEST CONTRACTOR",
+      "Recipient UEI": "ABC123",
+      "Start Date": "2025-10-01",
+      "End Date": "2026-09-30",
+      "Award Amount": 2500000,
+      "Awarding Agency": "Department of Defense",
+      "Awarding Sub Agency": "Department of the Navy",
+      "Funding Agency": "Department of Defense",
+      "Funding Sub Agency": "Department of the Navy",
+      "Award Type": "Definitive Contract",
+      Description: "Ship systems support",
+      "NAICS Code": "336611",
+      "NAICS Description": "Ship Building and Repairing",
+      "PSC Code": "1905",
+      "PSC Description": "Combat ships",
+    });
+
+    expect(award.key).toBe("CONT_AWD_TEST");
+    expect(award.fiscalYear).toBe(2026);
+    expect(award.recipientUei).toBe("ABC123");
+    expect(dateToFiscalYear("2026-01-01")).toBe(2026);
   });
 });

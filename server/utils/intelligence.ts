@@ -1,12 +1,40 @@
 /**
  * @file Contractor intelligence operations
- * @description Deterministic award/search aggregation used by public APIs and the explorer
+ * @description Deterministic planning, USAspending execution, DB-backed caching, and aggregation
  */
 
 import { createHash } from "node:crypto";
+import { eq, like, or } from "drizzle-orm";
 import { z } from "zod";
-
-const USA_SPENDING_BASE_URL = "https://www.usaspending.gov";
+import type {
+  AwardSummary,
+  ContractorIntelligence,
+  ExplorerIntent,
+  ExplorerPlan,
+  ExplorerResult,
+  FollowUpMode,
+  FollowUpResult,
+  IntelligenceBucket,
+  IntelligenceFilter,
+  RankingRow,
+  SourceMetadata,
+  TrendPoint,
+} from "@/app/types/intelligence.types";
+import { getDb, schema } from "@/server/utils/db";
+import {
+  fetchUsaSpendingCategoryRankings,
+  fetchUsaSpendingToptierAgencies,
+  fetchUsaSpendingTrend,
+  filtersToLabels,
+  formatUsaSpendingMessages,
+  getFiscalYears,
+  resolveUsaSpendingRecipients,
+  searchUsaSpendingAwards,
+  slugify,
+  sourceLinksForAwards,
+  USA_SPENDING_BASE_URL,
+  type UsaSpendingAwardSearchInput,
+} from "@/server/utils/usaspending";
 
 export const explorerIntentSchema = z.enum([
   "company_lookup",
@@ -27,428 +55,260 @@ export const explorerPlanSchema = z.object({
   location: z.string().nullable().default(null),
   keywords: z.array(z.string()).default([]),
   fiscalYears: z.array(z.number().int()).default([]),
-  limit: z.number().int().min(1).max(25).default(10),
-});
+  limit: z.number().int().min(1).max(100).default(10),
+}) satisfies z.ZodType<ExplorerPlan>;
 
-export type ExplorerPlan = z.infer<typeof explorerPlanSchema>;
-export type ExplorerIntent = z.infer<typeof explorerIntentSchema>;
+export const followUpModeSchema = z.enum(["refine", "pivot", "answer"]);
 
-export interface ContractorContext {
-  slug: string;
-  name: string;
-  aliases: string[];
-  uei: string;
-  cageCode: string;
-  headquarters: string;
-  specialties: string[];
-  defenseRevenue: number;
-  totalRevenue: number;
-}
+export const PUBLIC_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+export const PROFILE_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+export const STALE_FALLBACK_MS = 14 * 24 * 60 * 60 * 1000;
 
-export interface IntelligenceAward {
-  id: string;
-  awardId: string;
-  piid: string;
-  contractorSlug: string;
-  contractorName: string;
-  agency: string;
-  agencyCode: string;
-  naicsCode: string;
-  naicsTitle: string;
-  pscCode: string;
-  pscTitle: string;
-  fiscalYear: number;
-  obligation: number;
-  description: string;
-  placeOfPerformance: string;
-  sourceUrl: string;
-}
+export const rankingPresets = [
+  {
+    slug: "top-defense-contractors",
+    title: "Top Defense Contractors",
+    description: "Recipients ranked by current fiscal year contract obligations.",
+    filters: { agency: "Department of Defense" },
+  },
+  {
+    slug: "navy-contractors",
+    title: "Top Navy Contractors",
+    description: "Recipients ranked by Department of the Navy contract obligations.",
+    filters: { agency: "Department of the Navy" },
+  },
+  {
+    slug: "army-contractors",
+    title: "Top Army Contractors",
+    description: "Recipients ranked by Department of the Army contract obligations.",
+    filters: { agency: "Department of the Army" },
+  },
+  {
+    slug: "air-force-contractors",
+    title: "Top Air Force Contractors",
+    description:
+      "Recipients ranked by Department of the Air Force contract obligations.",
+    filters: { agency: "Department of the Air Force" },
+  },
+  {
+    slug: "cyber-it-contractors",
+    title: "Cyber and IT Contractors",
+    description: "Recipients ranked across computer systems and cyber-related work.",
+    filters: { naics: "541512", keywords: ["cyber"] },
+  },
+  {
+    slug: "shipbuilding-contractors",
+    title: "Shipbuilding Contractors",
+    description: "Recipients ranked across ship building and repair awards.",
+    filters: { naics: "336611" },
+  },
+  {
+    slug: "missile-defense-contractors",
+    title: "Missile Defense Contractors",
+    description: "Recipients ranked across missile and guided weapons awards.",
+    filters: { keywords: ["missile"], psc: "1410" },
+  },
+] as const;
 
-export interface IntelligenceBucket {
-  key: string;
-  label: string;
-  obligation: number;
-  awardCount: number;
-}
+export const topicPresets = [
+  {
+    slug: "missile-defense",
+    title: "Missile Defense",
+    description: "Missile, guided weapons, radar, and air defense award activity.",
+    keywords: ["missile", "radar"],
+    psc: "1410",
+  },
+  {
+    slug: "cybersecurity",
+    title: "Cybersecurity",
+    description: "Cybersecurity and secure IT services award activity.",
+    keywords: ["cyber"],
+    naics: "541512",
+  },
+  {
+    slug: "shipbuilding",
+    title: "Shipbuilding",
+    description: "Ship construction, repair, and naval platform award activity.",
+    keywords: ["ship"],
+    naics: "336611",
+  },
+  {
+    slug: "space-systems",
+    title: "Space Systems",
+    description: "Space, satellite, launch, and missile warning award activity.",
+    keywords: ["space", "satellite"],
+    naics: "336414",
+  },
+  {
+    slug: "ai-autonomy",
+    title: "AI and Autonomy",
+    description: "AI, autonomy, data platform, and autonomous systems awards.",
+    keywords: ["ai", "autonomous", "data"],
+  },
+] as const;
 
-export interface ContractorIntelligence {
-  contractor: ContractorContext;
-  summary: {
-    totalObligations: number;
-    awardCount: number;
-    latestFiscalYear: number | null;
-    topAgency: IntelligenceBucket | null;
-    topNaics: IntelligenceBucket | null;
-    topPsc: IntelligenceBucket | null;
-  };
-  aliases: string[];
-  identifiers: {
-    uei: string;
-    cageCode: string;
-  };
-  recentAwards: IntelligenceAward[];
-  yearlyTrend: IntelligenceBucket[];
-  topAgencies: IntelligenceBucket[];
-  topNaics: IntelligenceBucket[];
-  topPsc: IntelligenceBucket[];
-  sourceLinks: Array<{ label: string; url: string }>;
-  sourceMetadata: SourceMetadata;
-}
-
-export interface SourceMetadata {
-  sources: Array<{ name: string; url: string }>;
-  generatedAt: string;
-  freshness: string;
-  structuredRecords: number;
-}
-
-export interface ExplorerResult {
-  id: string;
-  query: string;
-  plan: ExplorerPlan;
-  summary: string;
-  resultType: ExplorerIntent;
-  filtersUsed: Array<{ label: string; value: string }>;
-  table: Array<Record<string, string | number | null>>;
-  cards: Array<{ label: string; value: string; detail: string }>;
-  chart: IntelligenceBucket[];
-  sourceLinks: Array<{ label: string; url: string }>;
-  sourceMetadata: SourceMetadata;
-  cached: boolean;
-}
-
-const explorerMemoryCache = new Map<string, ExplorerResult>();
-
-const contractorSeed: ContractorContext[] = [
+const knownContractors = [
   {
     slug: "lockheed-martin",
     name: "Lockheed Martin",
     aliases: ["Lockheed Martin Corporation", "LMT"],
-    uei: "R74FKR7CTM65",
-    cageCode: "04939",
-    headquarters: "Bethesda, Maryland",
-    specialties: ["Aerospace & Defense", "Space Systems", "Missiles"],
-    defenseRevenue: 64.7,
-    totalRevenue: 67.6,
   },
   {
     slug: "rtx",
     name: "RTX",
-    aliases: ["RTX Corporation", "Raytheon Technologies", "Raytheon"],
-    uei: "W1U3HBNH3Z38",
-    cageCode: "05716",
-    headquarters: "Arlington, Virginia",
-    specialties: ["Missiles", "Sensors", "Aerospace & Defense"],
-    defenseRevenue: 40.6,
-    totalRevenue: 68.9,
+    aliases: ["RTX Corporation", "Raytheon", "Raytheon Technologies"],
   },
   {
     slug: "northrop-grumman",
     name: "Northrop Grumman",
     aliases: ["Northrop Grumman Corporation", "NOC"],
-    uei: "YUYTCMKFK7H9",
-    cageCode: "26512",
-    headquarters: "Falls Church, Virginia",
-    specialties: ["Space Systems", "C4ISR", "Aerospace & Defense"],
-    defenseRevenue: 37.9,
-    totalRevenue: 39.3,
   },
   {
     slug: "the-boeing-company",
-    name: "Boeing",
-    aliases: ["The Boeing Company", "Boeing Defense Space & Security"],
-    uei: "J8HQD7LQK8Z7",
-    cageCode: "81205",
-    headquarters: "Arlington, Virginia",
-    specialties: ["Aircraft", "Space Systems", "Sustainment"],
-    defenseRevenue: 32.5,
-    totalRevenue: 77.8,
+    name: "The Boeing Company",
+    aliases: ["Boeing", "Boeing Defense"],
   },
   {
     slug: "general-dynamics",
     name: "General Dynamics",
-    aliases: ["General Dynamics Corporation", "GDIT"],
-    uei: "L6TQHT5K8K77",
-    cageCode: "04655",
-    headquarters: "Reston, Virginia",
-    specialties: ["Land Systems", "Shipbuilding", "IT Services"],
-    defenseRevenue: 30.9,
-    totalRevenue: 42.3,
+    aliases: ["General Dynamics Corporation", "Electric Boat", "GDIT"],
   },
-  {
-    slug: "leidos",
-    name: "Leidos",
-    aliases: ["Leidos Holdings", "Leidos Inc."],
-    uei: "MZLJLQ4F7J33",
-    cageCode: "52334",
-    headquarters: "Reston, Virginia",
-    specialties: ["IT Services", "Intelligence", "Cybersecurity"],
-    defenseRevenue: 8.9,
-    totalRevenue: 15.4,
-  },
+  { slug: "leidos", name: "Leidos", aliases: ["Leidos Holdings", "Leidos Inc"] },
   {
     slug: "booz-allen-hamilton",
     name: "Booz Allen Hamilton",
     aliases: ["Booz Allen", "BAH"],
-    uei: "RWLCJQ9B7KZ7",
-    cageCode: "17038",
-    headquarters: "McLean, Virginia",
-    specialties: ["Consulting", "Cybersecurity", "AI"],
-    defenseRevenue: 6.5,
-    totalRevenue: 10.7,
   },
-  {
-    slug: "caci-international",
-    name: "CACI International",
-    aliases: ["CACI", "CACI Inc."],
-    uei: "FX3FJDKYK7V3",
-    cageCode: "11063",
-    headquarters: "Reston, Virginia",
-    specialties: ["Intelligence", "IT Services", "Cybersecurity"],
-    defenseRevenue: 5.2,
-    totalRevenue: 7.7,
-  },
-  {
-    slug: "anduril",
-    name: "Anduril",
-    aliases: ["Anduril Industries", "Anduril Industries Inc."],
-    uei: "P8KXN8LDYMM7",
-    cageCode: "8LAH1",
-    headquarters: "Costa Mesa, California",
-    specialties: ["Autonomous Systems", "Counter-UAS", "AI"],
-    defenseRevenue: 1.1,
-    totalRevenue: 1.4,
-  },
+  { slug: "caci-international", name: "CACI International", aliases: ["CACI"] },
+  { slug: "anduril", name: "Anduril", aliases: ["Anduril Industries"] },
   {
     slug: "palantir-technologies",
-    name: "Palantir",
-    aliases: ["Palantir Technologies", "Palantir USG"],
-    uei: "KPLWSC7F1EE3",
-    cageCode: "4SWQ3",
-    headquarters: "Denver, Colorado",
-    specialties: ["Data Platforms", "AI", "Intelligence"],
-    defenseRevenue: 1.3,
-    totalRevenue: 2.2,
+    name: "Palantir Technologies",
+    aliases: ["Palantir", "Palantir USG"],
   },
 ];
 
-const awardsSeed: IntelligenceAward[] = [
-  awardSeed("LMT-2026-001", "W58RGZ26C0001", "lockheed-martin", "Department of Defense", "097", "336414", "Guided Missile and Space Vehicle Manufacturing", "1410", "Guided missiles", 2026, 5240000000, "F-35 modernization, sustainment, and mission systems support.", "Texas, United States"),
-  awardSeed("LMT-2025-002", "FA881825C0002", "lockheed-martin", "Department of the Air Force", "057", "336414", "Guided Missile and Space Vehicle Manufacturing", "1420", "Rockets and space vehicles", 2025, 3180000000, "Space-based missile warning and command architecture engineering.", "Colorado, United States"),
-  awardSeed("RTX-2026-001", "N0001926C0003", "rtx", "Department of the Navy", "017", "334511", "Search, Detection, Navigation, Guidance Systems", "5840", "Radar equipment", 2026, 2860000000, "Air and missile defense radar production and integration.", "Massachusetts, United States"),
-  awardSeed("RTX-2025-002", "W31P4Q25C0004", "rtx", "Department of the Army", "021", "336414", "Guided Missile and Space Vehicle Manufacturing", "1410", "Guided missiles", 2025, 2440000000, "Patriot and precision missile production support.", "Arizona, United States"),
-  awardSeed("NOC-2026-001", "FA865026C0005", "northrop-grumman", "Department of the Air Force", "057", "336414", "Guided Missile and Space Vehicle Manufacturing", "1420", "Rockets and space vehicles", 2026, 3920000000, "Sentinel strategic deterrent engineering and manufacturing development.", "Utah, United States"),
-  awardSeed("NOC-2025-002", "N0002425C0006", "northrop-grumman", "Department of the Navy", "017", "334511", "Search, Detection, Navigation, Guidance Systems", "AC13", "R&D: aircraft", 2025, 1760000000, "Carrier aviation mission systems and ISR payload integration.", "California, United States"),
-  awardSeed("BA-2026-001", "FA863426C0007", "the-boeing-company", "Department of the Air Force", "057", "336411", "Aircraft Manufacturing", "1510", "Aircraft, fixed wing", 2026, 3360000000, "Tanker, trainer, and tactical aircraft production support.", "Missouri, United States"),
-  awardSeed("BA-2025-002", "N0001925C0008", "the-boeing-company", "Department of the Navy", "017", "336411", "Aircraft Manufacturing", "J015", "Maintenance of aircraft", 2025, 1420000000, "Naval aircraft sustainment and modification services.", "Washington, United States"),
-  awardSeed("GD-2026-001", "N0002426C0009", "general-dynamics", "Department of the Navy", "017", "336611", "Ship Building and Repairing", "1905", "Combat ships and landing vessels", 2026, 4840000000, "Submarine construction, combat systems integration, and shipyard support.", "Connecticut, United States"),
-  awardSeed("GD-2025-002", "W56HZV25C0010", "general-dynamics", "Department of the Army", "021", "336992", "Military Armored Vehicle Manufacturing", "2355", "Combat vehicles", 2025, 1640000000, "Armored vehicle production and modernization.", "Michigan, United States"),
-  awardSeed("LDOS-2026-001", "HC102826C0011", "leidos", "Defense Information Systems Agency", "097", "541512", "Computer Systems Design Services", "D399", "IT and telecom services", 2026, 1180000000, "Enterprise IT modernization, cloud migration, and cybersecurity operations.", "Virginia, United States"),
-  awardSeed("LDOS-2025-002", "W911QX25C0012", "leidos", "Department of the Army", "021", "541715", "R&D in Nanotechnology", "AJ12", "R&D: sciences", 2025, 740000000, "Sensor analytics and mission software research support.", "Maryland, United States"),
-  awardSeed("BAH-2026-001", "FA701426F0013", "booz-allen-hamilton", "Department of the Air Force", "057", "541611", "Administrative Management Consulting Services", "R408", "Program management support", 2026, 860000000, "Digital transformation, AI adoption, and enterprise advisory services.", "Virginia, United States"),
-  awardSeed("BAH-2025-002", "N6523625F0014", "booz-allen-hamilton", "Department of the Navy", "017", "541512", "Computer Systems Design Services", "D399", "IT and telecom services", 2025, 620000000, "Cybersecurity engineering and mission platform support.", "South Carolina, United States"),
-  awardSeed("CACI-2026-001", "HHM40226F0015", "caci-international", "Defense Intelligence Agency", "097", "541512", "Computer Systems Design Services", "R425", "Engineering and technical services", 2026, 980000000, "Intelligence analysis systems, secure networks, and mission operations support.", "Virginia, United States"),
-  awardSeed("CACI-2025-002", "W15P7T25F0016", "caci-international", "Department of the Army", "021", "541519", "Other Computer Related Services", "D399", "IT and telecom services", 2025, 510000000, "Tactical communications software and cyber operations support.", "Maryland, United States"),
-  awardSeed("AND-2026-001", "FA875026C0017", "anduril", "Department of the Air Force", "057", "541715", "R&D in Nanotechnology", "AC12", "R&D: defense systems", 2026, 420000000, "Autonomous surveillance, counter-UAS, and AI-enabled command systems.", "California, United States"),
-  awardSeed("AND-2025-002", "W9124P25C0018", "anduril", "Department of the Army", "021", "334511", "Search, Detection, Navigation, Guidance Systems", "5840", "Radar equipment", 2025, 260000000, "Counter-intrusion sensor systems and autonomous perimeter defense.", "California, United States"),
-  awardSeed("PLTR-2026-001", "W52P1J26F0019", "palantir-technologies", "Department of the Army", "021", "541512", "Computer Systems Design Services", "D318", "Integrated hardware/software systems", 2026, 640000000, "AI-enabled data platform support for operational planning and logistics.", "District of Columbia, United States"),
-  awardSeed("PLTR-2025-002", "FA701425F0020", "palantir-technologies", "Department of the Air Force", "057", "541511", "Custom Computer Programming Services", "D399", "IT and telecom services", 2025, 390000000, "Mission data integration, analytics, and software delivery.", "Colorado, United States"),
+const agencyNames = [
+  "Department of Defense",
+  "Department of the Army",
+  "Department of the Navy",
+  "Department of the Air Force",
+  "Defense Logistics Agency",
+  "Defense Information Systems Agency",
+  "Defense Intelligence Agency",
 ];
 
-function awardSeed(
-  id: string,
-  piid: string,
-  contractorSlug: string,
-  agency: string,
-  agencyCode: string,
-  naicsCode: string,
-  naicsTitle: string,
-  pscCode: string,
-  pscTitle: string,
-  fiscalYear: number,
-  obligation: number,
-  description: string,
-  placeOfPerformance: string,
-): IntelligenceAward {
-  const contractor = contractorSeed.find((item) => item.slug === contractorSlug);
-  if (!contractor) {
-    throw new Error(`Missing seeded contractor for ${contractorSlug}`);
-  }
+const locationNames = [
+  "Alabama",
+  "Arizona",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "District of Columbia",
+  "Florida",
+  "Maryland",
+  "Massachusetts",
+  "Missouri",
+  "Texas",
+  "Utah",
+  "Virginia",
+  "Washington",
+];
 
-  return {
-    id,
-    awardId: id,
-    piid,
-    contractorSlug,
-    contractorName: contractor.name,
-    agency,
-    agencyCode,
-    naicsCode,
-    naicsTitle,
-    pscCode,
-    pscTitle,
-    fiscalYear,
-    obligation,
-    description,
-    placeOfPerformance,
-    sourceUrl: `${USA_SPENDING_BASE_URL}/award/${encodeURIComponent(piid)}`,
-  };
+const keywordVocabulary = [
+  "ai",
+  "aircraft",
+  "autonomous",
+  "cloud",
+  "cyber",
+  "data",
+  "intelligence",
+  "missile",
+  "radar",
+  "ship",
+  "software",
+  "space",
+  "sustainment",
+];
+
+const demoAwards: AwardSummary[] = [
+  demoAward(
+    "LMT-2026-001",
+    "Lockheed Martin Corporation",
+    "Department of Defense",
+    "Department of the Navy",
+    "336414",
+    "Guided Missile and Space Vehicle Manufacturing",
+    "1410",
+    "Guided missiles",
+    "2025-11-10",
+    5_240_000_000,
+    "F-35 modernization, sustainment, and mission systems support.",
+  ),
+  demoAward(
+    "RTX-2026-001",
+    "RTX Corporation",
+    "Department of Defense",
+    "Department of the Navy",
+    "334511",
+    "Search and navigation systems",
+    "5840",
+    "Radar equipment",
+    "2025-12-12",
+    2_860_000_000,
+    "Air and missile defense radar production and integration.",
+  ),
+  demoAward(
+    "NOC-2026-001",
+    "Northrop Grumman Corporation",
+    "Department of Defense",
+    "Department of the Air Force",
+    "336414",
+    "Guided Missile and Space Vehicle Manufacturing",
+    "1420",
+    "Rockets and space vehicles",
+    "2026-01-08",
+    3_920_000_000,
+    "Strategic deterrent engineering and manufacturing development.",
+  ),
+  demoAward(
+    "LDOS-2026-001",
+    "Leidos Inc.",
+    "Department of Defense",
+    "Defense Information Systems Agency",
+    "541512",
+    "Computer Systems Design Services",
+    "D399",
+    "IT and telecom services",
+    "2025-10-28",
+    1_180_000_000,
+    "Enterprise IT modernization, cloud migration, and cybersecurity operations in Virginia.",
+  ),
+];
+
+export function createQueryHash(value: string): string {
+  return createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
 }
 
-export function createQueryHash(query: string): string {
-  return createHash("sha256").update(query.trim().toLowerCase()).digest("hex");
-}
-
-export function getExplorerMemoryCache(id: string): ExplorerResult | null {
-  return explorerMemoryCache.get(id) ?? null;
-}
-
-export function setExplorerMemoryCache(result: ExplorerResult): void {
-  explorerMemoryCache.set(result.id, result);
+export function createPlanHash(plan: ExplorerPlan, query = ""): string {
+  return createQueryHash(JSON.stringify({ query: query.trim(), plan }));
 }
 
 export function formatMoney(value: number): string {
   if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
   if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M`;
-  return `$${value.toLocaleString()}`;
-}
-
-export function getSeedContractors(): ContractorContext[] {
-  return contractorSeed;
-}
-
-export function searchAwards(plan: ExplorerPlan): IntelligenceAward[] {
-  let awards = [...awardsSeed];
-
-  if (plan.contractors.length) {
-    const contractorMatches = plan.contractors.map(normalizeText);
-    awards = awards.filter((award) =>
-      contractorMatches.some(
-        (match) =>
-          normalizeText(award.contractorSlug).includes(match) ||
-          normalizeText(award.contractorName).includes(match),
-      ),
-    );
-  }
-
-  if (plan.agency) {
-    const agency = normalizeText(plan.agency);
-    awards = awards.filter((award) => normalizeText(award.agency).includes(agency));
-  }
-
-  if (plan.naics) {
-    const naics = normalizeText(plan.naics);
-    awards = awards.filter(
-      (award) =>
-        award.naicsCode === plan.naics ||
-        normalizeText(award.naicsTitle).includes(naics),
-    );
-  }
-
-  if (plan.psc) {
-    const psc = normalizeText(plan.psc);
-    awards = awards.filter(
-      (award) =>
-        award.pscCode === plan.psc || normalizeText(award.pscTitle).includes(psc),
-    );
-  }
-
-  if (plan.location) {
-    const location = normalizeText(plan.location);
-    awards = awards.filter((award) =>
-      normalizeText(award.placeOfPerformance).includes(location),
-    );
-  }
-
-  if (plan.keywords.length) {
-    const keywords = plan.keywords.map(normalizeText);
-    awards = awards.filter((award) => {
-      const haystack = normalizeText(
-        `${award.description} ${award.naicsTitle} ${award.pscTitle} ${award.agency}`,
-      );
-      return keywords.every((keyword) => haystack.includes(keyword));
-    });
-  }
-
-  if (plan.fiscalYears.length) {
-    awards = awards.filter((award) => plan.fiscalYears.includes(award.fiscalYear));
-  }
-
-  return awards.sort((a, b) => b.obligation - a.obligation);
-}
-
-export function getContractorIntelligence(slug: string): ContractorIntelligence | null {
-  const contractor = contractorSeed.find(
-    (item) => item.slug === slug || normalizeText(item.name) === normalizeText(slug),
-  );
-
-  if (!contractor) return null;
-
-  const awards = awardsSeed.filter((award) => award.contractorSlug === contractor.slug);
-  return buildContractorIntelligence(contractor, awards);
-}
-
-export function getTopContractorsByAgency(agencyName: string, limit = 10) {
-  const awards = searchAwards({
-    ...defaultPlan(),
-    intent: "agency_top_contractors",
-    agency: agencyName,
-    limit,
-  });
-  return aggregateBy(awards, "contractorSlug", (award) => award.contractorName).slice(
-    0,
-    limit,
-  );
-}
-
-export function getTopContractorsByNaics(naics: string, limit = 10) {
-  const awards = searchAwards({
-    ...defaultPlan(),
-    intent: "category_search",
-    naics,
-    limit,
-  });
-  return aggregateBy(awards, "contractorSlug", (award) => award.contractorName).slice(
-    0,
-    limit,
-  );
-}
-
-export function getTopContractorsByPsc(psc: string, limit = 10) {
-  const awards = searchAwards({
-    ...defaultPlan(),
-    intent: "category_search",
-    psc,
-    limit,
-  });
-  return aggregateBy(awards, "contractorSlug", (award) => award.contractorName).slice(
-    0,
-    limit,
-  );
-}
-
-export function compareContractors(slugs: string[]): ContractorIntelligence[] {
-  return slugs
-    .map((slug) => getContractorIntelligence(slug))
-    .filter((item): item is ContractorIntelligence => Boolean(item));
-}
-
-export function getSpendingTrend(awards: IntelligenceAward[]): IntelligenceBucket[] {
-  return aggregateBy(awards, "fiscalYear", (award) => `FY${award.fiscalYear}`).sort(
-    (a, b) => Number(a.key) - Number(b.key),
-  );
+  return `$${Math.round(value).toLocaleString()}`;
 }
 
 export function planExplorerQuery(query: string): ExplorerPlan {
   const normalized = normalizeText(query);
-  const contractors = contractorSeed
+  const contractors = knownContractors
     .filter((contractor) =>
       [contractor.slug, contractor.name, ...contractor.aliases].some((name) =>
         normalized.includes(normalizeText(name)),
       ),
     )
     .map((contractor) => contractor.slug);
-
   const fiscalYears = Array.from(query.matchAll(/\b20\d{2}\b/g)).map((match) =>
     Number(match[0]),
   );
@@ -469,11 +329,7 @@ export function planExplorerQuery(query: string): ExplorerPlan {
     intent = "category_search";
   } else if (location) {
     intent = "location_search";
-  } else if (!query.trim()) {
-    intent = "unsupported";
-  }
-
-  if (intent === "award_keyword_search" && !keywords.length && !contractors.length) {
+  } else if (!keywords.length && !contractors.length) {
     intent = "unsupported";
   }
 
@@ -490,85 +346,437 @@ export function planExplorerQuery(query: string): ExplorerPlan {
   });
 }
 
-export function runExplorerQuery(query: string): ExplorerResult {
-  const id = createQueryHash(query).slice(0, 16);
+export async function runExplorerQueryWithCache(
+  query: string,
+  options: {
+    forceRefresh?: boolean;
+    cacheTtlMs?: number;
+    allowFreshRefresh?: boolean;
+  } = {},
+): Promise<ExplorerResult> {
   const plan = planExplorerQuery(query);
+  const queryHash = createPlanHash(plan, query);
+  const id = queryHash.slice(0, 16);
+  const cacheTtlMs = options.cacheTtlMs ?? PUBLIC_CACHE_TTL_MS;
+  const cached = await getExplorerCacheByHash(queryHash);
+
+  if (
+    cached &&
+    !options.forceRefresh &&
+    Date.now() - cached.refreshedAt.getTime() < cacheTtlMs
+  ) {
+    return markExplorerResultCached(cached.result, "cached", true);
+  }
+
+  if (
+    cached &&
+    options.forceRefresh &&
+    !options.allowFreshRefresh &&
+    Date.now() - cached.refreshedAt.getTime() < cacheTtlMs
+  ) {
+    const result = markExplorerResultCached(cached.result, "cached", true);
+    result.sourceMetadata.warnings = [
+      ...result.sourceMetadata.warnings,
+      "Public refresh is available after this cache entry becomes stale.",
+    ];
+    return result;
+  }
 
   if (plan.intent === "unsupported") {
+    const result = unsupportedExplorerResult(id, query, plan);
+    await writeExplorerCache(query, queryHash, result);
+    return result;
+  }
+
+  try {
+    const result = await executeExplorerPlan(query, plan, id);
+    await writeExplorerCache(query, queryHash, result);
+    await persistAwards(result.awards);
+    return result;
+  } catch (error) {
+    if (
+      cached &&
+      Date.now() - cached.refreshedAt.getTime() < STALE_FALLBACK_MS
+    ) {
+      const result = markExplorerResultCached(cached.result, "stale", true);
+      result.sourceMetadata.warnings = [
+        ...result.sourceMetadata.warnings,
+        error instanceof Error ? error.message : "USAspending refresh failed.",
+      ];
+      return result;
+    }
+
+    throw error;
+  }
+}
+
+export async function getExplorerResultFromCache(
+  cacheId: string,
+): Promise<ExplorerResult | null> {
+  const db = getDb();
+  const [entry] = await db
+    .select()
+    .from(schema.explorerQueryCache)
+    .where(
+      or(
+        eq(schema.explorerQueryCache.id, cacheId),
+        eq(schema.explorerQueryCache.queryHash, cacheId),
+        like(schema.explorerQueryCache.queryHash, `${cacheId}%`),
+      ),
+    )
+    .limit(1);
+
+  if (!entry?.result) return null;
+  return markExplorerResultCached(entry.result as ExplorerResult, "cached", true);
+}
+
+export async function runFollowUp(
+  cacheId: string,
+  followUpQuery: string,
+  requestedMode?: FollowUpMode,
+): Promise<FollowUpResult> {
+  const prior = await getExplorerResultFromCache(cacheId);
+
+  if (!prior) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: `Explorer cache "${cacheId}" not found`,
+    });
+  }
+
+  const mode = requestedMode ?? inferFollowUpMode(followUpQuery);
+  const id = createQueryHash(`${cacheId}:${mode}:${followUpQuery}`).slice(0, 16);
+
+  if (mode === "answer") {
     return {
       id,
-      query,
-      plan,
-      summary:
-        "Try asking about a contractor, agency, location, NAICS/PSC category, or award keyword so the explorer can use structured award data.",
-      resultType: plan.intent,
-      filtersUsed: [],
-      table: [],
-      cards: [],
-      chart: [],
-      sourceLinks: sourceLinks([]),
-      sourceMetadata: metadata([]),
-      cached: false,
+      mode,
+      query: followUpQuery,
+      answer: answerFromExplorerResult(prior, followUpQuery),
+      result: null,
+      sourceMetadata: {
+        ...prior.sourceMetadata,
+        generatedAt: new Date().toISOString(),
+      },
     };
   }
 
-  const awards = searchAwards(plan).slice(0, plan.limit);
-  const allMatchedAwards = searchAwards(plan);
-  const contractors = aggregateBy(
-    allMatchedAwards,
-    "contractorSlug",
-    (award) => award.contractorName,
-  ).slice(0, plan.limit);
-  const totalObligations = allMatchedAwards.reduce(
-    (sum, award) => sum + award.obligation,
-    0,
+  const nextQuery =
+    mode === "pivot" ? followUpQuery : `${prior.query}. ${followUpQuery}`;
+  const result = await runExplorerQueryWithCache(nextQuery);
+
+  return {
+    id,
+    mode,
+    query: followUpQuery,
+    answer: null,
+    result,
+    sourceMetadata: result.sourceMetadata,
+  };
+}
+
+export async function getContractorIntelligenceLive(
+  slug: string,
+  options: { forceRefresh?: boolean } = {},
+): Promise<ContractorIntelligence> {
+  const db = getDb();
+  const [contractor] = await db
+    .select()
+    .from(schema.contractor)
+    .where(eq(schema.contractor.slug, slug.toLowerCase()))
+    .limit(1);
+
+  if (!contractor) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: `Contractor "${slug}" not found`,
+    });
+  }
+
+  const aliases = aliasesForContractor(contractor.slug, contractor.name);
+  const fiscalYears = getFiscalYears(5);
+  const plan = explorerPlanSchema.parse({
+    intent: "company_lookup",
+    contractors: [contractor.slug],
+    fiscalYears,
+    limit: 100,
+  });
+  const query = `contractor:${contractor.slug}:${fiscalYears.join(",")}`;
+  const queryHash = createPlanHash(plan, query);
+  const cached = await getExplorerCacheByHash(queryHash);
+
+  if (
+    cached &&
+    !options.forceRefresh &&
+    Date.now() - cached.refreshedAt.getTime() < PROFILE_CACHE_TTL_MS
+  ) {
+    return cached.result as ContractorIntelligence;
+  }
+
+  try {
+    const searchInput: UsaSpendingAwardSearchInput = {
+      recipientSearchText: [contractor.name, ...aliases],
+      fiscalYears,
+      limit: 100,
+    };
+    const [awardResponse, trendResponse] = await Promise.all([
+      searchUsaSpendingAwards(searchInput),
+      fetchUsaSpendingTrend(searchInput).catch(() => ({ results: [], messages: [] })),
+    ]);
+    const awards = awardResponse.results;
+    const trend = trendResponse.results.length
+      ? trendResponse.results
+      : trendFromAwards(awards);
+    const result = buildContractorIntelligence(
+      {
+        id: contractor.id,
+        slug: contractor.slug,
+        name: contractor.name,
+        headquarters: contractor.headquarters ?? null,
+        website: contractor.website ?? null,
+        defenseRevenue: contractor.defenseRevenue ?? null,
+        totalRevenue: contractor.totalRevenue ?? null,
+      },
+      aliases,
+      awards,
+      trend,
+      awardResponse.messages,
+    );
+    await writeRawCache(query, queryHash, result, result.sourceMetadata);
+    await persistAwards(awards);
+    return result;
+  } catch (error) {
+    if (cached) {
+      const result = cached.result as ContractorIntelligence;
+      result.sourceMetadata = {
+        ...result.sourceMetadata,
+        cacheStatus: "stale",
+        warnings: [
+          ...result.sourceMetadata.warnings,
+          error instanceof Error ? error.message : "USAspending refresh failed.",
+        ],
+      };
+      return result;
+    }
+    throw error;
+  }
+}
+
+export async function resolveRecipients(searchText: string) {
+  return resolveUsaSpendingRecipients(searchText);
+}
+
+export async function getAwardSearch(
+  input: UsaSpendingAwardSearchInput,
+): Promise<{
+  awards: AwardSummary[];
+  sourceMetadata: SourceMetadata;
+}> {
+  const response = await searchUsaSpendingAwards(input);
+  const filters = filtersToLabels(input);
+  return {
+    awards: response.results,
+    sourceMetadata: sourceMetadata(
+      response.results.length,
+      filters,
+      response.messages,
+      "live",
+    ),
+  };
+}
+
+export async function getTopContractors(
+  input: UsaSpendingAwardSearchInput,
+): Promise<{
+  contractors: RankingRow[];
+  sourceMetadata: SourceMetadata;
+}> {
+  const response = await fetchUsaSpendingCategoryRankings("recipient", input);
+  const filters = filtersToLabels(input);
+  return {
+    contractors: response.results,
+    sourceMetadata: sourceMetadata(
+      response.results.length,
+      filters,
+      response.messages,
+      "live",
+    ),
+  };
+}
+
+export async function getAgencies() {
+  try {
+    const agencies = await fetchUsaSpendingToptierAgencies();
+    const defenseAgencies = agencyNames
+      .filter((name) => name !== "Department of Defense")
+      .map((name) => ({
+        code: slugify(name),
+        name,
+        abbreviation: abbreviationForAgency(name),
+        slug: slugify(name),
+      }));
+    return [...defenseAgencies, ...agencies];
+  } catch {
+    return agencyNames.map((name) => ({
+      code: slugify(name),
+      name,
+      abbreviation: abbreviationForAgency(name),
+      slug: slugify(name),
+    }));
+  }
+}
+
+export function getAgencyBySlug(slug: string): {
+  slug: string;
+  name: string;
+  abbreviation: string | null;
+} | null {
+  const agency = agencyNames.find((name) => slugify(name) === slug);
+  if (!agency) return null;
+  return {
+    slug,
+    name: agency,
+    abbreviation: abbreviationForAgency(agency),
+  };
+}
+
+export function getRankingPreset(slug: string) {
+  return rankingPresets.find((preset) => preset.slug === slug) ?? null;
+}
+
+export function getTopicPreset(slug: string) {
+  return topicPresets.find((topic) => topic.slug === slug) ?? null;
+}
+
+export function getSpendingTrend(awards: AwardSummary[]): TrendPoint[] {
+  return trendFromAwards(awards);
+}
+
+export function searchAwards(plan: ExplorerPlan): AwardSummary[] {
+  return filterDemoAwards(plan).sort((a, b) => b.obligation - a.obligation);
+}
+
+export function runExplorerQuery(query: string): ExplorerResult {
+  const plan = planExplorerQuery(query);
+  const id = createPlanHash(plan, query).slice(0, 16);
+  if (plan.intent === "unsupported") return unsupportedExplorerResult(id, query, plan);
+  return explorerResultFromAwards(query, plan, id, searchAwards(plan), [], false);
+}
+
+export function getContractorIntelligence(
+  slug: string,
+): ContractorIntelligence | null {
+  const contractor = knownContractors.find((item) => item.slug === slug);
+  if (!contractor) return null;
+  const names = [contractor.name, ...contractor.aliases].map(normalizeText);
+  const awards = demoAwards.filter((award) =>
+    names.some((name) => normalizeText(award.recipientName).includes(name)),
+  );
+  return buildContractorIntelligence(
+    {
+      id: null,
+      slug: contractor.slug,
+      name: contractor.name,
+      headquarters: null,
+      website: null,
+      defenseRevenue: null,
+      totalRevenue: null,
+    },
+    contractor.aliases,
+    awards,
+    trendFromAwards(awards),
+    [],
+  );
+}
+
+export function compareContractors(slugs: string[]): ContractorIntelligence[] {
+  return slugs
+    .map((slug) => getContractorIntelligence(slug))
+    .filter((item): item is ContractorIntelligence => Boolean(item));
+}
+
+async function executeExplorerPlan(
+  query: string,
+  plan: ExplorerPlan,
+  id: string,
+): Promise<ExplorerResult> {
+  const input = planToUsaSpendingInput(plan);
+  const [awardResponse, trendResponse, rankingResponse] = await Promise.all([
+    searchUsaSpendingAwards({ ...input, limit: Math.max(plan.limit, 25) }),
+    fetchUsaSpendingTrend(input).catch(() => ({ results: [], messages: [] })),
+    shouldUseRecipientRankings(plan)
+      ? fetchUsaSpendingCategoryRankings("recipient", {
+          ...input,
+          limit: plan.limit,
+        }).catch(() => ({ results: [], messages: [] }))
+      : Promise.resolve({ results: [], messages: [] }),
+  ]);
+
+  const warnings = [
+    ...awardResponse.messages,
+    ...trendResponse.messages,
+    ...rankingResponse.messages,
+  ];
+  const result = explorerResultFromAwards(
+    query,
+    plan,
+    id,
+    awardResponse.results,
+    warnings,
+    false,
+    trendResponse.results,
+    rankingResponse.results,
   );
 
-  const table =
-    plan.intent === "company_comparison" ||
-    plan.intent === "agency_top_contractors" ||
-    plan.intent === "category_search"
-      ? contractors.map((item, index) => ({
-          rank: index + 1,
-          contractor: item.label,
-          obligations: item.obligation,
-          awards: item.awardCount,
-        }))
-      : awards.map((award) => ({
-          contractor: award.contractorName,
-          agency: award.agency,
-          fiscalYear: award.fiscalYear,
-          obligations: award.obligation,
-          category: `${award.naicsCode} / ${award.pscCode}`,
-          description: award.description,
-        }));
+  return result;
+}
 
-  const filtersUsed = [
-    ...plan.contractors.map((slug) => ({
-      label: "Contractor",
-      value: contractorSeed.find((contractor) => contractor.slug === slug)?.name ?? slug,
-    })),
-    plan.agency ? { label: "Agency", value: plan.agency } : null,
-    plan.naics ? { label: "NAICS", value: plan.naics } : null,
-    plan.psc ? { label: "PSC", value: plan.psc } : null,
-    plan.location ? { label: "Location", value: plan.location } : null,
-    ...plan.keywords.map((keyword) => ({ label: "Keyword", value: keyword })),
-    ...plan.fiscalYears.map((year) => ({ label: "Fiscal year", value: String(year) })),
-  ].filter((item): item is { label: string; value: string } => Boolean(item));
+function explorerResultFromAwards(
+  query: string,
+  plan: ExplorerPlan,
+  id: string,
+  awards: AwardSummary[],
+  warnings: string[],
+  cached: boolean,
+  liveTrend: TrendPoint[] = [],
+  liveRankings: RankingRow[] = [],
+): ExplorerResult {
+  const totalObligations = awards.reduce((sum, award) => sum + award.obligation, 0);
+  const rankings = liveRankings.length
+    ? liveRankings
+    : rankAwardsByRecipient(awards).slice(0, plan.limit);
+  const chart = liveTrend.length ? liveTrend : trendFromAwards(awards);
+  const table = rankings.length
+    ? rankings.map((row) => ({
+        rank: row.rank,
+        contractor: row.name,
+        obligations: row.obligations,
+        awards: row.awardCount || null,
+        uei: row.uei ?? null,
+      }))
+    : awards.slice(0, plan.limit).map((award) => ({
+        recipient: award.recipientName,
+        agency: award.awardingSubAgency ?? award.awardingAgency,
+        fiscalYear: award.fiscalYear,
+        obligations: award.obligation,
+        category: [award.naicsCode, award.pscCode].filter(Boolean).join(" / "),
+        description: award.description,
+      }));
+  const filters = planFilters(plan);
 
   return {
     id,
     query,
     plan,
-    summary: summarizeExplorerResult(plan, allMatchedAwards, totalObligations),
+    summary: summarizeExplorerResult(plan, awards, rankings, totalObligations),
     resultType: plan.intent,
-    filtersUsed,
+    filtersUsed: filters,
     table,
     cards: [
       {
         label: "Matched awards",
-        value: String(allMatchedAwards.length),
-        detail: "Structured public award records",
+        value: String(awards.length),
+        detail: "USAspending award rows returned",
       },
       {
         label: "Obligations",
@@ -576,71 +784,174 @@ export function runExplorerQuery(query: string): ExplorerResult {
         detail: "Sum of matched award obligations",
       },
       {
-        label: "Top contractor",
-        value: contractors[0]?.label ?? "N/A",
-        detail: contractors[0] ? formatMoney(contractors[0].obligation) : "No match",
+        label: "Top recipient",
+        value: rankings[0]?.name ?? "N/A",
+        detail: rankings[0] ? formatMoney(rankings[0].obligations) : "No match",
       },
     ],
-    chart: getSpendingTrend(allMatchedAwards),
-    sourceLinks: sourceLinks(awards),
-    sourceMetadata: metadata(allMatchedAwards),
+    chart,
+    awards: awards.slice(0, plan.limit),
+    rankings,
+    sourceLinks: sourceLinksForAwards(awards),
+    sourceMetadata: sourceMetadata(awards.length, filters, warnings, "live"),
+    cached,
+  };
+}
+
+function unsupportedExplorerResult(
+  id: string,
+  query: string,
+  plan: ExplorerPlan,
+): ExplorerResult {
+  return {
+    id,
+    query,
+    plan,
+    summary:
+      "Ask about a contractor, agency, NAICS/PSC category, location, ranking, or award keyword so the explorer can use structured public award data.",
+    resultType: "unsupported",
+    filtersUsed: [],
+    table: [],
+    cards: [],
+    chart: [],
+    awards: [],
+    rankings: [],
+    sourceLinks: [{ label: "USAspending.gov", url: USA_SPENDING_BASE_URL }],
+    sourceMetadata: sourceMetadata(0, [], [], "live"),
     cached: false,
   };
 }
 
+function planToUsaSpendingInput(plan: ExplorerPlan): UsaSpendingAwardSearchInput {
+  const contractorNames = plan.contractors
+    .map((slug) => knownContractors.find((contractor) => contractor.slug === slug))
+    .filter((contractor): contractor is (typeof knownContractors)[number] =>
+      Boolean(contractor),
+    )
+    .flatMap((contractor) => [contractor.name, ...contractor.aliases]);
+  const keywords = [
+    ...plan.keywords,
+    ...(plan.location ? [plan.location] : []),
+  ];
+
+  return {
+    recipientSearchText: contractorNames.length ? contractorNames : undefined,
+    agency: plan.agency,
+    naicsCodes: plan.naics ? [plan.naics] : undefined,
+    pscCodes: plan.psc ? [plan.psc] : undefined,
+    keywords: keywords.length ? keywords : undefined,
+    fiscalYears: plan.fiscalYears.length ? plan.fiscalYears : getFiscalYears(5),
+    limit: plan.limit,
+  };
+}
+
+function shouldUseRecipientRankings(plan: ExplorerPlan): boolean {
+  return [
+    "agency_top_contractors",
+    "category_search",
+    "award_keyword_search",
+    "location_search",
+  ].includes(plan.intent);
+}
+
 function buildContractorIntelligence(
-  contractor: ContractorContext,
-  awards: IntelligenceAward[],
+  contractor: ContractorIntelligence["contractor"],
+  aliases: string[],
+  awards: AwardSummary[],
+  yearlyTrend: TrendPoint[],
+  warnings: string[],
 ): ContractorIntelligence {
-  const topAgencies = aggregateBy(awards, "agency", (award) => award.agency);
-  const topNaics = aggregateBy(awards, "naicsCode", (award) => award.naicsTitle);
-  const topPsc = aggregateBy(awards, "pscCode", (award) => award.pscTitle);
+  const topAgencies = aggregateAwards(
+    awards,
+    (award) => award.awardingAgency ?? "Unknown agency",
+  );
+  const topSubAgencies = aggregateAwards(
+    awards,
+    (award) => award.awardingSubAgency ?? award.awardingAgency ?? "Unknown agency",
+  );
+  const topNaics = aggregateAwards(
+    awards.filter((award) => award.naicsCode),
+    (award) => award.naicsCode ?? "Unknown NAICS",
+    (award) => award.naicsTitle ?? `NAICS ${award.naicsCode}`,
+  );
+  const topPsc = aggregateAwards(
+    awards.filter((award) => award.pscCode),
+    (award) => award.pscCode ?? "Unknown PSC",
+    (award) => award.pscTitle ?? `PSC ${award.pscCode}`,
+  );
+  const linkedRecipients = rankAwardsByRecipient(awards).map((row) => ({
+    name: row.name,
+    uei: row.uei ?? null,
+    awardCount: row.awardCount,
+    obligations: row.obligations,
+  }));
+  const latestFiscalYear = yearlyTrend.at(-1)?.fiscalYear ?? null;
+  const currentYear = yearlyTrend.at(-1)?.obligation ?? null;
+  const previousYear = yearlyTrend.at(-2)?.obligation ?? null;
 
   return {
     contractor,
     summary: {
       totalObligations: awards.reduce((sum, award) => sum + award.obligation, 0),
       awardCount: awards.length,
-      latestFiscalYear: awards.length
-        ? Math.max(...awards.map((award) => award.fiscalYear))
-        : null,
+      latestFiscalYear,
+      yoyDelta:
+        currentYear != null && previousYear != null
+          ? currentYear - previousYear
+          : null,
       topAgency: topAgencies[0] ?? null,
+      topSubAgency: topSubAgencies[0] ?? null,
       topNaics: topNaics[0] ?? null,
       topPsc: topPsc[0] ?? null,
     },
-    aliases: contractor.aliases,
+    aliases,
     identifiers: {
-      uei: contractor.uei,
-      cageCode: contractor.cageCode,
+      uei: linkedRecipients[0]?.uei ?? null,
+      cageCode: null,
     },
-    recentAwards: awards
-      .sort((a, b) => b.fiscalYear - a.fiscalYear || b.obligation - a.obligation)
-      .slice(0, 8),
-    yearlyTrend: getSpendingTrend(awards),
+    linkedRecipients,
+    topAwards: [...awards].sort((a, b) => b.obligation - a.obligation).slice(0, 10),
+    recentAwards: [...awards]
+      .sort((a, b) => String(b.startDate).localeCompare(String(a.startDate)))
+      .slice(0, 10),
+    yearlyTrend,
     topAgencies,
+    topSubAgencies,
     topNaics,
     topPsc,
-    sourceLinks: sourceLinks(awards),
-    sourceMetadata: metadata(awards),
+    sourceLinks: sourceLinksForAwards(awards),
+    sourceMetadata: sourceMetadata(
+      awards.length,
+      [
+        {
+          kind: "contractor",
+          label: "Contractor",
+          value: contractor.name,
+          code: contractor.slug,
+        },
+      ],
+      warnings,
+      "live",
+    ),
   };
 }
 
-function aggregateBy<T extends keyof IntelligenceAward>(
-  awards: IntelligenceAward[],
-  key: T,
-  labelFor: (award: IntelligenceAward) => string,
+function aggregateAwards(
+  awards: AwardSummary[],
+  keyFor: (award: AwardSummary) => string,
+  labelFor: (award: AwardSummary) => string = keyFor,
 ): IntelligenceBucket[] {
   const buckets = new Map<string, IntelligenceBucket>();
 
   for (const award of awards) {
-    const bucketKey = String(award[key]);
-    const existing = buckets.get(bucketKey);
+    const key = keyFor(award);
+    const existing = buckets.get(key);
     if (existing) {
       existing.obligation += award.obligation;
       existing.awardCount += 1;
     } else {
-      buckets.set(bucketKey, {
-        key: bucketKey,
+      buckets.set(key, {
+        key,
         label: labelFor(award),
         obligation: award.obligation,
         awardCount: 1,
@@ -651,136 +962,553 @@ function aggregateBy<T extends keyof IntelligenceAward>(
   return [...buckets.values()].sort((a, b) => b.obligation - a.obligation);
 }
 
+function trendFromAwards(awards: AwardSummary[]): TrendPoint[] {
+  return aggregateAwards(
+    awards.filter((award) => award.fiscalYear),
+    (award) => String(award.fiscalYear),
+    (award) => `FY${award.fiscalYear}`,
+  )
+    .map((bucket) => ({
+      key: bucket.key,
+      label: bucket.label,
+      fiscalYear: Number(bucket.key),
+      obligation: bucket.obligation,
+      awardCount: bucket.awardCount,
+    }))
+    .sort((a, b) => a.fiscalYear - b.fiscalYear);
+}
+
+function rankAwardsByRecipient(awards: AwardSummary[]): RankingRow[] {
+  return aggregateAwards(awards, (award) => award.recipientName).map(
+    (bucket, index) => {
+      const sample = awards.find((award) => award.recipientName === bucket.key);
+      return {
+        rank: index + 1,
+        slug: slugify(bucket.key),
+        name: bucket.label,
+        obligations: bucket.obligation,
+        awardCount: bucket.awardCount,
+        uei: sample?.recipientUei ?? null,
+        sourceUrl: sample?.sourceUrl ?? `${USA_SPENDING_BASE_URL}/search`,
+      };
+    },
+  );
+}
+
 function summarizeExplorerResult(
   plan: ExplorerPlan,
-  awards: IntelligenceAward[],
+  awards: AwardSummary[],
+  rankings: RankingRow[],
   totalObligations: number,
 ): string {
-  if (!awards.length) {
-    return "No structured award records matched the filters. Refine the contractor, agency, category, location, or keyword.";
+  if (!awards.length && !rankings.length) {
+    return "No USAspending award rows matched the filters. Refine the contractor, agency, category, location, fiscal year, or keyword.";
   }
 
-  const topContractor = aggregateBy(
+  const top = rankings[0];
+  const agency = aggregateAwards(
     awards,
-    "contractorSlug",
-    (award) => award.contractorName,
+    (award) => award.awardingSubAgency ?? award.awardingAgency ?? "Unknown agency",
   )[0];
-  const topAgency = aggregateBy(awards, "agency", (award) => award.agency)[0];
 
-  if (plan.intent === "company_lookup" && plan.contractors[0]) {
-    const contractor = contractorSeed.find(
-      (item) => item.slug === plan.contractors[0],
-    );
-    return `${contractor?.name ?? "This contractor"} has ${formatMoney(
+  if (plan.intent === "company_comparison") {
+    return `${top?.name ?? "The leading recipient"} has the largest matched total at ${formatMoney(
+      top?.obligations ?? 0,
+    )}. The comparison set includes ${awards.length} award rows totaling ${formatMoney(
       totalObligations,
-    )} in matched public obligations across ${awards.length} seeded award records. The largest agency concentration is ${topAgency?.label ?? "not available"}.`;
+    )}.`;
   }
 
-  return `${topContractor?.label ?? "The top contractor"} leads the matched set with ${formatMoney(
-    topContractor?.obligation ?? 0,
-  )}. The query matched ${awards.length} award records totaling ${formatMoney(
+  return `${top?.name ?? "The leading recipient"} leads the matched set with ${formatMoney(
+    top?.obligations ?? totalObligations,
+  )}. The query matched ${awards.length} award rows totaling ${formatMoney(
     totalObligations,
-  )}, with ${topAgency?.label ?? "public agencies"} as the largest agency bucket.`;
+  )}, with ${agency?.label ?? "public agencies"} as the largest agency bucket.`;
 }
 
-function sourceLinks(awards: IntelligenceAward[]) {
-  const links = awards.slice(0, 5).map((award) => ({
-    label: `${award.contractorName} ${award.piid}`,
-    url: award.sourceUrl,
-  }));
-
+function planFilters(plan: ExplorerPlan): IntelligenceFilter[] {
   return [
-    {
-      label: "USAspending award search",
-      url: `${USA_SPENDING_BASE_URL}/search`,
-    },
-    ...links,
-  ];
+    ...plan.contractors.map((slug) => {
+      const contractor = knownContractors.find((item) => item.slug === slug);
+      return {
+        kind: "contractor" as const,
+        label: "Contractor",
+        value: contractor?.name ?? slug,
+        code: slug,
+      };
+    }),
+    plan.agency
+      ? {
+          kind: "agency" as const,
+          label: "Agency",
+          value: plan.agency,
+        }
+      : null,
+    plan.naics
+      ? {
+          kind: "naics" as const,
+          label: "NAICS",
+          value: plan.naics,
+          code: plan.naics,
+        }
+      : null,
+    plan.psc
+      ? {
+          kind: "psc" as const,
+          label: "PSC",
+          value: plan.psc,
+          code: plan.psc,
+        }
+      : null,
+    plan.location
+      ? {
+          kind: "location" as const,
+          label: "Location",
+          value: plan.location,
+        }
+      : null,
+    ...plan.keywords.map((keyword) => ({
+      kind: "keyword" as const,
+      label: "Keyword",
+      value: keyword,
+    })),
+    ...plan.fiscalYears.map((year) => ({
+      kind: "fiscal_year" as const,
+      label: "Fiscal year",
+      value: String(year),
+    })),
+  ].filter((item): item is IntelligenceFilter => Boolean(item));
 }
 
-function metadata(awards: IntelligenceAward[]): SourceMetadata {
+function sourceMetadata(
+  structuredRecords: number,
+  filters: IntelligenceFilter[],
+  warnings: string[],
+  cacheStatus: SourceMetadata["cacheStatus"],
+): SourceMetadata {
+  const now = new Date();
+
   return {
-    sources: [
-      {
-        name: "USAspending.gov",
-        url: USA_SPENDING_BASE_URL,
-      },
-    ],
-    generatedAt: new Date().toISOString(),
+    sources: [{ label: "USAspending.gov", url: USA_SPENDING_BASE_URL }],
+    generatedAt: now.toISOString(),
+    refreshedAt: now.toISOString(),
+    expiresAt: new Date(now.getTime() + PUBLIC_CACHE_TTL_MS).toISOString(),
     freshness:
-      "Seeded MVP records modeled after USAspending fields. Replace with live ingestion before production decisions.",
-    structuredRecords: awards.length,
+      cacheStatus === "live"
+        ? "Live USAspending data normalized by military.contractors."
+        : "Cached USAspending data served from the local normalized cache.",
+    cacheStatus,
+    structuredRecords,
+    filters,
+    warnings: formatUsaSpendingMessages(warnings),
   };
 }
 
-function extractAgency(normalized: string): string | null {
-  const agencies = [
-    "department of defense",
-    "department of the air force",
-    "department of the navy",
-    "department of the army",
-    "defense information systems agency",
-    "defense intelligence agency",
-  ];
+function markExplorerResultCached(
+  result: ExplorerResult,
+  cacheStatus: SourceMetadata["cacheStatus"],
+  cached: boolean,
+): ExplorerResult {
+  return {
+    ...result,
+    cached,
+    sourceMetadata: {
+      ...result.sourceMetadata,
+      generatedAt: new Date().toISOString(),
+      cacheStatus,
+      freshness:
+        cacheStatus === "stale"
+          ? "USAspending refresh failed, so stale cached data is being served."
+          : "Cached USAspending data served from the local normalized cache.",
+    },
+  };
+}
 
-  return agencies.find((agency) => normalized.includes(agency)) ?? null;
+async function getExplorerCacheByHash(queryHash: string): Promise<{
+  result: ExplorerResult | ContractorIntelligence;
+  refreshedAt: Date;
+} | null> {
+  const db = getDb();
+  const [entry] = await db
+    .select()
+    .from(schema.explorerQueryCache)
+    .where(eq(schema.explorerQueryCache.queryHash, queryHash))
+    .limit(1);
+
+  if (!entry?.result) return null;
+  return {
+    result: entry.result as ExplorerResult | ContractorIntelligence,
+    refreshedAt: entry.refreshedAt,
+  };
+}
+
+async function writeExplorerCache(
+  query: string,
+  queryHash: string,
+  result: ExplorerResult,
+): Promise<void> {
+  await writeRawCache(query, queryHash, result, result.sourceMetadata);
+}
+
+async function writeRawCache(
+  query: string,
+  queryHash: string,
+  result: ExplorerResult | ContractorIntelligence,
+  metadata: SourceMetadata,
+): Promise<void> {
+  const db = getDb();
+  const now = new Date();
+  const expiresAt = new Date(now.getTime() + PUBLIC_CACHE_TTL_MS);
+
+  await db
+    .insert(schema.explorerQueryCache)
+    .values({
+      id: queryHash.slice(0, 16),
+      query,
+      normalizedQuery: normalizeText(query),
+      queryHash,
+      plan: "plan" in result ? (result.plan as Record<string, unknown>) : null,
+      result: result as unknown as Record<string, unknown>,
+      sourceMetadata: metadata as unknown as Record<string, unknown>,
+      cacheStatus: "live",
+      refreshedAt: now,
+      expiresAt,
+      updatedAt: now,
+    })
+    .onConflictDoUpdate({
+      target: schema.explorerQueryCache.queryHash,
+      set: {
+        query,
+        normalizedQuery: normalizeText(query),
+        plan: "plan" in result ? (result.plan as Record<string, unknown>) : null,
+        result: result as unknown as Record<string, unknown>,
+        sourceMetadata: metadata as unknown as Record<string, unknown>,
+        cacheStatus: "live",
+        refreshedAt: now,
+        expiresAt,
+        updatedAt: now,
+      },
+    });
+}
+
+async function persistAwards(awards: AwardSummary[]): Promise<void> {
+  if (!awards.length) return;
+  const db = getDb();
+  const now = new Date();
+
+  try {
+    for (const item of awards) {
+      const recipientId = createQueryHash(
+        item.recipientUei ?? item.recipientName,
+      ).slice(0, 24);
+      await db
+        .insert(schema.recipientEntity)
+        .values({
+          id: recipientId,
+          recipientName: item.recipientName,
+          normalizedName: normalizeText(item.recipientName),
+          uei: item.recipientUei,
+          cageCode: item.recipientCageCode,
+          aliases: [],
+          source: "usaspending",
+          updatedAt: now,
+        })
+        .onConflictDoUpdate({
+          target: schema.recipientEntity.id,
+          set: {
+            recipientName: item.recipientName,
+            normalizedName: normalizeText(item.recipientName),
+            uei: item.recipientUei,
+            updatedAt: now,
+          },
+        });
+
+      const awardingAgencyId = item.awardingAgency
+        ? await upsertAgency(item.awardingAgency)
+        : null;
+      const fundingAgencyId = item.fundingAgency
+        ? await upsertAgency(item.fundingAgency)
+        : null;
+
+      if (item.naicsCode) {
+        await db
+          .insert(schema.naicsCode)
+          .values({
+            code: item.naicsCode,
+            title: item.naicsTitle ?? `NAICS ${item.naicsCode}`,
+            updatedAt: now,
+          })
+          .onConflictDoUpdate({
+            target: schema.naicsCode.code,
+            set: {
+              title: item.naicsTitle ?? `NAICS ${item.naicsCode}`,
+              updatedAt: now,
+            },
+          });
+      }
+
+      if (item.pscCode) {
+        await db
+          .insert(schema.pscCode)
+          .values({
+            code: item.pscCode,
+            title: item.pscTitle ?? `PSC ${item.pscCode}`,
+            updatedAt: now,
+          })
+          .onConflictDoUpdate({
+            target: schema.pscCode.code,
+            set: {
+              title: item.pscTitle ?? `PSC ${item.pscCode}`,
+              updatedAt: now,
+            },
+          });
+      }
+
+      await db
+        .insert(schema.award)
+        .values({
+          id: createQueryHash(item.key).slice(0, 24),
+          awardId: item.awardId,
+          generatedAwardId: item.generatedAwardId,
+          piid: item.piid,
+          recipientEntityId: recipientId,
+          recipientName: item.recipientName,
+          recipientUei: item.recipientUei,
+          awardingAgencyId,
+          fundingAgencyId,
+          awardingSubAgencyName: item.awardingSubAgency,
+          fundingSubAgencyName: item.fundingSubAgency,
+          naicsCode: item.naicsCode,
+          pscCode: item.pscCode,
+          fiscalYear: item.fiscalYear ?? getFiscalYears(1)[0]!,
+          description: item.description,
+          baseObligation: item.obligation,
+          totalObligation: item.obligation,
+          awardType: item.awardType,
+          periodStartDate: item.startDate ? new Date(item.startDate) : null,
+          periodEndDate: item.endDate ? new Date(item.endDate) : null,
+          sourceUrl: item.sourceUrl,
+          sourceApi: "usaspending",
+          cachedAt: now,
+          raw: item as unknown as Record<string, unknown>,
+          updatedAt: now,
+        })
+        .onConflictDoUpdate({
+          target: schema.award.awardId,
+          set: {
+            generatedAwardId: item.generatedAwardId,
+            recipientName: item.recipientName,
+            recipientUei: item.recipientUei,
+            awardingAgencyId,
+            fundingAgencyId,
+            awardingSubAgencyName: item.awardingSubAgency,
+            fundingSubAgencyName: item.fundingSubAgency,
+            naicsCode: item.naicsCode,
+            pscCode: item.pscCode,
+            fiscalYear: item.fiscalYear ?? getFiscalYears(1)[0]!,
+            totalObligation: item.obligation,
+            description: item.description,
+            sourceUrl: item.sourceUrl,
+            sourceApi: "usaspending",
+            cachedAt: now,
+            raw: item as unknown as Record<string, unknown>,
+            updatedAt: now,
+          },
+        });
+    }
+  } catch {
+    // Cache writes must not block public read paths.
+  }
+}
+
+async function upsertAgency(name: string): Promise<string> {
+  const db = getDb();
+  const id = createQueryHash(name).slice(0, 24);
+  const now = new Date();
+
+  await db
+    .insert(schema.agency)
+    .values({
+      id,
+      toptierCode: slugify(name),
+      name,
+      abbreviation: abbreviationForAgency(name),
+      updatedAt: now,
+    })
+    .onConflictDoUpdate({
+      target: schema.agency.id,
+      set: {
+        name,
+        abbreviation: abbreviationForAgency(name),
+        updatedAt: now,
+      },
+    });
+
+  return id;
+}
+
+function answerFromExplorerResult(result: ExplorerResult, query: string): string {
+  const top = result.rankings[0];
+  const filters = result.filtersUsed
+    .map((filter) => `${filter.label}: ${filter.value}`)
+    .join(", ");
+  const sourceCount = result.sourceMetadata.structuredRecords;
+
+  if (!top) {
+    return `The cached result does not contain enough structured rows to answer "${query}". It used ${filters || "no filters"} and matched ${sourceCount} records.`;
+  }
+
+  return `${top.name} is the leading recipient in the cached result, with ${formatMoney(
+    top.obligations,
+  )} across ${top.awardCount || "the matched"} award rows. This answer is limited to the structured USAspending rows already returned for ${filters || "the original query"}.`;
+}
+
+function inferFollowUpMode(query: string): FollowUpMode {
+  const normalized = normalizeText(query);
+  if (/why|how|what does|explain|summarize/.test(normalized)) return "answer";
+  if (/instead|compare|versus| vs |switch|pivot/.test(normalized)) return "pivot";
+  return "refine";
+}
+
+function filterDemoAwards(plan: ExplorerPlan): AwardSummary[] {
+  let awards = [...demoAwards];
+
+  if (plan.contractors.length) {
+    awards = awards.filter((award) =>
+      plan.contractors.some((slug) => {
+        const contractor = knownContractors.find((item) => item.slug === slug);
+        const names = contractor
+          ? [contractor.name, ...contractor.aliases].map(normalizeText)
+          : [slug];
+        const recipient = normalizeText(award.recipientName);
+        return names.some(
+          (name) => recipient.includes(name) || name.includes(recipient),
+        );
+      }),
+    );
+  }
+
+  if (plan.agency) {
+    const agency = normalizeText(plan.agency);
+    awards = awards.filter((award) =>
+      normalizeText(
+        `${award.awardingAgency ?? ""} ${award.awardingSubAgency ?? ""}`,
+      ).includes(agency),
+    );
+  }
+
+  if (plan.naics) {
+    awards = awards.filter((award) => award.naicsCode === plan.naics);
+  }
+
+  if (plan.psc) {
+    awards = awards.filter((award) => award.pscCode === plan.psc);
+  }
+
+  if (plan.location) {
+    awards = awards.filter((award) =>
+      normalizeText(award.description ?? "").includes(normalizeText(plan.location!)),
+    );
+  }
+
+  if (plan.keywords.length) {
+    const keywords = plan.keywords.map(normalizeText);
+    awards = awards.filter((award) =>
+      keywords.every((keyword) =>
+        normalizeText(
+          `${award.description ?? ""} ${award.naicsTitle ?? ""} ${award.pscTitle ?? ""}`,
+        ).includes(keyword),
+      ),
+    );
+  }
+
+  return awards;
+}
+
+function demoAward(
+  awardId: string,
+  recipientName: string,
+  awardingAgency: string,
+  awardingSubAgency: string,
+  naicsCode: string,
+  naicsTitle: string,
+  pscCode: string,
+  pscTitle: string,
+  startDate: string,
+  obligation: number,
+  description: string,
+): AwardSummary {
+  return {
+    key: awardId,
+    awardId,
+    generatedAwardId: awardId,
+    piid: awardId,
+    recipientName,
+    recipientSlug: slugify(recipientName),
+    recipientUei: null,
+    recipientCageCode: null,
+    awardingAgency,
+    awardingSubAgency,
+    fundingAgency: awardingAgency,
+    fundingSubAgency: awardingSubAgency,
+    naicsCode,
+    naicsTitle,
+    pscCode,
+    pscTitle,
+    fiscalYear: new Date(`${startDate}T00:00:00Z`).getUTCMonth() >= 9 ? 2026 : 2025,
+    startDate,
+    endDate: null,
+    obligation,
+    awardType: "Contract",
+    description,
+    placeOfPerformance: null,
+    sourceUrl: `${USA_SPENDING_BASE_URL}/award/${awardId}`,
+  };
+}
+
+function aliasesForContractor(slug: string, name: string): string[] {
+  return knownContractors.find((contractor) => contractor.slug === slug)?.aliases ?? [
+    name,
+  ];
+}
+
+function extractAgency(normalized: string): string | null {
+  return (
+    agencyNames.find((agency) =>
+      normalized.includes(normalizeText(agency)),
+    ) ?? null
+  );
 }
 
 function extractLocation(normalized: string): string | null {
-  const locations = [
-    "virginia",
-    "maryland",
-    "california",
-    "texas",
-    "colorado",
-    "arizona",
-    "connecticut",
-    "district of columbia",
-    "massachusetts",
-    "utah",
-  ];
-
-  return locations.find((location) => normalized.includes(location)) ?? null;
+  return (
+    locationNames.find((location) =>
+      normalized.includes(normalizeText(location)),
+    ) ?? null
+  );
 }
 
 function extractCode(query: string, label: "naics" | "psc"): string | null {
-  const regex = label === "naics" ? /naics\s+(\d{6})/i : /psc\s+([a-z0-9]{4})/i;
+  const regex = label === "naics" ? /naics\s+(\d{2,6})/i : /psc\s+([a-z0-9]{4})/i;
   return query.match(regex)?.[1]?.toUpperCase() ?? null;
 }
 
 function extractKeywords(normalized: string): string[] {
-  const keywords = [
-    "missile",
-    "radar",
-    "cyber",
-    "ai",
-    "ship",
-    "aircraft",
-    "space",
-    "intelligence",
-    "autonomous",
-    "software",
-    "cloud",
-    "sustainment",
-  ];
-
-  return keywords.filter((keyword) => normalized.includes(keyword));
+  return keywordVocabulary.filter((keyword) => normalized.includes(keyword));
 }
 
 function normalizeText(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
-function defaultPlan(): ExplorerPlan {
-  return {
-    intent: "award_keyword_search",
-    contractors: [],
-    agency: null,
-    naics: null,
-    psc: null,
-    location: null,
-    keywords: [],
-    fiscalYears: [],
-    limit: 10,
-  };
+function abbreviationForAgency(name: string): string | null {
+  const normalized = normalizeText(name);
+  if (normalized === "department of defense") return "DOD";
+  if (normalized === "department of the army") return "Army";
+  if (normalized === "department of the navy") return "Navy";
+  if (normalized === "department of the air force") return "Air Force";
+  if (normalized === "defense logistics agency") return "DLA";
+  if (normalized === "defense information systems agency") return "DISA";
+  if (normalized === "defense intelligence agency") return "DIA";
+  return null;
 }

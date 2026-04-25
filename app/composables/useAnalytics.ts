@@ -51,69 +51,32 @@ export const useAnalytics = () => {
     // await $fetch('/api/analytics/track', { method: 'POST', body: { eventType, metadata } })
   };
 
-  /**
-   * Track MOS search
-   */
-  const trackMosSearch = (query: string, selectedMos?: string) => {
-    trackEvent("mos_search", {
+  const trackExplorerQuery = (query: string, cacheId?: string) => {
+    trackEvent("explorer_query", {
       query,
-      selectedMos,
+      cacheId,
       timestamp: new Date().toISOString(),
     });
   };
 
-  /**
-   * Track MOS page view
-   */
-  const trackMosPageView = (mosCode: string) => {
-    trackEvent("mos_page_view", {
-      mosCode,
+  const trackIntelligencePageView = (path: string) => {
+    trackEvent("intelligence_page_view", {
+      path,
       timestamp: new Date().toISOString(),
     });
   };
 
-  /**
-   * Track filter change
-   */
-  const trackFilterChange = (
-    filters: Record<string, any>,
-    mosCode?: string,
-  ) => {
-    trackEvent("mos_filter_change", {
+  const trackFilterChange = (filters: Record<string, any>) => {
+    trackEvent("intelligence_filter_change", {
       filters,
-      mosCode,
       timestamp: new Date().toISOString(),
     });
   };
 
-  /**
-   * Track job click
-   */
-  const trackJobClick = (jobId: string, mosId?: string) => {
-    trackEvent("job_click", {
-      jobId,
-      mosId,
-      timestamp: new Date().toISOString(),
-    });
-  };
-
-  /**
-   * Track job detail view
-   */
-  const trackJobView = (jobId: string, sourceMosId?: string) => {
-    trackEvent("job_detail_view", {
-      jobId,
-      sourceMosId,
-      timestamp: new Date().toISOString(),
-    });
-  };
-
-  /**
-   * Track favorite added
-   */
-  const trackFavoriteAdded = (jobId: string) => {
-    trackEvent("favorite_job_added", {
-      jobId,
+  const trackSourceClick = (url: string, label?: string) => {
+    trackEvent("source_click", {
+      url,
+      label,
       timestamp: new Date().toISOString(),
     });
   };
@@ -139,12 +102,10 @@ export const useAnalytics = () => {
 
   return {
     trackEvent,
-    trackMosSearch,
-    trackMosPageView,
+    trackExplorerQuery,
+    trackIntelligencePageView,
     trackFilterChange,
-    trackJobClick,
-    trackJobView,
-    trackFavoriteAdded,
+    trackSourceClick,
     trackAccountCreated,
     trackProfileUpdated,
   };

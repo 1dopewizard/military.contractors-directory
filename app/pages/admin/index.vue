@@ -40,6 +40,11 @@ const tabs = computed<TabItem[]>(() => [
     label: "Contractors",
     icon: "mdi:office-building-outline",
   },
+  {
+    id: "intelligence",
+    label: "Intelligence",
+    icon: "mdi:database-search-outline",
+  },
   { id: "users", label: "Users", icon: "mdi:account-group-outline" },
 ]);
 
@@ -91,7 +96,7 @@ const {
 
 // Keyboard navigation
 const shortcuts = [
-  { key: "1-5", description: "Switch tabs" },
+  { key: "1-6", description: "Switch tabs" },
   { key: "/", description: "Search" },
   { key: "r", description: "Refresh" },
 ];
@@ -284,6 +289,11 @@ onUnmounted(() => {
 
                 <!-- Contractors Tab -->
                 <AdminContractorList v-else-if="activeTab === 'contractors'" />
+
+                <!-- Intelligence Tab -->
+                <AdminIntelligenceTools
+                  v-else-if="activeTab === 'intelligence'"
+                />
 
                 <!-- Users Tab -->
                 <UserManagementTable v-else-if="activeTab === 'users'" />

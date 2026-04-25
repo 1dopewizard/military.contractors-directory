@@ -116,9 +116,8 @@ useWebPageSchema({
           <h2 class="text-foreground mb-3 font-semibold">What This Is Not</h2>
           <p class="text-muted-foreground">
             This is not a job board, MOS translator, placement service, or
-            career alert product. Legacy career-oriented code may remain during
-            the pivot, but public product development is focused on contractor
-            intelligence.
+            career alert product. Public product development is focused on
+            source-backed contractor intelligence.
           </p>
         </section>
 
@@ -134,7 +133,7 @@ useWebPageSchema({
 
         <section class="flex flex-col justify-center gap-3 pt-4 sm:flex-row">
           <Button as-child size="lg" class="font-semibold">
-            <NuxtLink to="/"> Open Explorer </NuxtLink>
+            <NuxtLink to="/explorer"> Open Explorer </NuxtLink>
           </Button>
           <Button as-child variant="link" size="lg">
             <NuxtLink to="/companies"> Browse Companies </NuxtLink>

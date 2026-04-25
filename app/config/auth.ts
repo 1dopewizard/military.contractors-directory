@@ -33,7 +33,6 @@ export function isAdminEmail(email: string | null | undefined): boolean {
  */
 export const USER_ROLES = {
   ADMIN: "admin",
-  RECRUITER: "recruiter",
   USER: "user",
 } as const;
 

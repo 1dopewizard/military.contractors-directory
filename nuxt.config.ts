@@ -41,7 +41,7 @@ export default defineNuxtConfig({
     //     name: 'military.contractors',
     //     url: process.env.NUXT_PUBLIC_SITE_URL || 'https://military.contractors',
     //     logo: '/logos/logo.svg',
-    //     description: 'AI-powered career advisor for military veterans transitioning to cleared IT/Intel civilian employment.'
+    //     description: 'Public, source-backed defense contractor intelligence.'
     //   }
     // }],
     [
@@ -84,7 +84,6 @@ export default defineNuxtConfig({
   //   ],
   //   exclude: [
   //     '/admin/**',
-  //     '/advertiser/**',
   //     '/auth/**',
   //   ]
   // },
@@ -108,11 +107,13 @@ export default defineNuxtConfig({
     "@/lib": resolve("./lib"),
   },
   routeRules: {
-    "/advertiser/**": { ssr: false },
     "/admin/**": { ssr: false },
     "/auth/login": { ssr: false },
-    "/insights/**": { isr: 3600 },
     "/companies/**": { isr: 3600 },
+    "/agencies/**": { isr: 3600 },
+    "/categories/**": { isr: 3600 },
+    "/topics/**": { isr: 3600 },
+    "/rankings/**": { isr: 3600 },
   },
   components: [
     {

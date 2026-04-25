@@ -17,8 +17,6 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest --watch",
-    "pipeline:army": "node --import tsx scripts/pipeline/mos-scrape-army.ts",
-    "pipeline:classify": "node --import tsx scripts/pipeline/mos-classify.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

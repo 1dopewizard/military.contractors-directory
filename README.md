@@ -6,22 +6,29 @@ Open intelligence on U.S. defense contractors.
 
 `military.contractors` is a public contractor intelligence directory for researching U.S. defense companies, public award activity, agencies, NAICS/PSC categories, locations, and spending trends.
 
-The product is no longer positioned as a job board, MOS translation tool, or career alert platform. Job, MOS, alert, and OCONUS code paths that remain in the repository are legacy compatibility surfaces unless they support contractor intelligence.
+The product is not a job board, MOS translation tool, staffing marketplace, or career alert platform. Public surfaces now focus on source-backed contractor intelligence.
 
 ## Current Product Pillars
 
 1. **Contractor Directory**: structured company profiles with specialties, headquarters, locations, revenue context, identifiers, and source links.
-2. **Award Intelligence**: USAspending-shaped award records, obligation totals, agency/category rollups, and yearly trends.
-3. **Explorer**: plain-English questions routed through strict structured plans and deterministic backend operations.
-4. **Claimed Profiles**: existing profile claim/admin infrastructure remains available, but it is not the v1 monetization focus.
+2. **Award Intelligence**: live USAspending award records, obligation totals, agency/category rollups, and yearly trends.
+3. **Explorer**: plain-English questions routed through strict structured plans, deterministic backend operations, persistent cache, and source links.
+4. **Indexable Intelligence**: agency, NAICS, PSC, topic, ranking, comparison, and company profile pages.
+5. **Claimed Profiles**: profile claim/admin infrastructure remains available for company context and data quality.
 
 ## Pages
 
 | Page | URL | Description |
 | --- | --- | --- |
 | Homepage | `/` | Contractor intelligence explorer, top contractors, and specialty browsing |
+| Explorer | `/explorer` | Full research workbench with follow-up modes |
+| Compare | `/compare` | Compare two to four contractors |
 | Companies | `/companies` | Browse defense contractors by name, specialty, location, and revenue |
 | Company Profile | `/companies/[slug]` | Contractor profile with intelligence panels and public award context |
+| Agencies | `/agencies`, `/agencies/[agencySlug]` | Agency contractor rankings and award examples |
+| Categories | `/categories/naics/[code]`, `/categories/psc/[code]` | NAICS and PSC contractor rankings |
+| Topics | `/topics/[topicSlug]` | Topic-driven award intelligence pages |
+| Rankings | `/rankings/[presetSlug]` | Preset contractor rankings |
 | By Specialty | `/companies/specialty/[slug]` | Contractor category pages |
 | By Location | `/companies/location/[state]` | Contractor location pages |
 | For Companies | `/for-companies` | Claimed profile information |
@@ -138,7 +145,16 @@ pnpm build && pnpm start
 | --- | --- | --- |
 | GET | `/api/intelligence/contractors/[slug]` | Contractor award intelligence |
 | GET | `/api/intelligence/top-contractors` | Ranked contractors by public obligations |
+| GET | `/api/intelligence/recipients/resolve` | Resolve recipient names and UEIs |
+| GET | `/api/intelligence/awards` | Search award rows |
+| GET | `/api/intelligence/awards/[awardKey]` | Award detail |
+| GET | `/api/intelligence/agencies` | Agency reference list |
+| GET | `/api/intelligence/agencies/[agencySlug]` | Agency intelligence |
+| GET | `/api/intelligence/categories/[kind]/[code]` | NAICS/PSC intelligence |
+| GET | `/api/intelligence/topics/[topicSlug]` | Topic intelligence |
+| GET | `/api/intelligence/rankings/[presetSlug]` | Ranking preset data |
 | POST | `/api/explorer/query` | Structured plain-English explorer query |
+| POST | `/api/explorer/follow-up` | Refine, pivot, or answer from cached results |
 | GET | `/api/explorer/cache/[cacheId]` | Cached explorer result |
 
 ### Profile Manager
@@ -154,7 +170,7 @@ pnpm build && pnpm start
 ## SEO
 
 - SSR on public pages.
-- Dynamic sitemap for companies, specialties, and locations.
+- Dynamic sitemap for companies, agencies, categories, rankings, topics, specialties, and locations.
 - Schema.org: WebSite, WebPage, Organization, CollectionPage, BreadcrumbList, Dataset-ready intelligence pages.
 - Unique meta tags and canonical URLs on key pages.
 - Public source links are prominent on intelligence surfaces.
