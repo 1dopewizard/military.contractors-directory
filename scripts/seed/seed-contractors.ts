@@ -110,7 +110,6 @@ interface MockContractor {
   founded: number;
   employeeCount: string;
   website: string;
-  careersUrl: string;
   linkedinUrl: string | null;
   wikipediaUrl: string | null;
   stockTicker: string | null;
@@ -229,7 +228,6 @@ async function seedContractors(
         founded: contractor.founded,
         employeeCount: contractor.employeeCount,
         website: contractor.website,
-        careersUrl: contractor.careersUrl,
         linkedinUrl: contractor.linkedinUrl,
         wikipediaUrl: contractor.wikipediaUrl,
         stockTicker: contractor.stockTicker,

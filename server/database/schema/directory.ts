@@ -22,7 +22,6 @@ export const contractor = sqliteTable("contractor", {
   founded: integer("founded"), // year
   employeeCount: text("employeeCount"), // approximate headcount (e.g., "45,000")
   website: text("website"),
-  careersUrl: text("careersUrl"),
   linkedinUrl: text("linkedinUrl"),
   wikipediaUrl: text("wikipediaUrl"),
   stockTicker: text("stockTicker"), // if public (e.g., "LMT")

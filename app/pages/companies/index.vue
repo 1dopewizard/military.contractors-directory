@@ -49,7 +49,6 @@ interface ContractorResponse {
     founded: string | null;
     employeeCount: string | null;
     website: string | null;
-    careersUrl: string | null;
     linkedinUrl: string | null;
     wikipediaUrl: string | null;
     stockTicker: string | null;

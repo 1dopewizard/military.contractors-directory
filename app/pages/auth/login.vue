@@ -14,7 +14,7 @@ useHead({
   meta: [
     {
       name: "description",
-      content: "Sign in to manage your claimed contractor profile.",
+      content: "Sign in to access military.contractors admin tools.",
     },
   ],
 });
@@ -50,7 +50,7 @@ const benefits = [
     icon: "mdi:shield-check-outline",
     title: "Verify profile context",
     description:
-      "Manage claimed company details, identifiers, links, and public profile context.",
+      "Access administrative tools for contractor records, source context, and public intelligence data.",
   },
   {
     icon: "mdi:chart-line",

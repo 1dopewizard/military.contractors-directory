@@ -15,7 +15,6 @@ export interface Contractor {
   founded?: number;
   employeeCount?: string;
   website?: string;
-  careersUrl?: string;
   linkedinUrl?: string;
   wikipediaUrl?: string;
   stockTicker?: string;

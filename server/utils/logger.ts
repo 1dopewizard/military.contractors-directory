@@ -15,7 +15,6 @@ function createLogger(): Logger {
       paths: [
         "req.headers.authorization",
         "event.headers.authorization",
-        "config.stripeSecretKey",
         "config.supabaseServiceRoleKey",
       ],
       remove: true,

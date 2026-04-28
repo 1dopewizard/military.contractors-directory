@@ -85,7 +85,6 @@ export default defineEventHandler(async (event) => {
       founded: contractor.founded ?? null,
       employeeCount: contractor.employeeCount ?? null,
       website: contractor.website ?? null,
-      careersUrl: contractor.careersUrl ?? null,
       linkedinUrl: contractor.linkedinUrl ?? null,
       wikipediaUrl: contractor.wikipediaUrl ?? null,
       stockTicker: contractor.stockTicker ?? null,

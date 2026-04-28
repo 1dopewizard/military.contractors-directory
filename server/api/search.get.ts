@@ -67,7 +67,6 @@ export default defineEventHandler(async (event) => {
         headquarters: c.headquarters,
         employeeCount: c.employeeCount,
         website: c.website,
-        careersUrl: c.careersUrl,
         logoUrl: c.logoUrl,
       })),
       pagination: {

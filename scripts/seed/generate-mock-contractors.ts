@@ -187,7 +187,6 @@ const ContractorDataSchema = z.object({
     .string()
     .describe('Approximate employee count (e.g., "45,000" or "~120,000")'),
   website: z.string().url().describe("Official website URL"),
-  careersUrl: z.string().url().describe("Careers page URL"),
   linkedinUrl: z
     .string()
     .url()
@@ -377,7 +376,7 @@ Generate realistic data including:
 - Headquarters location (city, state)
 - Founded year
 - Employee count (approximate)
-- Website/careers/LinkedIn/Wikipedia URLs
+- Website/LinkedIn/Wikipedia URLs
 - Stock ticker (if public) or null (if private)
 - Primary and secondary specialties from: ${SPECIALTIES.map((s) => s.slug).join(", ")}
 - Key products/programs (3-5)

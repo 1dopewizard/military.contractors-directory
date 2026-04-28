@@ -14,7 +14,7 @@ The product is not a job board, MOS translation tool, staffing marketplace, or c
 2. **Award Intelligence**: live USAspending award records, obligation totals, agency/category rollups, and yearly trends.
 3. **Explorer**: plain-English questions routed through strict structured plans, deterministic backend operations, persistent cache, and source links.
 4. **Indexable Intelligence**: agency, NAICS, PSC, topic, ranking, comparison, and company profile pages.
-5. **Claimed Profiles**: profile claim/admin infrastructure remains available for company context and data quality.
+5. **Data Quality Operations**: admin tooling for contractor records, source freshness, and intelligence cache review.
 
 ## Pages
 
@@ -31,9 +31,6 @@ The product is not a job board, MOS translation tool, staffing marketplace, or c
 | Rankings | `/rankings/[presetSlug]` | Preset contractor rankings |
 | By Specialty | `/companies/specialty/[slug]` | Contractor category pages |
 | By Location | `/companies/location/[state]` | Contractor location pages |
-| For Companies | `/for-companies` | Claimed profile information |
-| Profile Manager | `/profile-manager` | Claimed profile dashboard |
-| Claim Profile | `/profile-manager/claim` | Claim flow |
 | Admin | `/admin` | Admin dashboard |
 | Login | `/auth/login` | Magic link auth |
 | About | `/about` | Product explanation |
@@ -49,7 +46,6 @@ The product is not a job board, MOS translation tool, staffing marketplace, or c
 | UI | Tailwind CSS v4, shadcn-vue |
 | Database | Drizzle ORM + libsql (SQLite) |
 | Auth | Better Auth |
-| Billing | Stripe |
 | Validation | Zod + vee-validate |
 | Icons | Iconify (MDI) |
 | Logging | pino |
@@ -70,7 +66,7 @@ military.contractors/
 │   │   ├── contractors/         # Directory API
 │   │   ├── explorer/            # Intelligence explorer API
 │   │   ├── intelligence/        # Public award intelligence API
-│   │   └── profile-manager/     # Claimed profile API
+│   │   └── admin/               # Admin and intelligence maintenance API
 │   ├── database/
 │   │   ├── migrations/          # Drizzle/libsql migrations
 │   │   └── schema/              # Drizzle schema files
@@ -100,10 +96,6 @@ Create `.env`:
 DATABASE_URL=file:./server/database/app.db
 BETTER_AUTH_SECRET=your-secret-here
 RESEND_API_KEY=
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-STRIPE_CLAIMED_PRICE_ID=
-STRIPE_PREMIUM_PRICE_ID=
 NUXT_PUBLIC_SITE_URL=https://military.contractors
 ```
 
@@ -156,16 +148,6 @@ pnpm build && pnpm start
 | POST | `/api/explorer/query` | Structured plain-English explorer query |
 | POST | `/api/explorer/follow-up` | Refine, pivot, or answer from cached results |
 | GET | `/api/explorer/cache/[cacheId]` | Cached explorer result |
-
-### Profile Manager
-
-| Method | Path | Purpose |
-| --- | --- | --- |
-| POST | `/api/profile-manager/claim` | Submit claim |
-| GET | `/api/profile-manager/profile` | Get profile |
-| PATCH | `/api/profile-manager/profile` | Update profile |
-| GET/POST | `/api/profile-manager/benefits` | Manage profile highlights |
-| GET/POST | `/api/profile-manager/programs` | Manage notable programs |
 
 ## SEO
 

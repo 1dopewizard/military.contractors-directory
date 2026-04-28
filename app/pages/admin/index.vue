@@ -1,6 +1,6 @@
 <!--
   @file Admin Dashboard Page
-  @description Admin dashboard for claimed profiles, content review, and system oversight
+  @description Admin dashboard for contractor records, intelligence data, and system oversight
 -->
 <script setup lang="ts">
 import { toast } from "vue-sonner";

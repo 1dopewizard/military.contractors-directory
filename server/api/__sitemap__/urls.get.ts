@@ -105,13 +105,6 @@ export default defineEventHandler(async () => {
       });
     }
 
-    // Add static SEO pages
-    urls.push({
-      loc: `${baseUrl}/for-companies`,
-      changefreq: "monthly",
-      priority: 0.6,
-    });
-
     return urls;
   } catch {
     return [];

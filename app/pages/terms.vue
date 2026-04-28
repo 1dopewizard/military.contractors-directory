@@ -100,30 +100,6 @@ useHead({
         </section>
 
         <section>
-          <h2 class="text-foreground mb-3 font-semibold">Claimed profiles</h2>
-          <p class="text-muted-foreground mb-4 leading-relaxed">
-            If you claim a company profile:
-          </p>
-          <ul
-            class="text-muted-foreground list-inside list-disc space-y-2 leading-relaxed"
-          >
-            <li>
-              You warrant that you are authorized to represent the company
-            </li>
-            <li>
-              You are responsible for the accuracy of information you provide
-            </li>
-            <li>
-              We reserve the right to reject or revoke claims at our discretion
-            </li>
-            <li>
-              Payment terms and refund policies are specified at the time of
-              purchase
-            </li>
-          </ul>
-        </section>
-
-        <section>
           <h2 class="text-foreground mb-3 font-semibold">
             Intellectual property
           </h2>

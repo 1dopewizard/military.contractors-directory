@@ -78,6 +78,13 @@
       "when": 1777075400000,
       "tag": "0011_remove_legacy_features",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1777075500000,
+      "tag": "0012_remove_contractor_careers_url",
+      "breakpoints": true
     }
   ]
 }

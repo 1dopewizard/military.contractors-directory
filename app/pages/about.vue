@@ -183,7 +183,6 @@ const sections = [
                   <li>Names, aliases, headquarters, and identifiers</li>
                   <li>Specialties and locations</li>
                   <li>Revenue context and public profile links</li>
-                  <li>Claimed profile status where applicable</li>
                 </ul>
               </div>
               <div>

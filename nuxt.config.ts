@@ -79,13 +79,7 @@ export default defineNuxtConfig({
   ],
   css: [resolve("./app/assets/css/tailwind.css")],
   runtimeConfig: {
-    openaiApiKey: "",
-    assistantId: "",
     resendApiKey: process.env.RESEND_API_KEY || "",
-    stripeSecretKey: process.env.STRIPE_SECRET_KEY || "",
-    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || "",
-    stripeClaimedPriceId: process.env.STRIPE_CLAIMED_PRICE_ID || "",
-    stripePremiumPriceId: process.env.STRIPE_PREMIUM_PRICE_ID || "",
     betterAuthSecret: process.env.BETTER_AUTH_SECRET || "",
     public: {
       siteUrl: publicSiteUrl,

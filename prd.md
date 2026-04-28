@@ -64,7 +64,7 @@ military.contractors must not be publicly positioned as:
 - Preserve and extend the existing contractor directory foundation.
 - Establish a durable data model for USAspending first, then SAM.gov enrichment.
 - Create indexable pages that can rank for contractor, agency, category, and location research queries.
-- Keep claimed profiles available without making them the core v1 monetization story.
+- Keep correction and source-feedback workflows lightweight until the intelligence data foundation is stronger.
 
 ### Non-Goals
 
@@ -108,24 +108,24 @@ Core questions:
 - Which agency relationships are most prominent?
 - What source records support the claim?
 
-### Contractor Profile Owner
+### Contractor Representative Or Data Contributor
 
-Works at or represents a contractor and wants to keep public profile context accurate.
+Works at or represents a contractor, or has source-backed corrections to public contractor context.
 
 Core questions:
 
 - Is the profile using the right company name, aliases, identifiers, links, and headquarters?
-- Can we claim and verify the profile?
-- Can we add context that public data alone does not capture?
+- How can corrections or source links be submitted?
+- Which public records support or contradict the current profile context?
 
 ### Site Operator/Admin
 
-Maintains data quality, claimed profiles, source links, and public content surfaces.
+Maintains data quality, source links, and public content surfaces.
 
 Core questions:
 
 - Which profiles need cleanup?
-- Which claim requests require review?
+- Which contractor records or source mappings require review?
 - Are AI summaries backed by structured data?
 - Are sitemap and navigation surfaces aligned with the product thesis?
 
@@ -176,17 +176,17 @@ Success criteria:
 - Rankings are calculated by backend totals, not model prose.
 - Filters are visible and understandable.
 
-### Journey 4: Claimed Profile
+### Journey 4: Correction Or Source Feedback
 
-1. Contractor representative visits `/for-companies`.
-2. Representative searches and claims a company profile.
-3. Admin or automated verification approves the claim.
-4. Profile owner updates public company context.
+1. User finds a contractor profile with missing or incorrect context.
+2. User submits a correction or source link through the contact path.
+3. Admin reviews the request against public sources.
+4. Approved corrections update the contractor record or source mapping.
 
 Success criteria:
 
-- Claiming supports profile accuracy without turning the site into recruiting software.
-- Claimed content is clearly differentiated from source-backed public award data.
+- Corrections improve profile accuracy without turning the site into a self-serve marketing platform.
+- User-submitted context is reviewed before it affects public intelligence pages.
 
 ## 7. Current Product Surface
 
@@ -200,7 +200,6 @@ Success criteria:
 | Specialty Pages | `/companies/specialty/[slug]` | Contractor category browse |
 | Location Pages | `/companies/location/[state]` | Contractor location browse |
 | About | `/about` | Product explanation |
-| For Companies | `/for-companies` | Claimed profile positioning |
 | Contact | `/contact` | Contact path |
 | Privacy | `/privacy` | Privacy policy |
 | Terms | `/terms` | Terms of service |
@@ -210,9 +209,7 @@ Success criteria:
 | Surface | Route | Purpose |
 | --- | --- | --- |
 | Login | `/auth/login` | Magic link authentication |
-| Profile Manager | `/profile-manager` | Claimed profile management |
-| Claim Profile | `/profile-manager/claim` | Claim flow |
-| Admin | `/admin` | Claims, content, contractors, users |
+| Admin | `/admin` | Contractor records, intelligence cache, users, and system health |
 
 ### Legacy Surfaces
 
@@ -229,7 +226,7 @@ The contractor directory must support:
 - Browse by location.
 - Sort by revenue, rank, or name where supported.
 - Company profile pages with stable slugs.
-- Existing claimed-profile integration.
+- Source-feedback and correction handling through contact/admin workflows.
 
 Company profile pages must show:
 
@@ -244,7 +241,6 @@ Company profile pages must show:
 - Website, LinkedIn, Wikipedia links where available.
 - Specialties/categories.
 - Locations.
-- Claimed profile status.
 - Intelligence panel when award intelligence exists.
 
 ### 8.2 Contractor Intelligence Panel
@@ -338,7 +334,7 @@ Keep and extend:
 - `specialty`
 - `contractorSpecialty`
 - `contractorLocation`
-- claimed profile tables
+- admin activity tables
 - admin/auth tables
 
 ### New Intelligence Tables
@@ -423,7 +419,7 @@ Potential SAM enrichments:
 
 ### Manual/Seed Data
 
-Seeded records are acceptable for MVP development, demos, tests, and UI validation. Production claims must clearly identify source freshness and must not imply seeded data is comprehensive.
+Seeded records are acceptable for MVP development, demos, tests, and UI validation. Production pages must clearly identify source freshness and must not imply seeded data is comprehensive.
 
 Initial MVP contractor set:
 
@@ -563,7 +559,7 @@ Company profile must include:
 - Categories.
 - Locations.
 - External links.
-- Claimed profile context where applicable.
+- Source metadata and correction contact path where applicable.
 
 Company profile must de-emphasize or remove:
 
@@ -579,7 +575,7 @@ Primary navigation should prioritize:
 - Companies.
 - About.
 - Search/explorer access.
-- Auth/profile controls as needed.
+- Auth/admin controls as needed.
 
 Primary navigation must not link MOS/job/legacy insights surfaces.
 
@@ -631,7 +627,6 @@ V1 focus is trust, data quality, and durable public utility, not immediate recru
 
 Potential monetization paths:
 
-- Claimed profile subscriptions.
 - Research exports.
 - Saved intelligence workspaces.
 - Alerts for companies/agencies/categories.
@@ -657,7 +652,7 @@ Not in v1 monetization:
 - Source link click-through rate.
 - Company profile to source-link click-through rate.
 - Repeat usage by unauthenticated users.
-- Claimed profile starts and completions.
+- Correction/contact submissions tied to contractor records.
 
 ### Data Quality Metrics
 
@@ -774,22 +769,22 @@ Acceptance criteria:
 - No page is just generated prose.
 - Sitemap includes only durable, source-backed pages.
 
-### Phase 6: Claimed Profile Refinement
+### Phase 6: Data Quality Refinement
 
 Status: Future.
 
 Scope:
 
-- Reframe profile management around accuracy and source context.
+- Reframe admin workflows around accuracy and source context.
 - Remove remaining job seeker language from dashboards.
 - Add profile data quality workflows.
-- Add claimed profile audit trail.
+- Add contractor record audit trail.
 
 Acceptance criteria:
 
-- Claimed profile UI does not rely on recruiting language.
-- Admin can distinguish source-backed fields from claimed fields.
-- Public pages clearly separate public source data from claimed context.
+- Admin UI does not rely on recruiting language.
+- Admin can distinguish source-backed fields from manually corrected fields.
+- Public pages clearly separate public source data from editorial context.
 
 ## 19. Risks And Mitigations
 
@@ -841,7 +836,7 @@ Mitigation:
 - Do not present public award data as complete without a freshness/coverage note.
 - Do not conflate parent companies, subsidiaries, and recipient entities without identifiers.
 - Do not publish unverifiable claims as facts.
-- Label claimed-profile content separately from public source data where needed.
+- Label editorial or user-submitted corrections separately from public source data where needed.
 - Respect robots, rate limits, and API terms for upstream data sources.
 
 ## 21. Test And Verification Plan
@@ -906,4 +901,4 @@ V1 is acceptable when:
 - How should parent/subsidiary relationships be represented for large defense primes?
 - What freshness SLA should public pages display for award data?
 - Should explorer cache be public-linkable by default?
-- Which fields should claimed profile owners be allowed to override versus annotate?
+- Which contractor fields should admins be allowed to override versus annotate?

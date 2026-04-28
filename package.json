@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.68",
-    "@ai-sdk/vue": "^2.0.93",
     "@iconify-json/mdi": "^1.2.3",
     "@internationalized/date": "^3.10.0",
     "@libsql/client": "^0.17.0",
