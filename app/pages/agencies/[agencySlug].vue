@@ -15,6 +15,10 @@ import {
   formatIntelligenceMoney,
 } from "@/app/lib/intelligence-ui";
 
+definePageMeta({
+  layout: "homepage",
+});
+
 const config = useRuntimeConfig();
 const route = useRoute();
 const agencySlug = computed(() => route.params.agencySlug as string);
@@ -140,7 +144,7 @@ const metrics = computed(() => {
         <IntelligenceMetricStrip :metrics="metrics" />
 
         <IntelligenceSection title="Ranked Contractors" flush>
-          <IntelligenceRankingTable :rows="data.contractors" />
+          <IntelligenceRankingList :rows="data.contractors" />
         </IntelligenceSection>
 
         <IntelligenceSection title="Recent Awards" flush>

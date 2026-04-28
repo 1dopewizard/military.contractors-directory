@@ -85,4 +85,4 @@ export const isSourceMetadataWarning = (
   (metadata.cacheStatus === "cached" ||
     metadata.cacheStatus === "stale" ||
     metadata.cacheStatus === "error" ||
-    metadata.warnings.length > 0);
+    (metadata.warnings?.length ?? 0) > 0);

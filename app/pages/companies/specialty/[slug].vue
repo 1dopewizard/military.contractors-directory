@@ -5,6 +5,10 @@
 -->
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "homepage",
+});
+
 interface SpecialtyResponse {
   id: string;
   slug: string;
@@ -44,7 +48,6 @@ const {
   watch: [slug],
 });
 
-// SEO
 useHead(() => {
   if (!specialty.value) return {};
   return {
@@ -60,27 +63,15 @@ useHead(() => {
 </script>
 
 <template>
-  <div>
-    <!-- Loading State -->
-    <div v-if="isLoading" class="min-h-full">
-      <SearchablePageHeader>
-        <template #filters>
-          <div class="h-7" />
-        </template>
-      </SearchablePageHeader>
-      <div
-        class="container mx-auto flex max-w-6xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8"
-      >
+  <div class="min-h-full">
+    <div
+      class="container mx-auto w-full max-w-6xl px-4 pt-[clamp(2.5rem,7vh,4.5rem)] pb-16 sm:px-6 lg:px-10"
+    >
+      <div v-if="isLoading" class="flex justify-center py-12">
         <LoadingText text="Loading contractors" />
       </div>
-    </div>
 
-    <!-- Error/Not Found State -->
-    <div v-else-if="error || !specialty" class="min-h-full">
-      <SearchablePageHeader />
-      <div
-        class="container mx-auto flex max-w-6xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8"
-      >
+      <div v-else-if="error || !specialty">
         <Empty>
           <EmptyMedia variant="icon">
             <Icon name="mdi:tag-off-outline" class="size-5" />
@@ -91,91 +82,111 @@ useHead(() => {
               The specialty "{{ slug }}" could not be found.
             </EmptyDescription>
           </EmptyContent>
-          <div class="flex justify-center gap-3">
-            <Button as-child variant="default">
-              <NuxtLink to="/companies">Browse All Contractors</NuxtLink>
-            </Button>
-          </div>
+          <Button as-child variant="default">
+            <NuxtLink to="/companies">Browse All Contractors</NuxtLink>
+          </Button>
         </Empty>
       </div>
-    </div>
 
-    <!-- Specialty Page -->
-    <div v-else class="min-h-full">
-      <!-- Page Header -->
-      <SearchablePageHeader>
-        <template #filters>
-          <!-- Breadcrumb -->
-          <div class="flex items-center gap-2 text-sm">
-            <NuxtLink
-              to="/companies"
-              class="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Companies
-            </NuxtLink>
-            <Icon
-              name="mdi:chevron-right"
-              class="text-muted-foreground/50 h-4 w-4"
-            />
-            <span class="text-foreground truncate font-medium">{{
-              specialty.name
-            }}</span>
-          </div>
-        </template>
-      </SearchablePageHeader>
+      <div v-else>
+        <div
+          class="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.7rem] tracking-[0.18em] uppercase"
+        >
+          <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
+          <span>Contractor directory</span>
+          <span class="text-muted-foreground/40">/</span>
+          <span>Specialty filter</span>
+        </div>
 
-      <!-- Main Content -->
-      <div class="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-        <!-- Hero Section -->
-        <div class="mb-8">
-          <h1 class="text-foreground mb-1 text-2xl font-bold md:text-3xl">
-            {{ specialty.name }} Contractors
-          </h1>
-          <p class="text-muted-foreground mb-4">
-            {{ specialty.contractorCount }} defense contractors
-          </p>
-          <div v-if="specialty.description" class="flex items-start gap-3">
+        <h1
+          class="text-foreground mt-6 max-w-3xl text-3xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
+        >
+          <span class="text-primary">{{ specialty.name }}</span>
+          contractors.
+        </h1>
+        <p
+          v-if="specialty.description"
+          class="text-muted-foreground mt-4 max-w-2xl text-base sm:text-lg"
+        >
+          {{ specialty.description }}
+        </p>
+
+        <div class="mt-6 flex flex-wrap items-center gap-2">
+          <span
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Active
+          </span>
+          <Badge variant="secondary" class="flex items-center gap-1">
             <Icon
               v-if="specialty.icon"
               :name="specialty.icon"
-              class="text-primary mt-0.5 h-5 w-5 shrink-0"
+              class="h-3 w-3"
             />
-            <Icon
-              v-else
-              name="mdi:tag-outline"
-              class="text-primary mt-0.5 h-5 w-5 shrink-0"
+            <Icon v-else name="mdi:tag-outline" class="h-3 w-3" />
+            Specialty: {{ specialty.name }}
+            <NuxtLink
+              to="/companies"
+              class="hover:text-destructive ml-1 transition-colors"
+            >
+              <Icon name="mdi:close" class="h-3 w-3" />
+            </NuxtLink>
+          </Badge>
+        </div>
+
+        <div class="mt-8">
+          <div
+            class="text-muted-foreground mb-3 flex items-center justify-between text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            <span>
+              {{ specialty.contractorCount }}
+              {{
+                specialty.contractorCount === 1 ? "contractor" : "contractors"
+              }}
+            </span>
+            <NuxtLink to="/companies" class="text-primary hover:underline">
+              All contractors →
+            </NuxtLink>
+          </div>
+
+          <div v-if="specialty.contractors?.length" class="space-y-2">
+            <ContractorResultItem
+              v-for="contractor in specialty.contractors"
+              :key="contractor.id"
+              :contractor="contractor"
             />
-            <p class="text-muted-foreground max-w-2xl">
-              {{ specialty.description }}
-            </p>
+          </div>
+
+          <div
+            v-else
+            class="border-border text-muted-foreground border p-8 text-center text-sm"
+          >
+            No contractors found in this specialty.
           </div>
         </div>
 
-        <!-- Contractors List -->
-        <div v-if="specialty.contractors?.length" class="space-y-2">
-          <ContractorResultItem
-            v-for="contractor in specialty.contractors"
-            :key="contractor.id"
-            :contractor="contractor"
-          />
-        </div>
-
-        <!-- Related Specialties -->
-        <div v-if="specialty.relatedSpecialties?.length" class="mt-12">
-          <h2 class="mb-4 text-lg font-semibold">Related Specialties</h2>
-          <div class="flex flex-wrap gap-3">
+        <div
+          v-if="specialty.relatedSpecialties?.length"
+          class="border-border mt-12 border-t pt-8"
+        >
+          <h2
+            class="text-foreground text-xs font-semibold tracking-[0.14em] uppercase"
+          >
+            Related specialties
+          </h2>
+          <div class="mt-4 flex flex-wrap gap-2">
             <NuxtLink
               v-for="related in specialty.relatedSpecialties"
               :key="related.id"
               :to="`/companies/specialty/${related.slug}`"
-              class="bg-muted/50 hover:bg-muted flex items-center gap-2 rounded-lg px-4 py-2 transition-colors"
+              class="border-border text-foreground/90 hover:border-primary hover:text-foreground inline-flex items-center gap-2 border px-3 py-2 text-sm transition-colors"
             >
               <Icon
                 v-if="related.icon"
                 :name="related.icon"
-                class="text-primary h-4 w-4"
+                class="text-muted-foreground h-4 w-4"
               />
-              <span class="text-sm font-medium">{{ related.name }}</span>
+              {{ related.name }}
             </NuxtLink>
           </div>
         </div>

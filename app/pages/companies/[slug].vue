@@ -11,6 +11,10 @@ import {
   formatIntelligenceMoney,
 } from "@/app/lib/intelligence-ui";
 
+definePageMeta({
+  layout: "homepage",
+});
+
 interface ContractorResponse {
   id: string;
   slug: string;
@@ -351,17 +355,17 @@ watchEffect(() => {
                 <div>
                   <dt class="text-muted-foreground">UEI</dt>
                   <dd class="text-foreground mt-1 font-mono text-xs">
-                    {{ intelligence.identifiers.uei || "N/A" }}
+                    {{ intelligence.identifiers?.uei || "N/A" }}
                   </dd>
                 </div>
                 <div>
                   <dt class="text-muted-foreground">CAGE</dt>
                   <dd class="text-foreground mt-1 font-mono text-xs">
-                    {{ intelligence.identifiers.cageCode || "N/A" }}
+                    {{ intelligence.identifiers?.cageCode || "N/A" }}
                   </dd>
                 </div>
               </dl>
-              <div v-if="intelligence.aliases.length" class="mt-4">
+              <div v-if="intelligence.aliases?.length" class="mt-4">
                 <p class="text-muted-foreground mb-2 text-xs">Aliases</p>
                 <div class="flex flex-wrap gap-2">
                   <Badge
@@ -421,7 +425,7 @@ watchEffect(() => {
           <div class="grid gap-8 xl:grid-cols-[minmax(0,1fr)_26rem]">
             <div class="min-w-0 space-y-8">
               <IntelligenceSection
-                v-if="intelligence.yearlyTrend.length"
+                v-if="intelligence.yearlyTrend?.length"
                 title="Fiscal-Year Trend"
               >
                 <IntelligenceTrendBars :rows="intelligence.yearlyTrend" />
@@ -430,14 +434,14 @@ watchEffect(() => {
               <div class="grid gap-8 lg:grid-cols-2">
                 <IntelligenceSection title="Agency Breakdown" flush>
                   <IntelligenceBucketTable
-                    :rows="intelligence.topSubAgencies.length ? intelligence.topSubAgencies : intelligence.topAgencies"
+                    :rows="intelligence.topSubAgencies?.length ? intelligence.topSubAgencies : (intelligence.topAgencies ?? [])"
                     code-label="Agency"
                   />
                 </IntelligenceSection>
 
                 <IntelligenceSection title="NAICS Breakdown" flush>
                   <IntelligenceBucketTable
-                    :rows="intelligence.topNaics"
+                    :rows="intelligence.topNaics ?? []"
                     code-label="NAICS"
                   />
                 </IntelligenceSection>
@@ -445,7 +449,7 @@ watchEffect(() => {
 
               <IntelligenceSection title="PSC Breakdown" flush>
                 <IntelligenceBucketTable
-                  :rows="intelligence.topPsc"
+                  :rows="intelligence.topPsc ?? []"
                   code-label="PSC"
                 />
               </IntelligenceSection>
@@ -455,7 +459,7 @@ watchEffect(() => {
                 description="Largest matched awards in the source-backed dossier."
                 flush
               >
-                <IntelligenceAwardList :awards="intelligence.topAwards" />
+                <IntelligenceAwardList :awards="intelligence.topAwards ?? []" />
               </IntelligenceSection>
 
               <IntelligenceSection
@@ -463,12 +467,12 @@ watchEffect(() => {
                 description="Most recent matched public award records."
                 flush
               >
-                <IntelligenceAwardList :awards="intelligence.recentAwards" />
+                <IntelligenceAwardList :awards="intelligence.recentAwards ?? []" />
               </IntelligenceSection>
 
               <IntelligenceSourceFooter
                 :metadata="intelligence.sourceMetadata"
-                :source-links="intelligence.sourceLinks"
+                :source-links="intelligence.sourceLinks ?? []"
               />
             </div>
 

@@ -12,6 +12,10 @@ import type {
 } from "@/app/types/intelligence.types";
 import { formatIntelligenceCell } from "@/app/lib/intelligence-ui";
 
+definePageMeta({
+  layout: "homepage",
+});
+
 const config = useRuntimeConfig();
 const route = useRoute();
 const router = useRouter();
@@ -26,9 +30,16 @@ const followUpResult = ref<FollowUpResult | null>(null);
 const pending = ref(false);
 const followUpPending = ref(false);
 const error = ref<string | null>(null);
+const mobilePanelOpen = ref(false);
 const tableKeys = computed(() =>
   result.value?.table[0] ? Object.keys(result.value.table[0]) : [],
 );
+
+watch(pending, (newVal, oldVal) => {
+  if (oldVal && !newVal && result.value) {
+    mobilePanelOpen.value = false;
+  }
+});
 
 useSeoMeta({
   title: "Defense Contractor Intelligence Explorer | military.contractors",
@@ -153,8 +164,31 @@ onMounted(() => {
     </IntelligencePageHeader>
 
     <section class="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div class="mb-4 lg:hidden">
+        <Button
+          type="button"
+          variant="outline"
+          class="w-full justify-between"
+          @click="mobilePanelOpen = !mobilePanelOpen"
+        >
+          <span class="inline-flex items-center">
+            <Icon name="mdi:tune-vertical" class="mr-2 h-4 w-4" />
+            {{ mobilePanelOpen ? "Hide refine panel" : "Refine query" }}
+          </span>
+          <Icon
+            :name="mobilePanelOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+            class="h-4 w-4"
+          />
+        </Button>
+      </div>
+
       <div class="grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)]">
-        <aside class="space-y-5">
+        <aside
+          :class="[
+            mobilePanelOpen ? 'block' : 'hidden lg:block',
+            'space-y-5',
+          ]"
+        >
           <div
             class="bg-card ring-primary/30 ring-offset-background p-4 ring-1 ring-offset-2"
           >

@@ -18,7 +18,7 @@ watch(
 </script>
 
 <template>
-  <div class="flex h-screen flex-col overflow-x-hidden">
+  <div class="mx-auto flex h-screen w-full max-w-screen-2xl flex-col overflow-x-hidden">
     <!-- Persistent Grid Background -->
     <div
       class="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"
@@ -104,52 +104,56 @@ watch(
 
     <!-- Mobile Navigation Sheet -->
     <Sheet v-model:open="mobileMenuOpen">
-      <SheetContent side="top" class="max-h-[80vh] w-full overflow-y-auto">
+      <SheetContent side="top" class="flex max-h-[80vh] w-full flex-col">
         <SheetHeader class="text-left">
           <SheetTitle class="text-left">Navigation</SheetTitle>
         </SheetHeader>
 
-        <!-- Mobile Search -->
-        <div class="mt-4 mb-6">
-          <HeaderSearch />
-        </div>
+        <ScrollArea class="-mx-6 flex-1 px-6">
+          <div class="py-2">
+            <!-- Mobile Search -->
+            <div class="mb-6">
+              <HeaderSearch />
+            </div>
 
-        <nav class="flex flex-col gap-3">
-          <NuxtLink
-            to="/explorer"
-            class="text-foreground hover:text-primary text-sm transition-colors"
-          >
-            Explorer
-          </NuxtLink>
-          <NuxtLink
-            to="/companies"
-            class="text-foreground hover:text-primary text-sm transition-colors"
-          >
-            Companies
-          </NuxtLink>
-          <NuxtLink
-            to="/rankings/top-defense-contractors"
-            class="text-foreground hover:text-primary text-sm transition-colors"
-          >
-            Rankings
-          </NuxtLink>
-          <NuxtLink
-            to="/agencies"
-            class="text-foreground hover:text-primary text-sm transition-colors"
-          >
-            Agencies
-          </NuxtLink>
-          <NuxtLink
-            to="/about"
-            class="text-foreground hover:text-primary text-sm transition-colors"
-          >
-            About
-          </NuxtLink>
-        </nav>
+            <nav class="flex flex-col gap-3">
+              <NuxtLink
+                to="/explorer"
+                class="text-foreground hover:text-primary text-sm transition-colors"
+              >
+                Explorer
+              </NuxtLink>
+              <NuxtLink
+                to="/companies"
+                class="text-foreground hover:text-primary text-sm transition-colors"
+              >
+                Companies
+              </NuxtLink>
+              <NuxtLink
+                to="/rankings/top-defense-contractors"
+                class="text-foreground hover:text-primary text-sm transition-colors"
+              >
+                Rankings
+              </NuxtLink>
+              <NuxtLink
+                to="/agencies"
+                class="text-foreground hover:text-primary text-sm transition-colors"
+              >
+                Agencies
+              </NuxtLink>
+              <NuxtLink
+                to="/about"
+                class="text-foreground hover:text-primary text-sm transition-colors"
+              >
+                About
+              </NuxtLink>
+            </nav>
 
-        <div class="mt-4">
-          <AuthButton />
-        </div>
+            <div class="mt-4">
+              <AuthButton />
+            </div>
+          </div>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
 

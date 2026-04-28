@@ -27,7 +27,7 @@ const links = computed(() =>
   <section class="border-border border-t pt-4">
     <div class="text-muted-foreground space-y-2 text-xs">
       <p>{{ sourceMetadataSummary(metadata) }}</p>
-      <p v-if="metadata?.filters.length">
+      <p v-if="metadata?.filters?.length">
         Filters:
         <span
           v-for="filter in metadata.filters"
@@ -37,7 +37,7 @@ const links = computed(() =>
           {{ filter.label }}={{ filter.value }}
         </span>
       </p>
-      <p v-if="metadata?.warnings.length" class="text-destructive">
+      <p v-if="metadata?.warnings?.length" class="text-destructive">
         {{ metadata.warnings.join(" ") }}
       </p>
     </div>

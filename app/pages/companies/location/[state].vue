@@ -5,6 +5,10 @@
 -->
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "homepage",
+});
+
 interface LocationResponse {
   state: string;
   contractorCount: number;
@@ -38,7 +42,6 @@ const {
   },
 );
 
-// SEO
 useHead(() => {
   if (!locationData.value) return {};
   return {
@@ -54,27 +57,15 @@ useHead(() => {
 </script>
 
 <template>
-  <div>
-    <!-- Loading State -->
-    <div v-if="isLoading" class="min-h-full">
-      <SearchablePageHeader>
-        <template #filters>
-          <div class="h-7" />
-        </template>
-      </SearchablePageHeader>
-      <div
-        class="container mx-auto flex max-w-6xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8"
-      >
+  <div class="min-h-full">
+    <div
+      class="container mx-auto w-full max-w-6xl px-4 pt-[clamp(2.5rem,7vh,4.5rem)] pb-16 sm:px-6 lg:px-10"
+    >
+      <div v-if="isLoading" class="flex justify-center py-12">
         <LoadingText text="Loading contractors" />
       </div>
-    </div>
 
-    <!-- Error/Not Found State -->
-    <div v-else-if="error || !locationData" class="min-h-full">
-      <SearchablePageHeader />
-      <div
-        class="container mx-auto flex max-w-6xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8"
-      >
+      <div v-else-if="error || !locationData">
         <Empty>
           <EmptyMedia variant="icon">
             <Icon name="mdi:map-marker-off" class="size-5" />
@@ -85,80 +76,82 @@ useHead(() => {
               No contractors found in "{{ state }}".
             </EmptyDescription>
           </EmptyContent>
-          <div class="flex justify-center gap-3">
-            <Button as-child variant="default">
-              <NuxtLink to="/companies">Browse All Contractors</NuxtLink>
-            </Button>
-          </div>
+          <Button as-child variant="default">
+            <NuxtLink to="/companies">Browse All Contractors</NuxtLink>
+          </Button>
         </Empty>
       </div>
-    </div>
 
-    <!-- Location Page -->
-    <div v-else class="min-h-full">
-      <!-- Page Header -->
-      <SearchablePageHeader>
-        <template #filters>
-          <!-- Breadcrumb -->
-          <div class="flex items-center gap-2 text-sm">
+      <div v-else>
+        <div
+          class="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.7rem] tracking-[0.18em] uppercase"
+        >
+          <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
+          <span>Contractor directory</span>
+          <span class="text-muted-foreground/40">/</span>
+          <span>Location filter</span>
+        </div>
+
+        <h1
+          class="text-foreground mt-6 max-w-3xl text-3xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
+        >
+          Contractors in
+          <span class="text-primary">{{ locationData.state }}</span>.
+        </h1>
+        <p class="text-muted-foreground mt-4 max-w-2xl text-base sm:text-lg">
+          Defense contractors with offices and operations in
+          {{ locationData.state }}.
+        </p>
+
+        <div class="mt-6 flex flex-wrap items-center gap-2">
+          <span
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Active
+          </span>
+          <Badge variant="secondary" class="flex items-center gap-1">
+            <Icon name="mdi:map-marker-outline" class="h-3 w-3" />
+            Location: {{ locationData.state }}
             <NuxtLink
               to="/companies"
-              class="text-muted-foreground hover:text-primary transition-colors"
+              class="hover:text-destructive ml-1 transition-colors"
             >
-              Companies
+              <Icon name="mdi:close" class="h-3 w-3" />
             </NuxtLink>
-            <Icon
-              name="mdi:chevron-right"
-              class="text-muted-foreground/50 h-4 w-4"
-            />
-            <span class="text-foreground truncate font-medium">{{
-              locationData.state
-            }}</span>
-          </div>
-        </template>
-      </SearchablePageHeader>
-
-      <!-- Main Content -->
-      <div class="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-        <!-- Hero Section -->
-        <div class="mb-8">
-          <h1 class="text-foreground mb-1 text-2xl font-bold md:text-3xl">
-            Defense Contractors in {{ locationData.state }}
-          </h1>
-          <p class="text-muted-foreground mb-4">
-            {{ locationData.contractorCount }} companies with offices in this
-            state
-          </p>
-          <div class="flex items-start gap-3">
-            <Icon
-              name="mdi:map-marker"
-              class="text-primary mt-0.5 h-5 w-5 shrink-0"
-            />
-            <p class="text-muted-foreground max-w-2xl">
-              Browse defense contractors with offices and operations in
-              {{ locationData.state }}.
-            </p>
-          </div>
+          </Badge>
         </div>
 
-        <!-- Contractors List -->
-        <div v-if="locationData.contractors?.length" class="space-y-2">
-          <ContractorResultItem
-            v-for="contractor in locationData.contractors"
-            :key="contractor.id"
-            :contractor="contractor"
-          />
-        </div>
+        <div class="mt-8">
+          <div
+            class="text-muted-foreground mb-3 flex items-center justify-between text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            <span>
+              {{ locationData.contractorCount }}
+              {{
+                locationData.contractorCount === 1
+                  ? "contractor"
+                  : "contractors"
+              }}
+            </span>
+            <NuxtLink to="/companies" class="text-primary hover:underline">
+              All contractors →
+            </NuxtLink>
+          </div>
 
-        <!-- Empty State -->
-        <div v-else class="border-border/30 bg-card/30 border p-8 text-center">
-          <Icon
-            name="mdi:office-building-outline"
-            class="text-muted-foreground mx-auto mb-4 h-12 w-12 opacity-50"
-          />
-          <p class="text-muted-foreground">
-            No contractors found with offices in {{ locationData.state }}
-          </p>
+          <div v-if="locationData.contractors?.length" class="space-y-2">
+            <ContractorResultItem
+              v-for="contractor in locationData.contractors"
+              :key="contractor.id"
+              :contractor="contractor"
+            />
+          </div>
+
+          <div
+            v-else
+            class="border-border text-muted-foreground border p-8 text-center text-sm"
+          >
+            No contractors found with offices in {{ locationData.state }}.
+          </div>
         </div>
       </div>
     </div>
