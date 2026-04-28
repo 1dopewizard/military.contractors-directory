@@ -484,8 +484,28 @@ export function sourceLinksForAwards(awards: AwardSummary[]): SourceLink[] {
   ];
 }
 
+const USA_SPENDING_BOILERPLATE_PATTERNS = [
+  /time period start and end dates are currently limited/i,
+  /'subawards' will be deprecated/i,
+  /spending_level/i,
+  /additional month, quarter and year results/i,
+  /action date.*outside of that time period/i,
+];
+
 export function formatUsaSpendingMessages(messages: string[]): string[] {
-  return [...new Set(messages.map((message) => message.trim()).filter(Boolean))];
+  return [
+    ...new Set(
+      messages
+        .map((message) => message.trim())
+        .filter(Boolean)
+        .filter(
+          (message) =>
+            !USA_SPENDING_BOILERPLATE_PATTERNS.some((pattern) =>
+              pattern.test(message),
+            ),
+        ),
+    ),
+  ];
 }
 
 export function filtersToLabels(input: UsaSpendingFiltersInput): IntelligenceFilter[] {

@@ -154,47 +154,75 @@ onMounted(() => {
 
     <section class="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <div class="grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)]">
-        <aside class="space-y-4">
-          <div class="border-border bg-background border p-4">
-            <form class="space-y-4" @submit.prevent="runQuery(false)">
-              <div class="space-y-2">
-                <Label for="explorer-query">Query</Label>
-                <Textarea
-                  id="explorer-query"
-                  v-model="query"
-                  class="min-h-32 resize-none rounded-none"
-                  placeholder="Ask about a contractor, agency, category, ranking, or keyword"
+        <aside class="space-y-5">
+          <div
+            class="bg-card ring-primary/30 ring-offset-background p-4 ring-1 ring-offset-2"
+          >
+            <form class="space-y-3" @submit.prevent="runQuery(false)">
+              <div class="flex items-center gap-2">
+                <Icon
+                  name="mdi:database-search"
+                  class="text-primary h-4 w-4"
                 />
+                <Label
+                  for="explorer-query"
+                  class="text-foreground text-[0.7rem] font-semibold tracking-[0.18em] uppercase"
+                >
+                  Query
+                </Label>
               </div>
-              <div class="grid grid-cols-2 gap-2">
+              <Textarea
+                id="explorer-query"
+                v-model="query"
+                class="min-h-32 resize-none rounded-none border-0 bg-transparent px-0 focus-visible:ring-0"
+                placeholder="Ask about a contractor, agency, category, ranking, or keyword"
+              />
+              <div class="grid grid-cols-[1fr_auto] gap-2">
                 <Button type="submit" :disabled="pending">
                   <Icon
                     v-if="pending"
                     name="mdi:loading"
                     class="mr-2 h-4 w-4 animate-spin"
                   />
-                  Run
+                  Run query
+                  <Icon
+                    v-if="!pending"
+                    name="mdi:arrow-right"
+                    class="ml-2 h-4 w-4"
+                  />
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   :disabled="pending"
+                  title="Bypass cache"
                   @click="runQuery(true)"
                 >
-                  Refresh
+                  <Icon name="mdi:refresh" class="h-4 w-4" />
+                  <span class="sr-only">Refresh</span>
                 </Button>
               </div>
             </form>
           </div>
 
           <div class="border-border bg-background border p-4">
-            <p class="text-foreground mb-3 text-sm font-medium">Presets</p>
+            <div class="mb-3 flex items-center justify-between">
+              <p
+                class="text-foreground text-[0.7rem] font-semibold tracking-[0.18em] uppercase"
+              >
+                Presets
+              </p>
+              <Icon
+                name="mdi:lightning-bolt-outline"
+                class="text-muted-foreground h-3.5 w-3.5"
+              />
+            </div>
             <div class="space-y-2">
               <button
                 v-for="example in examples"
                 :key="example"
                 type="button"
-                class="border-border text-muted-foreground hover:text-foreground w-full border px-3 py-2 text-left text-sm transition-colors"
+                class="border-border text-muted-foreground hover:border-primary hover:text-foreground w-full border px-3 py-2 text-left text-sm transition-colors"
                 @click="useExample(example)"
               >
                 {{ example }}
@@ -204,23 +232,34 @@ onMounted(() => {
 
           <div v-if="result" class="border-border bg-background border p-4">
             <form class="space-y-3" @submit.prevent="runFollowUp">
-              <Label for="follow-up">Follow-up</Label>
+              <div class="flex items-center justify-between">
+                <Label
+                  for="follow-up"
+                  class="text-foreground text-[0.7rem] font-semibold tracking-[0.18em] uppercase"
+                >
+                  Follow-up
+                </Label>
+                <Icon
+                  name="mdi:reply-outline"
+                  class="text-muted-foreground h-3.5 w-3.5"
+                />
+              </div>
               <Textarea
                 id="follow-up"
                 v-model="followUp"
                 class="min-h-24 resize-none rounded-none"
                 placeholder="Refine, pivot, or ask about this result"
               />
-              <div class="grid grid-cols-3 gap-1">
+              <div class="bg-muted/60 inline-flex w-full p-0.5">
                 <button
                   v-for="mode in followUpModes"
                   :key="mode"
                   type="button"
-                  class="border-border border px-2 py-1.5 text-xs capitalize"
+                  class="flex-1 px-2 py-1 text-xs capitalize transition-colors"
                   :class="
                     followUpMode === mode
                       ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground'
+                      : 'text-muted-foreground hover:text-foreground'
                   "
                   @click="setFollowUpMode(mode)"
                 >
@@ -246,28 +285,50 @@ onMounted(() => {
             :message="error"
           />
 
-          <div v-if="pending" class="border-border border p-8">
+          <div
+            v-if="pending"
+            class="border-primary/40 bg-card border-l-2 p-8"
+          >
             <LoadingText text="Querying USAspending data" />
           </div>
 
           <template v-else-if="result">
-            <section class="border-border bg-background border p-5">
-              <div class="mb-4 flex flex-wrap items-center gap-2">
-                <Badge variant="secondary">{{ result.resultType }}</Badge>
-                <Badge v-if="result.cached" variant="outline">Cached</Badge>
-                <Badge variant="outline">
+            <section class="border-primary/40 bg-card border-l-2">
+              <div
+                class="border-border bg-background flex flex-wrap items-center justify-between gap-2 border-b px-5 py-3"
+              >
+                <div class="flex items-center gap-2">
+                  <span
+                    class="bg-primary inline-block h-2 w-2 rounded-full"
+                  />
+                  <span
+                    class="text-foreground text-[0.7rem] font-semibold tracking-[0.18em] uppercase"
+                  >
+                    Result
+                  </span>
+                  <span class="text-muted-foreground/50">·</span>
+                  <Badge variant="secondary" class="text-xs">
+                    {{ result.resultType }}
+                  </Badge>
+                  <Badge v-if="result.cached" variant="outline" class="text-xs">
+                    Cached
+                  </Badge>
+                </div>
+                <Badge variant="outline" class="text-xs tabular-nums">
                   {{ result.sourceMetadata.structuredRecords }} records
                 </Badge>
               </div>
-              <p class="text-foreground max-w-4xl leading-relaxed">
-                {{ result.summary }}
-              </p>
-              <p
-                v-if="followUpResult?.answer"
-                class="border-border text-muted-foreground mt-4 border-t pt-4 text-sm"
-              >
-                {{ followUpResult.answer }}
-              </p>
+              <div class="p-5">
+                <p class="text-foreground max-w-4xl leading-relaxed">
+                  {{ result.summary }}
+                </p>
+                <p
+                  v-if="followUpResult?.answer"
+                  class="border-border text-muted-foreground mt-4 border-t pt-4 text-sm"
+                >
+                  {{ followUpResult.answer }}
+                </p>
+              </div>
             </section>
 
             <IntelligenceMetricStrip :metrics="result.cards" />

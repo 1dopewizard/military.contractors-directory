@@ -1137,8 +1137,15 @@ async function getExplorerCacheByHash(queryHash: string): Promise<{
     .limit(1);
 
   if (!entry?.result) return null;
+  const result = entry.result as ExplorerResult | ContractorIntelligence;
+  if (result.sourceMetadata?.warnings?.length) {
+    result.sourceMetadata = {
+      ...result.sourceMetadata,
+      warnings: formatUsaSpendingMessages(result.sourceMetadata.warnings),
+    };
+  }
   return {
-    result: entry.result as ExplorerResult | ContractorIntelligence,
+    result,
     refreshedAt: entry.refreshedAt,
   };
 }

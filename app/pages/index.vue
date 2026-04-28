@@ -131,12 +131,6 @@ const categoryLinks = [
   { label: "Agencies", to: "/agencies" },
 ];
 
-const { data: topContractorsData, pending: contractorsPending } =
-  useFetch<ContractorResponse>("/api/contractors?sort=rank&limit=6", {
-    lazy: true,
-    default: () => ({ contractors: [], total: 0 }),
-  });
-
 const { data: allContractorsData } = useFetch<ContractorResponse>(
   "/api/contractors?limit=50",
   {
@@ -171,9 +165,6 @@ const { data: topIntelligenceData, pending: topIntelligencePending } =
     },
   );
 
-const topContractors = computed(
-  () => topContractorsData.value?.contractors ?? [],
-);
 const totalContractors = computed(() => allContractorsData.value?.total ?? 0);
 const specialties = computed(() => specialtiesData.value?.specialties ?? []);
 const topIntelligence = computed(
@@ -195,12 +186,6 @@ const maxChartValue = computed(() => {
   const chart = explorerResult.value?.chart ?? [];
   return chart.reduce((max, item) => Math.max(max, item.obligation), 0);
 });
-
-const formatRevenue = (revenue: number | null | undefined): string => {
-  if (revenue == null) return "N/A";
-  if (revenue >= 1) return `$${revenue.toFixed(1)}B`;
-  return `$${(revenue * 1000).toFixed(0)}M`;
-};
 
 const formatObligation = (value: number | null | undefined): string => {
   if (typeof value !== "number") return "N/A";
@@ -255,26 +240,51 @@ const useExample = (query: string) => {
 
 <template>
   <div class="min-h-full">
-    <section>
+    <section class="border-border border-b">
       <div
-        class="container mx-auto px-4 pt-[clamp(2.5rem,8vh,4.5rem)] pb-6 sm:px-6 lg:px-8"
+        class="container mx-auto px-4 pt-[clamp(3rem,9vh,5.5rem)] pb-12 sm:px-6 lg:px-8"
       >
-        <div class="mx-auto max-w-4xl text-center">
-          <Badge variant="outline" class="mb-5">Public award intelligence</Badge>
-          <h1
-            class="text-foreground text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
+        <div class="mx-auto max-w-5xl">
+          <div
+            class="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.7rem] tracking-[0.18em] uppercase"
           >
-            Open defense contractor intelligence.
+            <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
+            <span>Public award intelligence</span>
+            <span class="text-muted-foreground/40">/</span>
+            <span>USAspending.gov</span>
+            <span class="text-muted-foreground/40">/</span>
+            <span>
+              {{
+                homepageFiscalYears.length
+                  ? homepageFiscalYears.map((y) => `FY${y}`).join(", ")
+                  : "Latest FY"
+              }}
+            </span>
+            <span class="text-muted-foreground/40">/</span>
+            <span class="text-foreground/80">
+              {{ topIntelligenceData.sourceMetadata.cacheStatus }}
+            </span>
+          </div>
+
+          <h1
+            class="text-foreground mt-6 max-w-4xl text-4xl leading-[1.02] font-bold tracking-tight sm:text-6xl"
+          >
+            Open defense contractor
+            <span class="text-primary">intelligence</span>.
           </h1>
-          <p class="text-muted-foreground mx-auto mt-5 max-w-2xl text-lg sm:text-xl">
+          <p class="text-muted-foreground mt-5 max-w-2xl text-lg sm:text-xl">
             Search companies, agencies, NAICS/PSC codes, awards, and spending
             trends from structured public records.
           </p>
 
           <form
-            class="border-border bg-background/80 mx-auto mt-7 flex max-w-3xl flex-col border p-2 text-left sm:flex-row sm:items-center"
+            class="bg-card ring-primary/30 ring-offset-background mt-8 flex max-w-3xl flex-col p-2 ring-1 ring-offset-2 sm:flex-row sm:items-center"
             @submit.prevent="runExplorer"
           >
+            <Icon
+              name="mdi:database-search"
+              class="text-muted-foreground ml-2 hidden h-5 w-5 shrink-0 sm:block"
+            />
             <Input
               v-model="explorerQuery"
               class="h-12 flex-1 border-0 bg-transparent px-3 text-base focus-visible:ring-0"
@@ -290,69 +300,76 @@ const useExample = (query: string) => {
                 name="mdi:loading"
                 class="mr-2 h-4 w-4 animate-spin"
               />
-              <Icon v-else name="mdi:database-search" class="mr-2 h-4 w-4" />
-              Search
+              <span>Run query</span>
+              <Icon
+                v-if="!explorerPending"
+                name="mdi:arrow-right"
+                class="ml-2 h-4 w-4"
+              />
             </Button>
           </form>
 
-          <div class="mx-auto mt-5 flex max-w-3xl flex-wrap justify-center gap-2">
+          <div class="mt-5 flex max-w-3xl flex-wrap items-center gap-2">
+            <span
+              class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+            >
+              Try
+            </span>
             <button
               v-for="query in exampleQueries"
               :key="query"
               type="button"
-              class="border-border text-muted-foreground hover:text-foreground bg-background/70 border px-3 py-1.5 text-xs transition-colors"
+              class="border-border text-muted-foreground hover:border-primary hover:text-foreground bg-background/70 border px-3 py-1.5 text-xs transition-colors"
               @click="useExample(query)"
             >
               {{ query }}
             </button>
-          </div>
-
-          <div
-            class="text-muted-foreground mt-5 flex flex-col items-center justify-center gap-2 text-xs sm:flex-row sm:gap-4"
-          >
-            <span>Source-backed USAspending records</span>
-            <span class="hidden text-muted-foreground/40 sm:inline">|</span>
-            <span>
-              {{ topIntelligenceData.sourceMetadata.freshness || "Freshness loading" }}
-            </span>
-            <span class="hidden text-muted-foreground/40 sm:inline">|</span>
-            <NuxtLink to="/explorer" class="hover:text-foreground transition-colors">
-              Open full explorer
+            <NuxtLink
+              to="/explorer"
+              class="text-primary ml-auto text-xs hover:underline"
+            >
+              Open full explorer →
             </NuxtLink>
-          </div>
-
-          <div
-            class="border-border bg-background/70 mx-auto mt-5 grid max-w-3xl gap-3 border px-3 py-3 text-left text-xs sm:grid-cols-3"
-          >
-            <div>
-              <p class="text-muted-foreground">Data source</p>
-              <p class="text-foreground mt-1 font-medium">USAspending.gov</p>
-            </div>
-            <div>
-              <p class="text-muted-foreground">Window</p>
-              <p class="text-foreground mt-1 font-medium">
-                {{
-                  homepageFiscalYears.length
-                    ? homepageFiscalYears.map((year) => `FY${year}`).join(", ")
-                    : "Latest fiscal year"
-                }}
-              </p>
-            </div>
-            <div>
-              <p class="text-muted-foreground">Status</p>
-              <p class="text-foreground mt-1 font-medium">
-                {{ topIntelligenceData.sourceMetadata.cacheStatus }}
-              </p>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section v-if="explorerPending || explorerError || explorerResult">
-      <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <section v-if="explorerPending || explorerError || explorerResult" class="border-border border-b">
+      <div class="container mx-auto px-4 py-10 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-5xl">
-          <div class="border-border bg-background/80 border p-4 sm:p-5">
+          <div class="border-primary/40 bg-card border-l-2">
+            <div
+              class="border-border bg-background flex flex-wrap items-center justify-between gap-2 border-b px-5 py-3"
+            >
+              <div class="flex items-center gap-2">
+                <span class="bg-primary inline-block h-2 w-2 animate-pulse rounded-full" />
+                <span
+                  class="text-foreground text-[0.7rem] font-semibold tracking-[0.18em] uppercase"
+                >
+                  Result
+                </span>
+                <template v-if="explorerResult">
+                  <span class="text-muted-foreground/50">·</span>
+                  <Badge variant="secondary" class="text-xs">
+                    {{ explorerResult.resultType }}
+                  </Badge>
+                  <Badge v-if="explorerResult.cached" variant="outline" class="text-xs">
+                    Cached
+                  </Badge>
+                </template>
+              </div>
+              <NuxtLink
+                v-if="explorerResult"
+                to="/explorer"
+                class="text-muted-foreground hover:text-foreground inline-flex items-center text-xs transition-colors"
+              >
+                Continue in Explorer
+                <Icon name="mdi:arrow-right" class="ml-1 h-3.5 w-3.5" />
+              </NuxtLink>
+            </div>
+
+          <div class="p-5 sm:p-6">
             <div v-if="explorerPending" class="flex min-h-40 items-center">
               <LoadingText text="Querying structured award data" />
             </div>
@@ -370,25 +387,10 @@ const useExample = (query: string) => {
             </div>
 
             <div v-else-if="explorerResult" class="space-y-5">
-              <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                <div class="max-w-3xl">
-                  <div class="mb-2 flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary">{{ explorerResult.resultType }}</Badge>
-                    <Badge v-if="explorerResult.cached" variant="outline">
-                      Cached
-                    </Badge>
-                  </div>
-                  <p class="text-foreground text-sm leading-relaxed">
-                    {{ explorerResult.summary }}
-                  </p>
-                </div>
-                <NuxtLink
-                  to="/explorer"
-                  class="text-muted-foreground hover:text-foreground inline-flex shrink-0 items-center text-sm transition-colors"
-                >
-                  Continue in Explorer
-                  <Icon name="mdi:arrow-right" class="ml-1 h-4 w-4" />
-                </NuxtLink>
+              <div>
+                <p class="text-foreground text-base leading-relaxed">
+                  {{ explorerResult.summary }}
+                </p>
               </div>
 
               <div v-if="explorerResult.filtersUsed.length" class="flex flex-wrap gap-2">
@@ -492,42 +494,58 @@ const useExample = (query: string) => {
               </div>
             </div>
           </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <section class="border-border border-b">
+      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-5xl">
-          <div class="divide-border grid grid-cols-3 divide-x">
-            <div class="px-4 text-center sm:px-8">
+          <div class="grid grid-cols-1 gap-10 sm:grid-cols-3">
+            <div>
               <div
-                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl"
+                class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+              >
+                Contractors
+              </div>
+              <div
+                class="text-foreground mt-2 text-4xl font-bold tracking-tight tabular-nums sm:text-5xl"
               >
                 {{ totalContractors }}
               </div>
-              <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
-                Contractors
+              <div class="text-muted-foreground mt-2 text-xs">
+                Indexed in directory
               </div>
             </div>
-            <div class="px-4 text-center sm:px-8">
+            <div>
               <div
-                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl"
+                class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+              >
+                Categories
+              </div>
+              <div
+                class="text-foreground mt-2 text-4xl font-bold tracking-tight tabular-nums sm:text-5xl"
               >
                 {{ specialties.length }}
               </div>
-              <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
-                Categories
+              <div class="text-muted-foreground mt-2 text-xs">
+                NAICS / PSC / specialty groups
               </div>
             </div>
-            <div class="px-4 text-center sm:px-8">
+            <div>
               <div
-                class="text-foreground text-2xl font-bold tracking-tight tabular-nums sm:text-3xl"
+                class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+              >
+                Defense revenue
+              </div>
+              <div
+                class="text-foreground mt-2 text-4xl font-bold tracking-tight tabular-nums sm:text-5xl"
               >
                 {{ formatTotalRevenue(totalDefenseRevenue) }}
               </div>
-              <div class="text-muted-foreground mt-1 text-xs sm:text-sm">
-                Defense Revenue Context
+              <div class="text-muted-foreground mt-2 text-xs">
+                Aggregated context, top 50
               </div>
             </div>
           </div>
@@ -535,51 +553,107 @@ const useExample = (query: string) => {
       </div>
     </section>
 
-    <section>
-      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-3">
-          <div>
-            <h2 class="text-foreground text-xl font-bold">Rankings</h2>
-            <div class="border-border mt-4 border-t">
-              <NuxtLink
-                v-for="link in rankingLinks"
-                :key="link.to"
-                :to="link.to"
-                class="border-border hover:bg-muted/50 flex items-center justify-between border-b py-3 text-sm transition-colors"
-              >
-                <span>{{ link.label }}</span>
-                <Icon name="mdi:arrow-right" class="h-4 w-4" />
-              </NuxtLink>
+    <section class="border-border border-b">
+      <div class="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-5xl">
+          <div class="bg-border grid gap-px lg:grid-cols-3">
+            <div class="bg-background p-6">
+              <div class="flex items-baseline justify-between">
+                <h2
+                  class="text-foreground text-sm font-semibold tracking-[0.14em] uppercase"
+                >
+                  Rankings
+                </h2>
+                <Icon
+                  name="mdi:trophy-outline"
+                  class="text-muted-foreground h-4 w-4"
+                />
+              </div>
+              <p class="text-muted-foreground mt-1 text-xs">
+                Source-backed contractor leaderboards.
+              </p>
+              <div class="border-border mt-5 border-t">
+                <NuxtLink
+                  v-for="link in rankingLinks"
+                  :key="link.to"
+                  :to="link.to"
+                  class="border-border group hover:bg-muted/40 flex items-center justify-between border-b py-2.5 text-sm transition-colors"
+                >
+                  <span class="group-hover:text-primary transition-colors">
+                    {{ link.label }}
+                  </span>
+                  <Icon
+                    name="mdi:arrow-top-right"
+                    class="text-muted-foreground h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100"
+                  />
+                </NuxtLink>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <h2 class="text-foreground text-xl font-bold">Topics</h2>
-            <div class="border-border mt-4 border-t">
-              <NuxtLink
-                v-for="link in topicLinks"
-                :key="link.to"
-                :to="link.to"
-                class="border-border hover:bg-muted/50 flex items-center justify-between border-b py-3 text-sm transition-colors"
-              >
-                <span>{{ link.label }}</span>
-                <Icon name="mdi:arrow-right" class="h-4 w-4" />
-              </NuxtLink>
+            <div class="bg-background p-6">
+              <div class="flex items-baseline justify-between">
+                <h2
+                  class="text-foreground text-sm font-semibold tracking-[0.14em] uppercase"
+                >
+                  Topics
+                </h2>
+                <Icon
+                  name="mdi:tag-outline"
+                  class="text-muted-foreground h-4 w-4"
+                />
+              </div>
+              <p class="text-muted-foreground mt-1 text-xs">
+                Curated mission and capability lenses.
+              </p>
+              <div class="border-border mt-5 border-t">
+                <NuxtLink
+                  v-for="link in topicLinks"
+                  :key="link.to"
+                  :to="link.to"
+                  class="border-border group hover:bg-muted/40 flex items-center justify-between border-b py-2.5 text-sm transition-colors"
+                >
+                  <span class="group-hover:text-primary transition-colors">
+                    {{ link.label }}
+                  </span>
+                  <Icon
+                    name="mdi:arrow-top-right"
+                    class="text-muted-foreground h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100"
+                  />
+                </NuxtLink>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <h2 class="text-foreground text-xl font-bold">Categories</h2>
-            <div class="border-border mt-4 border-t">
-              <NuxtLink
-                v-for="link in categoryLinks"
-                :key="link.to"
-                :to="link.to"
-                class="border-border hover:bg-muted/50 flex items-center justify-between border-b py-3 text-sm transition-colors"
-              >
-                <span>{{ link.label }}</span>
-                <Icon name="mdi:arrow-right" class="h-4 w-4" />
-              </NuxtLink>
+            <div class="bg-background p-6">
+              <div class="flex items-baseline justify-between">
+                <h2
+                  class="text-foreground text-sm font-semibold tracking-[0.14em] uppercase"
+                >
+                  Categories
+                </h2>
+                <Icon
+                  name="mdi:code-tags"
+                  class="text-muted-foreground h-4 w-4"
+                />
+              </div>
+              <p class="text-muted-foreground mt-1 text-xs">
+                Browse by NAICS, PSC, or agency code.
+              </p>
+              <div class="border-border mt-5 border-t">
+                <NuxtLink
+                  v-for="link in categoryLinks"
+                  :key="link.to"
+                  :to="link.to"
+                  class="border-border group hover:bg-muted/40 flex items-center justify-between border-b py-2.5 text-sm transition-colors"
+                >
+                  <span class="group-hover:text-primary transition-colors">
+                    {{ link.label }}
+                  </span>
+                  <Icon
+                    name="mdi:arrow-top-right"
+                    class="text-muted-foreground h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100"
+                  />
+                </NuxtLink>
+              </div>
             </div>
           </div>
         </div>
@@ -609,7 +683,7 @@ const useExample = (query: string) => {
           <div v-if="topIntelligencePending" class="border-border border p-8">
             <LoadingText text="Loading public ranking" />
           </div>
-          <IntelligenceRankingTable
+          <IntelligenceRankingList
             v-else
             :rows="topIntelligence"
             empty-text="No public ranking records available."
@@ -623,70 +697,5 @@ const useExample = (query: string) => {
       </div>
     </section>
 
-    <section>
-      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-5xl">
-          <div class="mb-8 flex items-baseline justify-between">
-            <h2 class="text-foreground text-xl font-bold sm:text-2xl">
-              Major Contractors
-            </h2>
-            <NuxtLink
-              to="/companies"
-              class="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            >
-              View all
-            </NuxtLink>
-          </div>
-
-          <div
-            v-if="contractorsPending"
-            class="bg-border grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3"
-          >
-            <div v-for="i in 6" :key="i" class="bg-background animate-pulse p-6">
-              <div class="space-y-3">
-                <div class="bg-muted h-5 w-2/3" />
-                <div class="bg-muted/50 h-4 w-1/2" />
-                <div class="bg-muted/50 h-4 w-1/3" />
-              </div>
-            </div>
-          </div>
-
-          <div
-            v-else
-            class="border-border grid grid-cols-1 border-t border-l bg-transparent sm:grid-cols-2 lg:grid-cols-3"
-          >
-            <NuxtLink
-              v-for="contractor in topContractors"
-              :key="contractor.id"
-              :to="`/companies/${contractor.slug}`"
-              class="group hover:bg-muted/50 border-border border-r border-b p-5 transition-colors sm:p-6"
-            >
-              <div class="space-y-3">
-                <h3
-                  class="text-foreground group-hover:text-primary text-base leading-tight font-semibold transition-colors"
-                >
-                  {{ contractor.name }}
-                </h3>
-                <div class="text-muted-foreground space-y-1 text-sm">
-                  <div
-                    v-if="contractor.defenseRevenue != null"
-                    class="text-foreground font-medium"
-                  >
-                    {{ formatRevenue(contractor.defenseRevenue) }} defense
-                    revenue context
-                  </div>
-                  <div v-if="contractor.headquarters" class="truncate">
-                    {{ contractor.headquarters }}
-                  </div>
-                  <div v-if="contractor.primarySpecialty" class="text-xs">
-                    {{ contractor.primarySpecialty.name }}
-                  </div>
-                </div>
-              </div>
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
