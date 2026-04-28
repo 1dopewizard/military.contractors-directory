@@ -186,11 +186,6 @@ watch(
           >
             <p>© {{ currentYear }} military.contractors</p>
             <div class="flex items-center gap-4">
-              <NuxtLink
-                to="/for-companies"
-                class="hover:text-primary transition-colors"
-                >For Companies</NuxtLink
-              >
               <NuxtLink to="/about" class="hover:text-primary transition-colors"
                 >About</NuxtLink
               >

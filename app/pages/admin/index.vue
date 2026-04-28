@@ -17,8 +17,11 @@ useHead({
 const logger = useLogger("AdminDashboard");
 const route = useRoute();
 const router = useRouter();
-const { isAuthReady } = useAuth();
-const { displayName } = useUserProfile();
+const { isAuthReady, userEmail } = useAuth();
+const displayName = computed(() => {
+  const value = userEmail.value;
+  return value ? value.split("@")[0] : "Admin";
+});
 
 // Tab management with URL persistence
 type TabItem = {
@@ -29,12 +32,6 @@ type TabItem = {
 
 const tabs = computed<TabItem[]>(() => [
   { id: "overview", label: "Overview", icon: "mdi:view-dashboard-outline" },
-  { id: "claims", label: "Claims", icon: "mdi:shield-check-outline" },
-  {
-    id: "content",
-    label: "Content Review",
-    icon: "mdi:text-box-check-outline",
-  },
   {
     id: "contractors",
     label: "Contractors",
@@ -79,13 +76,6 @@ interface SystemHealth {
     total: number;
     withLogos: number;
   };
-  claims: {
-    pending: number;
-    approved: number;
-  };
-  content: {
-    pendingReview: number;
-  };
 }
 
 const {
@@ -96,7 +86,7 @@ const {
 
 // Keyboard navigation
 const shortcuts = [
-  { key: "1-6", description: "Switch tabs" },
+  { key: "1-4", description: "Switch tabs" },
   { key: "/", description: "Search" },
   { key: "r", description: "Refresh" },
 ];
@@ -280,12 +270,6 @@ onUnmounted(() => {
                   @set-tab="setActiveTab"
                   @refresh="refreshHealth"
                 />
-
-                <!-- Claims Tab -->
-                <AdminClaimReview v-else-if="activeTab === 'claims'" />
-
-                <!-- Content Review Tab -->
-                <AdminContentReview v-else-if="activeTab === 'content'" />
 
                 <!-- Contractors Tab -->
                 <AdminContractorList v-else-if="activeTab === 'contractors'" />

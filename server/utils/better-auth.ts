@@ -8,11 +8,9 @@
 
 import type { H3Event } from "h3";
 import { auth } from "./auth";
-import { db, schema } from "./db";
-import { eq } from "drizzle-orm";
 import { isAdminEmail } from "@/app/config/auth";
 
-export type UserRole = "admin" | "recruiter" | "user" | "none";
+export type UserRole = "admin" | "user" | "none";
 
 export interface AuthUser {
   id: string;
@@ -106,29 +104,7 @@ export async function isAdmin(event: H3Event): Promise<boolean> {
 }
 
 /**
- * Check if the current user is a recruiter
- */
-export async function isRecruiter(event: H3Event): Promise<boolean> {
-  const user = await getServerUser(event);
-  if (!user?.email) return false;
-
-  // Admins have all permissions including recruiter
-  if (await isAdmin(event)) return true;
-
-  // Check recruiter access table in libSQL
-  try {
-    const access = await db.query.recruiterAccess.findFirst({
-      where: eq(schema.recruiterAccess.email, user.email.toLowerCase()),
-    });
-    return access !== null;
-  } catch (error) {
-    console.error("Failed to check recruiter access:", error);
-    return false;
-  }
-}
-
-/**
- * Get the user's role (admin takes precedence over recruiter)
+ * Get the user's role
  */
 export async function getUserRole(event: H3Event): Promise<RoleCheckResult> {
   const user = await getServerUser(event);
@@ -137,26 +113,12 @@ export async function getUserRole(event: H3Event): Promise<RoleCheckResult> {
     return { role: "none", userId: null, email: null, user: null };
   }
 
-  // Check admin first (admins have all permissions)
   if (
     isAdminEmail(user.email) ||
     user.isAdmin === true ||
     user.role === "admin"
   ) {
     return { role: "admin", userId: user.id, email: user.email, user };
-  }
-
-  // Check recruiter access in libSQL
-  try {
-    const access = await db.query.recruiterAccess.findFirst({
-      where: eq(schema.recruiterAccess.email, user.email.toLowerCase()),
-    });
-
-    if (access) {
-      return { role: "recruiter", userId: user.id, email: user.email, user };
-    }
-  } catch (error) {
-    console.error("Failed to check recruiter access:", error);
   }
 
   return { role: "user", userId: user.id, email: user.email, user };
@@ -197,27 +159,3 @@ export async function requireAdmin(event: H3Event): Promise<AuthUser> {
   return user;
 }
 
-/**
- * Require admin or recruiter role - throws 403 if neither
- */
-export async function requireAdminOrRecruiter(
-  event: H3Event,
-): Promise<{ user: AuthUser; role: UserRole }> {
-  const { role, user } = await getUserRole(event);
-
-  if (role === "none") {
-    throw createError({
-      statusCode: 401,
-      statusMessage: "Authentication required",
-    });
-  }
-
-  if (role === "user") {
-    throw createError({
-      statusCode: 403,
-      statusMessage: "Admin or recruiter access required",
-    });
-  }
-
-  return { user: user!, role };
-}

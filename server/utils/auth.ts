@@ -15,7 +15,7 @@ import { magicLink } from "better-auth/plugins";
 import { createAuthMiddleware } from "better-auth/api";
 import { eq } from "drizzle-orm";
 import { db } from "../database";
-import { user as userTable, profile as profileTable } from "../database/schema";
+import { user as userTable } from "../database/schema";
 import { isAdminEmail } from "@/app/config/auth";
 
 /**
@@ -180,34 +180,6 @@ async function updateUserOnLogin(userId: string, email: string): Promise<void> {
 }
 
 /**
- * Ensure user has a profile record
- * Called after successful authentication to maintain user profile data
- *
- * This creates a profile record if one doesn't exist, allowing
- * users to set their preferences (branch, MOS, clearance, etc.)
- */
-async function ensureUserProfile(userId: string): Promise<void> {
-  try {
-    // Check if profile exists
-    const existingProfile = await db.query.profile.findFirst({
-      where: eq(profileTable.userId, userId),
-    });
-
-    if (!existingProfile) {
-      // Create empty profile for the user
-      await db.insert(profileTable).values({
-        userId,
-      });
-      console.log("Created profile for user:", userId);
-    }
-  } catch (error) {
-    // Log but don't fail auth if profile creation fails
-    // The user can still authenticate; profile can be created later
-    console.error("Failed to ensure user profile:", error);
-  }
-}
-
-/**
  * Better Auth instance
  *
  * Configuration:
@@ -301,9 +273,6 @@ export const auth = betterAuth({
 
           // Update login metadata and admin status in Better Auth database
           await updateUserOnLogin(user.id, user.email);
-
-          // Ensure user has a profile record
-          await ensureUserProfile(user.id);
         }
       }
     }),

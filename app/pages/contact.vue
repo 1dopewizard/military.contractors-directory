@@ -95,18 +95,6 @@ const handleSubmit = async () => {
             </p>
           </div>
 
-          <div>
-            <h2 class="text-foreground font-medium">For companies</h2>
-            <p class="text-muted-foreground text-sm">
-              Interested in claiming your company profile?
-              <NuxtLink
-                to="/for-companies"
-                class="text-primary hover:underline"
-              >
-                Learn more
-              </NuxtLink>
-            </p>
-          </div>
         </div>
 
         <!-- Contact Form -->

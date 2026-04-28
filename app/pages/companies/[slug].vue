@@ -58,36 +58,6 @@ interface ContractorResponse {
     country: string;
     isHeadquarters: boolean;
   }>;
-  claimedProfile: {
-    tier: string;
-    verifiedAt: string | null;
-  } | null;
-  benefits: Array<{
-    id: string;
-    icon: string;
-    title: string;
-    description: string;
-  }>;
-  programs: Array<{
-    id: string;
-    name: string;
-    category: string | null;
-    description: string | null;
-  }>;
-  spotlight: {
-    title: string;
-    content: string;
-    mediaUrl: string | null;
-    ctaText: string | null;
-    ctaUrl: string | null;
-  } | null;
-  testimonials: Array<{
-    id: string;
-    quote: string;
-    employeeName: string;
-    employeeTitle: string;
-    employeePhotoUrl: string | null;
-  }>;
   createdAt: string | null;
   updatedAt: string | null;
 }
@@ -668,67 +638,6 @@ watchEffect(() => {
             </div>
           </section>
 
-          <section v-if="contractor.programs?.length" class="border-border border">
-            <div class="border-border border-b px-4 py-3">
-              <h2 class="text-foreground text-sm font-semibold">Notable Programs</h2>
-            </div>
-            <div class="grid gap-px bg-border sm:grid-cols-2">
-              <article
-                v-for="program in contractor.programs"
-                :key="program.id"
-                class="bg-background p-4"
-              >
-                <div class="flex items-center gap-2">
-                  <h3 class="text-foreground text-sm font-medium">
-                    {{ program.name }}
-                  </h3>
-                  <Badge v-if="program.category" variant="outline" class="text-xs">
-                    {{ program.category }}
-                  </Badge>
-                </div>
-                <p
-                  v-if="program.description"
-                  class="text-muted-foreground mt-2 text-sm"
-                >
-                  {{ program.description }}
-                </p>
-              </article>
-            </div>
-          </section>
-
-          <section v-if="contractor.spotlight" class="border-border border p-4">
-            <Badge variant="outline">Company Spotlight</Badge>
-            <h2
-              v-if="contractor.spotlight.title"
-              class="text-foreground mt-3 text-lg font-semibold"
-            >
-              {{ contractor.spotlight.title }}
-            </h2>
-            <p
-              v-if="contractor.spotlight.content"
-              class="text-muted-foreground mt-2 text-sm"
-            >
-              {{ contractor.spotlight.content }}
-            </p>
-            <img
-              v-if="contractor.spotlight.mediaUrl"
-              :src="contractor.spotlight.mediaUrl"
-              alt="Spotlight media"
-              class="border-border mt-4 w-full border"
-            />
-            <Button v-if="contractor.spotlight.ctaUrl" as-child class="mt-4">
-              <NuxtLink :to="contractor.spotlight.ctaUrl" target="_blank">
-                {{ contractor.spotlight.ctaText || "Learn More" }}
-              </NuxtLink>
-            </Button>
-          </section>
-
-          <div v-if="!contractor.claimedProfile" class="border-border border p-4">
-            <p class="text-muted-foreground text-sm">Is this your company?</p>
-            <NuxtLink to="/for-companies" class="text-primary mt-1 inline-flex text-sm hover:underline">
-              Claim this profile to update public company context
-            </NuxtLink>
-          </div>
         </div>
       </div>
     </div>

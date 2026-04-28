@@ -30,19 +30,3 @@ export const adminActivityLog = sqliteTable(
   ],
 );
 
-export const recruiterAccess = sqliteTable(
-  "recruiter_access",
-  {
-    id: text("id")
-      .primaryKey()
-      .$defaultFn(() => crypto.randomUUID()),
-    email: text("email").notNull().unique(),
-    accessLevel: text("accessLevel").notNull(),
-    invitedBy: text("invitedBy").references(() => user.id),
-    expiresAt: integer("expiresAt", { mode: "timestamp" }),
-    createdAt: integer("createdAt", { mode: "timestamp" })
-      .notNull()
-      .$defaultFn(() => new Date()),
-  },
-  (table) => [index("recruiter_access_email_idx").on(table.email)],
-);

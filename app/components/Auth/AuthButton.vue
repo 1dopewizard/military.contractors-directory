@@ -10,7 +10,12 @@ import { isAdminEmail } from "@/app/config/auth";
 const logger = useLogger("AuthButton");
 const route = useRoute();
 const { isAuthenticated, isAuthReady, signOut, userEmail } = useAuth();
-const { displayName, email } = useUserProfile();
+
+const email = computed(() => userEmail.value);
+const displayName = computed(() => {
+  const value = userEmail.value;
+  return value ? value.split("@")[0] : "Admin";
+});
 
 // Check if user is admin
 const isAdmin = computed(() => isAdminEmail(userEmail.value));
@@ -86,20 +91,6 @@ const handleSignOut = async () => {
               >
                 <Icon name="mdi:shield-check" class="text-primary size-4" />
                 <span class="text-primary font-semibold">Admin Dashboard</span>
-              </NuxtLink>
-            </DropdownMenuItem>
-
-            <!-- Profile Manager link -->
-            <DropdownMenuItem as-child>
-              <NuxtLink
-                to="/profile-manager"
-                class="flex cursor-pointer items-center gap-2"
-              >
-                <Icon
-                  name="mdi:office-building-cog-outline"
-                  class="text-muted-foreground size-4"
-                />
-                <span class="font-medium">Profile Manager</span>
               </NuxtLink>
             </DropdownMenuItem>
 

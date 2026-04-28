@@ -71,6 +71,13 @@
       "when": 1777075300000,
       "tag": "0010_complete_live_intelligence_tables",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1777075400000,
+      "tag": "0011_remove_legacy_features",
+      "breakpoints": true
     }
   ]
 }

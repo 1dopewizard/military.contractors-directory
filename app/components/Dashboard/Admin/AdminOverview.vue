@@ -1,6 +1,6 @@
 <!--
   @file AdminOverview.vue
-  @description Admin dashboard overview tab with stats, system health, and activity log
+  @description Admin dashboard overview tab with contractor stats, database health, and activity log
 -->
 <script setup lang="ts">
 interface Props {
@@ -13,25 +13,17 @@ interface Props {
       total: number;
       withLogos: number;
     };
-    claims: {
-      pending: number;
-      approved: number;
-    };
-    content: {
-      pendingReview: number;
-    };
   } | null;
   refreshing?: boolean;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const emit = defineEmits<{
   setTab: [tabId: string];
   refresh: [];
 }>();
 
-// Activity log
 const { fetchActivityLog, formatAction, formatEntityType, getTimeAgo } =
   useAdminActivity();
 
@@ -83,8 +75,9 @@ onMounted(() => {
         Refresh
       </Button>
     </div>
+
     <!-- Stats Grid -->
-    <div v-if="systemHealth" class="grid grid-cols-2 gap-6 md:grid-cols-4">
+    <div v-if="systemHealth" class="grid grid-cols-2 gap-6 md:grid-cols-3">
       <div class="space-y-1">
         <p class="text-foreground font-mono text-2xl font-bold">
           {{ systemHealth.contractors.total }}
@@ -93,42 +86,44 @@ onMounted(() => {
           Contractors
         </p>
       </div>
+
       <div class="space-y-1">
-        <p
-          class="font-mono text-2xl font-bold text-green-600 dark:text-green-400"
-        >
-          {{ systemHealth.claims.approved }}
+        <p class="text-foreground font-mono text-2xl font-bold">
+          {{ systemHealth.contractors.withLogos }}/{{
+            systemHealth.contractors.total
+          }}
         </p>
         <p class="text-muted-foreground text-xs tracking-wide uppercase">
-          Claimed Profiles
+          With Logos
         </p>
       </div>
-      <button
-        class="hover:bg-muted/30 -mx-2 space-y-1 rounded px-2 text-left transition-colors"
-        @click="emit('setTab', 'claims')"
-      >
-        <p
-          class="font-mono text-2xl font-bold text-amber-600 dark:text-amber-400"
-        >
-          {{ systemHealth.claims.pending }}
-        </p>
+
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span
+            class="h-2 w-2 rounded-full"
+            :class="
+              systemHealth.database.status === 'connected'
+                ? 'bg-green-500'
+                : 'bg-red-500'
+            "
+          />
+          <p
+            class="font-mono text-2xl font-bold"
+            :class="
+              systemHealth.database.status === 'connected'
+                ? 'text-green-600 dark:text-green-400'
+                : 'text-red-600 dark:text-red-400'
+            "
+          >
+            {{ systemHealth.database.latencyMs ?? "—"
+            }}<span class="text-sm font-normal">ms</span>
+          </p>
+        </div>
         <p class="text-muted-foreground text-xs tracking-wide uppercase">
-          Pending Claims
+          Database
         </p>
-      </button>
-      <button
-        class="hover:bg-muted/30 -mx-2 space-y-1 rounded px-2 text-left transition-colors"
-        @click="emit('setTab', 'content')"
-      >
-        <p
-          class="font-mono text-2xl font-bold text-blue-600 dark:text-blue-400"
-        >
-          {{ systemHealth.content.pendingReview }}
-        </p>
-        <p class="text-muted-foreground text-xs tracking-wide uppercase">
-          Content to Review
-        </p>
-      </button>
+      </div>
     </div>
 
     <!-- Quick Actions -->
@@ -137,93 +132,18 @@ onMounted(() => {
         Quick Actions
       </h3>
       <div class="flex flex-wrap gap-2">
-        <Button variant="ghost" size="sm" @click="emit('setTab', 'claims')">
-          <Icon name="mdi:shield-check-outline" class="mr-2 h-4 w-4" />
-          Review Claims ({{ systemHealth?.claims.pending || 0 }})
-        </Button>
-        <Button variant="ghost" size="sm" @click="emit('setTab', 'content')">
-          <Icon name="mdi:text-box-check-outline" class="mr-2 h-4 w-4" />
-          Review Content ({{ systemHealth?.content.pendingReview || 0 }})
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          @click="emit('setTab', 'contractors')"
-        >
+        <Button variant="ghost" size="sm" @click="emit('setTab', 'contractors')">
           <Icon name="mdi:office-building-outline" class="mr-2 h-4 w-4" />
           Manage Contractors
+        </Button>
+        <Button variant="ghost" size="sm" @click="emit('setTab', 'intelligence')">
+          <Icon name="mdi:database-search-outline" class="mr-2 h-4 w-4" />
+          Intelligence Tools
         </Button>
         <Button variant="ghost" size="sm" @click="emit('setTab', 'users')">
           <Icon name="mdi:account-group-outline" class="mr-2 h-4 w-4" />
           Manage Users
         </Button>
-      </div>
-    </div>
-
-    <!-- System Health -->
-    <div class="space-y-3">
-      <h3 class="text-foreground text-sm font-semibold tracking-wide uppercase">
-        System Health
-      </h3>
-
-      <div v-if="systemHealth" class="grid grid-cols-2 gap-6 md:grid-cols-3">
-        <!-- Database Status -->
-        <div class="space-y-1">
-          <div class="flex items-center gap-2">
-            <span
-              class="h-2 w-2 rounded-full"
-              :class="
-                systemHealth.database.status === 'connected'
-                  ? 'bg-green-500'
-                  : 'bg-red-500'
-              "
-            />
-            <p
-              class="font-mono text-2xl font-bold"
-              :class="
-                systemHealth.database.status === 'connected'
-                  ? 'text-green-600 dark:text-green-400'
-                  : 'text-red-600 dark:text-red-400'
-              "
-            >
-              {{ systemHealth.database.latencyMs || "—"
-              }}<span class="text-sm font-normal">ms</span>
-            </p>
-          </div>
-          <p class="text-muted-foreground text-xs tracking-wide uppercase">
-            Database
-          </p>
-        </div>
-
-        <!-- Contractors with Logos -->
-        <div class="space-y-1">
-          <p class="text-foreground font-mono text-2xl font-bold">
-            {{ systemHealth.contractors.withLogos }}/{{
-              systemHealth.contractors.total
-            }}
-          </p>
-          <p class="text-muted-foreground text-xs tracking-wide uppercase">
-            With Logos
-          </p>
-        </div>
-
-        <!-- Claim Rate -->
-        <div class="space-y-1">
-          <p class="text-foreground font-mono text-2xl font-bold">
-            {{
-              systemHealth.contractors.total > 0
-                ? Math.round(
-                    (systemHealth.claims.approved /
-                      systemHealth.contractors.total) *
-                      100,
-                  )
-                : 0
-            }}%
-          </p>
-          <p class="text-muted-foreground text-xs tracking-wide uppercase">
-            Claim Rate
-          </p>
-        </div>
       </div>
     </div>
 

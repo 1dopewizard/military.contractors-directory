@@ -4,9 +4,9 @@ interface User {
   email: string | null;
   display_name: string | null;
   avatar_url: string | null;
-  branch: string | null;
-  clearance_level: string | null;
-  preferred_regions: string[] | null;
+  role: string | null;
+  is_admin: boolean | null;
+  last_login_at: string | null;
   created_at: string | null;
   updated_at: string | null;
 }
@@ -103,20 +103,29 @@ onMounted(() => {
               <span class="text-sm font-medium">{{
                 user.display_name || "No name"
               }}</span>
-              <Badge v-if="user.branch" variant="outline" class="text-[10px]">{{
-                user.branch
-              }}</Badge>
               <Badge
-                v-if="user.clearance_level"
-                variant="secondary"
+                v-if="user.is_admin"
+                variant="default"
                 class="text-[10px]"
-                >{{ user.clearance_level }}</Badge
+                >Admin</Badge
+              >
+              <Badge
+                v-else-if="user.role && user.role !== 'user'"
+                variant="outline"
+                class="text-[10px]"
+                >{{ user.role }}</Badge
               >
             </div>
             <p class="text-muted-foreground text-xs">{{ user.email }}</p>
           </div>
 
-          <!-- Date -->
+          <!-- Last login -->
+          <span
+            class="text-muted-foreground hidden w-32 shrink-0 text-right text-xs sm:inline"
+          >
+            Last login: {{ formatDate(user.last_login_at) }}
+          </span>
+          <!-- Created date -->
           <span class="text-muted-foreground w-20 shrink-0 text-right text-xs">
             {{ formatDate(user.created_at) }}
           </span>
