@@ -5,7 +5,15 @@
 -->
 
 <script setup lang="ts">
-import type { AwardSummary, RankingRow } from "@/app/types/intelligence.types";
+import type {
+  AwardSummary,
+  RankingRow,
+  SourceMetadata,
+} from "@/app/types/intelligence.types";
+import {
+  emptySourceMetadata,
+  formatIntelligenceMoney,
+} from "@/app/lib/intelligence-ui";
 
 const config = useRuntimeConfig();
 const route = useRoute();
@@ -16,7 +24,7 @@ const { data, pending, error } = useFetch<{
   fiscalYears: number[];
   contractors: RankingRow[];
   awards: AwardSummary[];
-  sourceMetadata: { structuredRecords: number; freshness: string };
+  sourceMetadata: SourceMetadata;
 }>(() => `/api/intelligence/agencies/${agencySlug.value}`, {
   lazy: true,
   watch: [agencySlug],
@@ -25,7 +33,7 @@ const { data, pending, error } = useFetch<{
     fiscalYears: [],
     contractors: [],
     awards: [],
-    sourceMetadata: { structuredRecords: 0, freshness: "" },
+    sourceMetadata: emptySourceMetadata(),
   }),
 });
 
@@ -63,85 +71,84 @@ useJsonLd(() => ({
   isBasedOn: "https://www.usaspending.gov",
 }));
 
-const formatMoney = (value: number | null | undefined): string => {
-  if (typeof value !== "number") return "N/A";
-  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
-  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M`;
-  return `$${Math.round(value).toLocaleString()}`;
-};
+const metrics = computed(() => {
+  const obligations = data.value.contractors.reduce(
+    (sum, row) => sum + row.obligations,
+    0,
+  );
+  const awards = data.value.contractors.reduce(
+    (sum, row) => sum + (row.awardCount || 0),
+    0,
+  );
+  const leader = data.value.contractors[0];
+
+  return [
+    {
+      label: "Obligations",
+      value: formatIntelligenceMoney(obligations),
+      detail: `FY${data.value.fiscalYears.join(", FY")}`,
+    },
+    {
+      label: "Award records",
+      value: awards.toLocaleString(),
+      detail: `${data.value.sourceMetadata.structuredRecords.toLocaleString()} structured records`,
+    },
+    {
+      label: "Top contractor",
+      value: leader?.name || "N/A",
+      detail: leader ? formatIntelligenceMoney(leader.obligations) : null,
+    },
+    {
+      label: "Freshness",
+      value: data.value.sourceMetadata.cacheStatus,
+      detail: data.value.sourceMetadata.freshness || "Source metadata pending",
+    },
+  ];
+});
 </script>
 
 <template>
   <main class="min-h-full">
-    <section class="border-border border-b">
-      <div class="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-        <NuxtLink to="/agencies" class="text-muted-foreground hover:text-foreground text-sm">
-          Agencies
+    <IntelligencePageHeader
+      eyebrow="Agency dossier"
+      :title="data.agency.name"
+      :description="`Contractor obligations and recent public awards for ${data.agency.name}.`"
+      :metadata="data.sourceMetadata"
+      :fiscal-years="data.fiscalYears"
+      max-width="max-w-6xl"
+    >
+      <template #actions>
+        <NuxtLink to="/agencies">
+          <Button variant="outline" size="sm">All agencies</Button>
         </NuxtLink>
-        <h1 class="text-foreground mt-2 text-3xl font-semibold tracking-tight">
-          {{ data.agency.name }}
-        </h1>
-        <p class="text-muted-foreground mt-2 text-sm">
-          FY{{ data.fiscalYears.join(", FY") }} contractor obligations from USAspending.
-        </p>
-      </div>
-    </section>
+      </template>
+    </IntelligencePageHeader>
 
     <section class="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-      <Alert v-if="error" variant="destructive" class="mb-6">
-        <AlertTitle>Agency intelligence unavailable</AlertTitle>
-        <AlertDescription>{{ error.message }}</AlertDescription>
-      </Alert>
+      <IntelligenceErrorState
+        v-if="error"
+        class="mb-6"
+        title="Agency intelligence unavailable"
+        :message="error.message"
+      />
 
       <div v-if="pending" class="border-border border p-8">
         <LoadingText text="Loading agency intelligence" />
       </div>
 
-      <template v-else>
-        <section class="border-border mb-8 overflow-x-auto border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Rank</TableHead>
-                <TableHead>Recipient</TableHead>
-                <TableHead>Obligations</TableHead>
-                <TableHead>Awards</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow v-for="row in data.contractors" :key="row.rank">
-                <TableCell>{{ row.rank }}</TableCell>
-                <TableCell>{{ row.name }}</TableCell>
-                <TableCell>{{ formatMoney(row.obligations) }}</TableCell>
-                <TableCell>{{ row.awardCount || "N/A" }}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </section>
+      <div v-else class="space-y-8">
+        <IntelligenceMetricStrip :metrics="metrics" />
 
-        <section class="border-border border">
-          <div class="border-border border-b px-4 py-3">
-            <h2 class="text-sm font-semibold">Recent Awards</h2>
-          </div>
-          <div class="divide-border divide-y">
-            <article v-for="award in data.awards" :key="award.key" class="p-4">
-              <div class="flex flex-col gap-2 sm:flex-row sm:justify-between">
-                <div>
-                  <p class="text-foreground text-sm font-medium">
-                    {{ award.recipientName }}
-                  </p>
-                  <p class="text-muted-foreground mt-1 text-sm">
-                    {{ award.description || "No description provided." }}
-                  </p>
-                </div>
-                <p class="text-foreground shrink-0 text-sm font-semibold">
-                  {{ formatMoney(award.obligation) }}
-                </p>
-              </div>
-            </article>
-          </div>
-        </section>
-      </template>
+        <IntelligenceSection title="Ranked Contractors" flush>
+          <IntelligenceRankingTable :rows="data.contractors" />
+        </IntelligenceSection>
+
+        <IntelligenceSection title="Recent Awards" flush>
+          <IntelligenceAwardList :awards="data.awards" />
+        </IntelligenceSection>
+
+        <IntelligenceSourceFooter :metadata="data.sourceMetadata" />
+      </div>
     </section>
   </main>
 </template>

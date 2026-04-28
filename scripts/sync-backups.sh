@@ -20,8 +20,8 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Project paths
-SOURCE_DIR="/home/aeo/Development/Projects/military.contractors-directory/"
-BACKUP_DIR="/home/aeo/Development/Projects/military.contractors-directory/copy"
+SOURCE_DIR="/home/aeo/Development/Projects/military.contractors-directory"
+BACKUP_DIR="/home/aeo/Development/Projects/military.contractors-directory-copy"
 
 # Function to print colored messages
 print_info() {

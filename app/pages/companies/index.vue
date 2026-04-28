@@ -6,6 +6,12 @@
 -->
 
 <script setup lang="ts">
+import type {
+  RankingRow,
+  SourceMetadata,
+} from "@/app/types/intelligence.types";
+import { emptySourceMetadata } from "@/app/lib/intelligence-ui";
+
 const logger = useLogger("ContractorsBrowsePage");
 const route = useRoute();
 const router = useRouter();
@@ -68,6 +74,14 @@ interface Specialty {
   contractorCount?: number;
 }
 
+interface TopContractorsIntelligenceResponse {
+  filters: {
+    fiscalYears: number[];
+  };
+  contractors: RankingRow[];
+  sourceMetadata: SourceMetadata;
+}
+
 const contractorsUrl = computed(() => {
   const params = new URLSearchParams();
   if (searchQuery.value) params.set("q", searchQuery.value);
@@ -93,6 +107,18 @@ const { data: specialtiesData } = useFetch<{ specialties: Specialty[] }>(
   {
     lazy: true,
     default: () => ({ specialties: [] }),
+  },
+);
+
+const { data: intelligenceContext } = useFetch<TopContractorsIntelligenceResponse>(
+  "/api/intelligence/top-contractors?limit=1",
+  {
+    lazy: true,
+    default: () => ({
+      filters: { fiscalYears: [] },
+      contractors: [],
+      sourceMetadata: emptySourceMetadata(),
+    }),
   },
 );
 
@@ -222,6 +248,15 @@ watchEffect(() => {
 
 <template>
   <div class="min-h-full">
+    <IntelligencePageHeader
+      eyebrow="Contractor directory"
+      title="Defense Contractors"
+      description="Browse contractor profiles and open source-backed award dossiers from each company record."
+      :metadata="intelligenceContext.sourceMetadata"
+      :fiscal-years="intelligenceContext.filters.fiscalYears"
+      max-width="max-w-6xl"
+    />
+
     <!-- Search and Filter Header -->
     <div
       class="bg-background/95 border-border/50 sticky top-0 z-40 border-b backdrop-blur-sm"

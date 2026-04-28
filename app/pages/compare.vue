@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import type { ContractorIntelligence } from "@/app/types/intelligence.types";
+import { formatIntelligenceMoney } from "@/app/lib/intelligence-ui";
 
 const config = useRuntimeConfig();
 const route = useRoute();
@@ -74,24 +75,46 @@ const runComparison = () => {
   refresh();
 };
 
-const formatMoney = (value: number | null | undefined): string => {
-  if (typeof value !== "number") return "N/A";
-  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
-  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M`;
-  return `$${Math.round(value).toLocaleString()}`;
-};
+const primaryMetadata = computed(
+  () => comparison.value[0]?.sourceMetadata ?? null,
+);
+
+const comparisonMetrics = (item: ContractorIntelligence) => [
+  {
+    label: "Obligations",
+    value: formatIntelligenceMoney(item.summary.totalObligations),
+    detail: `${item.summary.awardCount.toLocaleString()} awards`,
+  },
+  {
+    label: "Top agency",
+    value: item.summary.topSubAgency?.label || item.summary.topAgency?.label || "N/A",
+    detail: item.summary.topAgency
+      ? formatIntelligenceMoney(item.summary.topAgency.obligation)
+      : null,
+  },
+  {
+    label: "Top NAICS",
+    value: item.summary.topNaics?.key || "N/A",
+    detail: item.summary.topNaics?.label || null,
+  },
+  {
+    label: "YoY delta",
+    value: formatIntelligenceMoney(item.summary.yoyDelta),
+    detail: item.summary.latestFiscalYear
+      ? `Latest FY${item.summary.latestFiscalYear}`
+      : null,
+  },
+];
 </script>
 
 <template>
   <main class="min-h-full">
-    <section class="border-border border-b">
-      <div class="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <p class="text-muted-foreground text-sm">2-4 contractors</p>
-        <h1 class="text-foreground mt-2 text-3xl font-semibold tracking-tight">
-          Compare Contractors
-        </h1>
-      </div>
-    </section>
+    <IntelligencePageHeader
+      eyebrow="2-4 contractors"
+      title="Compare Contractors"
+      description="Side-by-side contractor obligations, agencies, categories, trends, and recent public awards."
+      :metadata="primaryMetadata"
+    />
 
     <section class="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <form class="mb-6 flex flex-col gap-3 sm:flex-row" @submit.prevent="runComparison">
@@ -103,19 +126,19 @@ const formatMoney = (value: number | null | undefined): string => {
         <Button type="submit">Compare</Button>
       </form>
 
-      <Alert v-if="error" variant="destructive" class="mb-6">
-        <AlertTitle>Comparison error</AlertTitle>
-        <AlertDescription>{{ error.message }}</AlertDescription>
-      </Alert>
+      <IntelligenceErrorState
+        v-if="error"
+        class="mb-6"
+        title="Comparison error"
+        :message="error.message"
+      />
 
       <div v-if="pending" class="border-border border p-8">
         <LoadingText text="Loading contractor intelligence" />
       </div>
 
-      <div
-        v-else-if="comparison.length"
-        class="border-border grid border-t border-l sm:grid-cols-2 xl:grid-cols-4"
-      >
+      <div v-else-if="comparison.length" class="space-y-8">
+        <div class="border-border grid border-t border-l sm:grid-cols-2 xl:grid-cols-4">
         <article
           v-for="item in comparison"
           :key="item.contractor.slug"
@@ -129,32 +152,13 @@ const formatMoney = (value: number | null | undefined): string => {
           </NuxtLink>
 
           <dl class="mt-5 space-y-4">
-            <div>
-              <dt class="text-muted-foreground text-xs">Matched obligations</dt>
-              <dd class="text-foreground mt-1 text-2xl font-semibold">
-                {{ formatMoney(item.summary.totalObligations) }}
+            <div v-for="metric in comparisonMetrics(item)" :key="metric.label">
+              <dt class="text-muted-foreground text-xs">{{ metric.label }}</dt>
+              <dd class="text-foreground mt-1 text-sm font-medium">
+                {{ metric.value }}
               </dd>
-            </div>
-            <div>
-              <dt class="text-muted-foreground text-xs">Awards</dt>
-              <dd class="text-foreground mt-1">{{ item.summary.awardCount }}</dd>
-            </div>
-            <div>
-              <dt class="text-muted-foreground text-xs">Top agency</dt>
-              <dd class="text-foreground mt-1">
-                {{ item.summary.topSubAgency?.label || item.summary.topAgency?.label || "N/A" }}
-              </dd>
-            </div>
-            <div>
-              <dt class="text-muted-foreground text-xs">Top NAICS</dt>
-              <dd class="text-foreground mt-1">
-                {{ item.summary.topNaics?.label || "N/A" }}
-              </dd>
-            </div>
-            <div>
-              <dt class="text-muted-foreground text-xs">YoY delta</dt>
-              <dd class="text-foreground mt-1">
-                {{ formatMoney(item.summary.yoyDelta) }}
+              <dd v-if="metric.detail" class="text-muted-foreground mt-1 text-xs">
+                {{ metric.detail }}
               </dd>
             </div>
           </dl>
@@ -167,12 +171,17 @@ const formatMoney = (value: number | null | undefined): string => {
                 :key="award.key"
                 class="text-muted-foreground text-xs"
               >
-                <span class="text-foreground">{{ formatMoney(award.obligation) }}</span>
+                <span class="text-foreground">
+                  {{ formatIntelligenceMoney(award.obligation) }}
+                </span>
                 {{ award.awardingSubAgency || award.awardingAgency }}
               </li>
             </ul>
           </div>
         </article>
+        </div>
+
+        <IntelligenceSourceFooter :metadata="primaryMetadata" />
       </div>
 
       <Empty v-else class="border">

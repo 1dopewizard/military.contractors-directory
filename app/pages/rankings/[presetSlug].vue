@@ -5,7 +5,15 @@
 -->
 
 <script setup lang="ts">
-import type { AwardSummary, RankingRow } from "@/app/types/intelligence.types";
+import type {
+  AwardSummary,
+  RankingRow,
+  SourceMetadata,
+} from "@/app/types/intelligence.types";
+import {
+  emptySourceMetadata,
+  formatIntelligenceMoney,
+} from "@/app/lib/intelligence-ui";
 
 const config = useRuntimeConfig();
 const route = useRoute();
@@ -16,7 +24,7 @@ const { data, pending, error } = useFetch<{
   fiscalYears: number[];
   contractors: RankingRow[];
   awards: AwardSummary[];
-  sourceMetadata: { structuredRecords: number; freshness: string };
+  sourceMetadata: SourceMetadata;
 }>(() => `/api/intelligence/rankings/${presetSlug.value}`, {
   lazy: true,
   watch: [presetSlug],
@@ -25,7 +33,7 @@ const { data, pending, error } = useFetch<{
     fiscalYears: [],
     contractors: [],
     awards: [],
-    sourceMetadata: { structuredRecords: 0, freshness: "" },
+    sourceMetadata: emptySourceMetadata(),
   }),
 });
 
@@ -61,65 +69,87 @@ useJsonLd(() => ({
   isBasedOn: "https://www.usaspending.gov",
 }));
 
-const formatMoney = (value: number | null | undefined): string => {
-  if (typeof value !== "number") return "N/A";
-  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
-  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M`;
-  return `$${Math.round(value).toLocaleString()}`;
-};
+const metrics = computed(() => {
+  const obligations = data.value.contractors.reduce(
+    (sum, row) => sum + row.obligations,
+    0,
+  );
+  const awards = data.value.contractors.reduce(
+    (sum, row) => sum + (row.awardCount || 0),
+    0,
+  );
+  const leader = data.value.contractors[0];
+
+  return [
+    {
+      label: "Matched obligations",
+      value: formatIntelligenceMoney(obligations),
+      detail: `${data.value.fiscalYears.length} fiscal-year window`,
+    },
+    {
+      label: "Award records",
+      value: awards.toLocaleString(),
+      detail: `${data.value.sourceMetadata.structuredRecords.toLocaleString()} structured records`,
+    },
+    {
+      label: "Leading recipient",
+      value: leader?.name || "N/A",
+      detail: leader ? formatIntelligenceMoney(leader.obligations) : null,
+    },
+    {
+      label: "Freshness",
+      value: data.value.sourceMetadata.cacheStatus,
+      detail: data.value.sourceMetadata.freshness || "Source metadata pending",
+    },
+  ];
+});
 </script>
 
 <template>
   <main class="min-h-full">
-    <section class="border-border border-b">
-      <div class="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-        <p class="text-muted-foreground text-sm">Ranking</p>
-        <h1 class="text-foreground mt-2 text-3xl font-semibold tracking-tight">
-          {{ data.preset.title }}
-        </h1>
-        <p class="text-muted-foreground mt-2 max-w-3xl">
-          {{ data.preset.description }}
-        </p>
-      </div>
-    </section>
+    <IntelligencePageHeader
+      eyebrow="Ranking"
+      :title="data.preset.title"
+      :description="data.preset.description"
+      :metadata="data.sourceMetadata"
+      :fiscal-years="data.fiscalYears"
+      max-width="max-w-6xl"
+    />
 
     <section class="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-      <Alert v-if="error" variant="destructive" class="mb-6">
-        <AlertTitle>Ranking unavailable</AlertTitle>
-        <AlertDescription>{{ error.message }}</AlertDescription>
-      </Alert>
+      <IntelligenceErrorState
+        v-if="error"
+        class="mb-6"
+        title="Ranking unavailable"
+        :message="error.message"
+      />
 
       <div v-if="pending" class="border-border border p-8">
         <LoadingText text="Loading ranking" />
       </div>
 
       <template v-else>
-        <section class="border-border overflow-x-auto border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Rank</TableHead>
-                <TableHead>Recipient</TableHead>
-                <TableHead>Obligations</TableHead>
-                <TableHead>Share</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow v-for="row in data.contractors" :key="row.rank">
-                <TableCell>{{ row.rank }}</TableCell>
-                <TableCell>{{ row.name }}</TableCell>
-                <TableCell>{{ formatMoney(row.obligations) }}</TableCell>
-                <TableCell>
-                  {{ row.share ? `${Math.round(row.share * 100)}%` : "N/A" }}
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </section>
+        <div class="space-y-8">
+          <IntelligenceMetricStrip :metrics="metrics" />
 
-        <p class="text-muted-foreground mt-4 text-xs">
-          {{ data.sourceMetadata.freshness }}
-        </p>
+          <IntelligenceSection title="Ranked Contractors" flush>
+            <IntelligenceRankingTable :rows="data.contractors" show-share />
+          </IntelligenceSection>
+
+          <IntelligenceSection
+            v-if="data.awards.length"
+            title="Award Evidence"
+            description="Recent source records supporting this ranking."
+            flush
+          >
+            <IntelligenceAwardList :awards="data.awards" />
+          </IntelligenceSection>
+
+          <IntelligenceSourceFooter
+            :metadata="data.sourceMetadata"
+            :source-links="data.sourceMetadata.sources"
+          />
+        </div>
       </template>
     </section>
   </main>

@@ -4,6 +4,12 @@
 -->
 
 <script setup lang="ts">
+import type {
+  RankingRow,
+  SourceMetadata,
+} from "@/app/types/intelligence.types";
+import { emptySourceMetadata } from "@/app/lib/intelligence-ui";
+
 definePageMeta({
   layout: "homepage",
 });
@@ -76,11 +82,20 @@ interface ExplorerResult {
     awardCount: number;
   }>;
   sourceLinks: Array<{ label: string; url: string }>;
-  sourceMetadata: {
-    freshness: string;
-    structuredRecords: number;
-  };
+  sourceMetadata: SourceMetadata;
   cached: boolean;
+}
+
+interface TopContractorsIntelligenceResponse {
+  filters: {
+    agency: string | null;
+    naics: string | null;
+    psc: string | null;
+    keyword: string | null;
+    fiscalYears: number[];
+  };
+  contractors: RankingRow[];
+  sourceMetadata: SourceMetadata;
 }
 
 const explorerQuery = ref("");
@@ -137,11 +152,36 @@ const { data: specialtiesData } = useFetch<{
   default: () => ({ specialties: [] }),
 });
 
+const { data: topIntelligenceData, pending: topIntelligencePending } =
+  useFetch<TopContractorsIntelligenceResponse>(
+    "/api/intelligence/top-contractors?limit=8",
+    {
+      lazy: true,
+      default: () => ({
+        filters: {
+          agency: null,
+          naics: null,
+          psc: null,
+          keyword: null,
+          fiscalYears: [],
+        },
+        contractors: [],
+        sourceMetadata: emptySourceMetadata(),
+      }),
+    },
+  );
+
 const topContractors = computed(
   () => topContractorsData.value?.contractors ?? [],
 );
 const totalContractors = computed(() => allContractorsData.value?.total ?? 0);
 const specialties = computed(() => specialtiesData.value?.specialties ?? []);
+const topIntelligence = computed(
+  () => topIntelligenceData.value?.contractors ?? [],
+);
+const homepageFiscalYears = computed(
+  () => topIntelligenceData.value?.filters.fiscalYears ?? [],
+);
 const tableKeys = computed(() =>
   explorerResult.value?.table[0] ? Object.keys(explorerResult.value.table[0]) : [],
 );
@@ -272,11 +312,38 @@ const useExample = (query: string) => {
           >
             <span>Source-backed USAspending records</span>
             <span class="hidden text-muted-foreground/40 sm:inline">|</span>
-            <span>No model-generated totals</span>
+            <span>
+              {{ topIntelligenceData.sourceMetadata.freshness || "Freshness loading" }}
+            </span>
             <span class="hidden text-muted-foreground/40 sm:inline">|</span>
             <NuxtLink to="/explorer" class="hover:text-foreground transition-colors">
               Open full explorer
             </NuxtLink>
+          </div>
+
+          <div
+            class="border-border bg-background/70 mx-auto mt-5 grid max-w-3xl gap-3 border px-3 py-3 text-left text-xs sm:grid-cols-3"
+          >
+            <div>
+              <p class="text-muted-foreground">Data source</p>
+              <p class="text-foreground mt-1 font-medium">USAspending.gov</p>
+            </div>
+            <div>
+              <p class="text-muted-foreground">Window</p>
+              <p class="text-foreground mt-1 font-medium">
+                {{
+                  homepageFiscalYears.length
+                    ? homepageFiscalYears.map((year) => `FY${year}`).join(", ")
+                    : "Latest fiscal year"
+                }}
+              </p>
+            </div>
+            <div>
+              <p class="text-muted-foreground">Status</p>
+              <p class="text-foreground mt-1 font-medium">
+                {{ topIntelligenceData.sourceMetadata.cacheStatus }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -515,6 +582,43 @@ const useExample = (query: string) => {
               </NuxtLink>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-5xl">
+          <div class="mb-6 flex items-baseline justify-between gap-4">
+            <div>
+              <h2 class="text-foreground text-xl font-bold sm:text-2xl">
+                Public Obligation Leaders
+              </h2>
+              <p class="text-muted-foreground mt-1 text-sm">
+                Source-backed contractor ranking for the active award window.
+              </p>
+            </div>
+            <NuxtLink
+              to="/rankings/top-defense-contractors"
+              class="text-muted-foreground hover:text-foreground shrink-0 text-sm transition-colors"
+            >
+              Full ranking
+            </NuxtLink>
+          </div>
+
+          <div v-if="topIntelligencePending" class="border-border border p-8">
+            <LoadingText text="Loading public ranking" />
+          </div>
+          <IntelligenceRankingTable
+            v-else
+            :rows="topIntelligence"
+            empty-text="No public ranking records available."
+          />
+          <IntelligenceSourceFooter
+            class="mt-6"
+            :metadata="topIntelligenceData.sourceMetadata"
+            :source-links="topIntelligenceData.sourceMetadata.sources"
+          />
         </div>
       </div>
     </section>
