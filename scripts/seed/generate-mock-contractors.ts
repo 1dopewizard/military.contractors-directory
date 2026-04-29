@@ -3,7 +3,7 @@
 /**
  * Generate Mock Contractor Data
  *
- * Uses GPT-5.1 to generate realistic mock data for 48 U.S. defense contractors
+ * Uses GPT-5.4 Mini to generate realistic mock data for 48 U.S. defense contractors
  * from the Defense News Top 100 list. Outputs JSON file for seeding.
  *
  * Usage:
@@ -385,7 +385,7 @@ Generate realistic data including:
 Return as JSON matching the schema.`;
 
   const { object } = await generateObject({
-    model: openai("gpt-5.4-nano"),
+    model: openai("gpt-5.4-mini"),
     schema: ContractorDataSchema,
     system: SYSTEM_PROMPT,
     prompt,
