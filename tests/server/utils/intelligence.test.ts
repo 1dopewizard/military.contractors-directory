@@ -36,6 +36,13 @@ import {
   normalizeUsaSpendingAward,
   sanitizeUsaSpendingKeywords,
 } from "@/server/utils/usaspending";
+import {
+  buildContractorSnapshotFilters,
+  fetchContractorSnapshotPage,
+  getTrailingSnapshotWindow,
+  normalizeContractorSnapshotRow,
+  parseContractorSnapshotQuery,
+} from "@/server/utils/contractor-snapshot";
 
 beforeEach(() => {
   mockGenerateObject.mockReset();
@@ -45,6 +52,7 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.unstubAllEnvs();
+  vi.unstubAllGlobals();
 });
 
 describe("contractor intelligence utilities", () => {
@@ -254,6 +262,110 @@ describe("contractor intelligence utilities", () => {
       createPlanHash(plan, "Top Department of the Navy contractors"),
     ).toHaveLength(64);
     expect(formatMoney(1_200_000_000)).toBe("$1.2B");
+  });
+});
+
+describe("contractor snapshot helpers", () => {
+  it("builds trailing 36-month DoD-awarded contract filters", () => {
+    const window = getTrailingSnapshotWindow(
+      new Date("2026-04-30T12:00:00.000Z"),
+    );
+    const filters = buildContractorSnapshotFilters(window);
+
+    expect(window).toEqual({
+      startDate: "2023-04-30",
+      endDate: "2026-04-30",
+    });
+    expect(filters.award_type_codes).toEqual(["A", "B", "C", "D"]);
+    expect(filters.time_period).toEqual([
+      { start_date: "2023-04-30", end_date: "2026-04-30" },
+    ]);
+    expect(filters.agencies).toEqual([
+      {
+        type: "awarding",
+        tier: "toptier",
+        name: "Department of Defense",
+      },
+    ]);
+  });
+
+  it("normalizes recipient aggregate rows into snapshot rows", () => {
+    const row = normalizeContractorSnapshotRow(
+      {
+        id: 123,
+        recipient_id: "abc-recipient",
+        name: " ACME Defense, LLC ",
+        code: null,
+        amount: 12000000,
+        count: 7,
+      },
+      { startDate: "2023-04-30", endDate: "2026-04-30" },
+      { slug: "acme-defense" },
+    );
+
+    expect(row.slug).toBe("acme-defense");
+    expect(row.recipientName).toBe("ACME Defense, LLC");
+    expect(row.normalizedName).toBe("acme defense llc");
+    expect(row.recipientCode).toBe("abc-recipient");
+    expect(row.recipientUei).toBeNull();
+    expect(row.totalObligations36m).toBe(12000000);
+    expect(row.awardCount36m).toBe(7);
+    expect(row.topAwardingAgency).toBe("Department of Defense");
+    expect(row.topNaicsCode).toBeNull();
+    expect(row.topPscCode).toBeNull();
+  });
+
+  it("validates snapshot query limits and defaults", () => {
+    expect(parseContractorSnapshotQuery({}).sort).toBe(
+      "totalObligations36m",
+    );
+    expect(parseContractorSnapshotQuery({ limit: "100" }).limit).toBe(100);
+    expect(() => parseContractorSnapshotQuery({ limit: "101" })).toThrow();
+    expect(() => parseContractorSnapshotQuery({ sort: "bad" })).toThrow();
+  });
+
+  it("fetches recipient snapshot pages with pagination metadata", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        results: [
+          {
+            id: 1,
+            recipient_id: "recipient-1",
+            name: "TEST RECIPIENT",
+            amount: 42,
+            count: 2,
+          },
+        ],
+        page_metadata: { page: 1, hasNext: false, total: 1 },
+        messages: ["ok"],
+      }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const page = await fetchContractorSnapshotPage({
+      page: 1,
+      limit: 100,
+      window: { startDate: "2023-04-30", endDate: "2026-04-30" },
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://api.usaspending.gov/api/v2/search/spending_by_category/recipient/",
+      expect.objectContaining({
+        method: "POST",
+      }),
+    );
+    const payload = JSON.parse(fetchMock.mock.calls[0][1].body);
+    expect(payload.filters.agencies).toEqual([
+      {
+        type: "awarding",
+        tier: "toptier",
+        name: "Department of Defense",
+      },
+    ]);
+    expect(page.rows).toHaveLength(1);
+    expect(page.hasNext).toBe(false);
+    expect(page.total).toBe(1);
   });
 });
 

@@ -218,7 +218,7 @@ const navigateToQuickLink = (to: string) => {
       <input
         ref="searchInputRef"
         v-model="searchQuery"
-        placeholder="Search contractor intelligence..."
+        placeholder="Search contractor directory..."
         class="placeholder:text-muted-foreground flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50"
         @keydown.enter="navigateToSearch()"
       />

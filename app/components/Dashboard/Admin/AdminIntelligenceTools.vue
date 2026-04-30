@@ -18,6 +18,7 @@ interface CacheEntry {
 
 const refreshQuery = ref("Top Department of the Navy contractors");
 const contractorSlug = ref("");
+const snapshotMaxPages = ref(5);
 const refreshing = ref(false);
 
 const {
@@ -59,6 +60,23 @@ const forceRefreshContractor = async () => {
   }
 };
 
+const refreshSnapshot = async () => {
+  refreshing.value = true;
+  try {
+    await $fetch("/api/admin/contractor-snapshot/refresh", {
+      method: "POST",
+      body: {
+        limit: 100,
+        maxPages: snapshotMaxPages.value,
+      },
+    });
+    toast.success("Contractor snapshot refresh started");
+    refreshCache();
+  } finally {
+    refreshing.value = false;
+  }
+};
+
 const formatDate = (value: string | null): string => {
   if (!value) return "N/A";
   return new Intl.DateTimeFormat("en-US", {
@@ -77,7 +95,33 @@ const formatDate = (value: string | null): string => {
       </p>
     </div>
 
-    <div class="grid gap-4 lg:grid-cols-2">
+    <div class="grid gap-4 lg:grid-cols-3">
+      <Card>
+        <CardHeader>
+          <CardTitle>Refresh Directory Snapshot</CardTitle>
+          <CardDescription>Pages USAspending recipient aggregates.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form class="space-y-3" @submit.prevent="refreshSnapshot">
+            <Input
+              v-model.number="snapshotMaxPages"
+              class="rounded-none"
+              type="number"
+              min="1"
+              max="2000"
+            />
+            <Button type="submit" :disabled="refreshing">
+              <Icon
+                v-if="refreshing"
+                name="mdi:loading"
+                class="mr-2 h-4 w-4 animate-spin"
+              />
+              Refresh snapshot
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>Refresh Explorer Query</CardTitle>

@@ -1,165 +1,153 @@
 # military.contractors
 
-Open intelligence on U.S. defense contractors.
+Searchable directory of companies and recipients receiving U.S. defense contract awards.
 
-## What This Is
+## Product
 
-`military.contractors` is a public contractor intelligence directory for researching U.S. defense companies, public award activity, agencies, NAICS/PSC categories, locations, and spending trends.
+`military.contractors` is now directory-first. The primary product surface is a fast server-backed table of Department of Defense-awarded USAspending contract recipients active in the trailing 36 months. Recipient rows link to source-backed profiles with recent awards, agency buckets, NAICS buckets, PSC buckets, trends, and public USAspending links.
 
-The product is not a job board, MOS translation tool, staffing marketplace, or career alert platform. Public surfaces now focus on source-backed contractor intelligence.
+The explorer, rankings, agencies, categories, topics, and compare pages remain available as secondary research surfaces.
 
-## Current Product Pillars
+## Data Scope
 
-1. **Contractor Directory**: structured company profiles with specialties, headquarters, locations, revenue context, identifiers, and source links.
-2. **Award Intelligence**: live USAspending award records, obligation totals, agency/category rollups, and yearly trends.
-3. **Explorer**: plain-English questions routed through strict structured plans, deterministic backend operations, persistent cache, and source links.
-4. **Indexable Intelligence**: agency, NAICS, PSC, topic, ranking, comparison, and company profile pages.
-5. **Data Quality Operations**: admin tooling for contractor records, source freshness, and intelligence cache review.
+| Dimension | v1 Default |
+| --- | --- |
+| Source | USAspending.gov API |
+| Awarding agency | Department of Defense only |
+| Award types | Contract award codes `A`, `B`, `C`, `D` |
+| Window | Trailing 36 months |
+| Inclusion | Every matching recipient, no dollar threshold |
+| Refresh | Daily scheduled snapshot plus manual admin refresh |
+| Storage | libSQL/SQLite via Drizzle ORM |
+
+Curated `contractor` records are retained as enrichment overlays for known companies. Raw USAspending recipient rows live in `contractorSnapshot` and are the canonical directory dataset.
 
 ## Pages
 
-| Page | URL | Description |
-| --- | --- | --- |
-| Homepage | `/` | Contractor intelligence explorer, top contractors, and specialty browsing |
-| Explorer | `/explorer` | Full research workbench with follow-up modes |
-| Compare | `/compare` | Compare two to four contractors |
-| Companies | `/companies` | Browse defense contractors by name, specialty, location, and revenue |
-| Company Profile | `/companies/[slug]` | Contractor profile with intelligence panels and public award context |
-| Agencies | `/agencies`, `/agencies/[agencySlug]` | Agency contractor rankings and award examples |
-| Categories | `/categories/naics/[code]`, `/categories/psc/[code]` | NAICS and PSC contractor rankings |
-| Topics | `/topics/[topicSlug]` | Topic-driven award intelligence pages |
-| Rankings | `/rankings/[presetSlug]` | Preset contractor rankings |
-| By Specialty | `/companies/specialty/[slug]` | Contractor category pages |
-| By Location | `/companies/location/[state]` | Contractor location pages |
-| Admin | `/admin` | Admin dashboard |
-| Login | `/auth/login` | Magic link auth |
-| About | `/about` | Product explanation |
-| Contact | `/contact` | Contact form |
-| Privacy | `/privacy` | Privacy policy |
-| Terms | `/terms` | Terms of service |
+| URL | Purpose |
+| --- | --- |
+| `/` | Directory-first homepage with search, stats, and table preview |
+| `/companies` | Primary server-side table with search, filters, sorting, pagination |
+| `/companies/[slug]` | Snapshot profile with award intelligence and curated overlay where available |
+| `/explorer` | Secondary plain-English research workbench |
+| `/rankings/[presetSlug]` | Saved ranking lenses |
+| `/agencies`, `/agencies/[agencySlug]` | Agency research surfaces |
+| `/categories/[kind]/[code]` | NAICS/PSC research surfaces |
+| `/topics/[topicSlug]` | Topic research surfaces |
+| `/compare` | Known-contractor comparison |
+| `/admin` | Admin tools, including snapshot refresh |
+
+## API
+
+### `GET /api/contractors`
+
+Snapshot-backed directory query.
+
+Query params:
+
+- `q`
+- `agency`
+- `naics`
+- `psc`
+- `sort`: `totalObligations36m`, `awardCount36m`, `lastAwardDate`, `recipientName`, `topAwardingAgency`, `topNaics`, `topPsc`
+- `order`: `asc` or `desc`
+- `limit`: default `25`, max `100`
+- `offset`
+
+Response:
+
+```json
+{
+  "rows": [],
+  "total": 0,
+  "limit": 25,
+  "offset": 0,
+  "sourceMetadata": {}
+}
+```
+
+### `GET /api/contractors/[slug]`
+
+Returns the snapshot row, optional curated company overlay, and on-demand USAspending profile intelligence.
+
+### `POST /api/admin/contractor-snapshot/refresh`
+
+Manually refreshes the trailing 36-month DoD recipient snapshot.
+
+Optional body:
+
+```json
+{
+  "limit": 100,
+  "maxPages": 1000
+}
+```
+
+## Data Refresh
+
+Daily Nitro task:
+
+```ts
+nitro: {
+  experimental: { tasks: true },
+  scheduledTasks: {
+    "15 7 * * *": ["contractor-snapshot-refresh"]
+  }
+}
+```
+
+Manual refresh:
+
+```bash
+curl -X POST http://localhost:3000/api/admin/contractor-snapshot/refresh \
+  -H 'content-type: application/json' \
+  --data '{"limit":100,"maxPages":10}'
+```
+
+Database commands:
+
+```bash
+pnpm db:generate
+pnpm db:migrate
+pnpm db:push
+pnpm db:studio
+```
 
 ## Tech Stack
 
 | Layer | Technology |
 | --- | --- |
 | Framework | Nuxt 4 |
-| UI | Tailwind CSS v4, shadcn-vue |
-| Database | Drizzle ORM + libsql (SQLite) |
+| UI | shadcn-vue, Tailwind CSS, TanStack Vue Table |
+| Database | libSQL/SQLite via Drizzle ORM |
 | Auth | Better Auth |
-| Validation | Zod + vee-validate |
-| Icons | Iconify (MDI) |
-| Logging | pino |
+| Search | SQLite filters for snapshot rows; USAspending API for source refresh |
 | Testing | Vitest |
-| Deployment | Coolify (VPS) |
 
-## Repository Layout
-
-```text
-military.contractors/
-├── app/
-│   ├── components/              # Vue components and shadcn-vue wrappers
-│   ├── composables/             # useAuth, useJsonLd, useLogger
-│   ├── layouts/                 # default, homepage, dashboard
-│   └── pages/                   # public pages and dashboards
-├── server/
-│   ├── api/
-│   │   ├── contractors/         # Directory API
-│   │   ├── explorer/            # Intelligence explorer API
-│   │   ├── intelligence/        # Public award intelligence API
-│   │   └── admin/               # Admin and intelligence maintenance API
-│   ├── database/
-│   │   ├── migrations/          # Drizzle/libsql migrations
-│   │   └── schema/              # Drizzle schema files
-│   ├── routes/                  # Sitemap, auth handler
-│   └── utils/                   # DB, auth, intelligence, logging
-├── docs/
-│   └── open-contractor-intelligence-pivot-plan.md
-├── scripts/
-│   └── seed/                    # Seed data and scripts
-├── prd.md
-└── package.json
-```
-
-## Getting Started
-
-### 1. Install dependencies
+## Development
 
 ```bash
 pnpm install
-```
-
-### 2. Configure environment
-
-Create `.env`:
-
-```env
-DATABASE_URL=file:./server/database/app.db
-BETTER_AUTH_SECRET=your-secret-here
-RESEND_API_KEY=
-NUXT_PUBLIC_SITE_URL=https://military.contractors
-```
-
-### 3. Set up database
-
-```bash
 pnpm db:migrate
-pnpm tsx scripts/seed/seed-contractors.ts
-```
-
-### 4. Run development server
-
-```bash
 pnpm dev
 ```
 
-### 5. Build for production
+Verification:
 
 ```bash
-pnpm build && pnpm start
+pnpm test:run
+pnpm build
 ```
 
-## API Endpoints
+## Key Paths
 
-### Contractor Directory
-
-| Method | Path | Purpose |
-| --- | --- | --- |
-| GET | `/api/contractors` | Paginated contractor list with filters |
-| GET | `/api/contractors/[slug]` | Contractor detail |
-| GET | `/api/contractors/by-location/[state]` | Contractors by state |
-| GET | `/api/specialties` | All specialties |
-| GET | `/api/specialties/[slug]` | Specialty detail |
-| GET | `/api/locations` | Location list |
-
-### Intelligence
-
-| Method | Path | Purpose |
-| --- | --- | --- |
-| GET | `/api/intelligence/contractors/[slug]` | Contractor award intelligence |
-| GET | `/api/intelligence/top-contractors` | Ranked contractors by public obligations |
-| GET | `/api/intelligence/recipients/resolve` | Resolve recipient names and UEIs |
-| GET | `/api/intelligence/awards` | Search award rows |
-| GET | `/api/intelligence/awards/[awardKey]` | Award detail |
-| GET | `/api/intelligence/agencies` | Agency reference list |
-| GET | `/api/intelligence/agencies/[agencySlug]` | Agency intelligence |
-| GET | `/api/intelligence/categories/[kind]/[code]` | NAICS/PSC intelligence |
-| GET | `/api/intelligence/topics/[topicSlug]` | Topic intelligence |
-| GET | `/api/intelligence/rankings/[presetSlug]` | Ranking preset data |
-| POST | `/api/explorer/query` | Structured plain-English explorer query |
-| POST | `/api/explorer/follow-up` | Refine, pivot, or answer from cached results |
-| GET | `/api/explorer/cache/[cacheId]` | Cached explorer result |
-
-## SEO
-
-- SSR on public pages.
-- Dynamic sitemap for companies, agencies, categories, rankings, topics, specialties, and locations.
-- Schema.org: WebSite, WebPage, Organization, CollectionPage, BreadcrumbList, Dataset-ready intelligence pages.
-- Unique meta tags and canonical URLs on key pages.
-- Public source links are prominent on intelligence surfaces.
-
-## Documentation
-
-| Document | Purpose |
+| Purpose | Path |
 | --- | --- |
-| `prd.md` | Product requirements and roadmap |
-| `docs/open-contractor-intelligence-pivot-plan.md` | Pivot execution plan |
+| Snapshot schema | `server/database/schema/snapshot.ts` |
+| Snapshot service | `server/utils/contractor-snapshot.ts` |
+| Directory API | `server/api/contractors/index.get.ts` |
+| Profile API | `server/api/contractors/[slug].get.ts` |
+| Manual refresh API | `server/api/admin/contractor-snapshot/refresh.post.ts` |
+| Scheduled task | `server/tasks/contractor-snapshot-refresh.ts` |
+| Table component | `app/components/Contractors/ContractorSnapshotTable.vue` |
+| Primary page | `app/pages/companies/index.vue` |

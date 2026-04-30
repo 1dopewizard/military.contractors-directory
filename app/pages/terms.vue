@@ -54,10 +54,10 @@ useHead({
             Description of service
           </h2>
           <p class="text-muted-foreground leading-relaxed">
-            military.contractors is a directory of defense contractors. We
-            provide company profiles with structured data including revenue,
-            specialties, and locations. We do not guarantee the accuracy of any
-            information displayed.
+            military.contractors is a directory of defense contract recipients.
+            We provide USAspending-backed recipient snapshots, source-linked
+            profiles, and curated company context where available. We do not
+            guarantee the accuracy of any information displayed.
           </p>
         </section>
 

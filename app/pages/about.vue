@@ -15,7 +15,7 @@ useHead({
     {
       name: "description",
       content:
-        "military.contractors provides open intelligence on U.S. defense contractors, public awards, agencies, NAICS/PSC categories, and spending trends.",
+        "military.contractors is a searchable directory of Department of Defense-awarded USAspending contract recipients with source-backed profiles.",
     },
     {
       property: "og:title",
@@ -24,7 +24,7 @@ useHead({
     {
       property: "og:description",
       content:
-        "Open contractor intelligence backed by structured public award data and source links.",
+        "A directory-first view of companies and recipients receiving U.S. defense contract awards.",
     },
     { property: "og:type", content: "website" },
   ],
@@ -33,7 +33,7 @@ useHead({
 useWebPageSchema({
   name: "About military.contractors",
   description:
-    "Open intelligence on U.S. defense contractors, public awards, agencies, categories, and spending trends.",
+    "Searchable directory of Department of Defense-awarded USAspending contract recipients with source-backed profile context.",
 });
 
 const sections = [
@@ -93,12 +93,12 @@ const sections = [
         <h1
           class="text-foreground mt-6 max-w-3xl text-3xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
         >
-          Open
-          <span class="text-primary">contractor intelligence</span>.
+          Searchable
+          <span class="text-primary">contractor directory</span>.
         </h1>
         <p class="text-muted-foreground mt-4 max-w-2xl text-base sm:text-lg">
-          Source-backed research on U.S. defense contractors, agencies,
-          categories, and public spending trends.
+          Source-backed profiles for companies and recipients receiving U.S.
+          defense contract awards.
         </p>
 
         <div class="mt-10 space-y-6">
@@ -116,14 +116,14 @@ const sections = [
             </div>
             <div class="text-foreground/90 mt-4 space-y-3 text-sm leading-relaxed">
               <p>
-                We organize contractor profiles, public award context, agencies,
-                NAICS and PSC categories, locations, and spending trends into a
-                searchable intelligence layer.
+                We organize the active trailing 36-month USAspending recipient
+                snapshot for Department of Defense-awarded contracts into a
+                fast searchable directory.
               </p>
               <p>
-                The goal is simple: make it easier to understand who is winning
-                public defense work, where that work sits, which agencies are
-                involved, and which source records support the answer.
+                The goal is simple: make it easier to find who is receiving
+                public defense contract awards, inspect their source-backed
+                profile, and follow the underlying USAspending records.
               </p>
             </div>
           </section>
@@ -142,19 +142,18 @@ const sections = [
             </div>
             <ol class="text-foreground/90 mt-4 space-y-4 text-sm leading-relaxed">
               <li>
-                <strong class="text-foreground">1. Start with a question.</strong>
-                Ask about a contractor, agency, NAICS/PSC category, location, or
-                award keyword.
+                <strong class="text-foreground">1. Start with the directory.</strong>
+                Search by recipient name, UEI/code, agency, NAICS, or PSC.
               </li>
               <li>
-                <strong class="text-foreground">2. Use structured filters.</strong>
-                The explorer converts plain English into a validated query plan
-                and deterministic backend operations.
+                <strong class="text-foreground">2. Open a profile.</strong>
+                Profiles combine the snapshot row with recent USAspending award
+                evidence and cached profile intelligence.
               </li>
               <li>
-                <strong class="text-foreground">3. Verify the source records.</strong>
-                Results include filters, ranked tables, summaries, and public
-                source links rather than free-form claims.
+                <strong class="text-foreground">3. Continue research.</strong>
+                Secondary explorer, ranking, agency, topic, and category views
+                provide deeper lenses on the same public award data.
               </li>
             </ol>
           </section>
@@ -180,9 +179,9 @@ const sections = [
                   Companies
                 </h3>
                 <ul class="text-muted-foreground space-y-1">
-                  <li>Names, aliases, headquarters, and identifiers</li>
-                  <li>Specialties and locations</li>
-                  <li>Revenue context and public profile links</li>
+                  <li>USAspending recipient names, UEIs, and recipient codes</li>
+                  <li>Trailing 36-month DoD obligations and award counts</li>
+                  <li>Curated company overlays for known major contractors</li>
                 </ul>
               </div>
               <div>
@@ -214,7 +213,7 @@ const sections = [
             <p class="text-foreground/90 mt-4 text-sm leading-relaxed">
               This is not a job board, MOS translator, placement service, or
               career alert product. Public product development is focused on
-              source-backed contractor intelligence.
+              source-backed contractor directory and profile intelligence.
             </p>
           </section>
 
@@ -239,10 +238,10 @@ const sections = [
 
           <div class="flex flex-col gap-3 pt-4 sm:flex-row">
             <Button as-child size="lg" class="font-semibold">
-              <NuxtLink to="/explorer">Open Explorer</NuxtLink>
+              <NuxtLink to="/companies">Open Directory</NuxtLink>
             </Button>
             <Button as-child variant="outline" size="lg">
-              <NuxtLink to="/companies">Browse Companies</NuxtLink>
+              <NuxtLink to="/explorer">Open Explorer</NuxtLink>
             </Button>
           </div>
         </div>

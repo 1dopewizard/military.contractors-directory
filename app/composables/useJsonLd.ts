@@ -66,7 +66,7 @@ export function useWebSiteSchema(options?: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${options?.url || config.public.siteUrl || "https://military.contractors"}/search?q={search_term_string}`,
+        urlTemplate: `${options?.url || config.public.siteUrl || "https://military.contractors"}/companies?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },

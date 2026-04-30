@@ -103,6 +103,12 @@ export default defineNuxtConfig({
     alias: {
       "@/lib": resolve("./lib"),
     },
+    experimental: {
+      tasks: true,
+    },
+    scheduledTasks: {
+      "15 7 * * *": ["contractor-snapshot-refresh"],
+    },
   },
   vite: {
     plugins: [tailwindcss()],

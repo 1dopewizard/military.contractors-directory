@@ -19,6 +19,23 @@ interface ContractorResponse {
   id: string;
   slug: string;
   name: string;
+  recipientName: string | null;
+  normalizedName: string | null;
+  recipientUei: string | null;
+  recipientCode: string | null;
+  totalObligations36m: number | null;
+  awardCount36m: number | null;
+  lastAwardDate: string | null;
+  topAwardingAgency: string | null;
+  topAwardingSubagency: string | null;
+  topNaicsCode: string | null;
+  topNaicsTitle: string | null;
+  topPscCode: string | null;
+  topPscTitle: string | null;
+  sourceUrl: string | null;
+  refreshedAt: string | null;
+  snapshotWindowStart: string | null;
+  snapshotWindowEnd: string | null;
   description: string | null;
   defenseNewsRank: number | null;
   country: string | null;
@@ -57,6 +74,34 @@ interface ContractorResponse {
     country: string;
     isHeadquarters: boolean;
   }>;
+  snapshot: {
+    id: string;
+    slug: string;
+    recipientName: string;
+    normalizedName: string;
+    recipientUei: string | null;
+    recipientCode: string | null;
+    totalObligations36m: number;
+    awardCount36m: number;
+    lastAwardDate: string | null;
+    topAwardingAgency: string | null;
+    topAwardingSubagency: string | null;
+    topNaicsCode: string | null;
+    topNaicsTitle: string | null;
+    topPscCode: string | null;
+    topPscTitle: string | null;
+    sourceUrl: string;
+    refreshedAt: string;
+    snapshotWindowStart: string;
+    snapshotWindowEnd: string;
+  } | null;
+  curated: {
+    id: string;
+    slug: string;
+    name: string;
+    description: string | null;
+  } | null;
+  intelligence: ContractorIntelligence;
   createdAt: string | null;
   updatedAt: string | null;
 }
@@ -75,14 +120,7 @@ const {
   watch: [slug],
 });
 
-const { data: intelligence } = useFetch<ContractorIntelligence | null>(
-  () => `/api/intelligence/contractors/${slug.value}`,
-  {
-    lazy: true,
-    watch: [slug],
-    default: () => null,
-  },
-);
+const intelligence = computed(() => contractor.value?.intelligence ?? null);
 
 const stockExchange = computed(() => {
   if (!contractor.value?.stockTicker) return null;
@@ -101,7 +139,7 @@ const descriptionLead = computed(() => {
   const description = contractor.value?.description;
   if (!description) {
     return contractor.value
-      ? `${contractor.value.name} public award intelligence dossier.`
+      ? `${contractor.value.name} public award profile covering Department of Defense contract obligations in the active 36-month USAspending snapshot.`
       : "Contractor public award intelligence dossier.";
   }
 
@@ -182,7 +220,7 @@ useHead(() => {
   if (!contractor.value) return {};
 
   return {
-    title: `${contractor.value.name} | Defense Contractor Dossier | military.contractors`,
+    title: `${contractor.value.name} | Defense Contractor Profile | military.contractors`,
     link: [
       {
         rel: "canonical",
@@ -194,7 +232,7 @@ useHead(() => {
         name: "description",
         content:
           contractor.value.description?.slice(0, 160) ||
-          `${contractor.value.name} public award dossier with USAspending-backed obligations, agencies, categories, and recent award evidence.`,
+          `${contractor.value.name} profile with USAspending-backed DoD contract obligations, agencies, NAICS, PSC, and recent award evidence.`,
       },
       {
         name: "robots",
@@ -274,7 +312,7 @@ watchEffect(() => {
       </SearchablePageHeader>
 
       <IntelligencePageHeader
-        eyebrow="Contractor dossier"
+        eyebrow="Contractor profile"
         :title="contractor.name"
         :description="descriptionLead"
         :metadata="intelligence?.sourceMetadata"
@@ -305,12 +343,12 @@ watchEffect(() => {
         <div v-else class="space-y-8">
           <section class="border-border grid border-t border-l lg:grid-cols-[1fr_1fr]">
             <div class="border-border border-r border-b p-4">
-              <p class="text-muted-foreground text-xs tracking-wide uppercase">
+                <p class="text-muted-foreground text-xs tracking-wide uppercase">
                 Identity
               </p>
               <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
                 <div>
-                  <dt class="text-muted-foreground">Canonical name</dt>
+                  <dt class="text-muted-foreground">Recipient name</dt>
                   <dd class="text-foreground mt-1 font-medium">
                     {{ contractor.name }}
                   </dd>
@@ -328,9 +366,9 @@ watchEffect(() => {
                   </dd>
                 </div>
                 <div>
-                  <dt class="text-muted-foreground">CAGE</dt>
+                  <dt class="text-muted-foreground">Recipient code</dt>
                   <dd class="text-foreground mt-1 font-mono text-xs">
-                    {{ intelligence.identifiers?.cageCode || "N/A" }}
+                    {{ contractor.recipientCode || intelligence.identifiers?.cageCode || "N/A" }}
                   </dd>
                 </div>
               </dl>

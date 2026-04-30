@@ -8,10 +8,10 @@ export default defineEventHandler(async (event) => {
   // Static pages
   const staticPages = [
     { loc: "/", priority: "1.0", changefreq: "daily" },
-    { loc: "/explorer", priority: "0.9", changefreq: "daily" },
-    { loc: "/companies", priority: "0.9", changefreq: "daily" },
-    { loc: "/compare", priority: "0.7", changefreq: "weekly" },
-    { loc: "/agencies", priority: "0.8", changefreq: "daily" },
+    { loc: "/companies", priority: "1.0", changefreq: "daily" },
+    { loc: "/explorer", priority: "0.6", changefreq: "daily" },
+    { loc: "/compare", priority: "0.5", changefreq: "weekly" },
+    { loc: "/agencies", priority: "0.7", changefreq: "daily" },
     { loc: "/about", priority: "0.5", changefreq: "monthly" },
     { loc: "/contact", priority: "0.5", changefreq: "monthly" },
     { loc: "/privacy", priority: "0.3", changefreq: "yearly" },
@@ -74,14 +74,14 @@ export default defineEventHandler(async (event) => {
     const db = getDb();
 
     const contractors = db
-      .select({ slug: schema.contractor.slug })
-      .from(schema.contractor)
+      .select({ slug: schema.contractorSnapshot.slug })
+      .from(schema.contractorSnapshot)
       .all();
 
     contractorPages = contractors.map((c) => ({
       loc: `/companies/${c.slug}`,
-      priority: "0.7",
-      changefreq: "weekly",
+      priority: "0.8",
+      changefreq: "daily",
     }));
 
     const specialties = db

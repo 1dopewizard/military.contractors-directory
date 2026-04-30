@@ -22,20 +22,20 @@ export default defineEventHandler(async () => {
   try {
     const urls: SitemapUrl[] = [];
 
-    // Add contractors
+    // Add snapshot-backed contractor recipient profiles
     const contractors = await db
       .select({
-        slug: schema.contractor.slug,
-        updatedAt: schema.contractor.updatedAt,
+        slug: schema.contractorSnapshot.slug,
+        updatedAt: schema.contractorSnapshot.updatedAt,
       })
-      .from(schema.contractor)
-      .orderBy(desc(schema.contractor.updatedAt));
+      .from(schema.contractorSnapshot)
+      .orderBy(desc(schema.contractorSnapshot.updatedAt));
 
     for (const contractor of contractors) {
       urls.push({
         loc: `${baseUrl}/companies/${contractor.slug}`,
         lastmod: contractor.updatedAt?.toISOString() ?? null,
-        changefreq: "weekly",
+        changefreq: "daily",
         priority: 0.8,
       });
     }
@@ -54,7 +54,7 @@ export default defineEventHandler(async () => {
         loc: `${baseUrl}/companies/specialty/${specialty.slug}`,
         lastmod: specialty.updatedAt?.toISOString() ?? null,
         changefreq: "monthly",
-        priority: 0.7,
+        priority: 0.5,
       });
     }
 
@@ -62,7 +62,7 @@ export default defineEventHandler(async () => {
       urls.push({
         loc: `${baseUrl}/rankings/${preset.slug}`,
         changefreq: "daily",
-        priority: 0.8,
+        priority: 0.7,
       });
     }
 
@@ -70,7 +70,7 @@ export default defineEventHandler(async () => {
       urls.push({
         loc: `${baseUrl}/topics/${topic.slug}`,
         changefreq: "daily",
-        priority: 0.7,
+        priority: 0.6,
       });
     }
 

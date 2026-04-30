@@ -9,6 +9,7 @@ export interface Contractor {
   id: string;
   slug: string;
   name: string;
+  recipientName?: string;
   description?: string;
   defenseNewsRank?: number;
   headquarters?: string;
@@ -23,12 +24,19 @@ export interface Contractor {
   defenseRevenue?: number;
   defenseRevenuePercent?: number;
   logoUrl?: string;
+  totalObligations36m?: number;
+  awardCount36m?: number;
   specialties?: Array<{
     id: string;
     slug: string;
     name: string;
     isPrimary: boolean;
   }>;
+}
+
+interface ContractorListResponse {
+  rows?: Array<Contractor & { recipientName: string }>;
+  contractors?: Array<Contractor & { recipientName?: string }>;
 }
 
 export interface ContractorFilters {
@@ -67,13 +75,13 @@ export const useContractors = (): UseContractorsReturn => {
     }
 
     try {
-      const data = await $fetch<Contractor[]>("/api/contractors", {
+      const data = await $fetch<ContractorListResponse>("/api/contractors", {
         query: { limit: 500 },
       });
 
       // Sort by name
-      const contractors = (data || []).sort((a: Contractor, b: Contractor) =>
-        a.name.localeCompare(b.name),
+      const contractors = normalizeContractorList(data).sort(
+        (a: Contractor, b: Contractor) => a.name.localeCompare(b.name),
       );
 
       // Update state
@@ -158,15 +166,16 @@ export const useContractors = (): UseContractorsReturn => {
     logger.debug({ query: trimmed, limit }, "Searching contractors");
 
     try {
-      const data = await $fetch<Contractor[]>("/api/contractors", {
+      const data = await $fetch<ContractorListResponse>("/api/contractors", {
         query: { q: trimmed, limit },
       });
+      const contractors = normalizeContractorList(data);
 
       logger.debug(
-        { query: trimmed, resultCount: data?.length || 0 },
+        { query: trimmed, resultCount: contractors.length },
         "searchContractors completed",
       );
-      return data || [];
+      return contractors;
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
       logger.error({ error: message }, "Failed to search contractors");
@@ -237,3 +246,13 @@ export const useContractors = (): UseContractorsReturn => {
     filterContractors,
   };
 };
+
+function normalizeContractorList(
+  data: ContractorListResponse | null | undefined,
+): Contractor[] {
+  const rows = data?.contractors ?? data?.rows ?? [];
+  return rows.map((row) => ({
+    ...row,
+    name: row.name ?? row.recipientName,
+  }));
+}

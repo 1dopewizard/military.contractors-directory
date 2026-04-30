@@ -12,5 +12,8 @@ export * from "./directory";
 // Public award and contractor intelligence
 export * from "./intelligence";
 
+// USAspending recipient snapshots
+export * from "./snapshot";
+
 // Admin (activity log)
 export * from "./admin";
