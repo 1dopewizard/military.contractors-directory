@@ -111,8 +111,13 @@ export interface ExplorerPlan {
   psc: string | null;
   location: string | null;
   keywords: string[];
+  recipientSearchText?: string[];
   fiscalYears: number[];
   limit: number;
+  sort?: {
+    field: "awardAmount" | "startDate";
+    direction: "asc" | "desc";
+  } | null;
 }
 
 export interface ExplorerResult {

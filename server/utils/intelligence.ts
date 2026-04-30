@@ -4,6 +4,8 @@
  */
 
 import { createHash } from "node:crypto";
+import { createOpenAI } from "@ai-sdk/openai";
+import { generateObject } from "ai";
 import { eq, like, or } from "drizzle-orm";
 import { z } from "zod";
 import type {
@@ -47,17 +49,26 @@ export const explorerIntentSchema = z.enum([
   "unsupported",
 ]);
 
-export const explorerPlanSchema = z.object({
-  intent: explorerIntentSchema,
-  contractors: z.array(z.string()).default([]),
-  agency: z.string().nullable().default(null),
-  naics: z.string().nullable().default(null),
-  psc: z.string().nullable().default(null),
-  location: z.string().nullable().default(null),
-  keywords: z.array(z.string()).default([]),
-  fiscalYears: z.array(z.number().int()).default([]),
-  limit: z.number().int().min(1).max(100).default(10),
-}) satisfies z.ZodType<ExplorerPlan>;
+const explorerPlanSortSchema = z.object({
+  field: z.enum(["awardAmount", "startDate"]),
+  direction: z.enum(["asc", "desc"]),
+});
+
+export const explorerPlanSchema = z
+  .object({
+    intent: explorerIntentSchema,
+    contractors: z.array(z.string()).default([]),
+    agency: z.string().nullable().default(null),
+    naics: z.string().nullable().default(null),
+    psc: z.string().nullable().default(null),
+    location: z.string().nullable().default(null),
+    keywords: z.array(z.string()).default([]),
+    recipientSearchText: z.array(z.string()).default([]),
+    fiscalYears: z.array(z.number().int()).default([]),
+    limit: z.number().int().min(1).max(100).default(10),
+    sort: explorerPlanSortSchema.nullable().default(null),
+  })
+  .strict() satisfies z.ZodType<ExplorerPlan>;
 
 export const followUpModeSchema = z.enum(["refine", "pivot", "answer"]);
 
@@ -69,19 +80,22 @@ export const rankingPresets = [
   {
     slug: "top-defense-contractors",
     title: "Top Defense Contractors",
-    description: "Recipients ranked by current fiscal year contract obligations.",
+    description:
+      "Recipients ranked by current fiscal year contract obligations.",
     filters: { agency: "Department of Defense" },
   },
   {
     slug: "navy-contractors",
     title: "Top Navy Contractors",
-    description: "Recipients ranked by Department of the Navy contract obligations.",
+    description:
+      "Recipients ranked by Department of the Navy contract obligations.",
     filters: { agency: "Department of the Navy" },
   },
   {
     slug: "army-contractors",
     title: "Top Army Contractors",
-    description: "Recipients ranked by Department of the Army contract obligations.",
+    description:
+      "Recipients ranked by Department of the Army contract obligations.",
     filters: { agency: "Department of the Army" },
   },
   {
@@ -94,7 +108,8 @@ export const rankingPresets = [
   {
     slug: "cyber-it-contractors",
     title: "Cyber and IT Contractors",
-    description: "Recipients ranked across computer systems and cyber-related work.",
+    description:
+      "Recipients ranked across computer systems and cyber-related work.",
     filters: { naics: "541512", keywords: ["cyber"] },
   },
   {
@@ -115,7 +130,8 @@ export const topicPresets = [
   {
     slug: "missile-defense",
     title: "Missile Defense",
-    description: "Missile, guided weapons, radar, and air defense award activity.",
+    description:
+      "Missile, guided weapons, radar, and air defense award activity.",
     keywords: ["missile", "radar"],
     psc: "1410",
   },
@@ -129,14 +145,16 @@ export const topicPresets = [
   {
     slug: "shipbuilding",
     title: "Shipbuilding",
-    description: "Ship construction, repair, and naval platform award activity.",
+    description:
+      "Ship construction, repair, and naval platform award activity.",
     keywords: ["ship"],
     naics: "336611",
   },
   {
     slug: "space-systems",
     title: "Space Systems",
-    description: "Space, satellite, launch, and missile warning award activity.",
+    description:
+      "Space, satellite, launch, and missile warning award activity.",
     keywords: ["space", "satellite"],
     naics: "336414",
   },
@@ -174,7 +192,11 @@ const knownContractors = [
     name: "General Dynamics",
     aliases: ["General Dynamics Corporation", "Electric Boat", "GDIT"],
   },
-  { slug: "leidos", name: "Leidos", aliases: ["Leidos Holdings", "Leidos Inc"] },
+  {
+    slug: "leidos",
+    name: "Leidos",
+    aliases: ["Leidos Holdings", "Leidos Inc"],
+  },
   {
     slug: "booz-allen-hamilton",
     name: "Booz Allen Hamilton",
@@ -318,9 +340,13 @@ export function planExplorerQuery(query: string): ExplorerPlan {
   const naics = extractCode(query, "naics");
   const psc = extractCode(query, "psc");
   const keywords = extractKeywords(normalized);
+  const limit = extractLimit(normalized) ?? 10;
 
   let intent: ExplorerIntent = "award_keyword_search";
-  if (contractors.length === 1 && /profile|lookup|summary|show|tell/.test(normalized)) {
+  if (
+    contractors.length === 1 &&
+    /profile|lookup|summary|show|tell/.test(normalized)
+  ) {
     intent = "company_lookup";
   } else if (contractors.length > 1 || /compare|versus| vs /.test(normalized)) {
     intent = "company_comparison";
@@ -343,8 +369,91 @@ export function planExplorerQuery(query: string): ExplorerPlan {
     location,
     keywords,
     fiscalYears,
-    limit: 10,
+    limit,
   });
+}
+
+export async function planExplorerQueryWithAi(query: string): Promise<{
+  plan: ExplorerPlan;
+  warnings: string[];
+}> {
+  const apiKey = getExplorerPlannerApiKey();
+
+  if (!apiKey) {
+    return {
+      plan: planExplorerQuery(query),
+      warnings: [
+        "Explorer planner API key is not configured; using fallback parser.",
+      ],
+    };
+  }
+
+  try {
+    const openai = createOpenAI({ apiKey });
+    const { object } = await generateObject({
+      model: openai(getExplorerPlannerModel()),
+      schema: explorerPlanSchema,
+      system: explorerPlannerSystemPrompt(),
+      prompt: query,
+      maxRetries: 0,
+    });
+
+    return {
+      plan: explorerPlanSchema.parse(object),
+      warnings: [],
+    };
+  } catch {
+    return {
+      plan: planExplorerQuery(query),
+      warnings: ["Explorer AI planner failed; using fallback parser."],
+    };
+  }
+}
+
+function getExplorerPlannerApiKey(): string | null {
+  const apiKey = process.env.OPENAI_API_KEY ?? process.env.NUXT_OPENAI_API_KEY;
+  return apiKey?.trim() ? apiKey : null;
+}
+
+function getExplorerPlannerModel(): string {
+  return (
+    process.env.NUXT_EXPLORER_PLANNER_MODEL ??
+    process.env.EXPLORER_PLANNER_MODEL ??
+    "gpt-5.4-mini"
+  );
+}
+
+function explorerPlannerSystemPrompt(): string {
+  const knownContractorLines = knownContractors
+    .map(
+      (contractor) =>
+        `- ${contractor.slug}: ${[contractor.name, ...contractor.aliases].join(
+          ", ",
+        )}`,
+    )
+    .join("\n");
+  const agencyLines = agencyNames.map((agency) => `- ${agency}`).join("\n");
+
+  return `Plan a USAspending contractor-award explorer query.
+
+Return only fields from the schema. Do not answer the user and do not invent award data.
+
+Known contractor slugs and aliases:
+${knownContractorLines}
+
+Known agencies:
+${agencyLines}
+
+Rules:
+- Use contractors only for the known contractor slugs above.
+- Company or recipient names not listed above go in recipientSearchText.
+- Programs, platforms, contract vehicles, missions, and products such as Aegis go in keywords.
+- "last", "latest", "recent", or "newest" N awards means limit N and sort startDate desc.
+- "top", "largest", or "biggest" means sort awardAmount desc unless a different sort is explicitly requested.
+- Use agency_top_contractors for agency recipient rankings.
+- Use category_search for NAICS or PSC queries.
+- Use location_search for place/state queries.
+- Use unsupported for non-award or non-contractor questions.`;
 }
 
 export async function runExplorerQueryWithCache(
@@ -355,7 +464,8 @@ export async function runExplorerQueryWithCache(
     allowFreshRefresh?: boolean;
   } = {},
 ): Promise<ExplorerResult> {
-  const plan = planExplorerQuery(query);
+  const { plan, warnings: plannerWarnings } =
+    await planExplorerQueryWithAi(query);
   const queryHash = createPlanHash(plan, query);
   const id = queryHash.slice(0, 16);
   const cacheTtlMs = options.cacheTtlMs ?? PUBLIC_CACHE_TTL_MS;
@@ -366,7 +476,10 @@ export async function runExplorerQueryWithCache(
     !options.forceRefresh &&
     Date.now() - cached.refreshedAt.getTime() < cacheTtlMs
   ) {
-    return markExplorerResultCached(cached.result, "cached", true);
+    return appendExplorerWarnings(
+      markExplorerResultCached(cached.result as ExplorerResult, "cached", true),
+      plannerWarnings,
+    );
   }
 
   if (
@@ -375,7 +488,10 @@ export async function runExplorerQueryWithCache(
     !options.allowFreshRefresh &&
     Date.now() - cached.refreshedAt.getTime() < cacheTtlMs
   ) {
-    const result = markExplorerResultCached(cached.result, "cached", true);
+    const result = appendExplorerWarnings(
+      markExplorerResultCached(cached.result as ExplorerResult, "cached", true),
+      plannerWarnings,
+    );
     result.sourceMetadata.warnings = [
       ...result.sourceMetadata.warnings,
       "Public refresh is available after this cache entry becomes stale.",
@@ -384,13 +500,13 @@ export async function runExplorerQueryWithCache(
   }
 
   if (plan.intent === "unsupported") {
-    const result = unsupportedExplorerResult(id, query, plan);
+    const result = unsupportedExplorerResult(id, query, plan, plannerWarnings);
     await writeExplorerCache(query, queryHash, result);
     return result;
   }
 
   try {
-    const result = await executeExplorerPlan(query, plan, id);
+    const result = await executeExplorerPlan(query, plan, id, plannerWarnings);
     await writeExplorerCache(query, queryHash, result);
     await persistAwards(result.awards);
     return result;
@@ -399,7 +515,14 @@ export async function runExplorerQueryWithCache(
       cached &&
       Date.now() - cached.refreshedAt.getTime() < STALE_FALLBACK_MS
     ) {
-      const result = markExplorerResultCached(cached.result, "stale", true);
+      const result = appendExplorerWarnings(
+        markExplorerResultCached(
+          cached.result as ExplorerResult,
+          "stale",
+          true,
+        ),
+        plannerWarnings,
+      );
       result.sourceMetadata.warnings = [
         ...result.sourceMetadata.warnings,
         error instanceof Error ? error.message : "USAspending refresh failed.",
@@ -428,7 +551,11 @@ export async function getExplorerResultFromCache(
     .limit(1);
 
   if (!entry?.result) return null;
-  return markExplorerResultCached(entry.result as ExplorerResult, "cached", true);
+  return markExplorerResultCached(
+    entry.result as unknown as ExplorerResult,
+    "cached",
+    true,
+  );
 }
 
 export async function runFollowUp(
@@ -446,7 +573,10 @@ export async function runFollowUp(
   }
 
   const mode = requestedMode ?? inferFollowUpMode(followUpQuery);
-  const id = createQueryHash(`${cacheId}:${mode}:${followUpQuery}`).slice(0, 16);
+  const id = createQueryHash(`${cacheId}:${mode}:${followUpQuery}`).slice(
+    0,
+    16,
+  );
 
   if (mode === "answer") {
     return {
@@ -522,7 +652,10 @@ export async function getContractorIntelligenceLive(
     };
     const [awardResponse, trendResponse] = await Promise.all([
       searchUsaSpendingAwards(searchInput),
-      fetchUsaSpendingTrend(searchInput).catch(() => ({ results: [], messages: [] })),
+      fetchUsaSpendingTrend(searchInput).catch(() => ({
+        results: [],
+        messages: [],
+      })),
     ]);
     const awards = awardResponse.results;
     const trend = trendResponse.results.length
@@ -554,7 +687,9 @@ export async function getContractorIntelligenceLive(
         cacheStatus: "stale",
         warnings: [
           ...result.sourceMetadata.warnings,
-          error instanceof Error ? error.message : "USAspending refresh failed.",
+          error instanceof Error
+            ? error.message
+            : "USAspending refresh failed.",
         ],
       };
       return result;
@@ -654,14 +789,35 @@ export function getSpendingTrend(awards: AwardSummary[]): TrendPoint[] {
 }
 
 export function searchAwards(plan: ExplorerPlan): AwardSummary[] {
-  return filterDemoAwards(plan).sort((a, b) => b.obligation - a.obligation);
+  const awards = filterDemoAwards(plan);
+
+  if (plan.sort?.field === "startDate") {
+    return awards.sort((a, b) => {
+      const comparison = String(a.startDate).localeCompare(String(b.startDate));
+      return plan.sort?.direction === "asc" ? comparison : -comparison;
+    });
+  }
+
+  return awards.sort((a, b) =>
+    plan.sort?.direction === "asc"
+      ? a.obligation - b.obligation
+      : b.obligation - a.obligation,
+  );
 }
 
 export function runExplorerQuery(query: string): ExplorerResult {
   const plan = planExplorerQuery(query);
   const id = createPlanHash(plan, query).slice(0, 16);
-  if (plan.intent === "unsupported") return unsupportedExplorerResult(id, query, plan);
-  return explorerResultFromAwards(query, plan, id, searchAwards(plan), [], false);
+  if (plan.intent === "unsupported")
+    return unsupportedExplorerResult(id, query, plan);
+  return explorerResultFromAwards(
+    query,
+    plan,
+    id,
+    searchAwards(plan),
+    [],
+    false,
+  );
 }
 
 export function getContractorIntelligence(
@@ -700,12 +856,22 @@ async function executeExplorerPlan(
   query: string,
   plan: ExplorerPlan,
   id: string,
+  plannerWarnings: string[] = [],
 ): Promise<ExplorerResult> {
   const input = planToUsaSpendingInput(plan);
+  const sort = usaSpendingSortForPlan(plan);
   const [awardResponse, trendResponse, rankingResponse] = await Promise.all([
-    searchUsaSpendingAwards({ ...input, limit: Math.max(plan.limit, 25) }),
+    searchUsaSpendingAwards({
+      ...input,
+      limit:
+        plan.sort?.field === "startDate"
+          ? plan.limit
+          : Math.max(plan.limit, 25),
+      sort: sort.sort,
+      order: sort.order,
+    }),
     fetchUsaSpendingTrend(input).catch(() => ({ results: [], messages: [] })),
-    shouldUseRecipientRankings(plan)
+    plan.sort?.field !== "startDate" && shouldUseRecipientRankings(plan)
       ? fetchUsaSpendingCategoryRankings("recipient", {
           ...input,
           limit: plan.limit,
@@ -714,6 +880,7 @@ async function executeExplorerPlan(
   ]);
 
   const warnings = [
+    ...plannerWarnings,
     ...awardResponse.messages,
     ...trendResponse.messages,
     ...rankingResponse.messages,
@@ -742,7 +909,10 @@ function explorerResultFromAwards(
   liveTrend: TrendPoint[] = [],
   liveRankings: RankingRow[] = [],
 ): ExplorerResult {
-  const totalObligations = awards.reduce((sum, award) => sum + award.obligation, 0);
+  const totalObligations = awards.reduce(
+    (sum, award) => sum + award.obligation,
+    0,
+  );
   const rankings = liveRankings.length
     ? liveRankings
     : rankAwardsByRecipient(awards).slice(0, plan.limit);
@@ -803,6 +973,7 @@ function unsupportedExplorerResult(
   id: string,
   query: string,
   plan: ExplorerPlan,
+  warnings: string[] = [],
 ): ExplorerResult {
   return {
     id,
@@ -818,31 +989,56 @@ function unsupportedExplorerResult(
     awards: [],
     rankings: [],
     sourceLinks: [{ label: "USAspending.gov", url: USA_SPENDING_BASE_URL }],
-    sourceMetadata: sourceMetadata(0, [], [], "live"),
+    sourceMetadata: sourceMetadata(0, [], warnings, "live"),
     cached: false,
   };
 }
 
-function planToUsaSpendingInput(plan: ExplorerPlan): UsaSpendingAwardSearchInput {
+function planToUsaSpendingInput(
+  plan: ExplorerPlan,
+): UsaSpendingAwardSearchInput {
   const contractorNames = plan.contractors
-    .map((slug) => knownContractors.find((contractor) => contractor.slug === slug))
+    .map((slug) =>
+      knownContractors.find((contractor) => contractor.slug === slug),
+    )
     .filter((contractor): contractor is (typeof knownContractors)[number] =>
       Boolean(contractor),
     )
     .flatMap((contractor) => [contractor.name, ...contractor.aliases]);
+  const recipientSearchText = [
+    ...contractorNames,
+    ...(plan.recipientSearchText ?? []),
+  ];
   const keywords = sanitizeUsaSpendingKeywords([
     ...plan.keywords,
     ...(plan.location ? [plan.location] : []),
   ]);
 
   return {
-    recipientSearchText: contractorNames.length ? contractorNames : undefined,
+    recipientSearchText: recipientSearchText.length
+      ? recipientSearchText
+      : undefined,
     agency: plan.agency,
     naicsCodes: plan.naics ? [plan.naics] : undefined,
     pscCodes: plan.psc ? [plan.psc] : undefined,
     keywords: keywords.length ? keywords : undefined,
     fiscalYears: plan.fiscalYears.length ? plan.fiscalYears : getFiscalYears(5),
     limit: plan.limit,
+    ...usaSpendingSortForPlan(plan),
+  };
+}
+
+function usaSpendingSortForPlan(plan: ExplorerPlan): {
+  sort: string | undefined;
+  order: "asc" | "desc";
+} {
+  if (!plan.sort) {
+    return { sort: undefined, order: "desc" };
+  }
+
+  return {
+    sort: plan.sort.field === "startDate" ? "Start Date" : "Award Amount",
+    order: plan.sort.direction,
   };
 }
 
@@ -868,7 +1064,8 @@ function buildContractorIntelligence(
   );
   const topSubAgencies = aggregateAwards(
     awards,
-    (award) => award.awardingSubAgency ?? award.awardingAgency ?? "Unknown agency",
+    (award) =>
+      award.awardingSubAgency ?? award.awardingAgency ?? "Unknown agency",
   );
   const topNaics = aggregateAwards(
     awards.filter((award) => award.naicsCode),
@@ -893,7 +1090,10 @@ function buildContractorIntelligence(
   return {
     contractor,
     summary: {
-      totalObligations: awards.reduce((sum, award) => sum + award.obligation, 0),
+      totalObligations: awards.reduce(
+        (sum, award) => sum + award.obligation,
+        0,
+      ),
       awardCount: awards.length,
       latestFiscalYear,
       yoyDelta:
@@ -911,7 +1111,9 @@ function buildContractorIntelligence(
       cageCode: null,
     },
     linkedRecipients,
-    topAwards: [...awards].sort((a, b) => b.obligation - a.obligation).slice(0, 10),
+    topAwards: [...awards]
+      .sort((a, b) => b.obligation - a.obligation)
+      .slice(0, 10),
     recentAwards: [...awards]
       .sort((a, b) => String(b.startDate).localeCompare(String(a.startDate)))
       .slice(0, 10),
@@ -1009,7 +1211,8 @@ function summarizeExplorerResult(
   const top = rankings[0];
   const agency = aggregateAwards(
     awards,
-    (award) => award.awardingSubAgency ?? award.awardingAgency ?? "Unknown agency",
+    (award) =>
+      award.awardingSubAgency ?? award.awardingAgency ?? "Unknown agency",
   )[0];
 
   if (plan.intent === "company_comparison") {
@@ -1028,7 +1231,7 @@ function summarizeExplorerResult(
 }
 
 function planFilters(plan: ExplorerPlan): IntelligenceFilter[] {
-  return [
+  const filters: Array<IntelligenceFilter | null> = [
     ...plan.contractors.map((slug) => {
       const contractor = knownContractors.find((item) => item.slug === slug);
       return {
@@ -1073,12 +1276,19 @@ function planFilters(plan: ExplorerPlan): IntelligenceFilter[] {
       label: "Keyword",
       value: keyword,
     })),
+    ...(plan.recipientSearchText ?? []).map((recipient) => ({
+      kind: "recipient" as const,
+      label: "Recipient search",
+      value: recipient,
+    })),
     ...plan.fiscalYears.map((year) => ({
       kind: "fiscal_year" as const,
       label: "Fiscal year",
       value: String(year),
     })),
-  ].filter((item): item is IntelligenceFilter => Boolean(item));
+  ];
+
+  return filters.filter((item): item is IntelligenceFilter => Boolean(item));
 }
 
 function sourceMetadata(
@@ -1125,6 +1335,24 @@ function markExplorerResultCached(
   };
 }
 
+function appendExplorerWarnings(
+  result: ExplorerResult,
+  warnings: string[],
+): ExplorerResult {
+  if (!warnings.length) return result;
+
+  return {
+    ...result,
+    sourceMetadata: {
+      ...result.sourceMetadata,
+      warnings: formatUsaSpendingMessages([
+        ...result.sourceMetadata.warnings,
+        ...warnings,
+      ]),
+    },
+  };
+}
+
 async function getExplorerCacheByHash(queryHash: string): Promise<{
   result: ExplorerResult | ContractorIntelligence;
   refreshedAt: Date;
@@ -1137,7 +1365,9 @@ async function getExplorerCacheByHash(queryHash: string): Promise<{
     .limit(1);
 
   if (!entry?.result) return null;
-  const result = entry.result as ExplorerResult | ContractorIntelligence;
+  const result = entry.result as unknown as
+    | ExplorerResult
+    | ContractorIntelligence;
   if (result.sourceMetadata?.warnings?.length) {
     result.sourceMetadata = {
       ...result.sourceMetadata,
@@ -1175,7 +1405,10 @@ async function writeRawCache(
       query,
       normalizedQuery: normalizeText(query),
       queryHash,
-      plan: "plan" in result ? (result.plan as Record<string, unknown>) : null,
+      plan:
+        "plan" in result
+          ? (result.plan as unknown as Record<string, unknown>)
+          : null,
       result: result as unknown as Record<string, unknown>,
       sourceMetadata: metadata as unknown as Record<string, unknown>,
       cacheStatus: "live",
@@ -1188,7 +1421,10 @@ async function writeRawCache(
       set: {
         query,
         normalizedQuery: normalizeText(query),
-        plan: "plan" in result ? (result.plan as Record<string, unknown>) : null,
+        plan:
+          "plan" in result
+            ? (result.plan as unknown as Record<string, unknown>)
+            : null,
         result: result as unknown as Record<string, unknown>,
         sourceMetadata: metadata as unknown as Record<string, unknown>,
         cacheStatus: "live",
@@ -1355,7 +1591,10 @@ async function upsertAgency(name: string): Promise<string> {
   return id;
 }
 
-function answerFromExplorerResult(result: ExplorerResult, query: string): string {
+function answerFromExplorerResult(
+  result: ExplorerResult,
+  query: string,
+): string {
   const top = result.rankings[0];
   const filters = result.filtersUsed
     .map((filter) => `${filter.label}: ${filter.value}`)
@@ -1374,7 +1613,8 @@ function answerFromExplorerResult(result: ExplorerResult, query: string): string
 function inferFollowUpMode(query: string): FollowUpMode {
   const normalized = normalizeText(query);
   if (/why|how|what does|explain|summarize/.test(normalized)) return "answer";
-  if (/instead|compare|versus| vs |switch|pivot/.test(normalized)) return "pivot";
+  if (/instead|compare|versus| vs |switch|pivot/.test(normalized))
+    return "pivot";
   return "refine";
 }
 
@@ -1396,6 +1636,16 @@ function filterDemoAwards(plan: ExplorerPlan): AwardSummary[] {
     );
   }
 
+  if (plan.recipientSearchText?.length) {
+    const recipients = plan.recipientSearchText.map(normalizeText);
+    awards = awards.filter((award) => {
+      const recipient = normalizeText(award.recipientName);
+      return recipients.some(
+        (name) => recipient.includes(name) || name.includes(recipient),
+      );
+    });
+  }
+
   if (plan.agency) {
     const agency = normalizeText(plan.agency);
     awards = awards.filter((award) =>
@@ -1415,7 +1665,9 @@ function filterDemoAwards(plan: ExplorerPlan): AwardSummary[] {
 
   if (plan.location) {
     awards = awards.filter((award) =>
-      normalizeText(award.description ?? "").includes(normalizeText(plan.location!)),
+      normalizeText(award.description ?? "").includes(
+        normalizeText(plan.location!),
+      ),
     );
   }
 
@@ -1463,7 +1715,8 @@ function demoAward(
     naicsTitle,
     pscCode,
     pscTitle,
-    fiscalYear: new Date(`${startDate}T00:00:00Z`).getUTCMonth() >= 9 ? 2026 : 2025,
+    fiscalYear:
+      new Date(`${startDate}T00:00:00Z`).getUTCMonth() >= 9 ? 2026 : 2025,
     startDate,
     endDate: null,
     obligation,
@@ -1475,16 +1728,16 @@ function demoAward(
 }
 
 function aliasesForContractor(slug: string, name: string): string[] {
-  return knownContractors.find((contractor) => contractor.slug === slug)?.aliases ?? [
-    name,
-  ];
+  return (
+    knownContractors.find((contractor) => contractor.slug === slug)
+      ?.aliases ?? [name]
+  );
 }
 
 function extractAgency(normalized: string): string | null {
   return (
-    agencyNames.find((agency) =>
-      normalized.includes(normalizeText(agency)),
-    ) ?? null
+    agencyNames.find((agency) => normalized.includes(normalizeText(agency))) ??
+    null
   );
 }
 
@@ -1497,7 +1750,8 @@ function extractLocation(normalized: string): string | null {
 }
 
 function extractCode(query: string, label: "naics" | "psc"): string | null {
-  const regex = label === "naics" ? /naics\s+(\d{2,6})/i : /psc\s+([a-z0-9]{4})/i;
+  const regex =
+    label === "naics" ? /naics\s+(\d{2,6})/i : /psc\s+([a-z0-9]{4})/i;
   return query.match(regex)?.[1]?.toUpperCase() ?? null;
 }
 
@@ -1508,8 +1762,21 @@ function extractKeywords(normalized: string): string[] {
   });
 }
 
+function extractLimit(normalized: string): number | null {
+  const match =
+    normalized.match(/\btop\s+(\d{1,3})\b/) ??
+    normalized.match(/\b(\d{1,3})\s+(?:contract\s+)?awards?\b/);
+  if (!match?.[1]) return null;
+  const limit = Number(match[1]);
+  if (!Number.isFinite(limit)) return null;
+  return Math.min(Math.max(limit, 1), 100);
+}
+
 function normalizeText(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
 function abbreviationForAgency(name: string): string | null {
