@@ -238,7 +238,7 @@ const sections = [
 
           <div class="flex flex-col gap-3 pt-4 sm:flex-row">
             <Button as-child size="lg" class="font-semibold">
-              <NuxtLink to="/companies">Open Directory</NuxtLink>
+              <NuxtLink to="/">Open Directory</NuxtLink>
             </Button>
             <Button as-child variant="outline" size="lg">
               <NuxtLink to="/explorer">Open Explorer</NuxtLink>

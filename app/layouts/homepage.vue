@@ -50,7 +50,7 @@ watch(
 
         <nav class="hidden items-center gap-6 lg:flex">
           <NuxtLink
-            to="/companies"
+            to="/"
             class="text-muted-foreground hover:text-foreground text-sm transition-colors"
           >
             Directory
@@ -118,7 +118,7 @@ watch(
 
             <nav class="flex flex-col gap-3">
               <NuxtLink
-                to="/companies"
+                to="/"
                 class="text-foreground hover:text-primary text-sm transition-colors"
               >
                 Directory

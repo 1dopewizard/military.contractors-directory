@@ -135,18 +135,7 @@ const yahooFinanceUrl = computed(() => {
   return `https://finance.yahoo.com/quote/${contractor.value.stockTicker}`;
 });
 
-const descriptionLead = computed(() => {
-  const description = contractor.value?.description;
-  if (!description) {
-    return contractor.value
-      ? `${contractor.value.name} public award profile covering Department of Defense contract obligations in the active 36-month USAspending snapshot.`
-      : "Contractor public award intelligence dossier.";
-  }
-
-  return description.split("\n\n")[0];
-});
-
-const dossierMetrics = computed(() => {
+const headlineMetrics = computed(() => {
   const summary = intelligence.value?.summary;
   if (!summary) return [];
 
@@ -154,12 +143,14 @@ const dossierMetrics = computed(() => {
     {
       label: "Obligations",
       value: formatIntelligenceMoney(summary.totalObligations),
-      detail: `${summary.awardCount.toLocaleString()} public award records`,
+      detail: `${summary.awardCount.toLocaleString()} award records`,
     },
     {
       label: "YoY delta",
       value: formatIntelligenceMoney(summary.yoyDelta),
-      detail: summary.latestFiscalYear ? `Latest FY${summary.latestFiscalYear}` : null,
+      detail: summary.latestFiscalYear
+        ? `Latest FY${summary.latestFiscalYear}`
+        : null,
     },
     {
       label: "Top agency",
@@ -186,35 +177,21 @@ const dossierMetrics = computed(() => {
   ];
 });
 
-const directoryMetrics = computed(() => {
-  if (!contractor.value) return [];
-
-  return [
-    {
-      label: "Defense revenue",
-      value: formatDirectoryRevenue(contractor.value.defenseRevenue),
-      detail: "Directory context",
-    },
-    {
-      label: "Total revenue",
-      value: formatDirectoryRevenue(contractor.value.totalRevenue),
-      detail:
-        contractor.value.defenseRevenuePercent == null
-          ? null
-          : `${Math.round(contractor.value.defenseRevenuePercent)}% defense`,
-    },
-    {
-      label: "Employees",
-      value: contractor.value.employeeCount || "N/A",
-      detail: contractor.value.founded ? `Founded ${contractor.value.founded}` : null,
-    },
-    {
-      label: "Headquarters",
-      value: contractor.value.headquarters || "N/A",
-      detail: contractor.value.country || null,
-    },
-  ];
+const agencyRows = computed(() => {
+  const intel = intelligence.value;
+  if (!intel) return [];
+  return (intel.topSubAgencies?.length
+    ? intel.topSubAgencies
+    : (intel.topAgencies ?? [])
+  ).slice(0, 6);
 });
+
+const naicsRows = computed(() => (intelligence.value?.topNaics ?? []).slice(0, 6));
+const pscRows = computed(() => (intelligence.value?.topPsc ?? []).slice(0, 6));
+
+const linkedRecipients = computed(
+  () => intelligence.value?.linkedRecipients ?? [],
+);
 
 useHead(() => {
   if (!contractor.value) return {};
@@ -284,7 +261,7 @@ watchEffect(() => {
             </EmptyDescription>
           </EmptyContent>
           <Button as-child variant="default">
-            <NuxtLink to="/companies">Browse Contractors</NuxtLink>
+            <NuxtLink to="/">Browse Contractors</NuxtLink>
           </Button>
         </Empty>
       </div>
@@ -295,7 +272,7 @@ watchEffect(() => {
         <template #filters>
           <div class="flex items-center gap-2 text-sm">
             <NuxtLink
-              to="/companies"
+              to="/"
               class="text-muted-foreground hover:text-primary transition-colors"
             >
               Companies
@@ -311,68 +288,377 @@ watchEffect(() => {
         </template>
       </SearchablePageHeader>
 
-      <IntelligencePageHeader
-        eyebrow="Contractor profile"
-        :title="contractor.name"
-        :description="descriptionLead"
-        :metadata="intelligence?.sourceMetadata"
-        :filters="intelligence?.sourceMetadata.filters || []"
-        max-width="max-w-7xl"
-      >
-        <template #actions>
-          <NuxtLink :to="`/compare?contractors=${contractor.slug}`">
-            <Button variant="outline" size="sm">Compare</Button>
-          </NuxtLink>
-          <NuxtLink v-if="contractor.website" :to="contractor.website" target="_blank">
-            <Button variant="outline" size="sm">
-              Website
-              <Icon name="mdi:open-in-new" class="ml-1 h-3 w-3" />
-            </Button>
-          </NuxtLink>
-        </template>
-      </IntelligencePageHeader>
+      <section class="border-border border-b">
+        <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+          <div
+            class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] uppercase tracking-[0.18em]"
+          >
+            <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
+            <span class="text-muted-foreground">USAspending.gov</span>
+            <span class="text-muted-foreground/40">/</span>
+            <span class="text-muted-foreground">DoD-awarded contracts</span>
+            <span class="text-muted-foreground/40">/</span>
+            <span class="text-muted-foreground">Trailing 36 months</span>
+            <template v-if="intelligence?.sourceMetadata?.cacheStatus">
+              <span class="text-muted-foreground/40 hidden sm:inline">/</span>
+              <span class="text-muted-foreground">
+                {{ intelligence.sourceMetadata.cacheStatus }}
+              </span>
+            </template>
+          </div>
 
-      <div class="container mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div v-if="!intelligence" class="mb-8">
-          <IntelligenceErrorState
-            title="Award intelligence unavailable"
-            message="This profile is available, but the source-backed award dossier could not be loaded."
-          />
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
+            <h1
+              class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl"
+            >
+              {{ contractor.name }}
+            </h1>
+            <div class="flex flex-wrap gap-2">
+              <NuxtLink :to="`/compare?contractors=${contractor.slug}`">
+                <Button variant="outline" size="sm">Compare</Button>
+              </NuxtLink>
+              <NuxtLink
+                v-if="contractor.website"
+                :to="contractor.website"
+                target="_blank"
+              >
+                <Button variant="outline" size="sm">
+                  Website
+                  <Icon name="mdi:open-in-new" class="ml-1 h-3 w-3" />
+                </Button>
+              </NuxtLink>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div v-else class="space-y-8">
-          <section class="border-border grid border-t border-l lg:grid-cols-[1fr_1fr]">
-            <div class="border-border border-r border-b p-4">
-                <p class="text-muted-foreground text-xs tracking-wide uppercase">
-                Identity
+      <section class="border-border border-b">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <dl
+            class="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-6"
+          >
+            <div
+              v-for="metric in headlineMetrics"
+              :key="metric.label"
+              class="min-w-0"
+            >
+              <dt
+                class="text-muted-foreground text-[0.65rem] tracking-[0.16em] uppercase"
+              >
+                {{ metric.label }}
+              </dt>
+              <dd
+                class="text-foreground mt-1.5 truncate text-base font-semibold tabular-nums"
+              >
+                {{ metric.value }}
+              </dd>
+              <p
+                v-if="metric.detail"
+                class="text-muted-foreground mt-1 truncate text-xs"
+              >
+                {{ metric.detail }}
               </p>
-              <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <section v-if="intelligence?.yearlyTrend?.length">
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Fiscal-year obligations
+          </h2>
+          <div class="mt-5">
+            <IntelligenceTrendBars :rows="intelligence.yearlyTrend" />
+          </div>
+        </section>
+
+        <section class="border-border mt-12 border-t pt-10">
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Award breakdowns
+          </h2>
+          <div class="mt-6 grid gap-10 lg:grid-cols-3">
+            <div>
+              <h3 class="text-foreground mb-3 text-sm font-semibold">Agency</h3>
+              <div v-if="!agencyRows.length" class="text-muted-foreground text-sm">
+                No agency data.
+              </div>
+              <table v-else class="w-full text-sm">
+                <tbody>
+                  <tr
+                    v-for="row in agencyRows"
+                    :key="row.key"
+                    class="border-border/40 border-b last:border-b-0"
+                  >
+                    <td class="py-2.5 pr-2 align-top">
+                      <p class="text-foreground font-medium leading-snug">
+                        {{ row.label }}
+                      </p>
+                      <p
+                        v-if="row.key && row.key !== row.label"
+                        class="text-muted-foreground mt-0.5 font-mono text-[11px]"
+                      >
+                        {{ row.key }}
+                      </p>
+                    </td>
+                    <td
+                      class="text-foreground py-2.5 text-right align-top tabular-nums"
+                    >
+                      {{ formatIntelligenceMoney(row.obligation) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div>
+              <h3 class="text-foreground mb-3 text-sm font-semibold">NAICS</h3>
+              <div v-if="!naicsRows.length" class="text-muted-foreground text-sm">
+                No NAICS data.
+              </div>
+              <table v-else class="w-full text-sm">
+                <tbody>
+                  <tr
+                    v-for="row in naicsRows"
+                    :key="row.key"
+                    class="border-border/40 border-b last:border-b-0"
+                  >
+                    <td class="py-2.5 pr-2 align-top">
+                      <p class="text-foreground font-mono text-xs">{{ row.key }}</p>
+                      <p
+                        v-if="row.label"
+                        class="text-muted-foreground mt-0.5 leading-snug"
+                      >
+                        {{ row.label }}
+                      </p>
+                    </td>
+                    <td
+                      class="text-foreground py-2.5 text-right align-top tabular-nums"
+                    >
+                      {{ formatIntelligenceMoney(row.obligation) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div>
+              <h3 class="text-foreground mb-3 text-sm font-semibold">PSC</h3>
+              <div v-if="!pscRows.length" class="text-muted-foreground text-sm">
+                No PSC data.
+              </div>
+              <table v-else class="w-full text-sm">
+                <tbody>
+                  <tr
+                    v-for="row in pscRows"
+                    :key="row.key"
+                    class="border-border/40 border-b last:border-b-0"
+                  >
+                    <td class="py-2.5 pr-2 align-top">
+                      <p class="text-foreground font-mono text-xs">{{ row.key }}</p>
+                      <p
+                        v-if="row.label"
+                        class="text-muted-foreground mt-0.5 leading-snug"
+                      >
+                        {{ row.label }}
+                      </p>
+                    </td>
+                    <td
+                      class="text-foreground py-2.5 text-right align-top tabular-nums"
+                    >
+                      {{ formatIntelligenceMoney(row.obligation) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section
+          v-if="intelligence?.topAwards?.length"
+          class="border-border mt-12 border-t pt-10"
+        >
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Top awards
+          </h2>
+          <p class="text-muted-foreground mt-1 text-sm">
+            Largest matched awards in the source-backed dossier.
+          </p>
+          <ul class="divide-border/50 mt-5 divide-y">
+            <li
+              v-for="award in intelligence.topAwards"
+              :key="award.key"
+              class="py-4 first:pt-0"
+            >
+              <div
+                class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
+              >
+                <div class="min-w-0">
+                  <p
+                    class="text-foreground text-sm font-medium [overflow-wrap:anywhere]"
+                  >
+                    {{ award.recipientName }}
+                  </p>
+                  <p
+                    class="text-muted-foreground mt-1 text-sm leading-relaxed [overflow-wrap:anywhere]"
+                  >
+                    {{ award.description || "No description provided." }}
+                  </p>
+                </div>
+                <p
+                  class="text-foreground shrink-0 text-sm font-semibold tabular-nums"
+                >
+                  {{ formatIntelligenceMoney(award.obligation) }}
+                </p>
+              </div>
+              <div
+                class="text-muted-foreground mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs"
+              >
+                <span v-if="award.fiscalYear">FY{{ award.fiscalYear }}</span>
+                <span>
+                  {{
+                    award.awardingSubAgency || award.awardingAgency || "Agency N/A"
+                  }}
+                </span>
+                <span v-if="award.naicsCode">NAICS {{ award.naicsCode }}</span>
+                <span v-if="award.pscCode">PSC {{ award.pscCode }}</span>
+                <span
+                  v-if="award.piid"
+                  class="font-mono [overflow-wrap:anywhere]"
+                >
+                  PIID {{ award.piid }}
+                </span>
+                <NuxtLink
+                  v-if="award.sourceUrl"
+                  :to="award.sourceUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:underline"
+                >
+                  Source
+                </NuxtLink>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section
+          v-if="intelligence?.recentAwards?.length"
+          class="border-border mt-12 border-t pt-10"
+        >
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Recent awards
+          </h2>
+          <p class="text-muted-foreground mt-1 text-sm">
+            Most recent matched public award records.
+          </p>
+          <ul class="divide-border/50 mt-5 divide-y">
+            <li
+              v-for="award in intelligence.recentAwards"
+              :key="award.key"
+              class="py-4 first:pt-0"
+            >
+              <div
+                class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
+              >
+                <div class="min-w-0">
+                  <p
+                    class="text-foreground text-sm font-medium [overflow-wrap:anywhere]"
+                  >
+                    {{ award.recipientName }}
+                  </p>
+                  <p
+                    class="text-muted-foreground mt-1 text-sm leading-relaxed [overflow-wrap:anywhere]"
+                  >
+                    {{ award.description || "No description provided." }}
+                  </p>
+                </div>
+                <p
+                  class="text-foreground shrink-0 text-sm font-semibold tabular-nums"
+                >
+                  {{ formatIntelligenceMoney(award.obligation) }}
+                </p>
+              </div>
+              <div
+                class="text-muted-foreground mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs"
+              >
+                <span v-if="award.fiscalYear">FY{{ award.fiscalYear }}</span>
+                <span>
+                  {{
+                    award.awardingSubAgency || award.awardingAgency || "Agency N/A"
+                  }}
+                </span>
+                <span v-if="award.naicsCode">NAICS {{ award.naicsCode }}</span>
+                <span v-if="award.pscCode">PSC {{ award.pscCode }}</span>
+                <span
+                  v-if="award.piid"
+                  class="font-mono [overflow-wrap:anywhere]"
+                >
+                  PIID {{ award.piid }}
+                </span>
+                <NuxtLink
+                  v-if="award.sourceUrl"
+                  :to="award.sourceUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:underline"
+                >
+                  Source
+                </NuxtLink>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="border-border mt-12 border-t pt-10">
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Identity &amp; directory context
+          </h2>
+          <div class="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem]">
+            <div class="space-y-8">
+              <dl class="grid gap-x-8 gap-y-4 sm:grid-cols-2">
                 <div>
-                  <dt class="text-muted-foreground">Recipient name</dt>
-                  <dd class="text-foreground mt-1 font-medium">
+                  <dt class="text-muted-foreground text-xs">Recipient name</dt>
+                  <dd class="text-foreground mt-1 text-sm font-medium">
                     {{ contractor.name }}
                   </dd>
                 </div>
                 <div>
-                  <dt class="text-muted-foreground">Directory slug</dt>
+                  <dt class="text-muted-foreground text-xs">Directory slug</dt>
                   <dd class="text-foreground mt-1 font-mono text-xs">
                     {{ contractor.slug }}
                   </dd>
                 </div>
                 <div>
-                  <dt class="text-muted-foreground">UEI</dt>
+                  <dt class="text-muted-foreground text-xs">UEI</dt>
                   <dd class="text-foreground mt-1 font-mono text-xs">
-                    {{ intelligence.identifiers?.uei || "N/A" }}
+                    {{ intelligence?.identifiers?.uei || "N/A" }}
                   </dd>
                 </div>
                 <div>
-                  <dt class="text-muted-foreground">Recipient code</dt>
+                  <dt class="text-muted-foreground text-xs">Recipient code</dt>
                   <dd class="text-foreground mt-1 font-mono text-xs">
-                    {{ contractor.recipientCode || intelligence.identifiers?.cageCode || "N/A" }}
+                    {{
+                      contractor.recipientCode ||
+                      intelligence?.identifiers?.cageCode ||
+                      "N/A"
+                    }}
                   </dd>
                 </div>
               </dl>
-              <div v-if="intelligence.aliases?.length" class="mt-4">
+
+              <div v-if="intelligence?.aliases?.length">
                 <p class="text-muted-foreground mb-2 text-xs">Aliases</p>
                 <div class="flex flex-wrap gap-2">
                   <Badge
@@ -385,261 +671,43 @@ watchEffect(() => {
                   </Badge>
                 </div>
               </div>
-            </div>
 
-            <div class="border-border border-r border-b p-4">
-              <p class="text-muted-foreground text-xs tracking-wide uppercase">
-                Linked USAspending recipients
-              </p>
-              <div class="mt-3 overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Recipient</TableHead>
-                      <TableHead class="text-right">Obligations</TableHead>
-                      <TableHead class="text-right">Awards</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow
-                      v-for="recipient in intelligence.linkedRecipients"
-                      :key="`${recipient.name}-${recipient.uei}`"
-                    >
-                      <TableCell>
-                        <p class="text-sm font-medium">{{ recipient.name }}</p>
-                        <p
-                          v-if="recipient.uei"
-                          class="text-muted-foreground mt-1 font-mono text-[11px]"
-                        >
-                          UEI {{ recipient.uei }}
-                        </p>
-                      </TableCell>
-                      <TableCell class="text-right text-sm font-medium">
-                        {{ formatIntelligenceMoney(recipient.obligations) }}
-                      </TableCell>
-                      <TableCell class="text-right text-sm">
-                        {{ recipient.awardCount.toLocaleString() }}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
-          </section>
-
-          <IntelligenceMetricStrip :metrics="dossierMetrics" />
-
-          <div class="grid gap-8 xl:grid-cols-[minmax(0,1fr)_26rem]">
-            <div class="min-w-0 space-y-8">
-              <IntelligenceSection
-                v-if="intelligence.yearlyTrend?.length"
-                title="Fiscal-Year Trend"
-              >
-                <IntelligenceTrendBars :rows="intelligence.yearlyTrend" />
-              </IntelligenceSection>
-
-              <div class="grid gap-8 lg:grid-cols-2">
-                <IntelligenceSection title="Agency Breakdown" flush>
-                  <IntelligenceBucketTable
-                    :rows="intelligence.topSubAgencies?.length ? intelligence.topSubAgencies : (intelligence.topAgencies ?? [])"
-                    code-label="Agency"
-                  />
-                </IntelligenceSection>
-
-                <IntelligenceSection title="NAICS Breakdown" flush>
-                  <IntelligenceBucketTable
-                    :rows="intelligence.topNaics ?? []"
-                    code-label="NAICS"
-                  />
-                </IntelligenceSection>
-              </div>
-
-              <IntelligenceSection title="PSC Breakdown" flush>
-                <IntelligenceBucketTable
-                  :rows="intelligence.topPsc ?? []"
-                  code-label="PSC"
-                />
-              </IntelligenceSection>
-
-              <IntelligenceSection
-                title="Top Awards"
-                description="Largest matched awards in the source-backed dossier."
-                flush
-              >
-                <IntelligenceAwardList :awards="intelligence.topAwards ?? []" />
-              </IntelligenceSection>
-
-              <IntelligenceSection
-                title="Recent Awards"
-                description="Most recent matched public award records."
-                flush
-              >
-                <IntelligenceAwardList :awards="intelligence.recentAwards ?? []" />
-              </IntelligenceSection>
-
-              <IntelligenceSourceFooter
-                :metadata="intelligence.sourceMetadata"
-                :source-links="intelligence.sourceLinks ?? []"
-              />
-            </div>
-
-            <aside class="space-y-6">
-              <section class="border-border border">
-                <div class="border-border border-b px-4 py-3">
-                  <h2 class="text-foreground text-sm font-semibold">
-                    External Links
-                  </h2>
-                </div>
-                <div class="space-y-2 p-4">
-                  <Button
-                    v-if="contractor.website"
-                    as-child
-                    variant="outline"
-                    size="sm"
-                    class="w-full justify-start"
-                  >
-                    <NuxtLink
-                      :to="contractor.website"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Website
-                      <Icon name="mdi:open-in-new" class="ml-auto h-3 w-3" />
-                    </NuxtLink>
-                  </Button>
-                  <Button
-                    v-if="contractor.linkedinUrl"
-                    as-child
-                    variant="outline"
-                    size="sm"
-                    class="w-full justify-start"
-                  >
-                    <NuxtLink
-                      :to="contractor.linkedinUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      LinkedIn
-                      <Icon name="mdi:open-in-new" class="ml-auto h-3 w-3" />
-                    </NuxtLink>
-                  </Button>
-                  <Button
-                    v-if="contractor.wikipediaUrl"
-                    as-child
-                    variant="outline"
-                    size="sm"
-                    class="w-full justify-start"
-                  >
-                    <NuxtLink
-                      :to="contractor.wikipediaUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Wikipedia
-                      <Icon name="mdi:open-in-new" class="ml-auto h-3 w-3" />
-                    </NuxtLink>
-                  </Button>
-                </div>
-              </section>
-
-              <section class="border-border border">
-                <div class="border-border border-b px-4 py-3">
-                  <h2 class="text-foreground text-sm font-semibold">
-                    Directory Context
-                  </h2>
-                </div>
-                <dl class="space-y-3 p-4 text-sm">
-                  <div>
-                    <dt class="text-muted-foreground">Public listing</dt>
-                    <dd class="text-foreground mt-1">
-                      {{
-                        contractor.isPublic && contractor.stockTicker
-                          ? `${stockExchange}: ${contractor.stockTicker}`
-                          : "Private company"
-                      }}
-                    </dd>
-                    <NuxtLink
-                      v-if="yahooFinanceUrl"
-                      :to="yahooFinanceUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-primary mt-1 inline-flex text-xs hover:underline"
-                    >
-                      Yahoo Finance
-                    </NuxtLink>
-                  </div>
-                  <div>
-                    <dt class="text-muted-foreground">Country</dt>
-                    <dd class="text-foreground mt-1">
-                      {{ contractor.country || "N/A" }}
-                    </dd>
-                  </div>
-                  <div v-if="contractor.primarySpecialty">
-                    <dt class="text-muted-foreground">Primary category</dt>
-                    <dd class="mt-1">
-                      <NuxtLink
-                        :to="`/companies/specialty/${contractor.primarySpecialty.slug}`"
-                        class="text-primary hover:underline"
-                      >
-                        {{ contractor.primarySpecialty.name }}
-                      </NuxtLink>
-                    </dd>
-                  </div>
-                </dl>
-              </section>
-
-              <section v-if="contractor.locations?.length" class="border-border border">
-                <div class="border-border border-b px-4 py-3">
-                  <h2 class="text-foreground text-sm font-semibold">Locations</h2>
-                </div>
-                <ul class="divide-border divide-y">
+              <div v-if="linkedRecipients.length > 1">
+                <p class="text-muted-foreground mb-2 text-xs">
+                  Linked USAspending recipients
+                </p>
+                <ul class="divide-border/50 divide-y text-sm">
                   <li
-                    v-for="location in contractor.locations"
-                    :key="location.id"
-                    class="p-4 text-sm"
+                    v-for="recipient in linkedRecipients"
+                    :key="`${recipient.name}-${recipient.uei}`"
+                    class="flex items-start justify-between gap-4 py-2 first:pt-0"
                   >
-                    <NuxtLink
-                      v-if="location.state"
-                      :to="`/companies/location/${location.state.toLowerCase().replace(/\s+/g, '-')}`"
-                      class="text-foreground hover:text-primary font-medium"
-                    >
-                      {{
-                        [location.city, location.state].filter(Boolean).join(", ")
-                      }}
-                    </NuxtLink>
-                    <span v-else class="text-foreground font-medium">
-                      {{ location.city || location.country }}
-                    </span>
-                    <Badge
-                      v-if="location.isHeadquarters"
-                      variant="outline"
-                      class="ml-2 text-[10px]"
-                    >
-                      HQ
-                    </Badge>
+                    <div class="min-w-0">
+                      <p class="text-foreground font-medium">
+                        {{ recipient.name }}
+                      </p>
+                      <p
+                        v-if="recipient.uei"
+                        class="text-muted-foreground mt-0.5 font-mono text-[11px]"
+                      >
+                        UEI {{ recipient.uei }}
+                      </p>
+                    </div>
+                    <div class="shrink-0 text-right">
+                      <p class="text-foreground font-medium tabular-nums">
+                        {{ formatIntelligenceMoney(recipient.obligations) }}
+                      </p>
+                      <p class="text-muted-foreground text-xs tabular-nums">
+                        {{ recipient.awardCount.toLocaleString() }} awards
+                      </p>
+                    </div>
                   </li>
                 </ul>
-              </section>
-            </aside>
-          </div>
+              </div>
 
-          <section class="border-border border-t pt-8">
-            <div class="mb-5">
-              <h2 class="text-foreground text-lg font-semibold">
-                Profile Context
-              </h2>
-              <p class="text-muted-foreground mt-1 text-sm">
-                Directory information maintained separately from public award
-                intelligence.
-              </p>
-            </div>
-
-            <IntelligenceMetricStrip :metrics="directoryMetrics" />
-
-            <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
-              <section v-if="contractor.description">
-                <h3 class="text-foreground mb-4 text-sm font-semibold">Overview</h3>
-                <div class="text-foreground/90 space-y-4 text-sm leading-relaxed">
+              <div v-if="contractor.description">
+                <h3 class="text-foreground mb-3 text-sm font-semibold">Overview</h3>
+                <div class="text-foreground/90 space-y-3 text-sm leading-relaxed">
                   <p
                     v-for="(paragraph, idx) in contractor.description.split('\n\n')"
                     :key="idx"
@@ -647,35 +715,178 @@ watchEffect(() => {
                     {{ paragraph }}
                   </p>
                 </div>
-              </section>
+              </div>
+            </div>
 
-              <section v-if="contractor.specialties?.length">
-                <h3 class="text-foreground mb-4 text-sm font-semibold">
-                  Contractor Categories
-                </h3>
-                <div class="space-y-2">
-                  <NuxtLink
+            <aside class="space-y-8">
+              <dl class="space-y-3 text-sm">
+                <div>
+                  <dt class="text-muted-foreground text-xs">Headquarters</dt>
+                  <dd class="text-foreground mt-1">
+                    {{
+                      [contractor.headquarters, contractor.country]
+                        .filter(Boolean)
+                        .join(", ") || "N/A"
+                    }}
+                  </dd>
+                </div>
+                <div v-if="contractor.founded">
+                  <dt class="text-muted-foreground text-xs">Founded</dt>
+                  <dd class="text-foreground mt-1">{{ contractor.founded }}</dd>
+                </div>
+                <div v-if="contractor.employeeCount">
+                  <dt class="text-muted-foreground text-xs">Employees</dt>
+                  <dd class="text-foreground mt-1">
+                    {{ contractor.employeeCount }}
+                  </dd>
+                </div>
+                <div v-if="contractor.totalRevenue != null">
+                  <dt class="text-muted-foreground text-xs">Total revenue</dt>
+                  <dd class="text-foreground mt-1">
+                    {{ formatDirectoryRevenue(contractor.totalRevenue) }}
+                  </dd>
+                </div>
+                <div v-if="contractor.defenseRevenue != null">
+                  <dt class="text-muted-foreground text-xs">Defense revenue</dt>
+                  <dd class="text-foreground mt-1">
+                    {{ formatDirectoryRevenue(contractor.defenseRevenue) }}
+                    <span
+                      v-if="contractor.defenseRevenuePercent != null"
+                      class="text-muted-foreground"
+                    >
+                      ({{ Math.round(contractor.defenseRevenuePercent) }}% of total)
+                    </span>
+                  </dd>
+                </div>
+                <div>
+                  <dt class="text-muted-foreground text-xs">Public listing</dt>
+                  <dd class="text-foreground mt-1">
+                    {{
+                      contractor.isPublic && contractor.stockTicker
+                        ? `${stockExchange}: ${contractor.stockTicker}`
+                        : "Private company"
+                    }}
+                  </dd>
+                </div>
+              </dl>
+
+              <div
+                v-if="
+                  contractor.website ||
+                  contractor.linkedinUrl ||
+                  contractor.wikipediaUrl ||
+                  yahooFinanceUrl
+                "
+              >
+                <p class="text-muted-foreground mb-2 text-xs">External</p>
+                <ul class="space-y-1.5 text-sm">
+                  <li v-if="contractor.website">
+                    <NuxtLink
+                      :to="contractor.website"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary inline-flex items-center gap-1 hover:underline"
+                    >
+                      Website
+                      <Icon name="mdi:open-in-new" class="h-3 w-3" />
+                    </NuxtLink>
+                  </li>
+                  <li v-if="contractor.linkedinUrl">
+                    <NuxtLink
+                      :to="contractor.linkedinUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary inline-flex items-center gap-1 hover:underline"
+                    >
+                      LinkedIn
+                      <Icon name="mdi:open-in-new" class="h-3 w-3" />
+                    </NuxtLink>
+                  </li>
+                  <li v-if="contractor.wikipediaUrl">
+                    <NuxtLink
+                      :to="contractor.wikipediaUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary inline-flex items-center gap-1 hover:underline"
+                    >
+                      Wikipedia
+                      <Icon name="mdi:open-in-new" class="h-3 w-3" />
+                    </NuxtLink>
+                  </li>
+                  <li v-if="yahooFinanceUrl">
+                    <NuxtLink
+                      :to="yahooFinanceUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary inline-flex items-center gap-1 hover:underline"
+                    >
+                      Yahoo Finance
+                      <Icon name="mdi:open-in-new" class="h-3 w-3" />
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </div>
+
+              <div v-if="contractor.locations?.length">
+                <p class="text-muted-foreground mb-2 text-xs">Locations</p>
+                <ul class="space-y-1.5 text-sm">
+                  <li
+                    v-for="location in contractor.locations"
+                    :key="location.id"
+                    class="flex items-center gap-2"
+                  >
+                    <NuxtLink
+                      v-if="location.state"
+                      :to="`/companies/location/${location.state.toLowerCase().replace(/\s+/g, '-')}`"
+                      class="text-foreground hover:text-primary"
+                    >
+                      {{
+                        [location.city, location.state].filter(Boolean).join(", ")
+                      }}
+                    </NuxtLink>
+                    <span v-else class="text-foreground">
+                      {{ location.city || location.country }}
+                    </span>
+                    <Badge
+                      v-if="location.isHeadquarters"
+                      variant="outline"
+                      class="text-[10px]"
+                    >
+                      HQ
+                    </Badge>
+                  </li>
+                </ul>
+              </div>
+
+              <div v-if="contractor.specialties?.length">
+                <p class="text-muted-foreground mb-2 text-xs">Categories</p>
+                <ul class="space-y-1.5 text-sm">
+                  <li
                     v-for="specialty in contractor.specialties"
                     :key="specialty.id"
-                    :to="`/companies/specialty/${specialty.slug}`"
-                    class="border-border hover:bg-muted/50 block border px-3 py-2 transition-colors"
                   >
-                    <p class="text-foreground text-sm font-medium">
-                      {{ specialty.name }}
-                    </p>
-                    <p
-                      v-if="specialty.description"
-                      class="text-muted-foreground mt-1 text-xs"
+                    <NuxtLink
+                      :to="`/companies/specialty/${specialty.slug}`"
+                      class="text-foreground hover:text-primary"
                     >
-                      {{ specialty.description }}
-                    </p>
-                  </NuxtLink>
-                </div>
-              </section>
-            </div>
-          </section>
+                      {{ specialty.name }}
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </section>
 
-        </div>
+        <section
+          v-if="intelligence"
+          class="border-border mt-12 border-t pt-10"
+        >
+          <IntelligenceSourceFooter
+            :metadata="intelligence.sourceMetadata"
+            :source-links="intelligence.sourceLinks ?? []"
+          />
+        </section>
       </div>
     </div>
   </main>

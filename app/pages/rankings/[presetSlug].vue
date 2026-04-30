@@ -13,6 +13,7 @@ import type {
 import {
   emptySourceMetadata,
   formatIntelligenceMoney,
+  formatIntelligencePercent,
 } from "@/app/lib/intelligence-ui";
 
 definePageMeta({
@@ -111,16 +112,75 @@ const metrics = computed(() => {
 
 <template>
   <main class="min-h-full">
-    <IntelligencePageHeader
-      eyebrow="Ranking"
-      :title="data.preset.title"
-      :description="data.preset.description"
-      :metadata="data.sourceMetadata"
-      :fiscal-years="data.fiscalYears"
-      max-width="max-w-6xl"
-    />
+    <section class="border-border border-b">
+      <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] uppercase tracking-[0.18em]"
+        >
+          <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
+          <span class="text-muted-foreground">USAspending.gov</span>
+          <span class="text-muted-foreground/40">/</span>
+          <span class="text-muted-foreground">DoD-awarded contracts</span>
+          <span class="text-muted-foreground/40">/</span>
+          <span class="text-muted-foreground">Trailing 36 months</span>
+          <template v-if="data.sourceMetadata?.cacheStatus">
+            <span class="text-muted-foreground/40 hidden sm:inline">/</span>
+            <span class="text-muted-foreground">
+              {{ data.sourceMetadata.cacheStatus }}
+            </span>
+          </template>
+        </div>
 
-    <section class="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+        <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
+          <div class="min-w-0">
+            <h1
+              class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl"
+            >
+              {{ data.preset.title }}
+            </h1>
+            <p
+              v-if="data.preset.description"
+              class="text-muted-foreground mt-1 max-w-3xl text-sm"
+            >
+              {{ data.preset.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-border border-b">
+      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <dl
+          class="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-6"
+        >
+          <div
+            v-for="metric in metrics"
+            :key="metric.label"
+            class="min-w-0"
+          >
+            <dt
+              class="text-muted-foreground text-[0.65rem] tracking-[0.16em] uppercase"
+            >
+              {{ metric.label }}
+            </dt>
+            <dd
+              class="text-foreground mt-1.5 truncate text-base font-semibold tabular-nums"
+            >
+              {{ metric.value }}
+            </dd>
+            <p
+              v-if="metric.detail"
+              class="text-muted-foreground mt-1 truncate text-xs"
+            >
+              {{ metric.detail }}
+            </p>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <IntelligenceErrorState
         v-if="error"
         class="mb-6"
@@ -128,33 +188,156 @@ const metrics = computed(() => {
         :message="error.message"
       />
 
-      <div v-if="pending" class="border-border border p-8">
+      <div v-if="pending" class="py-12">
         <LoadingText text="Loading ranking" />
       </div>
 
       <template v-else>
-        <div class="space-y-8">
-          <IntelligenceMetricStrip :metrics="metrics" />
-
-          <IntelligenceSection title="Ranked Contractors" flush>
-            <IntelligenceRankingList :rows="data.contractors" :show-share="true" />
-          </IntelligenceSection>
-
-          <IntelligenceSection
-            v-if="data.awards.length"
-            title="Award Evidence"
-            description="Recent source records supporting this ranking."
-            flush
+        <section>
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
           >
-            <IntelligenceAwardList :awards="data.awards" />
-          </IntelligenceSection>
+            Ranked contractors
+          </h2>
+          <p class="text-muted-foreground mt-1 text-sm">
+            Recipients ranked by matched USAspending obligations.
+          </p>
+          <div
+            v-if="!data.contractors.length"
+            class="text-muted-foreground mt-5 text-sm"
+          >
+            No ranked contractor records.
+          </div>
+          <table v-else class="mt-5 w-full text-sm">
+            <tbody>
+              <tr
+                v-for="row in data.contractors"
+                :key="`${row.rank}-${row.name}`"
+                class="border-border/40 border-b last:border-b-0"
+              >
+                <td
+                  class="text-muted-foreground py-3 pr-4 align-top font-mono text-xs tabular-nums"
+                >
+                  #{{ row.rank }}
+                </td>
+                <td class="py-3 pr-4 align-top">
+                  <NuxtLink
+                    v-if="row.slug"
+                    :to="`/companies/${row.slug}`"
+                    class="text-foreground hover:text-primary text-sm font-medium"
+                  >
+                    {{ row.name }}
+                  </NuxtLink>
+                  <span
+                    v-else
+                    class="text-foreground text-sm font-medium"
+                  >
+                    {{ row.name }}
+                  </span>
+                  <p
+                    v-if="row.uei"
+                    class="text-muted-foreground mt-0.5 font-mono text-[11px]"
+                  >
+                    UEI {{ row.uei }}
+                  </p>
+                </td>
+                <td
+                  class="text-muted-foreground py-3 pr-4 text-right align-top text-xs tabular-nums"
+                >
+                  {{ row.awardCount?.toLocaleString?.() || "—" }} awards
+                </td>
+                <td
+                  class="text-muted-foreground py-3 pr-4 text-right align-top text-xs tabular-nums"
+                >
+                  {{ formatIntelligencePercent(row.share) }}
+                </td>
+                <td
+                  class="text-foreground py-3 text-right align-top text-sm font-semibold tabular-nums"
+                >
+                  {{ formatIntelligenceMoney(row.obligations) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
 
+        <section
+          v-if="data.awards.length"
+          class="border-border mt-12 border-t pt-10"
+        >
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Award evidence
+          </h2>
+          <p class="text-muted-foreground mt-1 text-sm">
+            Recent source records supporting this ranking.
+          </p>
+          <ul class="divide-border/50 mt-5 divide-y">
+            <li
+              v-for="award in data.awards"
+              :key="award.key"
+              class="py-4 first:pt-0"
+            >
+              <div
+                class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
+              >
+                <div class="min-w-0">
+                  <p
+                    class="text-foreground text-sm font-medium [overflow-wrap:anywhere]"
+                  >
+                    {{ award.recipientName }}
+                  </p>
+                  <p
+                    class="text-muted-foreground mt-1 text-sm leading-relaxed [overflow-wrap:anywhere]"
+                  >
+                    {{ award.description || "No description provided." }}
+                  </p>
+                </div>
+                <p
+                  class="text-foreground shrink-0 text-sm font-semibold tabular-nums"
+                >
+                  {{ formatIntelligenceMoney(award.obligation) }}
+                </p>
+              </div>
+              <div
+                class="text-muted-foreground mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs"
+              >
+                <span v-if="award.fiscalYear">FY{{ award.fiscalYear }}</span>
+                <span>
+                  {{
+                    award.awardingSubAgency || award.awardingAgency || "Agency N/A"
+                  }}
+                </span>
+                <span v-if="award.naicsCode">NAICS {{ award.naicsCode }}</span>
+                <span v-if="award.pscCode">PSC {{ award.pscCode }}</span>
+                <span
+                  v-if="award.piid"
+                  class="font-mono [overflow-wrap:anywhere]"
+                >
+                  PIID {{ award.piid }}
+                </span>
+                <NuxtLink
+                  v-if="award.sourceUrl"
+                  :to="award.sourceUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-primary hover:underline"
+                >
+                  Source
+                </NuxtLink>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="border-border mt-12 border-t pt-10">
           <IntelligenceSourceFooter
             :metadata="data.sourceMetadata"
             :source-links="data.sourceMetadata.sources"
           />
-        </div>
+        </section>
       </template>
-    </section>
+    </div>
   </main>
 </template>

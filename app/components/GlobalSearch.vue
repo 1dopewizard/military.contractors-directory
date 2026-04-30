@@ -113,7 +113,7 @@ const navigateToSearch = (query?: string) => {
   }
   open.value = false;
   searchQuery.value = "";
-  router.push(q ? `/companies?q=${encodeURIComponent(q)}` : "/companies");
+  router.push(q ? `/?q=${encodeURIComponent(q)}` : "/");
 };
 
 const navigateToExplorer = (query?: string) => {
@@ -180,7 +180,7 @@ const specialtyLinks = [
 const browseBySpecialty = (slug: string) => {
   open.value = false;
   searchQuery.value = "";
-  router.push(`/companies?specialty=${slug}`);
+  router.push(`/companies/specialty/${slug}`);
 };
 
 const quickLinks = [

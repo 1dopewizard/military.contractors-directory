@@ -8,7 +8,6 @@ export default defineEventHandler(async (event) => {
   // Static pages
   const staticPages = [
     { loc: "/", priority: "1.0", changefreq: "daily" },
-    { loc: "/companies", priority: "1.0", changefreq: "daily" },
     { loc: "/explorer", priority: "0.6", changefreq: "daily" },
     { loc: "/compare", priority: "0.5", changefreq: "weekly" },
     { loc: "/agencies", priority: "0.7", changefreq: "daily" },
