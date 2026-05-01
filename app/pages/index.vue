@@ -8,34 +8,41 @@ definePageMeta({
   layout: "homepage",
 });
 
-interface DirectoryResponse {
-  total: number;
-  sourceMetadata: {
-    refreshedAt: string | null;
-    freshness: string;
-    structuredRecords: number;
-    cacheStatus: string;
-  };
+interface HomepageStatsResponse {
+  recipients: number;
+  totalObligated: number;
+  totalAwards: number;
+  topAgency: string | null;
+  refreshedAt: string | null;
 }
 
-const { data: directoryData } = useFetch<DirectoryResponse>(
-  "/api/contractors?limit=1",
-  {
-    lazy: true,
-    default: () => ({
-      total: 0,
-      sourceMetadata: {
-        refreshedAt: null,
-        freshness: "",
-        structuredRecords: 0,
-        cacheStatus: "stale",
-      },
-    }),
-  },
-);
+const { data: stats } = useFetch<HomepageStatsResponse>("/api/stats/homepage", {
+  lazy: true,
+  default: () => ({
+    recipients: 0,
+    totalObligated: 0,
+    totalAwards: 0,
+    topAgency: null,
+    refreshedAt: null,
+  }),
+});
+
+const formatCompactMoney = (value: number): string => {
+  const abs = Math.abs(value);
+  if (abs >= 1_000_000_000_000) return `$${(abs / 1_000_000_000_000).toFixed(2)}T`;
+  if (abs >= 1_000_000_000) return `$${(abs / 1_000_000_000).toFixed(1)}B`;
+  if (abs >= 1_000_000) return `$${(abs / 1_000_000).toFixed(0)}M`;
+  return `$${Math.round(abs).toLocaleString()}`;
+};
+
+const formatCompactCount = (value: number): string => {
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
+  if (value >= 1_000) return `${(value / 1_000).toFixed(1)}K`;
+  return value.toLocaleString();
+};
 
 const snapshotDate = computed(() => {
-  const value = directoryData.value?.sourceMetadata.refreshedAt;
+  const value = stats.value?.refreshedAt;
   if (!value) return "Not refreshed";
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
@@ -43,6 +50,11 @@ const snapshotDate = computed(() => {
     year: "numeric",
   }).format(new Date(value));
 });
+
+const recipientCount = computed(() => stats.value?.recipients ?? 0);
+const totalObligated = computed(() => stats.value?.totalObligated ?? 0);
+const totalAwards = computed(() => stats.value?.totalAwards ?? 0);
+const topAgency = computed(() => stats.value?.topAgency ?? "—");
 
 useSeoMeta({
   title: "Defense Contractor Directory | military.contractors",
@@ -80,43 +92,133 @@ useWebPageSchema({
         <span class="text-muted-foreground/40">/</span>
         <span class="text-muted-foreground">Trailing 36 months</span>
         <span class="text-muted-foreground/40 hidden sm:inline">/</span>
-        <span class="text-foreground tabular-nums">
-          {{ directoryData.total.toLocaleString() }} recipients
-        </span>
-        <span class="text-muted-foreground/40 hidden sm:inline">/</span>
         <span class="text-muted-foreground">
           Refreshed {{ snapshotDate }}
         </span>
       </div>
     </section>
 
+    <section class="border-border mx-auto max-w-7xl border-b px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl">
+        The Defense Contractor Directory
+      </h1>
+      <p class="text-muted-foreground mt-3 max-w-3xl text-sm leading-relaxed sm:text-base">
+        A searchable directory of every company and recipient that received
+        U.S. Department of Defense contract obligations during the trailing
+        36 months, sourced directly from USAspending.gov. Each profile links
+        back to the original federal award records.
+      </p>
+    </section>
+
+    <section
+      class="border-border mx-auto max-w-7xl border-b px-4 py-5 sm:px-6 lg:px-8"
+    >
+      <dl class="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
+        <div class="flex flex-col gap-1">
+          <dt class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase">
+            Recipients
+          </dt>
+          <dd class="text-foreground text-xl font-semibold tabular-nums sm:text-2xl">
+            {{ recipientCount.toLocaleString() }}
+          </dd>
+        </div>
+        <div class="flex flex-col gap-1">
+          <dt class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase">
+            Obligated (36mo)
+          </dt>
+          <dd class="text-foreground text-xl font-semibold tabular-nums sm:text-2xl">
+            {{ formatCompactMoney(totalObligated) }}
+          </dd>
+        </div>
+        <div class="flex flex-col gap-1">
+          <dt class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase">
+            Awards
+          </dt>
+          <dd class="text-foreground text-xl font-semibold tabular-nums sm:text-2xl">
+            {{ formatCompactCount(totalAwards) }}
+          </dd>
+        </div>
+        <div class="flex flex-col gap-1">
+          <dt class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase">
+            Top Awarder
+          </dt>
+          <dd
+            class="text-foreground line-clamp-2 text-sm font-medium leading-tight sm:text-base"
+          >
+            {{ topAgency }}
+          </dd>
+        </div>
+      </dl>
+    </section>
+
     <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <ContractorSnapshotTable :page-size="25" sync-route />
     </section>
 
-    <section class="border-border mx-auto max-w-7xl border-t px-4 py-3 sm:px-6 lg:px-8">
-      <nav
-        class="text-muted-foreground flex flex-wrap items-center gap-x-5 gap-y-2 text-xs"
+    <section
+      class="border-border mx-auto max-w-7xl border-t px-4 py-6 sm:px-6 lg:px-8"
+    >
+      <p
+        class="text-foreground/60 mb-3 text-[0.65rem] tracking-[0.18em] uppercase"
       >
-        <span class="text-foreground/60 tracking-[0.16em] uppercase">
-          More views
-        </span>
-        <NuxtLink to="/explorer" class="hover:text-primary transition-colors">
-          Explorer
-        </NuxtLink>
-        <NuxtLink
-          to="/rankings/top-defense-contractors"
-          class="hover:text-primary transition-colors"
-        >
-          Rankings
-        </NuxtLink>
-        <NuxtLink to="/agencies" class="hover:text-primary transition-colors">
-          Agencies
-        </NuxtLink>
-        <NuxtLink to="/compare" class="hover:text-primary transition-colors">
-          Compare
-        </NuxtLink>
-      </nav>
+        More views
+      </p>
+      <ul class="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+        <li>
+          <NuxtLink
+            to="/explorer"
+            class="group block"
+          >
+            <span
+              class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
+            >
+              Explorer
+            </span>
+            <span class="text-muted-foreground mt-0.5 block text-xs leading-snug">
+              Free-form question and answer over the award dataset.
+            </span>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            to="/rankings/top-defense-contractors"
+            class="group block"
+          >
+            <span
+              class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
+            >
+              Rankings
+            </span>
+            <span class="text-muted-foreground mt-0.5 block text-xs leading-snug">
+              Curated leaderboards of top recipients by obligation.
+            </span>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/agencies" class="group block">
+            <span
+              class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
+            >
+              Agencies
+            </span>
+            <span class="text-muted-foreground mt-0.5 block text-xs leading-snug">
+              Browse recipients grouped by awarding DoD subagency.
+            </span>
+          </NuxtLink>
+        </li>
+        <li>
+          <NuxtLink to="/compare" class="group block">
+            <span
+              class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
+            >
+              Compare
+            </span>
+            <span class="text-muted-foreground mt-0.5 block text-xs leading-snug">
+              Side-by-side comparison of two or more contractors.
+            </span>
+          </NuxtLink>
+        </li>
+      </ul>
     </section>
   </main>
 </template>
