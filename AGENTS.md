@@ -1,43 +1,252 @@
-# AGENTS.md
+# Development Rules
 
-## Overview
+## Conversational Style
 
-This repository uses the following sources of truth:
+- Keep answers short and concise
+- No emojis in commits, issues, PR comments, or code
+- No fluff or cheerful filler text
+- Technical prose only, be kind but direct (e.g., "Thanks @user" not "Thanks so much @user!")
 
-- **`.cursorrules`** — Always-on invariants (constraints, conventions, paths) and skill routing.
-- **Skills** (`/home/aeo/.agents/skills/`) — Step-by-step workflows, patterns, and examples for specific tasks.
+## Code Quality
+
+- No `any` types unless absolutely necessary
+- Check node_modules for external API type definitions instead of guessing
+- **NEVER use inline imports** - no `await import("./foo.js")`, no `import("pkg").Type` in type positions, no dynamic imports for types. Always use standard top-level imports.
+- NEVER remove or downgrade code to fix type errors from outdated dependencies; upgrade the dependency instead
+- Always ask before removing functionality or code that appears to be intentional
+- Do not preserve backward compatibility unless the user explicitly asks for it
+- Never hardcode key checks with, eg. `matchesKey(keyData, "ctrl+x")`. All keybindings must be configurable. Add default to matching object (`DEFAULT_EDITOR_KEYBINDINGS` or `DEFAULT_APP_KEYBINDINGS`)
+
+## Commands
+
+- After code changes (not documentation changes): `npm run check` (get full output, no tail). Fix all errors, warnings, and infos before committing.
+- Note: `npm run check` does not run tests.
+- NEVER run: `npm run dev`, `npm run build`, `npm test`
+- Only run specific tests if user instructs: `npx tsx ../../node_modules/vitest/dist/cli.js --run test/specific.test.ts`
+- Run tests from the package root, not the repo root.
+- If you create or modify a test file, you MUST run that test file and iterate until it passes.
+- When writing tests, run them, identify issues in either the test or implementation, and iterate until fixed.
+- For `packages/coding-agent/test/suite/`, use `test/suite/harness.ts` plus the faux provider. Do not use real provider APIs, real API keys, or paid tokens.
+- Put issue-specific regressions under `packages/coding-agent/test/suite/regressions/` and name them `<issue-number>-<short-slug>.test.ts`.
+- NEVER commit unless user asks
+
+## Contribution Gate
+
+- New issues from new contributors are auto-closed by `.github/workflows/issue-gate.yml`
+- New PRs from new contributors without PR rights are auto-closed by `.github/workflows/pr-gate.yml`
+- Maintainer approval comments are handled by `.github/workflows/approve-contributor.yml`
+- Maintainers review auto-closed issues daily
+- Issues that do not meet the quality bar in `CONTRIBUTING.md` are not reopened and do not receive a reply
+- `lgtmi` approves future issues
+- `lgtm` approves future issues and rights to submit PRs
+
+When creating issues:
+
+- Add `pkg:*` labels to indicate which package(s) the issue affects
+  - Available labels: `pkg:agent`, `pkg:ai`, `pkg:coding-agent`, `pkg:tui`, `pkg:web-ui`
+- If an issue spans multiple packages, add all relevant labels
+
+When posting issue/PR comments:
+
+- Write the full comment to a temp file and use `gh issue comment --body-file` or `gh pr comment --body-file`
+- Never pass multi-line markdown directly via `--body` in shell commands
+- Preview the exact comment text before posting
+- Post exactly one final comment unless the user explicitly asks for multiple comments
+- If a comment is malformed, delete it immediately, then post one corrected comment
+- Keep comments concise, technical, and in the user's tone
+
+When closing issues via commit:
+
+- Include `fixes #<number>` or `closes #<number>` in the commit message
+- This automatically closes the issue when the commit is merged
+
+## PR Workflow
+
+- Analyze PRs without pulling locally first
+- If the user approves: create a feature branch, pull PR, rebase on main, apply adjustments, commit, merge into main, push, close PR, and leave a comment in the user's tone
+- You never open PRs yourself. We work in feature branches until everything is according to the user's requirements, then merge into main, and push.
+
+## Testing pi Interactive Mode with tmux
+
+To test pi's TUI in a controlled terminal environment:
+
+```bash
+# Create tmux session with specific dimensions
+tmux new-session -d -s pi-test -x 80 -y 24
+
+# Start pi from source
+tmux send-keys -t pi-test "cd /Users/badlogic/workspaces/pi-mono && ./pi-test.sh" Enter
+
+# Wait for startup, then capture output
+sleep 3 && tmux capture-pane -t pi-test -p
+
+# Send input
+tmux send-keys -t pi-test "your prompt here" Enter
+
+# Send special keys
+tmux send-keys -t pi-test Escape
+tmux send-keys -t pi-test C-o  # ctrl+o
+
+# Cleanup
+tmux kill-session -t pi-test
+```
+
+## Changelog
+
+Location: `packages/*/CHANGELOG.md` (each package has its own)
+
+### Format
+
+Use these sections under `## [Unreleased]`:
+
+- `### Breaking Changes` - API changes requiring migration
+- `### Added` - New features
+- `### Changed` - Changes to existing functionality
+- `### Fixed` - Bug fixes
+- `### Removed` - Removed features
+
+### Rules
+
+- Before adding entries, read the full `[Unreleased]` section to see which subsections already exist
+- New entries ALWAYS go under `## [Unreleased]` section
+- Append to existing subsections (e.g., `### Fixed`), do not create duplicates
+- NEVER modify already-released version sections (e.g., `## [0.12.2]`)
+- Each version section is immutable once released
+
+### Attribution
+
+- **Internal changes (from issues)**: `Fixed foo bar ([#123](https://github.com/badlogic/pi-mono/issues/123))`
+- **External contributions**: `Added feature X ([#456](https://github.com/badlogic/pi-mono/pull/456) by [@username](https://github.com/username))`
+
+## Adding a New LLM Provider (packages/ai)
+
+Adding a new provider requires changes across multiple files:
+
+### 1. Core Types (`packages/ai/src/types.ts`)
+
+- Add API identifier to `Api` type union (e.g., `"bedrock-converse-stream"`)
+- Create options interface extending `StreamOptions`
+- Add mapping to `ApiOptionsMap`
+- Add provider name to `KnownProvider` type union
+
+### 2. Provider Implementation (`packages/ai/src/providers/`)
+
+Create provider file exporting:
+
+- `stream<Provider>()` function returning `AssistantMessageEventStream`
+- `streamSimple<Provider>()` for `SimpleStreamOptions` mapping
+- Provider-specific options interface
+- Message/tool conversion functions
+- Response parsing emitting standardized events (`text`, `tool_call`, `thinking`, `usage`, `stop`)
+
+### 3. Provider Exports and Lazy Registration
+
+- Add a package subpath export in `packages/ai/package.json` pointing at `./dist/providers/<provider>.js`
+- Add `export type` re-exports in `packages/ai/src/index.ts` for provider option types that should remain available from the root entry
+- Register the provider in `packages/ai/src/providers/register-builtins.ts` via lazy loader wrappers, do not statically import provider implementation modules there
+- Add credential detection in `packages/ai/src/env-api-keys.ts`
+
+### 4. Model Generation (`packages/ai/scripts/generate-models.ts`)
+
+- Add logic to fetch/parse models from provider source
+- Map to standardized `Model` interface
+
+### 5. Tests (`packages/ai/test/`)
+
+- Always add the provider to `stream.test.ts` with at least one representative model, even if it reuses an existing API implementation such as `openai-completions`.
+- Add the provider to the broader provider matrix where applicable: `tokens.test.ts`, `abort.test.ts`, `empty.test.ts`, `context-overflow.test.ts`, `image-limits.test.ts`, `unicode-surrogate.test.ts`, `tool-call-without-result.test.ts`, `image-tool-result.test.ts`, `total-tokens.test.ts`, `cross-provider-handoff.test.ts`.
+- For `cross-provider-handoff.test.ts`, add at least one provider/model pair. If the provider exposes multiple model families (for example GPT and Claude), add at least one pair per family.
+- For non-standard auth, create utility (e.g., `bedrock-utils.ts`) with credential detection.
+
+### 6. Coding Agent (`packages/coding-agent/`)
+
+- `src/core/model-resolver.ts`: Add default model ID to `defaultModelPerProvider`
+- `src/core/provider-display-names.ts`: Add API-key login display name so `/login` and related UI show the provider for built-in API-key auth.
+- `src/cli/args.ts`: Add env var documentation
+- `README.md`: Add provider setup instructions
+- `docs/providers.md`: Add setup instructions, env var, and `auth.json` key
+
+### 7. Documentation
+
+- `packages/ai/README.md`: Add to providers table, document options/auth, add env vars
+- `packages/ai/CHANGELOG.md`: Add entry under `## [Unreleased]`
+
+## Releasing
+
+**Lockstep versioning**: All packages always share the same version number. Every release updates all packages together.
+
+**Version semantics** (no major releases):
+
+- `patch`: Bug fixes and new features
+- `minor`: API breaking changes
+
+### Steps
+
+1. **Update CHANGELOGs**: Ensure all changes since last release are documented in the `[Unreleased]` section of each affected package's CHANGELOG.md
+
+2. **Run release script**:
+   ```bash
+   npm run release:patch    # Fixes and additions
+   npm run release:minor    # API breaking changes
+   ```
+
+The script handles: version bump, CHANGELOG finalization, commit, tag, publish, and adding new `[Unreleased]` sections.
+
+## **CRITICAL** Git Rules for Parallel Agents **CRITICAL**
+
+Multiple agents may work on different files in the same worktree simultaneously. You MUST follow these rules:
+
+### Committing
+
+- **ONLY commit files YOU changed in THIS session**
+- ALWAYS include `fixes #<number>` or `closes #<number>` in the commit message when there is a related issue or PR
+- NEVER use `git add -A` or `git add .` - these sweep up changes from other agents
+- ALWAYS use `git add <specific-file-paths>` listing only files you modified
+- Before committing, run `git status` and verify you are only staging YOUR files
+- Track which files you created/modified/deleted during the session
+- It is always fine to include `packages/ai/src/models.generated.ts` in a commit alongside the actual files you want to commit
+
+### Forbidden Git Operations
+
+These commands can destroy other agents' work:
+
+- `git reset --hard` - destroys uncommitted changes
+- `git checkout .` - destroys uncommitted changes
+- `git clean -fd` - deletes untracked files
+- `git stash` - stashes ALL changes including other agents' work
+- `git add -A` / `git add .` - stages other agents' uncommitted work
+- `git commit --no-verify` - bypasses required checks and is never allowed
+
+### Safe Workflow
+
+```bash
+# 1. Check status first
+git status
+
+# 2. Add ONLY your specific files
+git add packages/ai/src/providers/transform-messages.ts
+git add packages/ai/CHANGELOG.md
+
+# 3. Commit
+git commit -m "fix(ai): description"
+
+# 4. Push (pull --rebase if needed, but NEVER reset/checkout)
+git pull --rebase && git push
+```
+
+### If Rebase Conflicts Occur
+
+- Resolve conflicts in YOUR files only
+- If conflict is in a file you didn't modify, abort and ask the user
+- NEVER force push
+
+### User override
+
+If the user instructions conflict with rules set out here, ask for confirmation that they want to override the rules. Only then execute their instructions.
 
 ---
 
-## Rules vs Skills
-
-**`.cursorrules`** contains only:
-
-- Repo/stack invariants ("always do X", "never do Y")
-- Directory/layout conventions unique to this repo
-- A routing table that points to the right skill for each task type
-
-**Skills** contain:
-
-- Step-by-step workflows and checklists
-- Library/framework usage patterns and code examples
-- Testing playbooks and validation commands
-
-This split prevents duplication and contradictions. Each topic has a single authoritative home—either in `.cursorrules` (if it's an always-on constraint) or in a skill (if it's procedural guidance).
-
-### Maintaining the Split
-
-When adding or updating guidance:
-
-1. **Ask**: Is this an always-on constraint for this repo, or procedural how-to guidance?
-2. **Constraints** (invariants, "never do X", path conventions) → `.cursorrules`
-3. **Procedures** (workflows, examples, checklists, commands) → the relevant skill
-4. **Never duplicate** the same instruction in both places—pick one authoritative home
-5. **Update, don't add** if the topic already exists somewhere; search first
-
-If guidance in a skill contradicts `.cursorrules`, the invariant in `.cursorrules` wins—update the skill to comply.
-
----
+# Project Conventions
 
 ## Tech Stack
 
@@ -50,7 +259,15 @@ If guidance in a skill contradicts `.cursorrules`, the invariant in `.cursorrule
 | Search    | SQLite FTS5                     |
 | Testing   | Vitest                          |
 
----
+## Environment
+
+- Package manager: `pnpm`
+- Shell: `bash`
+- Use `import.meta.client` (not `process.client`)
+- Imports use `@` alias
+- Scripts in `/scripts`, run from root
+- **Nuxt auto-imports**: Never import from `#imports` — use Vue APIs, Nuxt composables, and module exports directly
+- **App imports**: Use `@/app/` prefix for imports from `app/` directory (e.g., `import { htmlToMarkdown } from '@/app/lib/utils'`)
 
 ## Key Paths
 
@@ -64,8 +281,7 @@ If guidance in a skill contradicts `.cursorrules`, the invariant in `.cursorrule
 | Composables         | `app/composables/`                                    |
 | Pages               | `app/pages/`                                          |
 | UI components       | `app/components/`                                     |
-
----
+| Utilities           | `app/lib/utils.ts` (`cn()` for class merging)         |
 
 ## Database Commands
 
@@ -76,55 +292,74 @@ pnpm db:push       # Push schema directly (dev only)
 pnpm db:studio     # Open Drizzle Studio GUI
 ```
 
----
+## Always-On Invariants
 
-## MCP Servers
+**Vue Structure**
 
-**Context7 MCP** — Library documentation via `resolve-library-id` → `query-docs`. Use for Drizzle ORM, Vue, Nuxt, and other library docs.
+- Use `<script setup>` above `<template>`
+- Import order: Vue, components, composables, types
+- Section order: props, emits, refs, computed, watch, lifecycle, methods
+- Keep template logic minimal
 
----
+**TypeScript**
 
-## Browser Automation
+- Strict mode + null checks
+- Validate APIs with zod
+- Shared types in `*.types.ts`
 
-**agent-browser** — Headless browser automation CLI for AI agents.
+**Composables**
 
-```bash
-# Core workflow
-agent-browser open <url> [--headed]   # Navigate (--headed shows window)
-agent-browser snapshot -i             # Get interactive elements with refs
-agent-browser click @e1               # Click by ref from snapshot
-agent-browser fill @e2 "text"         # Fill input by ref
-agent-browser get text @e1            # Get element text
-agent-browser screenshot [path]       # Take screenshot
-agent-browser close                   # Close browser
+- Name `useXYZ.ts`, keep focused
+- Cleanup via `onUnmounted()`
 
-# Switch modes: close first, then reopen
-agent-browser close
-agent-browser open example.com --headed
-```
+**Logging**
 
-Refs (`@e1`, `@e2`) come from `snapshot` output and provide deterministic element selection.
+- No `console.*`; use `useLogger()` (pino-backed)
+- Levels: debug/info/warn/error with context IDs
 
----
+**Data Fetching**
 
-## Skills
+- Prefer lazy fetching (`lazy: true`) with defaults; handle loading/error in template
 
-Skills provide specialized workflows and patterns for common development tasks.
+**UI/Design**
 
-**Skills directory:** `/home/aeo/.agents/skills/`
+- For any new component, page, or styling work, invoke the `ce-frontend-design` skill from `~/.pi/agent/skills/ce-frontend-design/` and follow its `SKILL.md` before writing code
+- When designing/creating new components/pages always match existing style patterns found in pre-existing components/pages
+- Clean, minimal, flat, mobile responsive by default
+- Use shadcn-vue (auto-imported, no manual imports)
+- Use shadcn-vue `ScrollArea` for scroll regions (not native `overflow-auto`/`overflow-y-auto`), except layout `<main>` and shadcn base components
+- Iconify MDI icons only, use sparingly for functional value
 
-**Before starting a coding task:**
+**Quality**
 
-1. List the skills directory to see available skills
-2. Match the task to a relevant skill by name (e.g., `drizzle-development` for database work, `api-endpoint-development` for server routes)
-3. Read the skill's `SKILL.md` file
-4. Follow its instructions and patterns
+- Split large components
+- Centralize utilities
+- Enforce ESLint + Prettier
 
-**Common skill name patterns:**
+**Testing**
 
-- `*-development` — Implementation patterns for that domain
-- `*-design` — Design/architecture guidance
-- `*-optimization` — Performance or quality improvements
-- `ai-*` — AI/LLM integration patterns
+- Test files: `*.spec.ts` co-located or in `__tests__/`
 
-When in doubt, check the directory — skill names are descriptive.
+**Docs**
+
+- Header block per file; sync docs with code
+
+## Skill Routing
+
+Pi loads skills from both `/home/aeo/.agents/skills/` and `~/.pi/agent/skills/` (run `/skills` in pi to list them all). Match the task to the appropriate skill:
+
+| Task                                  | Skill                       |
+| ------------------------------------- | --------------------------- |
+| Database schema, migrations, queries  | `drizzle-development`       |
+| Server API routes, validation, errors | `api-endpoint-development`  |
+| Vue composables, state, forms         | `composable-development`    |
+| UI components, shadcn-vue patterns    | `frontend-ui-integration`   |
+| Design decisions, layout, styling     | `frontend-design`           |
+| Writing tests, mocking, TDD           | `test-development`          |
+| SQLite FTS5, search features          | `search-optimization`       |
+| Fixing audit issues, accessibility    | `audit-remediation`         |
+| Nuxt config, middleware, plugins      | `nuxt`                      |
+| SEO, meta tags, schema.org, AEO       | `seo-aeo`                   |
+| AI/LLM integration, streaming         | `ai-sdk`                    |
+
+**Usage**: Read the skill's `SKILL.md` before starting work on that task type.
