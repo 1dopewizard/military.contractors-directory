@@ -71,12 +71,27 @@ useJsonLd({
 });
 
 const runComparison = () => {
-  router.replace({ path: "/compare", query: { contractors: slugs.value.join(",") } });
+  router.replace({
+    path: "/compare",
+    query: { contractors: slugs.value.join(",") },
+  });
   refresh();
 };
 
 const primaryMetadata = computed(
   () => comparison.value[0]?.sourceMetadata ?? null,
+);
+
+const comparisonChips = computed(() =>
+  comparison.value.length
+    ? [
+        {
+          label: `Comparing: ${comparison.value
+            .map((item) => item.contractor.name)
+            .join(" × ")}`,
+        },
+      ]
+    : [],
 );
 
 const comparisonMetrics = (item: ContractorIntelligence) => [
@@ -87,7 +102,10 @@ const comparisonMetrics = (item: ContractorIntelligence) => [
   },
   {
     label: "Top agency",
-    value: item.summary.topSubAgency?.label || item.summary.topAgency?.label || "N/A",
+    value:
+      item.summary.topSubAgency?.label ||
+      item.summary.topAgency?.label ||
+      "N/A",
     detail: item.summary.topAgency
       ? formatIntelligenceMoney(item.summary.topAgency.obligation)
       : null,
@@ -109,15 +127,24 @@ const comparisonMetrics = (item: ContractorIntelligence) => [
 
 <template>
   <main class="min-h-full">
-    <IntelligencePageHeader
-      eyebrow="2-4 contractors"
-      title="Compare Contractors"
-      description="Side-by-side contractor obligations, agencies, categories, trends, and recent public awards."
+    <DirectoryBreadcrumb
+      window="Compare"
+      :extra="comparisonChips"
+      :freshness="primaryMetadata?.cacheStatus || null"
+    />
+
+    <DirectoryPageHeader
+      eyebrow="Compare"
+      title="Compare contractors"
+      description="Side-by-side recipient obligations, agencies, categories, trends, and recent public awards."
       :metadata="primaryMetadata"
     />
 
     <section class="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <form class="mb-6 flex flex-col gap-3 sm:flex-row" @submit.prevent="runComparison">
+      <form
+        class="mb-6 flex flex-col gap-3 sm:flex-row"
+        @submit.prevent="runComparison"
+      >
         <Input
           v-model="contractorInput"
           class="rounded-none"
@@ -138,50 +165,68 @@ const comparisonMetrics = (item: ContractorIntelligence) => [
       </div>
 
       <div v-else-if="comparison.length" class="space-y-8">
-        <div class="border-border grid border-t border-l sm:grid-cols-2 xl:grid-cols-4">
-        <article
-          v-for="item in comparison"
-          :key="item.contractor.slug"
-          class="border-border border-r border-b p-5"
+        <div
+          class="border-border grid border-t border-l sm:grid-cols-2 xl:grid-cols-4"
         >
-          <NuxtLink
-            :to="`/companies/${item.contractor.slug}`"
-            class="text-foreground hover:text-primary text-lg font-semibold"
+          <article
+            v-for="item in comparison"
+            :key="item.contractor.slug"
+            class="border-border border-r border-b p-5"
           >
-            {{ item.contractor.name }}
-          </NuxtLink>
+            <NuxtLink
+              :to="`/companies/${item.contractor.slug}`"
+              class="text-foreground hover:text-primary block text-base font-semibold"
+            >
+              {{ item.contractor.name }}
+            </NuxtLink>
 
-          <dl class="mt-5 space-y-4">
-            <div v-for="metric in comparisonMetrics(item)" :key="metric.label">
-              <dt class="text-muted-foreground text-xs">{{ metric.label }}</dt>
-              <dd class="text-foreground mt-1 text-sm font-medium">
-                {{ metric.value }}
-              </dd>
-              <dd v-if="metric.detail" class="text-muted-foreground mt-1 text-xs">
-                {{ metric.detail }}
-              </dd>
-            </div>
-          </dl>
-
-          <div class="mt-5 border-t pt-4">
-            <p class="text-muted-foreground mb-2 text-xs">Recent awards</p>
-            <ul class="space-y-2">
-              <li
-                v-for="award in item.recentAwards.slice(0, 3)"
-                :key="award.key"
-                class="text-muted-foreground text-xs"
+            <dl class="mt-5 space-y-4">
+              <div
+                v-for="metric in comparisonMetrics(item)"
+                :key="metric.label"
               >
-                <span class="text-foreground">
-                  {{ formatIntelligenceMoney(award.obligation) }}
-                </span>
-                {{ award.awardingSubAgency || award.awardingAgency }}
-              </li>
-            </ul>
-          </div>
-        </article>
+                <dt
+                  class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase"
+                >
+                  {{ metric.label }}
+                </dt>
+                <dd
+                  class="text-foreground mt-1 text-sm font-medium tabular-nums"
+                >
+                  {{ metric.value }}
+                </dd>
+                <dd
+                  v-if="metric.detail"
+                  class="text-muted-foreground mt-0.5 text-xs tabular-nums"
+                >
+                  {{ metric.detail }}
+                </dd>
+              </div>
+            </dl>
+
+            <div class="border-border/60 mt-5 border-t pt-4">
+              <p
+                class="text-muted-foreground mb-2 text-[0.65rem] tracking-[0.18em] uppercase"
+              >
+                Recent awards
+              </p>
+              <ul class="space-y-2">
+                <li
+                  v-for="award in item.recentAwards.slice(0, 3)"
+                  :key="award.key"
+                  class="text-muted-foreground text-xs"
+                >
+                  <span class="text-foreground tabular-nums">
+                    {{ formatIntelligenceMoney(award.obligation) }}
+                  </span>
+                  {{ award.awardingSubAgency || award.awardingAgency }}
+                </li>
+              </ul>
+            </div>
+          </article>
         </div>
 
-        <IntelligenceSourceFooter :metadata="primaryMetadata" />
+        <DirectorySourceFooter :metadata="primaryMetadata" />
       </div>
 
       <Empty v-else class="border">

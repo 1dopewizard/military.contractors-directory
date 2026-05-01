@@ -99,7 +99,9 @@ const formatDate = (value: string | null): string => {
       <Card>
         <CardHeader>
           <CardTitle>Refresh Directory Snapshot</CardTitle>
-          <CardDescription>Pages USAspending recipient aggregates.</CardDescription>
+          <CardDescription
+            >Pages USAspending recipient aggregates.</CardDescription
+          >
         </CardHeader>
         <CardContent>
           <form class="space-y-3" @submit.prevent="refreshSnapshot">
@@ -125,7 +127,9 @@ const formatDate = (value: string | null): string => {
       <Card>
         <CardHeader>
           <CardTitle>Refresh Explorer Query</CardTitle>
-          <CardDescription>Bypasses public freshness throttles.</CardDescription>
+          <CardDescription
+            >Bypasses public freshness throttles.</CardDescription
+          >
         </CardHeader>
         <CardContent>
           <form class="space-y-3" @submit.prevent="forceRefreshQuery">
@@ -148,7 +152,9 @@ const formatDate = (value: string | null): string => {
       <Card>
         <CardHeader>
           <CardTitle>Refresh Contractor Profile</CardTitle>
-          <CardDescription>Refreshes the five-fiscal-year profile cache.</CardDescription>
+          <CardDescription
+            >Refreshes the five-fiscal-year profile cache.</CardDescription
+          >
         </CardHeader>
         <CardContent>
           <form class="space-y-3" @submit.prevent="forceRefreshContractor">
@@ -174,9 +180,13 @@ const formatDate = (value: string | null): string => {
       <CardHeader class="flex flex-row items-center justify-between">
         <div>
           <CardTitle>Recent Cache Entries</CardTitle>
-          <CardDescription>Persistent explorer and profile cache records.</CardDescription>
+          <CardDescription
+            >Persistent explorer and profile cache records.</CardDescription
+          >
         </div>
-        <Button variant="outline" size="sm" @click="refreshCache">Reload</Button>
+        <Button variant="outline" size="sm" @click="refreshCache"
+          >Reload</Button
+        >
       </CardHeader>
       <CardContent>
         <div v-if="pending" class="py-8">
@@ -196,7 +206,9 @@ const formatDate = (value: string | null): string => {
             <TableBody>
               <TableRow v-for="entry in cacheData.entries" :key="entry.id">
                 <TableCell class="font-mono text-xs">{{ entry.id }}</TableCell>
-                <TableCell class="max-w-md text-xs">{{ entry.query }}</TableCell>
+                <TableCell class="max-w-md text-xs">{{
+                  entry.query
+                }}</TableCell>
                 <TableCell>{{ entry.cacheStatus || "live" }}</TableCell>
                 <TableCell>{{ formatDate(entry.refreshedAt) }}</TableCell>
                 <TableCell>{{ formatDate(entry.expiresAt) }}</TableCell>

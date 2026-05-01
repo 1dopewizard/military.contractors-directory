@@ -47,9 +47,8 @@ export default defineEventHandler(async (event) => {
       kind,
       code: normalizedCode,
       title:
-        awards.awards[0]?.[
-          kind === "naics" ? "naicsTitle" : "pscTitle"
-        ] ?? `${kind.toUpperCase()} ${normalizedCode}`,
+        awards.awards[0]?.[kind === "naics" ? "naicsTitle" : "pscTitle"] ??
+        `${kind.toUpperCase()} ${normalizedCode}`,
     },
     fiscalYears,
     contractors: ranking.contractors,

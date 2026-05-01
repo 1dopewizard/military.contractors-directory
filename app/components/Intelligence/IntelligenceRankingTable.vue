@@ -37,7 +37,10 @@ withDefaults(
       </TableHeader>
       <TableBody>
         <TableRow v-if="!rows.length">
-          <TableCell :colspan="showShare ? 5 : 4" class="text-muted-foreground py-8 text-center">
+          <TableCell
+            :colspan="showShare ? 5 : 4"
+            class="text-muted-foreground py-8 text-center"
+          >
             {{ emptyText }}
           </TableCell>
         </TableRow>
@@ -51,8 +54,13 @@ withDefaults(
             >
               {{ row.name }}
             </NuxtLink>
-            <span v-else class="text-foreground font-medium">{{ row.name }}</span>
-            <p v-if="row.uei" class="text-muted-foreground mt-1 font-mono text-[11px]">
+            <span v-else class="text-foreground font-medium">{{
+              row.name
+            }}</span>
+            <p
+              v-if="row.uei"
+              class="text-muted-foreground mt-1 font-mono text-[11px]"
+            >
               UEI {{ row.uei }}
             </p>
           </TableCell>

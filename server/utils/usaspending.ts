@@ -346,7 +346,12 @@ export async function searchUsaSpendingAwards(
 }
 
 export async function fetchUsaSpendingCategoryRankings(
-  category: "recipient" | "naics" | "psc" | "awarding_agency" | "funding_agency",
+  category:
+    | "recipient"
+    | "naics"
+    | "psc"
+    | "awarding_agency"
+    | "funding_agency",
   input: UsaSpendingAwardSearchInput,
 ): Promise<UsaSpendingResponse<RankingRow>> {
   const response = await fetchJson(`${CATEGORY_URL}/${category}/`, {
@@ -432,8 +437,11 @@ export async function fetchUsaSpendingToptierAgencies() {
   }));
 }
 
-export function normalizeUsaSpendingAward(award: UsaSpendingAward): AwardSummary {
-  const awardId = award["Award ID"] ?? String(award.internal_id ?? "unknown-award");
+export function normalizeUsaSpendingAward(
+  award: UsaSpendingAward,
+): AwardSummary {
+  const awardId =
+    award["Award ID"] ?? String(award.internal_id ?? "unknown-award");
   const generatedAwardId = award.generated_internal_id ?? null;
   const startDate = award["Start Date"] ?? null;
 
@@ -508,7 +516,9 @@ export function formatUsaSpendingMessages(messages: string[]): string[] {
   ];
 }
 
-export function filtersToLabels(input: UsaSpendingFiltersInput): IntelligenceFilter[] {
+export function filtersToLabels(
+  input: UsaSpendingFiltersInput,
+): IntelligenceFilter[] {
   return [
     ...(input.recipientSearchText ?? []).map((value) => ({
       kind: "recipient" as const,
@@ -560,7 +570,10 @@ export function slugify(value: string): string {
 }
 
 function normalizeText(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
 async function fetchJson(url: string, payload: unknown): Promise<unknown> {

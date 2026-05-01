@@ -92,8 +92,7 @@ const runQuery = async (refresh = false) => {
     });
     router.replace({ query: { q: trimmed } });
   } catch (err) {
-    error.value =
-      err instanceof Error ? err.message : "Explorer query failed.";
+    error.value = err instanceof Error ? err.message : "Explorer query failed.";
   } finally {
     pending.value = false;
   }
@@ -146,10 +145,15 @@ onMounted(() => {
 
 <template>
   <main class="min-h-full">
-    <IntelligencePageHeader
-      eyebrow="USAspending workbench"
-      title="Contractor Intelligence Explorer"
-      description="Run source-backed public award queries across contractors, agencies, categories, topics, and recent awards."
+    <DirectoryBreadcrumb
+      window="Explorer"
+      :freshness="result?.sourceMetadata?.cacheStatus || null"
+    />
+
+    <DirectoryPageHeader
+      eyebrow="Ask the directory"
+      title="Explore the directory"
+      description="Run source-backed public award queries across recipients, agencies, categories, topics, and recent awards."
       :metadata="result?.sourceMetadata"
       :filters="result?.filtersUsed || []"
     >
@@ -161,7 +165,7 @@ onMounted(() => {
           <Button variant="outline" size="sm">Agencies</Button>
         </NuxtLink>
       </template>
-    </IntelligencePageHeader>
+    </DirectoryPageHeader>
 
     <section class="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <div class="mb-4 lg:hidden">
@@ -184,20 +188,14 @@ onMounted(() => {
 
       <div class="grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)]">
         <aside
-          :class="[
-            mobilePanelOpen ? 'block' : 'hidden lg:block',
-            'space-y-5',
-          ]"
+          :class="[mobilePanelOpen ? 'block' : 'hidden lg:block', 'space-y-5']"
         >
           <div
             class="bg-card ring-primary/30 ring-offset-background p-4 ring-1 ring-offset-2"
           >
             <form class="space-y-3" @submit.prevent="runQuery(false)">
               <div class="flex items-center gap-2">
-                <Icon
-                  name="mdi:database-search"
-                  class="text-primary h-4 w-4"
-                />
+                <Icon name="mdi:database-search" class="text-primary h-4 w-4" />
                 <Label
                   for="explorer-query"
                   class="text-foreground text-[0.7rem] font-semibold tracking-[0.18em] uppercase"
@@ -319,10 +317,7 @@ onMounted(() => {
             :message="error"
           />
 
-          <div
-            v-if="pending"
-            class="border-primary/40 bg-card border-l-2 p-8"
-          >
+          <div v-if="pending" class="border-primary/40 bg-card border-l-2 p-8">
             <LoadingText text="Querying USAspending data" />
           </div>
 
@@ -332,9 +327,7 @@ onMounted(() => {
                 class="border-border bg-background flex flex-wrap items-center justify-between gap-2 border-b px-5 py-3"
               >
                 <div class="flex items-center gap-2">
-                  <span
-                    class="bg-primary inline-block h-2 w-2 rounded-full"
-                  />
+                  <span class="bg-primary inline-block h-2 w-2 rounded-full" />
                   <span
                     class="text-foreground text-[0.7rem] font-semibold tracking-[0.18em] uppercase"
                   >
@@ -367,7 +360,10 @@ onMounted(() => {
 
             <IntelligenceMetricStrip :metrics="result.cards" />
 
-            <section v-if="result.filtersUsed.length" class="flex flex-wrap gap-2">
+            <section
+              v-if="result.filtersUsed.length"
+              class="flex flex-wrap gap-2"
+            >
               <Badge
                 v-for="filter in result.filtersUsed"
                 :key="`${filter.label}-${filter.value}`"
@@ -384,7 +380,11 @@ onMounted(() => {
               <IntelligenceTrendBars :rows="result.chart" />
             </IntelligenceSection>
 
-            <IntelligenceSection v-if="result.table.length" title="Query Table" flush>
+            <IntelligenceSection
+              v-if="result.table.length"
+              title="Query Table"
+              flush
+            >
               <div class="border-border overflow-x-auto border">
                 <Table>
                   <TableHeader>
@@ -413,7 +413,11 @@ onMounted(() => {
               </div>
             </IntelligenceSection>
 
-            <IntelligenceSection v-if="result.awards.length" title="Award Drill-Down" flush>
+            <IntelligenceSection
+              v-if="result.awards.length"
+              title="Award Drill-Down"
+              flush
+            >
               <IntelligenceAwardList :awards="result.awards" />
             </IntelligenceSection>
 

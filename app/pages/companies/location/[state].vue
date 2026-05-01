@@ -62,7 +62,7 @@ useHead(() => {
       <section class="border-border border-b">
         <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div
-            class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] uppercase tracking-[0.18em]"
+            class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] tracking-[0.18em] uppercase"
           >
             <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
             <span class="text-muted-foreground">Contractor directory</span>
@@ -101,7 +101,7 @@ useHead(() => {
       <section class="border-border border-b">
         <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div
-            class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] uppercase tracking-[0.18em]"
+            class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] tracking-[0.18em] uppercase"
           >
             <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
             <span class="text-muted-foreground">Contractor directory</span>

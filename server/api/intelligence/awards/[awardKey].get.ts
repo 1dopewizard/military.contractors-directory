@@ -3,7 +3,10 @@
  * @description Fetch USAspending award detail by generated award key
  */
 
-import { USA_SPENDING_API_BASE_URL, USA_SPENDING_BASE_URL } from "@/server/utils/usaspending";
+import {
+  USA_SPENDING_API_BASE_URL,
+  USA_SPENDING_BASE_URL,
+} from "@/server/utils/usaspending";
 
 export default defineEventHandler(async (event) => {
   const awardKey = getRouterParam(event, "awardKey");

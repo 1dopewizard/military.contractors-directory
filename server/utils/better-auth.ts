@@ -158,4 +158,3 @@ export async function requireAdmin(event: H3Event): Promise<AuthUser> {
 
   return user;
 }
-

@@ -70,7 +70,9 @@ const searchInput = ref(
   props.syncRoute ? ((route.query.q as string) ?? "") : "",
 );
 const q = ref(searchInput.value);
-const agency = ref(props.syncRoute ? ((route.query.agency as string) ?? "") : "");
+const agency = ref(
+  props.syncRoute ? ((route.query.agency as string) ?? "") : "",
+);
 const naics = ref(props.syncRoute ? ((route.query.naics as string) ?? "") : "");
 const psc = ref(props.syncRoute ? ((route.query.psc as string) ?? "") : "");
 const sorting = ref<SortingState>([
@@ -142,10 +144,15 @@ const hasFilters = computed(
   () => !!q.value || !!agency.value || !!naics.value || !!psc.value,
 );
 const firstRowNumber = computed(() =>
-  total.value === 0 ? 0 : pagination.value.pageIndex * pagination.value.pageSize + 1,
+  total.value === 0
+    ? 0
+    : pagination.value.pageIndex * pagination.value.pageSize + 1,
 );
 const lastRowNumber = computed(() =>
-  Math.min(total.value, (pagination.value.pageIndex + 1) * pagination.value.pageSize),
+  Math.min(
+    total.value,
+    (pagination.value.pageIndex + 1) * pagination.value.pageSize,
+  ),
 );
 
 const table = useVueTable({
@@ -297,16 +304,25 @@ const sourceLabel = computed(() => {
 
     <div class="flex flex-wrap items-end justify-between gap-3">
       <div>
-        <p class="text-muted-foreground text-[0.7rem] tracking-[0.16em] uppercase">
+        <p
+          class="text-muted-foreground text-[0.7rem] tracking-[0.16em] uppercase"
+        >
           {{ sourceLabel }}
         </p>
         <p class="text-foreground mt-1 text-sm">
-          <span class="font-medium tabular-nums">{{ total.toLocaleString() }}</span>
+          <span class="font-medium tabular-nums">{{
+            total.toLocaleString()
+          }}</span>
           active DoD recipient records
         </p>
       </div>
       <div v-if="!preview" class="flex items-center gap-2">
-        <Button variant="outline" size="sm" :disabled="pending" @click="refreshRows">
+        <Button
+          variant="outline"
+          size="sm"
+          :disabled="pending"
+          @click="refreshRows"
+        >
           <Icon
             :name="pending ? 'mdi:loading' : 'mdi:refresh'"
             :class="['mr-2 h-4 w-4', { 'animate-spin': pending }]"
@@ -349,7 +365,7 @@ const sourceLabel = computed(() => {
         </EmptyContent>
       </Empty>
 
-      <Table v-else class="table-fixed min-w-[960px]">
+      <Table v-else class="min-w-[960px] table-fixed">
         <colgroup>
           <col class="w-[28%]" />
           <col class="w-[11%]" />
@@ -388,7 +404,9 @@ const sourceLabel = computed(() => {
               <button
                 type="button"
                 class="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
-                :class="{ 'text-foreground': isActiveSort('totalObligations36m') }"
+                :class="{
+                  'text-foreground': isActiveSort('totalObligations36m'),
+                }"
                 @click="setSort('totalObligations36m')"
               >
                 Obligations
@@ -525,7 +543,9 @@ const sourceLabel = computed(() => {
       class="flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between"
     >
       <p class="text-muted-foreground">
-        Showing {{ firstRowNumber.toLocaleString() }}-{{ lastRowNumber.toLocaleString() }}
+        Showing {{ firstRowNumber.toLocaleString() }}-{{
+          lastRowNumber.toLocaleString()
+        }}
         of {{ total.toLocaleString() }}
       </p>
       <div class="flex items-center gap-2">

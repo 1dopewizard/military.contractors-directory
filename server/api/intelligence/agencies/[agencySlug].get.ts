@@ -3,7 +3,11 @@
  * @description Agency intelligence page data with top contractors and awards
  */
 
-import { getAgencyBySlug, getAwardSearch, getTopContractors } from "@/server/utils/intelligence";
+import {
+  getAgencyBySlug,
+  getAwardSearch,
+  getTopContractors,
+} from "@/server/utils/intelligence";
 import { getFiscalYears } from "@/server/utils/usaspending";
 import { z } from "zod";
 

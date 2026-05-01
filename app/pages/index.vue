@@ -4,6 +4,8 @@
 -->
 
 <script setup lang="ts">
+import { formatIntelligenceMoney } from "@/app/lib/intelligence-ui";
+
 definePageMeta({
   layout: "homepage",
 });
@@ -27,23 +29,9 @@ const { data: stats } = useFetch<HomepageStatsResponse>("/api/stats/homepage", {
   }),
 });
 
-const formatCompactMoney = (value: number): string => {
-  const abs = Math.abs(value);
-  if (abs >= 1_000_000_000_000) return `$${(abs / 1_000_000_000_000).toFixed(2)}T`;
-  if (abs >= 1_000_000_000) return `$${(abs / 1_000_000_000).toFixed(1)}B`;
-  if (abs >= 1_000_000) return `$${(abs / 1_000_000).toFixed(0)}M`;
-  return `$${Math.round(abs).toLocaleString()}`;
-};
-
-const formatCompactCount = (value: number): string => {
-  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
-  if (value >= 1_000) return `${(value / 1_000).toFixed(1)}K`;
-  return value.toLocaleString();
-};
-
 const snapshotDate = computed(() => {
   const value = stats.value?.refreshedAt;
-  if (!value) return "Not refreshed";
+  if (!value) return null;
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",
@@ -51,10 +39,24 @@ const snapshotDate = computed(() => {
   }).format(new Date(value));
 });
 
-const recipientCount = computed(() => stats.value?.recipients ?? 0);
-const totalObligated = computed(() => stats.value?.totalObligated ?? 0);
-const totalAwards = computed(() => stats.value?.totalAwards ?? 0);
-const topAgency = computed(() => stats.value?.topAgency ?? "—");
+const ribbonMetrics = computed(() => [
+  {
+    label: "Recipients",
+    value: (stats.value?.recipients ?? 0).toLocaleString(),
+  },
+  {
+    label: "Obligated (36mo)",
+    value: formatIntelligenceMoney(stats.value?.totalObligated ?? 0),
+  },
+  {
+    label: "Awards",
+    value: (stats.value?.totalAwards ?? 0).toLocaleString(),
+  },
+  {
+    label: "Top Awarder",
+    value: stats.value?.topAgency ?? "—",
+  },
+]);
 
 useSeoMeta({
   title: "Defense Contractor Directory | military.contractors",
@@ -81,75 +83,27 @@ useWebPageSchema({
 
 <template>
   <main class="min-h-full">
-    <section class="border-border border-b">
-      <div
-        class="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-[0.7rem] uppercase tracking-[0.18em] sm:px-6 lg:px-8"
-      >
-        <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
-        <span class="text-muted-foreground">USAspending.gov</span>
-        <span class="text-muted-foreground/40">/</span>
-        <span class="text-muted-foreground">DoD-awarded contracts</span>
-        <span class="text-muted-foreground/40">/</span>
-        <span class="text-muted-foreground">Trailing 36 months</span>
-        <span class="text-muted-foreground/40 hidden sm:inline">/</span>
-        <span class="text-muted-foreground">
-          Refreshed {{ snapshotDate }}
-        </span>
-      </div>
-    </section>
+    <DirectoryBreadcrumb :freshness="snapshotDate" />
 
-    <section class="border-border mx-auto max-w-7xl border-b px-4 py-6 sm:px-6 lg:px-8">
-      <h1 class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl">
+    <section
+      class="border-border mx-auto max-w-7xl border-b px-4 py-6 sm:px-6 lg:px-8"
+    >
+      <h1
+        class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl"
+      >
         The Defense Contractor Directory
       </h1>
-      <p class="text-muted-foreground mt-3 max-w-3xl text-sm leading-relaxed sm:text-base">
-        A searchable directory of every company and recipient that received
-        U.S. Department of Defense contract obligations during the trailing
-        36 months, sourced directly from USAspending.gov. Each profile links
-        back to the original federal award records.
+      <p
+        class="text-muted-foreground mt-3 max-w-3xl text-sm leading-relaxed sm:text-base"
+      >
+        A searchable directory of every company and recipient that received U.S.
+        Department of Defense contract obligations during the trailing 36
+        months, sourced directly from USAspending.gov. Each profile links back
+        to the original federal award records.
       </p>
     </section>
 
-    <section
-      class="border-border mx-auto max-w-7xl border-b px-4 py-5 sm:px-6 lg:px-8"
-    >
-      <dl class="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
-        <div class="flex flex-col gap-1">
-          <dt class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase">
-            Recipients
-          </dt>
-          <dd class="text-foreground text-xl font-semibold tabular-nums sm:text-2xl">
-            {{ recipientCount.toLocaleString() }}
-          </dd>
-        </div>
-        <div class="flex flex-col gap-1">
-          <dt class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase">
-            Obligated (36mo)
-          </dt>
-          <dd class="text-foreground text-xl font-semibold tabular-nums sm:text-2xl">
-            {{ formatCompactMoney(totalObligated) }}
-          </dd>
-        </div>
-        <div class="flex flex-col gap-1">
-          <dt class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase">
-            Awards
-          </dt>
-          <dd class="text-foreground text-xl font-semibold tabular-nums sm:text-2xl">
-            {{ formatCompactCount(totalAwards) }}
-          </dd>
-        </div>
-        <div class="flex flex-col gap-1">
-          <dt class="text-muted-foreground text-[0.65rem] tracking-[0.18em] uppercase">
-            Top Awarder
-          </dt>
-          <dd
-            class="text-foreground line-clamp-2 text-sm font-medium leading-tight sm:text-base"
-          >
-            {{ topAgency }}
-          </dd>
-        </div>
-      </dl>
-    </section>
+    <DirectoryStatRibbon :metrics="ribbonMetrics" class="mx-auto max-w-7xl" />
 
     <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <ContractorSnapshotTable :page-size="25" sync-route />
@@ -165,31 +119,29 @@ useWebPageSchema({
       </p>
       <ul class="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
         <li>
-          <NuxtLink
-            to="/explorer"
-            class="group block"
-          >
+          <NuxtLink to="/explorer" class="group block">
             <span
               class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
             >
               Explorer
             </span>
-            <span class="text-muted-foreground mt-0.5 block text-xs leading-snug">
+            <span
+              class="text-muted-foreground mt-0.5 block text-xs leading-snug"
+            >
               Free-form question and answer over the award dataset.
             </span>
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink
-            to="/rankings/top-defense-contractors"
-            class="group block"
-          >
+          <NuxtLink to="/rankings/top-defense-contractors" class="group block">
             <span
               class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
             >
               Rankings
             </span>
-            <span class="text-muted-foreground mt-0.5 block text-xs leading-snug">
+            <span
+              class="text-muted-foreground mt-0.5 block text-xs leading-snug"
+            >
               Curated leaderboards of top recipients by obligation.
             </span>
           </NuxtLink>
@@ -201,7 +153,9 @@ useWebPageSchema({
             >
               Agencies
             </span>
-            <span class="text-muted-foreground mt-0.5 block text-xs leading-snug">
+            <span
+              class="text-muted-foreground mt-0.5 block text-xs leading-snug"
+            >
               Browse recipients grouped by awarding DoD subagency.
             </span>
           </NuxtLink>
@@ -213,7 +167,9 @@ useWebPageSchema({
             >
               Compare
             </span>
-            <span class="text-muted-foreground mt-0.5 block text-xs leading-snug">
+            <span
+              class="text-muted-foreground mt-0.5 block text-xs leading-snug"
+            >
               Side-by-side comparison of two or more contractors.
             </span>
           </NuxtLink>

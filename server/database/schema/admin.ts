@@ -29,4 +29,3 @@ export const adminActivityLog = sqliteTable(
     index("admin_log_entity_idx").on(table.entityType, table.entityId),
   ],
 );
-

@@ -4,7 +4,10 @@
 -->
 
 <script setup lang="ts">
-import type { SourceLink, SourceMetadata } from "@/app/types/intelligence.types";
+import type {
+  SourceLink,
+  SourceMetadata,
+} from "@/app/types/intelligence.types";
 import { sourceMetadataSummary } from "@/app/lib/intelligence-ui";
 
 const props = withDefaults(
@@ -19,7 +22,9 @@ const props = withDefaults(
 );
 
 const links = computed(() =>
-  props.sourceLinks.length ? props.sourceLinks : props.metadata?.sources ?? [],
+  props.sourceLinks.length
+    ? props.sourceLinks
+    : (props.metadata?.sources ?? []),
 );
 </script>
 

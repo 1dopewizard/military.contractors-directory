@@ -13,6 +13,8 @@ defineProps<{
 <template>
   <Alert variant="destructive">
     <AlertTitle>{{ title }}</AlertTitle>
-    <AlertDescription>{{ message || "The requested intelligence data is unavailable." }}</AlertDescription>
+    <AlertDescription>{{
+      message || "The requested intelligence data is unavailable."
+    }}</AlertDescription>
   </Alert>
 </template>

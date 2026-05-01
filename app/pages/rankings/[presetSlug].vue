@@ -62,7 +62,9 @@ useHead({
     {
       name: "robots",
       content: () =>
-        data.value.sourceMetadata.structuredRecords > 0 ? "index, follow" : "noindex",
+        data.value.sourceMetadata.structuredRecords > 0
+          ? "index, follow"
+          : "noindex",
     },
   ],
 });
@@ -112,73 +114,18 @@ const metrics = computed(() => {
 
 <template>
   <main class="min-h-full">
-    <section class="border-border border-b">
-      <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-        <div
-          class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] uppercase tracking-[0.18em]"
-        >
-          <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
-          <span class="text-muted-foreground">USAspending.gov</span>
-          <span class="text-muted-foreground/40">/</span>
-          <span class="text-muted-foreground">DoD-awarded contracts</span>
-          <span class="text-muted-foreground/40">/</span>
-          <span class="text-muted-foreground">Trailing 36 months</span>
-          <template v-if="data.sourceMetadata?.cacheStatus">
-            <span class="text-muted-foreground/40 hidden sm:inline">/</span>
-            <span class="text-muted-foreground">
-              {{ data.sourceMetadata.cacheStatus }}
-            </span>
-          </template>
-        </div>
+    <DirectoryBreadcrumb
+      :extra="[{ label: data.preset.title }]"
+      :freshness="data.sourceMetadata?.cacheStatus || null"
+    />
 
-        <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
-          <div class="min-w-0">
-            <h1
-              class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl"
-            >
-              {{ data.preset.title }}
-            </h1>
-            <p
-              v-if="data.preset.description"
-              class="text-muted-foreground mt-1 max-w-3xl text-sm"
-            >
-              {{ data.preset.description }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <DirectoryPageHeader
+      eyebrow="Ranking"
+      :title="data.preset.title"
+      :description="data.preset.description || null"
+    />
 
-    <section class="border-border border-b">
-      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <dl
-          class="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-6"
-        >
-          <div
-            v-for="metric in metrics"
-            :key="metric.label"
-            class="min-w-0"
-          >
-            <dt
-              class="text-muted-foreground text-[0.65rem] tracking-[0.16em] uppercase"
-            >
-              {{ metric.label }}
-            </dt>
-            <dd
-              class="text-foreground mt-1.5 truncate text-base font-semibold tabular-nums"
-            >
-              {{ metric.value }}
-            </dd>
-            <p
-              v-if="metric.detail"
-              class="text-muted-foreground mt-1 truncate text-xs"
-            >
-              {{ metric.detail }}
-            </p>
-          </div>
-        </dl>
-      </div>
-    </section>
+    <DirectoryStatRibbon :metrics="metrics" class="mx-auto max-w-7xl" />
 
     <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <IntelligenceErrorState
@@ -228,10 +175,7 @@ const metrics = computed(() => {
                   >
                     {{ row.name }}
                   </NuxtLink>
-                  <span
-                    v-else
-                    class="text-foreground text-sm font-medium"
-                  >
+                  <span v-else class="text-foreground text-sm font-medium">
                     {{ row.name }}
                   </span>
                   <p
@@ -306,7 +250,9 @@ const metrics = computed(() => {
                 <span v-if="award.fiscalYear">FY{{ award.fiscalYear }}</span>
                 <span>
                   {{
-                    award.awardingSubAgency || award.awardingAgency || "Agency N/A"
+                    award.awardingSubAgency ||
+                    award.awardingAgency ||
+                    "Agency N/A"
                   }}
                 </span>
                 <span v-if="award.naicsCode">NAICS {{ award.naicsCode }}</span>
@@ -332,7 +278,7 @@ const metrics = computed(() => {
         </section>
 
         <section class="border-border mt-12 border-t pt-10">
-          <IntelligenceSourceFooter
+          <DirectorySourceFooter
             :metadata="data.sourceMetadata"
             :source-links="data.sourceMetadata.sources"
           />

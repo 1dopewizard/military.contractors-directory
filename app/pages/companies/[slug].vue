@@ -115,10 +115,13 @@ const {
   data: contractor,
   pending: isLoading,
   error,
-} = useFetch<ContractorResponse | null>(() => `/api/contractors/${slug.value}`, {
-  lazy: true,
-  watch: [slug],
-});
+} = useFetch<ContractorResponse | null>(
+  () => `/api/contractors/${slug.value}`,
+  {
+    lazy: true,
+    watch: [slug],
+  },
+);
 
 const intelligence = computed(() => contractor.value?.intelligence ?? null);
 
@@ -180,13 +183,16 @@ const headlineMetrics = computed(() => {
 const agencyRows = computed(() => {
   const intel = intelligence.value;
   if (!intel) return [];
-  return (intel.topSubAgencies?.length
-    ? intel.topSubAgencies
-    : (intel.topAgencies ?? [])
+  return (
+    intel.topSubAgencies?.length
+      ? intel.topSubAgencies
+      : (intel.topAgencies ?? [])
   ).slice(0, 6);
 });
 
-const naicsRows = computed(() => (intelligence.value?.topNaics ?? []).slice(0, 6));
+const naicsRows = computed(() =>
+  (intelligence.value?.topNaics ?? []).slice(0, 6),
+);
 const pscRows = computed(() => (intelligence.value?.topPsc ?? []).slice(0, 6));
 
 const linkedRecipients = computed(
@@ -235,18 +241,14 @@ watchEffect(() => {
 <template>
   <main class="min-h-full">
     <div v-if="isLoading">
-      <SearchablePageHeader>
-        <template #filters>
-          <div class="h-7" />
-        </template>
-      </SearchablePageHeader>
+      <DirectoryBreadcrumb />
       <div class="flex justify-center py-12">
         <LoadingText text="Loading contractor dossier" />
       </div>
     </div>
 
     <div v-else-if="error || !contractor">
-      <SearchablePageHeader />
+      <DirectoryBreadcrumb />
       <div
         class="container mx-auto flex max-w-6xl items-center justify-center px-4 py-12 sm:px-6 lg:px-8"
       >
@@ -268,100 +270,33 @@ watchEffect(() => {
     </div>
 
     <div v-else>
-      <SearchablePageHeader>
-        <template #filters>
-          <div class="flex items-center gap-2 text-sm">
-            <NuxtLink
-              to="/"
-              class="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Companies
-            </NuxtLink>
-            <Icon
-              name="mdi:chevron-right"
-              class="text-muted-foreground/50 h-4 w-4"
-            />
-            <span class="text-foreground truncate font-medium">
-              {{ contractor.name }}
-            </span>
-          </div>
+      <DirectoryBreadcrumb
+        :extra="[{ label: contractor.name }]"
+        :freshness="intelligence?.sourceMetadata?.cacheStatus || null"
+      />
+
+      <DirectoryPageHeader eyebrow="Contractor" :title="contractor.name">
+        <template #actions>
+          <NuxtLink :to="`/compare?contractors=${contractor.slug}`">
+            <Button variant="outline" size="sm">Compare</Button>
+          </NuxtLink>
+          <NuxtLink
+            v-if="contractor.website"
+            :to="contractor.website"
+            target="_blank"
+          >
+            <Button variant="outline" size="sm">
+              Website
+              <Icon name="mdi:open-in-new" class="ml-1 h-3 w-3" />
+            </Button>
+          </NuxtLink>
         </template>
-      </SearchablePageHeader>
+      </DirectoryPageHeader>
 
-      <section class="border-border border-b">
-        <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <div
-            class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.7rem] uppercase tracking-[0.18em]"
-          >
-            <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
-            <span class="text-muted-foreground">USAspending.gov</span>
-            <span class="text-muted-foreground/40">/</span>
-            <span class="text-muted-foreground">DoD-awarded contracts</span>
-            <span class="text-muted-foreground/40">/</span>
-            <span class="text-muted-foreground">Trailing 36 months</span>
-            <template v-if="intelligence?.sourceMetadata?.cacheStatus">
-              <span class="text-muted-foreground/40 hidden sm:inline">/</span>
-              <span class="text-muted-foreground">
-                {{ intelligence.sourceMetadata.cacheStatus }}
-              </span>
-            </template>
-          </div>
-
-          <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
-            <h1
-              class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl"
-            >
-              {{ contractor.name }}
-            </h1>
-            <div class="flex flex-wrap gap-2">
-              <NuxtLink :to="`/compare?contractors=${contractor.slug}`">
-                <Button variant="outline" size="sm">Compare</Button>
-              </NuxtLink>
-              <NuxtLink
-                v-if="contractor.website"
-                :to="contractor.website"
-                target="_blank"
-              >
-                <Button variant="outline" size="sm">
-                  Website
-                  <Icon name="mdi:open-in-new" class="ml-1 h-3 w-3" />
-                </Button>
-              </NuxtLink>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="border-border border-b">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <dl
-            class="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3 lg:grid-cols-6"
-          >
-            <div
-              v-for="metric in headlineMetrics"
-              :key="metric.label"
-              class="min-w-0"
-            >
-              <dt
-                class="text-muted-foreground text-[0.65rem] tracking-[0.16em] uppercase"
-              >
-                {{ metric.label }}
-              </dt>
-              <dd
-                class="text-foreground mt-1.5 truncate text-base font-semibold tabular-nums"
-              >
-                {{ metric.value }}
-              </dd>
-              <p
-                v-if="metric.detail"
-                class="text-muted-foreground mt-1 truncate text-xs"
-              >
-                {{ metric.detail }}
-              </p>
-            </div>
-          </dl>
-        </div>
-      </section>
+      <DirectoryStatRibbon
+        :metrics="headlineMetrics"
+        class="mx-auto max-w-7xl"
+      />
 
       <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <section v-if="intelligence?.yearlyTrend?.length">
@@ -384,7 +319,10 @@ watchEffect(() => {
           <div class="mt-6 grid gap-10 lg:grid-cols-3">
             <div>
               <h3 class="text-foreground mb-3 text-sm font-semibold">Agency</h3>
-              <div v-if="!agencyRows.length" class="text-muted-foreground text-sm">
+              <div
+                v-if="!agencyRows.length"
+                class="text-muted-foreground text-sm"
+              >
                 No agency data.
               </div>
               <table v-else class="w-full text-sm">
@@ -395,7 +333,7 @@ watchEffect(() => {
                     class="border-border/40 border-b last:border-b-0"
                   >
                     <td class="py-2.5 pr-2 align-top">
-                      <p class="text-foreground font-medium leading-snug">
+                      <p class="text-foreground leading-snug font-medium">
                         {{ row.label }}
                       </p>
                       <p
@@ -417,7 +355,10 @@ watchEffect(() => {
 
             <div>
               <h3 class="text-foreground mb-3 text-sm font-semibold">NAICS</h3>
-              <div v-if="!naicsRows.length" class="text-muted-foreground text-sm">
+              <div
+                v-if="!naicsRows.length"
+                class="text-muted-foreground text-sm"
+              >
                 No NAICS data.
               </div>
               <table v-else class="w-full text-sm">
@@ -428,7 +369,9 @@ watchEffect(() => {
                     class="border-border/40 border-b last:border-b-0"
                   >
                     <td class="py-2.5 pr-2 align-top">
-                      <p class="text-foreground font-mono text-xs">{{ row.key }}</p>
+                      <p class="text-foreground font-mono text-xs">
+                        {{ row.key }}
+                      </p>
                       <p
                         v-if="row.label"
                         class="text-muted-foreground mt-0.5 leading-snug"
@@ -459,7 +402,9 @@ watchEffect(() => {
                     class="border-border/40 border-b last:border-b-0"
                   >
                     <td class="py-2.5 pr-2 align-top">
-                      <p class="text-foreground font-mono text-xs">{{ row.key }}</p>
+                      <p class="text-foreground font-mono text-xs">
+                        {{ row.key }}
+                      </p>
                       <p
                         v-if="row.label"
                         class="text-muted-foreground mt-0.5 leading-snug"
@@ -524,7 +469,9 @@ watchEffect(() => {
                 <span v-if="award.fiscalYear">FY{{ award.fiscalYear }}</span>
                 <span>
                   {{
-                    award.awardingSubAgency || award.awardingAgency || "Agency N/A"
+                    award.awardingSubAgency ||
+                    award.awardingAgency ||
+                    "Agency N/A"
                   }}
                 </span>
                 <span v-if="award.naicsCode">NAICS {{ award.naicsCode }}</span>
@@ -594,7 +541,9 @@ watchEffect(() => {
                 <span v-if="award.fiscalYear">FY{{ award.fiscalYear }}</span>
                 <span>
                   {{
-                    award.awardingSubAgency || award.awardingAgency || "Agency N/A"
+                    award.awardingSubAgency ||
+                    award.awardingAgency ||
+                    "Agency N/A"
                   }}
                 </span>
                 <span v-if="award.naicsCode">NAICS {{ award.naicsCode }}</span>
@@ -706,10 +655,16 @@ watchEffect(() => {
               </div>
 
               <div v-if="contractor.description">
-                <h3 class="text-foreground mb-3 text-sm font-semibold">Overview</h3>
-                <div class="text-foreground/90 space-y-3 text-sm leading-relaxed">
+                <h3 class="text-foreground mb-3 text-sm font-semibold">
+                  Overview
+                </h3>
+                <div
+                  class="text-foreground/90 space-y-3 text-sm leading-relaxed"
+                >
                   <p
-                    v-for="(paragraph, idx) in contractor.description.split('\n\n')"
+                    v-for="(paragraph, idx) in contractor.description.split(
+                      '\n\n',
+                    )"
                     :key="idx"
                   >
                     {{ paragraph }}
@@ -754,7 +709,8 @@ watchEffect(() => {
                       v-if="contractor.defenseRevenuePercent != null"
                       class="text-muted-foreground"
                     >
-                      ({{ Math.round(contractor.defenseRevenuePercent) }}% of total)
+                      ({{ Math.round(contractor.defenseRevenuePercent) }}% of
+                      total)
                     </span>
                   </dd>
                 </div>
@@ -841,7 +797,9 @@ watchEffect(() => {
                       class="text-foreground hover:text-primary"
                     >
                       {{
-                        [location.city, location.state].filter(Boolean).join(", ")
+                        [location.city, location.state]
+                          .filter(Boolean)
+                          .join(", ")
                       }}
                     </NuxtLink>
                     <span v-else class="text-foreground">
@@ -878,11 +836,8 @@ watchEffect(() => {
           </div>
         </section>
 
-        <section
-          v-if="intelligence"
-          class="border-border mt-12 border-t pt-10"
-        >
-          <IntelligenceSourceFooter
+        <section v-if="intelligence" class="border-border mt-12 border-t pt-10">
+          <DirectorySourceFooter
             :metadata="intelligence.sourceMetadata"
             :source-links="intelligence.sourceLinks ?? []"
           />

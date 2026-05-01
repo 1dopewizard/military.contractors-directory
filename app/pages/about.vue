@@ -64,7 +64,9 @@ const sections = [
             :href="`#${section.id}`"
             class="border-border group hover:bg-muted/40 flex items-center justify-between border-b py-2 text-sm transition-colors"
           >
-            <span class="text-foreground/90 group-hover:text-primary inline-flex items-center transition-colors">
+            <span
+              class="text-foreground/90 group-hover:text-primary inline-flex items-center transition-colors"
+            >
               <Icon
                 :name="section.icon"
                 class="text-muted-foreground mr-2 h-3.5 w-3.5"
@@ -114,11 +116,13 @@ const sections = [
                 What we do
               </span>
             </div>
-            <div class="text-foreground/90 mt-4 space-y-3 text-sm leading-relaxed">
+            <div
+              class="text-foreground/90 mt-4 space-y-3 text-sm leading-relaxed"
+            >
               <p>
                 We organize the active trailing 36-month USAspending recipient
-                snapshot for Department of Defense-awarded contracts into a
-                fast searchable directory.
+                snapshot for Department of Defense-awarded contracts into a fast
+                searchable directory.
               </p>
               <p>
                 The goal is simple: make it easier to find who is receiving
@@ -140,9 +144,13 @@ const sections = [
                 How it works
               </span>
             </div>
-            <ol class="text-foreground/90 mt-4 space-y-4 text-sm leading-relaxed">
+            <ol
+              class="text-foreground/90 mt-4 space-y-4 text-sm leading-relaxed"
+            >
               <li>
-                <strong class="text-foreground">1. Start with the directory.</strong>
+                <strong class="text-foreground"
+                  >1. Start with the directory.</strong
+                >
                 Search by recipient name, UEI/code, agency, NAICS, or PSC.
               </li>
               <li>
@@ -163,10 +171,7 @@ const sections = [
             class="border-primary/40 bg-card border-l-2 p-6"
           >
             <div class="flex items-center gap-2">
-              <Icon
-                name="mdi:database-outline"
-                class="text-primary h-4 w-4"
-              />
+              <Icon name="mdi:database-outline" class="text-primary h-4 w-4" />
               <span
                 class="text-foreground text-[0.7rem] font-semibold tracking-[0.18em] uppercase"
               >
@@ -179,7 +184,9 @@ const sections = [
                   Companies
                 </h3>
                 <ul class="text-muted-foreground space-y-1">
-                  <li>USAspending recipient names, UEIs, and recipient codes</li>
+                  <li>
+                    USAspending recipient names, UEIs, and recipient codes
+                  </li>
                   <li>Trailing 36-month DoD obligations and award counts</li>
                   <li>Curated company overlays for known major contractors</li>
                 </ul>
@@ -232,7 +239,8 @@ const sections = [
             <p class="text-foreground/90 mt-4 text-sm leading-relaxed">
               Questions, corrections, or partnership inquiries?
               <NuxtLink to="/contact" class="text-primary hover:underline">
-                Get in touch </NuxtLink>.
+                Get in touch </NuxtLink
+              >.
             </p>
           </section>
 

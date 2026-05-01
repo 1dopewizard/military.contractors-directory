@@ -61,17 +61,12 @@ const handleSubmit = async () => {
 
 <template>
   <div class="min-h-full">
-    <!-- Header -->
-    <header class="border-border border-b">
-      <div
-        class="container mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
-      >
-        <h1 class="text-foreground text-2xl font-bold sm:text-3xl">Contact</h1>
-        <p class="text-muted-foreground mt-2">
-          Questions, feedback, or partnership inquiries.
-        </p>
-      </div>
-    </header>
+    <DirectoryPageHeader
+      eyebrow="Contact"
+      title="Contact"
+      description="Questions, feedback, or partnership inquiries."
+      max-width="max-w-4xl"
+    />
 
     <!-- Main Content -->
     <main class="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -94,7 +89,6 @@ const handleSubmit = async () => {
               We typically respond within 1-2 business days.
             </p>
           </div>
-
         </div>
 
         <!-- Contact Form -->

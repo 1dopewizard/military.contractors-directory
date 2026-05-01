@@ -18,7 +18,9 @@ watch(
 </script>
 
 <template>
-  <div class="mx-auto flex h-screen w-full max-w-screen-2xl flex-col overflow-x-hidden">
+  <div
+    class="mx-auto flex h-screen w-full max-w-screen-2xl flex-col overflow-x-hidden"
+  >
     <!-- Persistent Grid Background -->
     <div
       class="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"

@@ -6,13 +6,22 @@
 
 <script setup lang="ts">
 import type { SourceMetadata } from "@/app/types/intelligence.types";
-import { emptySourceMetadata } from "@/app/lib/intelligence-ui";
+import {
+  emptySourceMetadata,
+  formatIntelligenceMoney,
+} from "@/app/lib/intelligence-ui";
 
 definePageMeta({
   layout: "homepage",
 });
 
 const config = useRuntimeConfig();
+
+interface AgencyAggregates {
+  totalAgencies: number;
+  totalObligated: number;
+  topSubagency: string | null;
+}
 
 const { data, pending, error } = useFetch<{
   agencies: Array<{
@@ -21,11 +30,17 @@ const { data, pending, error } = useFetch<{
     abbreviation: string | null;
     slug: string;
   }>;
+  aggregates: AgencyAggregates;
   sourceMetadata: SourceMetadata;
 }>("/api/intelligence/agencies", {
   lazy: true,
   default: () => ({
     agencies: [],
+    aggregates: {
+      totalAgencies: 0,
+      totalObligated: 0,
+      topSubagency: null,
+    },
     sourceMetadata: emptySourceMetadata(),
   }),
 });
@@ -98,30 +113,39 @@ const filteredAgencies = computed(() => {
       a.code.toLowerCase().includes(q),
   );
 });
+
+const ribbonMetrics = computed(() => {
+  const aggregates = data.value?.aggregates;
+  return [
+    {
+      label: "Subagencies",
+      value: (aggregates?.totalAgencies ?? 0).toLocaleString(),
+    },
+    {
+      label: "Obligated (36mo)",
+      value: formatIntelligenceMoney(aggregates?.totalObligated ?? 0),
+    },
+    {
+      label: "Top Subagency",
+      value: aggregates?.topSubagency ?? "—",
+    },
+    {
+      label: "References",
+      value: agencies.value.length.toLocaleString(),
+      detail: "USAspending toptier agencies",
+    },
+  ];
+});
 </script>
 
 <template>
   <main class="min-h-full">
-    <section class="border-border border-b">
-      <div
-        class="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-[0.7rem] uppercase tracking-[0.18em] sm:px-6 lg:px-8"
-      >
-        <span class="bg-primary inline-block h-1.5 w-1.5 rounded-full" />
-        <span class="text-muted-foreground">USAspending.gov</span>
-        <span class="text-muted-foreground/40">/</span>
-        <span class="text-muted-foreground">DoD-awarded contracts</span>
-        <span class="text-muted-foreground/40">/</span>
-        <span class="text-muted-foreground">Agency directory</span>
-        <span class="text-muted-foreground/40 hidden sm:inline">/</span>
-        <span class="text-foreground tabular-nums">
-          {{ agencies.length.toLocaleString() }} agencies
-        </span>
-        <span class="text-muted-foreground/40 hidden sm:inline">/</span>
-        <span class="text-muted-foreground">
-          {{ data.sourceMetadata.cacheStatus }}
-        </span>
-      </div>
-    </section>
+    <DirectoryBreadcrumb
+      window="Agency directory"
+      :extra="[{ label: `${agencies.length.toLocaleString()} agencies` }]"
+    />
+
+    <DirectoryStatRibbon :metrics="ribbonMetrics" class="mx-auto max-w-7xl" />
 
     <div class="flex min-h-full flex-col lg:flex-row">
       <aside
@@ -241,7 +265,9 @@ const filteredAgencies = computed(() => {
                             :to="link.to"
                             class="border-border flex items-center justify-between border-b py-2 text-sm"
                           >
-                            <span class="text-foreground">{{ link.label }}</span>
+                            <span class="text-foreground">{{
+                              link.label
+                            }}</span>
                             <Icon
                               name="mdi:arrow-top-right"
                               class="text-muted-foreground h-3 w-3"
@@ -313,16 +339,13 @@ const filteredAgencies = computed(() => {
                 </li>
               </ul>
 
-              <div
-                v-else
-                class="text-muted-foreground mt-5 text-sm"
-              >
+              <div v-else class="text-muted-foreground mt-5 text-sm">
                 No agencies match "{{ searchQuery }}".
               </div>
             </section>
 
             <section class="border-border mt-12 border-t pt-10">
-              <IntelligenceSourceFooter :metadata="data.sourceMetadata" />
+              <DirectorySourceFooter :metadata="data.sourceMetadata" />
             </section>
           </template>
         </div>

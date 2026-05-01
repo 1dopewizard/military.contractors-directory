@@ -3,7 +3,11 @@
  * @description Ranking preset intelligence data
  */
 
-import { getAwardSearch, getRankingPreset, getTopContractors } from "@/server/utils/intelligence";
+import {
+  getAwardSearch,
+  getRankingPreset,
+  getTopContractors,
+} from "@/server/utils/intelligence";
 import { getFiscalYears } from "@/server/utils/usaspending";
 import { z } from "zod";
 

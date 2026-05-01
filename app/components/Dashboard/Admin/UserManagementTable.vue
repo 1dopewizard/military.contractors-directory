@@ -103,10 +103,7 @@ onMounted(() => {
               <span class="text-sm font-medium">{{
                 user.display_name || "No name"
               }}</span>
-              <Badge
-                v-if="user.is_admin"
-                variant="default"
-                class="text-[10px]"
+              <Badge v-if="user.is_admin" variant="default" class="text-[10px]"
                 >Admin</Badge
               >
               <Badge

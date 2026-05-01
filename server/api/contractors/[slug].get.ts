@@ -133,9 +133,13 @@ export default defineEventHandler(async (event) => {
       : null,
     intelligence,
     createdAt:
-      snapshot?.createdAt?.toISOString() ?? curated?.createdAt?.toISOString() ?? null,
+      snapshot?.createdAt?.toISOString() ??
+      curated?.createdAt?.toISOString() ??
+      null,
     updatedAt:
-      snapshot?.updatedAt?.toISOString() ?? curated?.updatedAt?.toISOString() ?? null,
+      snapshot?.updatedAt?.toISOString() ??
+      curated?.updatedAt?.toISOString() ??
+      null,
   };
 
   return response;

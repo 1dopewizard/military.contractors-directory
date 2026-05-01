@@ -10,32 +10,32 @@ The explorer, rankings, agencies, categories, topics, and compare pages remain a
 
 ## Data Scope
 
-| Dimension | v1 Default |
-| --- | --- |
-| Source | USAspending.gov API |
-| Awarding agency | Department of Defense only |
-| Award types | Contract award codes `A`, `B`, `C`, `D` |
-| Window | Trailing 36 months |
-| Inclusion | Every matching recipient, no dollar threshold |
-| Refresh | Daily scheduled snapshot plus manual admin refresh |
-| Storage | libSQL/SQLite via Drizzle ORM |
+| Dimension       | v1 Default                                         |
+| --------------- | -------------------------------------------------- |
+| Source          | USAspending.gov API                                |
+| Awarding agency | Department of Defense only                         |
+| Award types     | Contract award codes `A`, `B`, `C`, `D`            |
+| Window          | Trailing 36 months                                 |
+| Inclusion       | Every matching recipient, no dollar threshold      |
+| Refresh         | Daily scheduled snapshot plus manual admin refresh |
+| Storage         | libSQL/SQLite via Drizzle ORM                      |
 
 Curated `contractor` records are retained as enrichment overlays for known companies. Raw USAspending recipient rows live in `contractorSnapshot` and are the canonical directory dataset.
 
 ## Pages
 
-| URL | Purpose |
-| --- | --- |
-| `/` | Directory-first homepage with search, stats, and table preview |
-| `/companies` | Primary server-side table with search, filters, sorting, pagination |
-| `/companies/[slug]` | Snapshot profile with award intelligence and curated overlay where available |
-| `/explorer` | Secondary plain-English research workbench |
-| `/rankings/[presetSlug]` | Saved ranking lenses |
-| `/agencies`, `/agencies/[agencySlug]` | Agency research surfaces |
-| `/categories/[kind]/[code]` | NAICS/PSC research surfaces |
-| `/topics/[topicSlug]` | Topic research surfaces |
-| `/compare` | Known-contractor comparison |
-| `/admin` | Admin tools, including snapshot refresh |
+| URL                                   | Purpose                                                                      |
+| ------------------------------------- | ---------------------------------------------------------------------------- |
+| `/`                                   | Directory-first homepage with search, stats, and table preview               |
+| `/companies`                          | Primary server-side table with search, filters, sorting, pagination          |
+| `/companies/[slug]`                   | Snapshot profile with award intelligence and curated overlay where available |
+| `/explorer`                           | Secondary plain-English research workbench                                   |
+| `/rankings/[presetSlug]`              | Saved ranking lenses                                                         |
+| `/agencies`, `/agencies/[agencySlug]` | Agency research surfaces                                                     |
+| `/categories/[kind]/[code]`           | NAICS/PSC research surfaces                                                  |
+| `/topics/[topicSlug]`                 | Topic research surfaces                                                      |
+| `/compare`                            | Known-contractor comparison                                                  |
+| `/admin`                              | Admin tools, including snapshot refresh                                      |
 
 ## API
 
@@ -115,14 +115,14 @@ pnpm db:studio
 
 ## Tech Stack
 
-| Layer | Technology |
-| --- | --- |
-| Framework | Nuxt 4 |
-| UI | shadcn-vue, Tailwind CSS, TanStack Vue Table |
-| Database | libSQL/SQLite via Drizzle ORM |
-| Auth | Better Auth |
-| Search | SQLite filters for snapshot rows; USAspending API for source refresh |
-| Testing | Vitest |
+| Layer     | Technology                                                           |
+| --------- | -------------------------------------------------------------------- |
+| Framework | Nuxt 4                                                               |
+| UI        | shadcn-vue, Tailwind CSS, TanStack Vue Table                         |
+| Database  | libSQL/SQLite via Drizzle ORM                                        |
+| Auth      | Better Auth                                                          |
+| Search    | SQLite filters for snapshot rows; USAspending API for source refresh |
+| Testing   | Vitest                                                               |
 
 ## Development
 
@@ -141,13 +141,13 @@ pnpm build
 
 ## Key Paths
 
-| Purpose | Path |
-| --- | --- |
-| Snapshot schema | `server/database/schema/snapshot.ts` |
-| Snapshot service | `server/utils/contractor-snapshot.ts` |
-| Directory API | `server/api/contractors/index.get.ts` |
-| Profile API | `server/api/contractors/[slug].get.ts` |
-| Manual refresh API | `server/api/admin/contractor-snapshot/refresh.post.ts` |
-| Scheduled task | `server/tasks/contractor-snapshot-refresh.ts` |
-| Table component | `app/components/Contractors/ContractorSnapshotTable.vue` |
-| Primary page | `app/pages/companies/index.vue` |
+| Purpose            | Path                                                     |
+| ------------------ | -------------------------------------------------------- |
+| Snapshot schema    | `server/database/schema/snapshot.ts`                     |
+| Snapshot service   | `server/utils/contractor-snapshot.ts`                    |
+| Directory API      | `server/api/contractors/index.get.ts`                    |
+| Profile API        | `server/api/contractors/[slug].get.ts`                   |
+| Manual refresh API | `server/api/admin/contractor-snapshot/refresh.post.ts`   |
+| Scheduled task     | `server/tasks/contractor-snapshot-refresh.ts`            |
+| Table component    | `app/components/Contractors/ContractorSnapshotTable.vue` |
+| Primary page       | `app/pages/companies/index.vue`                          |

@@ -132,11 +132,19 @@ onMounted(() => {
         Quick Actions
       </h3>
       <div class="flex flex-wrap gap-2">
-        <Button variant="ghost" size="sm" @click="emit('setTab', 'contractors')">
+        <Button
+          variant="ghost"
+          size="sm"
+          @click="emit('setTab', 'contractors')"
+        >
           <Icon name="mdi:office-building-outline" class="mr-2 h-4 w-4" />
           Manage Contractors
         </Button>
-        <Button variant="ghost" size="sm" @click="emit('setTab', 'intelligence')">
+        <Button
+          variant="ghost"
+          size="sm"
+          @click="emit('setTab', 'intelligence')"
+        >
           <Icon name="mdi:database-search-outline" class="mr-2 h-4 w-4" />
           Intelligence Tools
         </Button>

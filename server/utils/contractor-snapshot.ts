@@ -337,11 +337,17 @@ export async function refreshContractorSnapshot(
 
       for (const row of response.rows) {
         const owner = snapshotOwnerKey(row);
-        const slug = uniqueSnapshotSlug(row.name ?? "Unknown recipient", owner, {
-          slugOwners,
-          usedSlugs,
+        const slug = uniqueSnapshotSlug(
+          row.name ?? "Unknown recipient",
+          owner,
+          {
+            slugOwners,
+            usedSlugs,
+          },
+        );
+        const normalized = normalizeContractorSnapshotRow(row, window, {
+          slug,
         });
-        const normalized = normalizeContractorSnapshotRow(row, window, { slug });
         await upsertSnapshotRow(normalized, runId, window);
         rowCount += 1;
       }
@@ -498,7 +504,9 @@ export async function getCuratedContractorOverlay(
   const [byName] = await db
     .select()
     .from(schema.contractor)
-    .where(sql`lower(${schema.contractor.name}) = ${snapshot.recipientName.toLowerCase()}`)
+    .where(
+      sql`lower(${schema.contractor.name}) = ${snapshot.recipientName.toLowerCase()}`,
+    )
     .limit(1);
 
   if (byName) return byName;
@@ -586,11 +594,16 @@ export async function getSnapshotProfileIntelligence(
       };
     }
 
-    return buildSnapshotIntelligence(snapshot, [], [], [
-      error instanceof Error
-        ? error.message
-        : "USAspending profile refresh failed.",
-    ]);
+    return buildSnapshotIntelligence(
+      snapshot,
+      [],
+      [],
+      [
+        error instanceof Error
+          ? error.message
+          : "USAspending profile refresh failed.",
+      ],
+    );
   }
 }
 
@@ -849,7 +862,8 @@ function uniqueSnapshotSlug(
   const existingOwner = options.slugOwners.get(base);
   const usedOwner = options.usedSlugs.get(base);
   const useSuffix =
-    (existingOwner && existingOwner !== owner) || (usedOwner && usedOwner !== owner);
+    (existingOwner && existingOwner !== owner) ||
+    (usedOwner && usedOwner !== owner);
   const slug = useSuffix ? snapshotSlug(name, owner) : base;
   options.usedSlugs.set(slug, owner);
   return slug;
@@ -857,7 +871,9 @@ function uniqueSnapshotSlug(
 
 function snapshotSlug(name: string, recipientCode: string | null): string {
   const base = slugify(name) || "unknown-recipient";
-  return recipientCode ? `${base}-${stableHash(recipientCode).slice(0, 8)}` : base;
+  return recipientCode
+    ? `${base}-${stableHash(recipientCode).slice(0, 8)}`
+    : base;
 }
 
 function snapshotOwnerKey(row: SnapshotCategoryRow): string {
@@ -905,7 +921,10 @@ async function writeSnapshotProfileCache(
       normalizedQuery: snapshot.normalizedName,
       queryHash,
       result: result as unknown as Record<string, unknown>,
-      sourceMetadata: result.sourceMetadata as unknown as Record<string, unknown>,
+      sourceMetadata: result.sourceMetadata as unknown as Record<
+        string,
+        unknown
+      >,
       cacheStatus: "live",
       refreshedAt: now,
       expiresAt,
@@ -937,7 +956,9 @@ async function applyProfileEnrichment(slug: string, awards: AwardSummary[]) {
   const topSubAgencies = aggregateAwards(
     awards,
     (award) =>
-      award.awardingSubAgency ?? award.awardingAgency ?? "Department of Defense",
+      award.awardingSubAgency ??
+      award.awardingAgency ??
+      "Department of Defense",
   );
   const topNaics = aggregateAwards(
     awards.filter((award) => award.naicsCode),
@@ -957,7 +978,9 @@ async function applyProfileEnrichment(slug: string, awards: AwardSummary[]) {
     .update(schema.contractorSnapshot)
     .set({
       awardCount36m: awards.length,
-      lastAwardDate: lastAward?.startDate ? parseDateOnly(lastAward.startDate) : null,
+      lastAwardDate: lastAward?.startDate
+        ? parseDateOnly(lastAward.startDate)
+        : null,
       topAwardingAgency: topAgencies[0]?.key ?? "Department of Defense",
       topAwardingSubagency: topSubAgencies[0]?.key ?? null,
       topNaicsCode: topNaics[0]?.key ?? null,
@@ -982,7 +1005,9 @@ function buildSnapshotIntelligence(
   const topSubAgencies = aggregateAwards(
     awards,
     (award) =>
-      award.awardingSubAgency ?? award.awardingAgency ?? "Department of Defense",
+      award.awardingSubAgency ??
+      award.awardingAgency ??
+      "Department of Defense",
   );
   const topNaics = aggregateAwards(
     awards.filter((award) => award.naicsCode),
@@ -1244,7 +1269,10 @@ function inferUei(value: unknown): string | null {
 }
 
 function normalizeText(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
 function stableId(value: string): string {

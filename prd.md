@@ -14,16 +14,16 @@ The existing explorer remains available, but it is secondary to the directory/pr
 
 ## 2. Source Of Truth
 
-| Item | Decision |
-| --- | --- |
-| Data source | USAspending.gov API |
-| Awarding agency scope | Department of Defense only |
-| Award type scope | Contract award codes `A`, `B`, `C`, `D` |
-| Time window | Trailing 36 months |
-| Row inclusion | All matching recipients, no minimum dollar threshold |
-| Refresh | Daily recipient snapshot |
-| Database | libSQL/SQLite via Drizzle |
-| UI table | shadcn-vue Table + TanStack Vue Table |
+| Item                  | Decision                                             |
+| --------------------- | ---------------------------------------------------- |
+| Data source           | USAspending.gov API                                  |
+| Awarding agency scope | Department of Defense only                           |
+| Award type scope      | Contract award codes `A`, `B`, `C`, `D`              |
+| Time window           | Trailing 36 months                                   |
+| Row inclusion         | All matching recipients, no minimum dollar threshold |
+| Refresh               | Daily recipient snapshot                             |
+| Database              | libSQL/SQLite via Drizzle                            |
+| UI table              | shadcn-vue Table + TanStack Vue Table                |
 
 Curated `contractor` rows are enrichment overlays only. The canonical broad directory dataset is `contractorSnapshot`.
 

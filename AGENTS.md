@@ -348,18 +348,18 @@ pnpm db:studio     # Open Drizzle Studio GUI
 
 Pi loads skills from both `/home/aeo/.agents/skills/` and `~/.pi/agent/skills/` (run `/skills` in pi to list them all). Match the task to the appropriate skill:
 
-| Task                                  | Skill                       |
-| ------------------------------------- | --------------------------- |
-| Database schema, migrations, queries  | `drizzle-development`       |
-| Server API routes, validation, errors | `api-endpoint-development`  |
-| Vue composables, state, forms         | `composable-development`    |
-| UI components, shadcn-vue patterns    | `frontend-ui-integration`   |
-| Design decisions, layout, styling     | `frontend-design`           |
-| Writing tests, mocking, TDD           | `test-development`          |
-| SQLite FTS5, search features          | `search-optimization`       |
-| Fixing audit issues, accessibility    | `audit-remediation`         |
-| Nuxt config, middleware, plugins      | `nuxt`                      |
-| SEO, meta tags, schema.org, AEO       | `seo-aeo`                   |
-| AI/LLM integration, streaming         | `ai-sdk`                    |
+| Task                                  | Skill                      |
+| ------------------------------------- | -------------------------- |
+| Database schema, migrations, queries  | `drizzle-development`      |
+| Server API routes, validation, errors | `api-endpoint-development` |
+| Vue composables, state, forms         | `composable-development`   |
+| UI components, shadcn-vue patterns    | `frontend-ui-integration`  |
+| Design decisions, layout, styling     | `frontend-design`          |
+| Writing tests, mocking, TDD           | `test-development`         |
+| SQLite FTS5, search features          | `search-optimization`      |
+| Fixing audit issues, accessibility    | `audit-remediation`        |
+| Nuxt config, middleware, plugins      | `nuxt`                     |
+| SEO, meta tags, schema.org, AEO       | `seo-aeo`                  |
+| AI/LLM integration, streaming         | `ai-sdk`                   |
 
 **Usage**: Read the skill's `SKILL.md` before starting work on that task type.

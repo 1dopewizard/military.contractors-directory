@@ -86,3 +86,36 @@ export const isSourceMetadataWarning = (
     metadata.cacheStatus === "stale" ||
     metadata.cacheStatus === "error" ||
     (metadata.warnings?.length ?? 0) > 0);
+
+export interface DirectoryMetricItem {
+  label: string;
+  value: string | number;
+  detail?: string | null;
+}
+
+export const metricsFromMetadata = (
+  metadata: SourceMetadata | null | undefined,
+  windowLabel?: string | null,
+): DirectoryMetricItem[] => {
+  const warning = isSourceMetadataWarning(metadata);
+  return [
+    {
+      label: "Source",
+      value: metadata?.sources?.[0]?.label ?? "USAspending.gov",
+    },
+    {
+      label: "Freshness",
+      value: sourceMetadataSummary(metadata),
+    },
+    {
+      label: "Window",
+      value: windowLabel || "Current public award extract",
+    },
+    {
+      label: "Status",
+      value: warning
+        ? metadata?.warnings?.[0] || `Using ${metadata?.cacheStatus} data`
+        : "Source-backed records",
+    },
+  ];
+};

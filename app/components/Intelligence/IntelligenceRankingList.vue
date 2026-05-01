@@ -34,7 +34,10 @@ const barWidth = (value: number | null | undefined): string => {
 </script>
 
 <template>
-  <div v-if="!rows.length" class="border-border text-muted-foreground border p-8 text-center text-sm">
+  <div
+    v-if="!rows.length"
+    class="border-border text-muted-foreground border p-8 text-center text-sm"
+  >
     {{ emptyText }}
   </div>
   <ol v-else class="border-border divide-border divide-y border">

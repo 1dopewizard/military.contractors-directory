@@ -316,9 +316,7 @@ describe("contractor snapshot helpers", () => {
   });
 
   it("validates snapshot query limits and defaults", () => {
-    expect(parseContractorSnapshotQuery({}).sort).toBe(
-      "totalObligations36m",
-    );
+    expect(parseContractorSnapshotQuery({}).sort).toBe("totalObligations36m");
     expect(parseContractorSnapshotQuery({ limit: "100" }).limit).toBe(100);
     expect(() => parseContractorSnapshotQuery({ limit: "101" })).toThrow();
     expect(() => parseContractorSnapshotQuery({ sort: "bad" })).toThrow();

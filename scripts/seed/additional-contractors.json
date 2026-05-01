@@ -366,11 +366,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Leonardo_DRS",
     "stockTicker": "DRS",
     "isPublic": true,
-    "specialties": [
-      "electronics-sensors",
-      "naval-maritime",
-      "land-systems"
-    ],
+    "specialties": ["electronics-sensors", "naval-maritime", "land-systems"],
     "keyProducts": [
       "Naval power systems and ship electronics",
       "Infrared sensors and EO/IR systems",
@@ -401,11 +397,7 @@
     "wikipediaUrl": "https://en.wikipedia.org/wiki/BAE_Systems",
     "stockTicker": null,
     "isPublic": false,
-    "specialties": [
-      "electronics-sensors",
-      "land-systems",
-      "naval-maritime"
-    ],
+    "specialties": ["electronics-sensors", "land-systems", "naval-maritime"],
     "keyProducts": [
       "Electronic warfare systems and countermeasures",
       "Bradley Fighting Vehicle and AMPV",

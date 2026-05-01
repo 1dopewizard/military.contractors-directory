@@ -3,7 +3,11 @@
  * @description Topic intelligence page data
  */
 
-import { getAwardSearch, getTopContractors, getTopicPreset } from "@/server/utils/intelligence";
+import {
+  getAwardSearch,
+  getTopContractors,
+  getTopicPreset,
+} from "@/server/utils/intelligence";
 import { getFiscalYears } from "@/server/utils/usaspending";
 import { z } from "zod";
 

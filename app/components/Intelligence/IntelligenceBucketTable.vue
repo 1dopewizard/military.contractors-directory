@@ -4,7 +4,10 @@
 -->
 
 <script setup lang="ts">
-import type { IntelligenceBucket, TrendPoint } from "@/app/types/intelligence.types";
+import type {
+  IntelligenceBucket,
+  TrendPoint,
+} from "@/app/types/intelligence.types";
 import { formatIntelligenceMoney } from "@/app/lib/intelligence-ui";
 
 type BucketRow = IntelligenceBucket | TrendPoint;

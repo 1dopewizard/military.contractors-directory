@@ -10,8 +10,14 @@ const bodySchema = z
   .object({
     limit: z.coerce.number().int().min(1).max(100).optional(),
     maxPages: z.coerce.number().int().min(1).max(2000).optional(),
-    windowStart: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-    windowEnd: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    windowStart: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/)
+      .optional(),
+    windowEnd: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/)
+      .optional(),
   })
   .optional()
   .default({});

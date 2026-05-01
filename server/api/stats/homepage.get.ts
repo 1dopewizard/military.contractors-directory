@@ -23,7 +23,9 @@ export default defineEventHandler(async (): Promise<HomepageStatsResponse> => {
         recipients: sql<number>`count(*)`,
         totalObligated: sql<number>`coalesce(sum(${schema.contractorSnapshot.totalObligations36m}), 0)`,
         totalAwards: sql<number>`coalesce(sum(${schema.contractorSnapshot.awardCount36m}), 0)`,
-        refreshedAt: sql<number | null>`max(${schema.contractorSnapshot.refreshedAt})`,
+        refreshedAt: sql<
+          number | null
+        >`max(${schema.contractorSnapshot.refreshedAt})`,
       })
       .from(schema.contractorSnapshot);
 
@@ -45,7 +47,9 @@ export default defineEventHandler(async (): Promise<HomepageStatsResponse> => {
       totalObligated: aggregates?.totalObligated ?? 0,
       totalAwards: aggregates?.totalAwards ?? 0,
       topAgency: topAgencyRow?.agency ?? null,
-      refreshedAt: refreshedAtMs ? new Date(refreshedAtMs * 1000).toISOString() : null,
+      refreshedAt: refreshedAtMs
+        ? new Date(refreshedAtMs * 1000).toISOString()
+        : null,
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
