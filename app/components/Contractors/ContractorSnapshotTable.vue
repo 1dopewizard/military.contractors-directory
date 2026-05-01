@@ -348,10 +348,19 @@ const sourceLabel = computed(() => {
         </EmptyContent>
       </Empty>
 
-      <Table v-else>
+      <Table v-else class="table-fixed min-w-[960px]">
+        <colgroup>
+          <col class="w-[28%]" />
+          <col class="w-[11%]" />
+          <col class="w-[8%]" />
+          <col class="w-[22%]" />
+          <col class="w-[9%]" />
+          <col class="w-[9%]" />
+          <col class="w-[13%]" />
+        </colgroup>
         <TableHeader>
           <TableRow>
-            <TableHead class="min-w-72">
+            <TableHead>
               <button
                 type="button"
                 class="hover:text-foreground inline-flex items-center gap-1"
@@ -406,10 +415,12 @@ const sourceLabel = computed(() => {
             @keydown.enter.prevent="navigateRow(row.original.slug)"
           >
             <TableCell class="align-top">
-              <p class="text-foreground font-medium">
+              <p class="text-foreground font-medium break-words">
                 {{ row.original.recipientName }}
               </p>
-              <p class="text-muted-foreground mt-1 font-mono text-[11px]">
+              <p
+                class="text-muted-foreground mt-1 truncate font-mono text-[11px]"
+              >
                 {{
                   row.original.recipientUei
                     ? `UEI ${row.original.recipientUei}`
@@ -423,8 +434,8 @@ const sourceLabel = computed(() => {
             <TableCell class="text-right align-top tabular-nums">
               {{ row.original.awardCount36m.toLocaleString() }}
             </TableCell>
-            <TableCell class="max-w-56 align-top">
-              <span class="line-clamp-2">
+            <TableCell class="align-top">
+              <span class="line-clamp-2 break-words">
                 {{
                   row.original.topAwardingSubagency ||
                   row.original.topAwardingAgency ||
