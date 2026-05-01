@@ -169,10 +169,11 @@ const table = useVueTable({
   },
 });
 
-const sortButtonLabel = (id: string) => {
+const isActiveSort = (id: string) => sorting.value[0]?.id === id;
+const activeSortDir = (id: string): "asc" | "desc" | null => {
   const current = sorting.value[0];
-  if (current?.id !== id) return "Sort";
-  return current.desc ? "Desc" : "Asc";
+  if (current?.id !== id) return null;
+  return current.desc ? "desc" : "asc";
 };
 
 const setSort = (id: string) => {
@@ -315,7 +316,7 @@ const sourceLabel = computed(() => {
       </div>
     </div>
 
-    <div class="border-border bg-card overflow-hidden border">
+    <div class="bg-card overflow-hidden">
       <div v-if="pending" class="flex min-h-72 items-center justify-center">
         <LoadingText text="Loading contractor directory" />
       </div>
@@ -359,48 +360,104 @@ const sourceLabel = computed(() => {
           <col class="w-[13%]" />
         </colgroup>
         <TableHeader>
-          <TableRow>
-            <TableHead>
+          <TableRow class="hover:bg-transparent">
+            <TableHead
+              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
+            >
               <button
                 type="button"
-                class="hover:text-foreground inline-flex items-center gap-1"
+                class="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+                :class="{ 'text-foreground': isActiveSort('recipientName') }"
                 @click="setSort('recipientName')"
               >
                 Recipient
-                <span class="text-[10px] uppercase">{{ sortButtonLabel("recipientName") }}</span>
+                <Icon
+                  v-if="activeSortDir('recipientName')"
+                  :name="
+                    activeSortDir('recipientName') === 'desc'
+                      ? 'mdi:arrow-down'
+                      : 'mdi:arrow-up'
+                  "
+                  class="h-3 w-3"
+                />
               </button>
             </TableHead>
-            <TableHead class="text-right">
+            <TableHead
+              class="text-muted-foreground text-right text-[0.65rem] font-medium tracking-[0.16em] uppercase"
+            >
               <button
                 type="button"
-                class="hover:text-foreground inline-flex items-center gap-1"
+                class="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+                :class="{ 'text-foreground': isActiveSort('totalObligations36m') }"
                 @click="setSort('totalObligations36m')"
               >
                 Obligations
-                <span class="text-[10px] uppercase">{{ sortButtonLabel("totalObligations36m") }}</span>
+                <Icon
+                  v-if="activeSortDir('totalObligations36m')"
+                  :name="
+                    activeSortDir('totalObligations36m') === 'desc'
+                      ? 'mdi:arrow-down'
+                      : 'mdi:arrow-up'
+                  "
+                  class="h-3 w-3"
+                />
               </button>
             </TableHead>
-            <TableHead class="text-right">
+            <TableHead
+              class="text-muted-foreground text-right text-[0.65rem] font-medium tracking-[0.16em] uppercase"
+            >
               <button
                 type="button"
-                class="hover:text-foreground inline-flex items-center gap-1"
+                class="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+                :class="{ 'text-foreground': isActiveSort('awardCount36m') }"
                 @click="setSort('awardCount36m')"
               >
                 Awards
-                <span class="text-[10px] uppercase">{{ sortButtonLabel("awardCount36m") }}</span>
+                <Icon
+                  v-if="activeSortDir('awardCount36m')"
+                  :name="
+                    activeSortDir('awardCount36m') === 'desc'
+                      ? 'mdi:arrow-down'
+                      : 'mdi:arrow-up'
+                  "
+                  class="h-3 w-3"
+                />
               </button>
             </TableHead>
-            <TableHead>Top Agency</TableHead>
-            <TableHead>NAICS</TableHead>
-            <TableHead>PSC</TableHead>
-            <TableHead>
+            <TableHead
+              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
+            >
+              Top Agency
+            </TableHead>
+            <TableHead
+              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
+            >
+              NAICS
+            </TableHead>
+            <TableHead
+              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
+            >
+              PSC
+            </TableHead>
+            <TableHead
+              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
+            >
               <button
                 type="button"
-                class="hover:text-foreground inline-flex items-center gap-1"
+                class="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+                :class="{ 'text-foreground': isActiveSort('lastAwardDate') }"
                 @click="setSort('lastAwardDate')"
               >
                 Last Award
-                <span class="text-[10px] uppercase">{{ sortButtonLabel("lastAwardDate") }}</span>
+                <Icon
+                  v-if="activeSortDir('lastAwardDate')"
+                  :name="
+                    activeSortDir('lastAwardDate') === 'desc'
+                      ? 'mdi:arrow-down'
+                      : 'mdi:arrow-up'
+                  "
+                  class="h-3 w-3"
+                />
               </button>
             </TableHead>
           </TableRow>
