@@ -12,7 +12,7 @@ The active product schema supports contractor directory profiles, claimed profil
 | `pscCode`            | PSC codes and titles encountered in award records                                |
 | `award`              | Normalized USAspending award rows cached from public API responses               |
 | `awardTransaction`   | Reserved transaction-level cache table                                           |
-| `explorerQueryCache` | Persistent cache for explorer, profile, ranking, and page responses              |
+| `explorerQueryCache` | Legacy persistent cache table for profile, ranking, and page responses           |
 
 ## Cache Policy
 

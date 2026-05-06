@@ -2,15 +2,15 @@
 
 ## 1. Summary
 
-**Primary promise:** the searchable directory of companies receiving U.S. defense contract awards.
+**Primary promise:** the searchable database of companies and recipients receiving U.S. Department of Defense contract awards.
 
-`military.contractors` is a directory-first product built around a daily USAspending recipient snapshot. The core workflow is:
+`military.contractors` is a database-first product built around a daily USAspending recipient snapshot. The core workflow is:
 
 1. Search or filter Department of Defense-awarded contract recipients active in the trailing 36 months.
 2. Open a recipient/company profile.
-3. Verify obligations, awards, agencies, NAICS, PSC, recent awards, and source links.
+3. Verify obligations, awards, agencies, NAICS, PSC, recent awards, and source links against public USAspending records.
 
-The existing explorer remains available, but it is secondary to the directory/profile loop.
+The MVP focuses on making the contractor database complete, fast, source-backed, and easy to verify before adding analyst, feed, watchlist, or community layers.
 
 ## 2. Source Of Truth
 
@@ -29,18 +29,18 @@ Curated `contractor` rows are enrichment overlays only. The canonical broad dire
 
 ## 3. Goals
 
-- Make `/companies` the primary product surface.
-- Make `/` a directory-first landing surface with search, stats, and a table preview.
+- Make `/` the primary database surface with search, stats, and the contractor table.
+- Keep `/companies` as the verified directory and data trust surface.
 - Provide source-backed recipient profiles from `/companies/[slug]`.
 - Support server-side search, filtering, sorting, and pagination.
-- Keep explorer, rankings, topics, agencies, categories, and compare pages as secondary research tools.
+- Keep rankings, topics, agencies, categories, and compare pages as secondary database lenses.
 - Preserve existing curated company context without merging raw USAspending recipients into curated contractor rows.
 
 ## 4. Non-Goals
 
 - No SAM.gov enrichment in v1.
 - No parent-company normalization in v1.
-- No saved lists, exports, alerts, RFP matching, or monetization in v1.
+- No saved lists, exports, alerts, watchlists, RFP matching, analyst workbench, AI feed, community, or monetization in v1.
 - No local full award warehouse requirement for MVP.
 - No minimum dollar threshold.
 
@@ -158,13 +158,13 @@ Returns:
 
 ### `/`
 
-Directory-first homepage:
+Database homepage:
 
-- product promise headline
-- compact search
-- key stats
-- table preview
-- secondary research links
+- searchable database product promise
+- compact search entry point
+- key stats and source freshness
+- full verified directory/table preview
+- secondary links into rankings, agencies, categories, topics, and compare views
 
 ### `/companies`
 
@@ -189,9 +189,9 @@ Profile:
 
 ## 9. SEO/AEO
 
-- Homepage and `/companies` target "defense contractor directory" and "defense contract recipients".
+- Homepage and `/companies` target "defense contractor directory", "DoD contractor database", and "defense contract recipients".
 - Company pages use recipient/company name in the title.
-- Sitemap prioritizes `/` and `/companies`.
+- Sitemap prioritizes `/`, `/companies`, and durable database pages.
 - Snapshot profile URLs are included in the sitemap.
 - Structured data search action targets `/companies?q={search_term_string}`.
 

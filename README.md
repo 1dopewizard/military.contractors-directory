@@ -1,12 +1,12 @@
 # military.contractors
 
-Searchable directory of companies and recipients receiving U.S. defense contract awards.
+Searchable database of companies and recipients receiving U.S. Department of Defense contract awards.
 
 ## Product
 
-`military.contractors` is now directory-first. The primary product surface is a fast server-backed table of Department of Defense-awarded USAspending contract recipients active in the trailing 36 months. Recipient rows link to source-backed profiles with recent awards, agency buckets, NAICS buckets, PSC buckets, trends, and public USAspending links.
+`military.contractors` is database-first. The primary product surface is a fast server-backed table of Department of Defense-awarded USAspending contract recipients active in the trailing 36 months. Recipient rows link to source-backed profiles with obligations, award counts, agency buckets, NAICS buckets, PSC buckets, recent awards, trends, and public USAspending links.
 
-The explorer, rankings, agencies, categories, topics, and compare pages remain available as secondary research surfaces.
+Rankings, agencies, categories, topics, and compare pages remain secondary database views over the same source-backed contractor dataset.
 
 ## Data Scope
 
@@ -24,18 +24,17 @@ Curated `contractor` records are retained as enrichment overlays for known compa
 
 ## Pages
 
-| URL                                   | Purpose                                                                      |
-| ------------------------------------- | ---------------------------------------------------------------------------- |
-| `/`                                   | Directory-first homepage with search, stats, and table preview               |
-| `/companies`                          | Primary server-side table with search, filters, sorting, pagination          |
-| `/companies/[slug]`                   | Snapshot profile with award intelligence and curated overlay where available |
-| `/explorer`                           | Secondary plain-English research workbench                                   |
-| `/rankings/[presetSlug]`              | Saved ranking lenses                                                         |
-| `/agencies`, `/agencies/[agencySlug]` | Agency research surfaces                                                     |
-| `/categories/[kind]/[code]`           | NAICS/PSC research surfaces                                                  |
-| `/topics/[topicSlug]`                 | Topic research surfaces                                                      |
-| `/compare`                            | Known-contractor comparison                                                  |
-| `/admin`                              | Admin tools, including snapshot refresh                                      |
+| URL                                   | Purpose                                                                |
+| ------------------------------------- | ---------------------------------------------------------------------- |
+| `/`                                   | Database homepage with search, stats, and full table preview           |
+| `/companies`                          | Verified recipient directory with search, filters, sorting, pagination |
+| `/companies/[slug]`                   | Contractor profile with award evidence and curated overlay             |
+| `/rankings/[presetSlug]`              | Saved ranking lenses                                                   |
+| `/agencies`, `/agencies/[agencySlug]` | Agency research surfaces                                               |
+| `/categories/[kind]/[code]`           | NAICS/PSC research surfaces                                            |
+| `/topics/[topicSlug]`                 | Topic research surfaces                                                |
+| `/compare`                            | Known-contractor comparison                                            |
+| `/admin`                              | Admin tools, including snapshot refresh                                |
 
 ## API
 
@@ -147,7 +146,8 @@ pnpm build
 | Snapshot service   | `server/utils/contractor-snapshot.ts`                    |
 | Directory API      | `server/api/contractors/index.get.ts`                    |
 | Profile API        | `server/api/contractors/[slug].get.ts`                   |
+| Intelligence logic | `server/utils/intelligence.ts`                           |
 | Manual refresh API | `server/api/admin/contractor-snapshot/refresh.post.ts`   |
 | Scheduled task     | `server/tasks/contractor-snapshot-refresh.ts`            |
 | Table component    | `app/components/Contractors/ContractorSnapshotTable.vue` |
-| Primary page       | `app/pages/companies/index.vue`                          |
+| Front page         | `app/pages/index.vue`                                    |

@@ -1,6 +1,6 @@
 /**
  * @file Contractor snapshot schema
- * @description USAspending recipient snapshots for the directory-first product
+ * @description USAspending recipient snapshots for the verified intelligence data layer
  */
 
 import {

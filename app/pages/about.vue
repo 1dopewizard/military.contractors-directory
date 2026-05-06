@@ -15,7 +15,7 @@ useHead({
     {
       name: "description",
       content:
-        "military.contractors is a searchable directory of Department of Defense-awarded USAspending contract recipients with source-backed profiles.",
+        "military.contractors is a searchable database of companies and recipients receiving U.S. Department of Defense contract awards.",
     },
     {
       property: "og:title",
@@ -24,7 +24,7 @@ useHead({
     {
       property: "og:description",
       content:
-        "A directory-first view of companies and recipients receiving U.S. defense contract awards.",
+        "A searchable database of companies and recipients receiving U.S. defense contract awards.",
     },
     { property: "og:type", content: "website" },
   ],
@@ -33,7 +33,7 @@ useHead({
 useWebPageSchema({
   name: "About military.contractors",
   description:
-    "Searchable directory of Department of Defense-awarded USAspending contract recipients with source-backed profile context.",
+    "Searchable database of Department of Defense-awarded USAspending contract recipients with source-backed profile context.",
 });
 
 const sections = [
@@ -96,7 +96,7 @@ const sections = [
           class="text-foreground mt-6 max-w-3xl text-3xl leading-[1.05] font-bold tracking-tight sm:text-5xl"
         >
           Searchable
-          <span class="text-primary">contractor directory</span>.
+          <span class="text-primary">contractor database</span>.
         </h1>
         <p class="text-muted-foreground mt-4 max-w-2xl text-base sm:text-lg">
           Source-backed profiles for companies and recipients receiving U.S.
@@ -122,7 +122,7 @@ const sections = [
               <p>
                 We organize the active trailing 36-month USAspending recipient
                 snapshot for Department of Defense-awarded contracts into a fast
-                searchable directory.
+                searchable contractor database.
               </p>
               <p>
                 The goal is simple: make it easier to find who is receiving
@@ -149,7 +149,7 @@ const sections = [
             >
               <li>
                 <strong class="text-foreground"
-                  >1. Start with the directory.</strong
+                  >1. Start with the database.</strong
                 >
                 Search by recipient name, UEI/code, agency, NAICS, or PSC.
               </li>
@@ -160,8 +160,8 @@ const sections = [
               </li>
               <li>
                 <strong class="text-foreground">3. Continue research.</strong>
-                Secondary explorer, ranking, agency, topic, and category views
-                provide deeper lenses on the same public award data.
+                Ranking, agency, topic, and category views provide deeper lenses
+                on the same public award data.
               </li>
             </ol>
           </section>
@@ -220,7 +220,7 @@ const sections = [
             <p class="text-foreground/90 mt-4 text-sm leading-relaxed">
               This is not a job board, MOS translator, placement service, or
               career alert product. Public product development is focused on
-              source-backed contractor directory and profile intelligence.
+              source-backed contractor database and profile evidence.
             </p>
           </section>
 
@@ -246,10 +246,12 @@ const sections = [
 
           <div class="flex flex-col gap-3 pt-4 sm:flex-row">
             <Button as-child size="lg" class="font-semibold">
-              <NuxtLink to="/">Open Directory</NuxtLink>
+              <NuxtLink to="/">Open Database</NuxtLink>
             </Button>
             <Button as-child variant="outline" size="lg">
-              <NuxtLink to="/explorer">Open Explorer</NuxtLink>
+              <NuxtLink to="/rankings/top-defense-contractors"
+                >View Rankings</NuxtLink
+              >
             </Button>
           </div>
         </div>

@@ -116,16 +116,6 @@ const navigateToSearch = (query?: string) => {
   router.push(q ? `/?q=${encodeURIComponent(q)}` : "/");
 };
 
-const navigateToExplorer = (query?: string) => {
-  const q = query || searchQuery.value.trim();
-  if (q) {
-    saveRecentSearch(q);
-  }
-  open.value = false;
-  searchQuery.value = "";
-  router.push(q ? `/explorer?q=${encodeURIComponent(q)}` : "/explorer");
-};
-
 const handleRecentSearch = (query: string) => {
   searchQuery.value = query;
 };
@@ -218,7 +208,7 @@ const navigateToQuickLink = (to: string) => {
       <input
         ref="searchInputRef"
         v-model="searchQuery"
-        placeholder="Search contractor directory..."
+        placeholder="Search contractor database..."
         class="placeholder:text-muted-foreground flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50"
         @keydown.enter="navigateToSearch()"
       />
@@ -238,13 +228,6 @@ const navigateToQuickLink = (to: string) => {
       <template v-else-if="searchQuery.trim()">
         <CommandEmpty v-if="searchResults.length === 0">
           No contractors found for "{{ searchQuery }}".
-          <button
-            type="button"
-            class="text-primary ml-1 hover:underline"
-            @click="navigateToExplorer()"
-          >
-            Run in Explorer
-          </button>
         </CommandEmpty>
 
         <CommandGroup v-if="searchResults.length > 0" heading="Contractors">
@@ -301,15 +284,6 @@ const navigateToQuickLink = (to: string) => {
           >
             View all {{ totalResults }} results
             <Icon name="mdi:arrow-right" class="ml-2 h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            class="text-muted-foreground w-full justify-center"
-            @click="navigateToExplorer()"
-          >
-            Run query in Explorer
-            <Icon name="mdi:database-search" class="ml-2 h-4 w-4" />
           </Button>
         </div>
       </template>
@@ -368,7 +342,7 @@ const navigateToQuickLink = (to: string) => {
         <CommandSeparator />
 
         <!-- Quick actions -->
-        <CommandGroup heading="Quick Actions">
+        <CommandGroup heading="Database views">
           <CommandItem
             v-for="link in quickLinks"
             :key="link.value"
@@ -391,7 +365,7 @@ const navigateToQuickLink = (to: string) => {
               name="mdi:view-list"
               class="text-muted-foreground mr-2 h-4 w-4"
             />
-            <span>Browse all contractors</span>
+            <span>Browse verified directory</span>
           </CommandItem>
         </CommandGroup>
       </template>

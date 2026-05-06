@@ -16,7 +16,6 @@ interface CacheEntry {
   updatedAt: string;
 }
 
-const refreshQuery = ref("Top Department of the Navy contractors");
 const contractorSlug = ref("");
 const snapshotMaxPages = ref(5);
 const refreshing = ref(false);
@@ -29,21 +28,6 @@ const {
   lazy: true,
   default: () => ({ entries: [] }),
 });
-
-const forceRefreshQuery = async () => {
-  if (!refreshQuery.value.trim()) return;
-  refreshing.value = true;
-  try {
-    await $fetch("/api/admin/intelligence/refresh", {
-      method: "POST",
-      body: { query: refreshQuery.value.trim() },
-    });
-    toast.success("Explorer query refreshed");
-    refreshCache();
-  } finally {
-    refreshing.value = false;
-  }
-};
 
 const forceRefreshContractor = async () => {
   if (!contractorSlug.value.trim()) return;
@@ -95,7 +79,7 @@ const formatDate = (value: string | null): string => {
       </p>
     </div>
 
-    <div class="grid gap-4 lg:grid-cols-3">
+    <div class="grid gap-4 lg:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle>Refresh Directory Snapshot</CardTitle>
@@ -119,31 +103,6 @@ const formatDate = (value: string | null): string => {
                 class="mr-2 h-4 w-4 animate-spin"
               />
               Refresh snapshot
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Refresh Explorer Query</CardTitle>
-          <CardDescription
-            >Bypasses public freshness throttles.</CardDescription
-          >
-        </CardHeader>
-        <CardContent>
-          <form class="space-y-3" @submit.prevent="forceRefreshQuery">
-            <Textarea
-              v-model="refreshQuery"
-              class="min-h-24 resize-none rounded-none"
-            />
-            <Button type="submit" :disabled="refreshing">
-              <Icon
-                v-if="refreshing"
-                name="mdi:loading"
-                class="mr-2 h-4 w-4 animate-spin"
-              />
-              Refresh query
             </Button>
           </form>
         </CardContent>
@@ -181,7 +140,8 @@ const formatDate = (value: string | null): string => {
         <div>
           <CardTitle>Recent Cache Entries</CardTitle>
           <CardDescription
-            >Persistent explorer and profile cache records.</CardDescription
+            >Persistent profile, ranking, and page cache
+            records.</CardDescription
           >
         </div>
         <Button variant="outline" size="sm" @click="refreshCache"

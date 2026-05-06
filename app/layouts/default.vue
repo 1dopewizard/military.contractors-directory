@@ -59,7 +59,7 @@ watch(
             class="text-muted-foreground hover:text-foreground text-sm transition-colors"
             active-class="text-foreground"
           >
-            Directory
+            Database
           </NuxtLink>
           <NuxtLink
             to="/rankings/top-defense-contractors"
@@ -74,13 +74,6 @@ watch(
             active-class="text-foreground"
           >
             Agencies
-          </NuxtLink>
-          <NuxtLink
-            to="/explorer"
-            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            active-class="text-foreground"
-          >
-            Explorer
           </NuxtLink>
           <NuxtLink
             to="/about"
@@ -135,7 +128,7 @@ watch(
             to="/"
             class="text-foreground hover:text-primary text-sm transition-colors"
           >
-            Directory
+            Database
           </NuxtLink>
           <NuxtLink
             to="/rankings/top-defense-contractors"
@@ -148,12 +141,6 @@ watch(
             class="text-foreground hover:text-primary text-sm transition-colors"
           >
             Agencies
-          </NuxtLink>
-          <NuxtLink
-            to="/explorer"
-            class="text-foreground hover:text-primary text-sm transition-colors"
-          >
-            Explorer
           </NuxtLink>
           <NuxtLink
             to="/about"

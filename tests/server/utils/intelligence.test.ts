@@ -1,31 +1,16 @@
 /**
  * @file Intelligence utility tests
- * @description Covers explorer planning and deterministic award aggregation
+ * @description Covers deterministic award aggregation and snapshot helpers
  */
 
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-const mockGenerateObject = vi.hoisted(() => vi.fn());
-const mockCreateOpenAI = vi.hoisted(() => vi.fn());
-
-vi.mock("ai", () => ({
-  generateObject: mockGenerateObject,
-}));
-
-vi.mock("@ai-sdk/openai", () => ({
-  createOpenAI: mockCreateOpenAI,
-}));
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
-  createPlanHash,
   compareContractors,
-  explorerPlanSchema,
+  createPlanHash,
   formatMoney,
   getContractorIntelligence,
   getSpendingTrend,
-  planExplorerQueryWithAi,
-  planExplorerQuery,
-  runExplorerQuery,
   searchAwards,
 } from "@/server/utils/intelligence";
 import {
@@ -44,166 +29,12 @@ import {
   parseContractorSnapshotQuery,
 } from "@/server/utils/contractor-snapshot";
 
-beforeEach(() => {
-  mockGenerateObject.mockReset();
-  mockCreateOpenAI.mockReset();
-  mockCreateOpenAI.mockReturnValue((model: string) => ({ model }));
-});
-
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.unstubAllGlobals();
 });
 
 describe("contractor intelligence utilities", () => {
-  it("plans an agency top-contractors query", () => {
-    const plan = planExplorerQuery("Top Department of the Navy contractors");
-
-    expect(plan.intent).toBe("agency_top_contractors");
-    expect(plan.agency).toBe("Department of the Navy");
-  });
-
-  it("does not extract AI from NAICS as a keyword", () => {
-    const plan = planExplorerQuery("Top NAICS 541512 contractors");
-
-    expect(plan.intent).toBe("category_search");
-    expect(plan.naics).toBe("541512");
-    expect(plan.keywords).not.toContain("ai");
-  });
-
-  it("plans a company comparison query", () => {
-    const plan = planExplorerQuery("Compare Lockheed Martin and RTX");
-
-    expect(plan.intent).toBe("company_comparison");
-    expect(plan.contractors).toEqual(["lockheed-martin", "rtx"]);
-  });
-
-  it("uses the AI planner for recent Aegis award questions", async () => {
-    vi.stubEnv("OPENAI_API_KEY", "test-key");
-    mockGenerateObject.mockResolvedValue({
-      object: {
-        intent: "award_keyword_search",
-        contractors: [],
-        agency: null,
-        naics: null,
-        psc: null,
-        location: null,
-        keywords: ["Aegis"],
-        recipientSearchText: [],
-        fiscalYears: [],
-        limit: 3,
-        sort: { field: "startDate", direction: "desc" },
-      },
-    });
-
-    const { plan, warnings } = await planExplorerQueryWithAi(
-      "What are the last 3 contract awards for Aegis?",
-    );
-
-    expect(warnings).toEqual([]);
-    expect(plan.intent).toBe("award_keyword_search");
-    expect(plan.keywords).toEqual(["Aegis"]);
-    expect(plan.limit).toBe(3);
-    expect(plan.sort).toEqual({ field: "startDate", direction: "desc" });
-    expect(mockGenerateObject).toHaveBeenCalledTimes(1);
-  });
-
-  it("uses recipientSearchText for unknown recipient names", async () => {
-    vi.stubEnv("OPENAI_API_KEY", "test-key");
-    mockGenerateObject.mockResolvedValue({
-      object: {
-        intent: "company_lookup",
-        contractors: [],
-        agency: null,
-        naics: null,
-        psc: null,
-        location: null,
-        keywords: [],
-        recipientSearchText: ["Shield AI"],
-        fiscalYears: [],
-        limit: 10,
-        sort: null,
-      },
-    });
-
-    const { plan } = await planExplorerQueryWithAi("Show Shield AI awards");
-
-    expect(plan.contractors).toEqual([]);
-    expect(plan.recipientSearchText).toEqual(["Shield AI"]);
-  });
-
-  it("uses the AI planner for agency rankings", async () => {
-    vi.stubEnv("OPENAI_API_KEY", "test-key");
-    mockGenerateObject.mockResolvedValue({
-      object: {
-        intent: "agency_top_contractors",
-        contractors: [],
-        agency: "Department of the Navy",
-        naics: null,
-        psc: null,
-        location: null,
-        keywords: [],
-        recipientSearchText: [],
-        fiscalYears: [],
-        limit: 10,
-        sort: { field: "awardAmount", direction: "desc" },
-      },
-    });
-
-    const { plan } = await planExplorerQueryWithAi(
-      "Top Department of the Navy contractors",
-    );
-
-    expect(plan.intent).toBe("agency_top_contractors");
-    expect(plan.agency).toBe("Department of the Navy");
-    expect(plan.sort).toEqual({ field: "awardAmount", direction: "desc" });
-  });
-
-  it("falls back when the AI planner returns an invalid object", async () => {
-    vi.stubEnv("OPENAI_API_KEY", "test-key");
-    mockGenerateObject.mockResolvedValue({
-      object: {
-        intent: "made_up_intent",
-        limit: 1000,
-      },
-    });
-
-    const { plan, warnings } = await planExplorerQueryWithAi(
-      "Top Department of the Navy contractors",
-    );
-
-    expect(plan.intent).toBe("agency_top_contractors");
-    expect(plan.agency).toBe("Department of the Navy");
-    expect(warnings).toEqual([
-      "Explorer AI planner failed; using fallback parser.",
-    ]);
-  });
-
-  it("uses the fallback parser when no planner API key is configured", async () => {
-    vi.stubEnv("OPENAI_API_KEY", "");
-    vi.stubEnv("NUXT_OPENAI_API_KEY", "");
-
-    const { plan, warnings } = await planExplorerQueryWithAi(
-      "Top Department of the Navy contractors",
-    );
-
-    expect(plan.intent).toBe("agency_top_contractors");
-    expect(plan.agency).toBe("Department of the Navy");
-    expect(warnings).toEqual([
-      "Explorer planner API key is not configured; using fallback parser.",
-    ]);
-    expect(mockGenerateObject).not.toHaveBeenCalled();
-  });
-
-  it("rejects invalid planner payloads through the zod schema", () => {
-    const result = explorerPlanSchema.safeParse({
-      intent: "made_up_intent",
-      limit: 1000,
-    });
-
-    expect(result.success).toBe(false);
-  });
-
   it("filters awards by agency and computes spending trend", () => {
     const awards = searchAwards({
       intent: "agency_top_contractors",
@@ -246,21 +77,8 @@ describe("contractor intelligence utilities", () => {
     expect(comparison[0]?.contractor.name).toBe("Lockheed Martin");
   });
 
-  it("returns structured explorer output", () => {
-    const result = runExplorerQuery("Show cyber awards in Virginia");
-
-    expect(result.resultType).toBe("location_search");
-    expect(result.table.length).toBeGreaterThan(0);
-    expect(result.cards[1]?.label).toBe("Obligations");
-    expect(result.sourceMetadata.structuredRecords).toBeGreaterThan(0);
-  });
-
-  it("creates stable plan hashes", () => {
-    const plan = planExplorerQuery("Top Department of the Navy contractors");
-
-    expect(
-      createPlanHash(plan, "Top Department of the Navy contractors"),
-    ).toHaveLength(64);
+  it("creates stable cache hashes and formats large obligations", () => {
+    expect(createPlanHash({ source: "contractor-database" })).toHaveLength(64);
     expect(formatMoney(1_200_000_000)).toBe("$1.2B");
   });
 });

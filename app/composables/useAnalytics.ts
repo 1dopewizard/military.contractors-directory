@@ -51,14 +51,6 @@ export const useAnalytics = () => {
     // await $fetch('/api/analytics/track', { method: 'POST', body: { eventType, metadata } })
   };
 
-  const trackExplorerQuery = (query: string, cacheId?: string) => {
-    trackEvent("explorer_query", {
-      query,
-      cacheId,
-      timestamp: new Date().toISOString(),
-    });
-  };
-
   const trackIntelligencePageView = (path: string) => {
     trackEvent("intelligence_page_view", {
       path,
@@ -102,7 +94,6 @@ export const useAnalytics = () => {
 
   return {
     trackEvent,
-    trackExplorerQuery,
     trackIntelligencePageView,
     trackFilterChange,
     trackSourceClick,

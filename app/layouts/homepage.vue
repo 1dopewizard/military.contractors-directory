@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * @file Homepage layout - Defense Contractor Directory
+ * @file Homepage layout - Defense Contractor Database
  * @usage Apply to homepage with definePageMeta({ layout: 'homepage' })
  */
 
@@ -55,7 +55,7 @@ watch(
             to="/"
             class="text-muted-foreground hover:text-foreground text-sm transition-colors"
           >
-            Directory
+            Database
           </NuxtLink>
           <NuxtLink
             to="/rankings/top-defense-contractors"
@@ -68,12 +68,6 @@ watch(
             class="text-muted-foreground hover:text-foreground text-sm transition-colors"
           >
             Agencies
-          </NuxtLink>
-          <NuxtLink
-            to="/explorer"
-            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
-          >
-            Explorer
           </NuxtLink>
           <NuxtLink
             to="/about"
@@ -123,7 +117,7 @@ watch(
                 to="/"
                 class="text-foreground hover:text-primary text-sm transition-colors"
               >
-                Directory
+                Database
               </NuxtLink>
               <NuxtLink
                 to="/rankings/top-defense-contractors"
@@ -136,12 +130,6 @@ watch(
                 class="text-foreground hover:text-primary text-sm transition-colors"
               >
                 Agencies
-              </NuxtLink>
-              <NuxtLink
-                to="/explorer"
-                class="text-foreground hover:text-primary text-sm transition-colors"
-              >
-                Explorer
               </NuxtLink>
               <NuxtLink
                 to="/about"

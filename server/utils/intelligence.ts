@@ -4,18 +4,13 @@
  */
 
 import { createHash } from "node:crypto";
-import { createOpenAI } from "@ai-sdk/openai";
-import { generateObject } from "ai";
-import { eq, like, or } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
 import type {
   AwardSummary,
   ContractorIntelligence,
-  ExplorerIntent,
-  ExplorerPlan,
-  ExplorerResult,
-  FollowUpMode,
-  FollowUpResult,
+  AwardSearchIntent,
+  AwardSearchPlan,
   IntelligenceBucket,
   IntelligenceFilter,
   RankingRow,
@@ -34,12 +29,11 @@ import {
   searchUsaSpendingAwards,
   slugify,
   sourceLinksForAwards,
-  sanitizeUsaSpendingKeywords,
   USA_SPENDING_BASE_URL,
   type UsaSpendingAwardSearchInput,
 } from "@/server/utils/usaspending";
 
-export const explorerIntentSchema = z.enum([
+export const awardSearchIntentSchema = z.enum([
   "company_lookup",
   "company_comparison",
   "agency_top_contractors",
@@ -49,14 +43,14 @@ export const explorerIntentSchema = z.enum([
   "unsupported",
 ]);
 
-const explorerPlanSortSchema = z.object({
+const awardSearchPlanSortSchema = z.object({
   field: z.enum(["awardAmount", "startDate"]),
   direction: z.enum(["asc", "desc"]),
 });
 
-export const explorerPlanSchema = z
+export const awardSearchPlanSchema = z
   .object({
-    intent: explorerIntentSchema,
+    intent: awardSearchIntentSchema,
     contractors: z.array(z.string()).default([]),
     agency: z.string().nullable().default(null),
     naics: z.string().nullable().default(null),
@@ -66,11 +60,9 @@ export const explorerPlanSchema = z
     recipientSearchText: z.array(z.string()).default([]),
     fiscalYears: z.array(z.number().int()).default([]),
     limit: z.number().int().min(1).max(100).default(10),
-    sort: explorerPlanSortSchema.nullable().default(null),
+    sort: awardSearchPlanSortSchema.nullable().default(null),
   })
-  .strict() satisfies z.ZodType<ExplorerPlan>;
-
-export const followUpModeSchema = z.enum(["refine", "pivot", "answer"]);
+  .strict() satisfies z.ZodType<AwardSearchPlan>;
 
 export const PUBLIC_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 export const PROFILE_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
@@ -313,7 +305,7 @@ export function createQueryHash(value: string): string {
   return createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
 }
 
-export function createPlanHash(plan: ExplorerPlan, query = ""): string {
+export function createPlanHash(plan: unknown, query = ""): string {
   return createQueryHash(JSON.stringify({ query: query.trim(), plan }));
 }
 
@@ -323,7 +315,7 @@ export function formatMoney(value: number): string {
   return `$${Math.round(value).toLocaleString()}`;
 }
 
-export function planExplorerQuery(query: string): ExplorerPlan {
+export function planAwardSearchQuery(query: string): AwardSearchPlan {
   const normalized = normalizeText(query);
   const contractors = knownContractors
     .filter((contractor) =>
@@ -342,7 +334,7 @@ export function planExplorerQuery(query: string): ExplorerPlan {
   const keywords = extractKeywords(normalized);
   const limit = extractLimit(normalized) ?? 10;
 
-  let intent: ExplorerIntent = "award_keyword_search";
+  let intent: AwardSearchIntent = "award_keyword_search";
   if (
     contractors.length === 1 &&
     /profile|lookup|summary|show|tell/.test(normalized)
@@ -360,7 +352,7 @@ export function planExplorerQuery(query: string): ExplorerPlan {
     intent = "unsupported";
   }
 
-  return explorerPlanSchema.parse({
+  return awardSearchPlanSchema.parse({
     intent,
     contractors,
     agency,
@@ -371,239 +363,6 @@ export function planExplorerQuery(query: string): ExplorerPlan {
     fiscalYears,
     limit,
   });
-}
-
-export async function planExplorerQueryWithAi(query: string): Promise<{
-  plan: ExplorerPlan;
-  warnings: string[];
-}> {
-  const apiKey = getExplorerPlannerApiKey();
-
-  if (!apiKey) {
-    return {
-      plan: planExplorerQuery(query),
-      warnings: [
-        "Explorer planner API key is not configured; using fallback parser.",
-      ],
-    };
-  }
-
-  try {
-    const openai = createOpenAI({ apiKey });
-    const { object } = await generateObject({
-      model: openai(getExplorerPlannerModel()),
-      schema: explorerPlanSchema,
-      system: explorerPlannerSystemPrompt(),
-      prompt: query,
-      maxRetries: 0,
-    });
-
-    return {
-      plan: explorerPlanSchema.parse(object),
-      warnings: [],
-    };
-  } catch {
-    return {
-      plan: planExplorerQuery(query),
-      warnings: ["Explorer AI planner failed; using fallback parser."],
-    };
-  }
-}
-
-function getExplorerPlannerApiKey(): string | null {
-  const apiKey = process.env.OPENAI_API_KEY ?? process.env.NUXT_OPENAI_API_KEY;
-  return apiKey?.trim() ? apiKey : null;
-}
-
-function getExplorerPlannerModel(): string {
-  return (
-    process.env.NUXT_EXPLORER_PLANNER_MODEL ??
-    process.env.EXPLORER_PLANNER_MODEL ??
-    "gpt-5.4-mini"
-  );
-}
-
-function explorerPlannerSystemPrompt(): string {
-  const knownContractorLines = knownContractors
-    .map(
-      (contractor) =>
-        `- ${contractor.slug}: ${[contractor.name, ...contractor.aliases].join(
-          ", ",
-        )}`,
-    )
-    .join("\n");
-  const agencyLines = agencyNames.map((agency) => `- ${agency}`).join("\n");
-
-  return `Plan a USAspending contractor-award explorer query.
-
-Return only fields from the schema. Do not answer the user and do not invent award data.
-
-Known contractor slugs and aliases:
-${knownContractorLines}
-
-Known agencies:
-${agencyLines}
-
-Rules:
-- Use contractors only for the known contractor slugs above.
-- Company or recipient names not listed above go in recipientSearchText.
-- Programs, platforms, contract vehicles, missions, and products such as Aegis go in keywords.
-- "last", "latest", "recent", or "newest" N awards means limit N and sort startDate desc.
-- "top", "largest", or "biggest" means sort awardAmount desc unless a different sort is explicitly requested.
-- Use agency_top_contractors for agency recipient rankings.
-- Use category_search for NAICS or PSC queries.
-- Use location_search for place/state queries.
-- Use unsupported for non-award or non-contractor questions.`;
-}
-
-export async function runExplorerQueryWithCache(
-  query: string,
-  options: {
-    forceRefresh?: boolean;
-    cacheTtlMs?: number;
-    allowFreshRefresh?: boolean;
-  } = {},
-): Promise<ExplorerResult> {
-  const { plan, warnings: plannerWarnings } =
-    await planExplorerQueryWithAi(query);
-  const queryHash = createPlanHash(plan, query);
-  const id = queryHash.slice(0, 16);
-  const cacheTtlMs = options.cacheTtlMs ?? PUBLIC_CACHE_TTL_MS;
-  const cached = await getExplorerCacheByHash(queryHash);
-
-  if (
-    cached &&
-    !options.forceRefresh &&
-    Date.now() - cached.refreshedAt.getTime() < cacheTtlMs
-  ) {
-    return appendExplorerWarnings(
-      markExplorerResultCached(cached.result as ExplorerResult, "cached", true),
-      plannerWarnings,
-    );
-  }
-
-  if (
-    cached &&
-    options.forceRefresh &&
-    !options.allowFreshRefresh &&
-    Date.now() - cached.refreshedAt.getTime() < cacheTtlMs
-  ) {
-    const result = appendExplorerWarnings(
-      markExplorerResultCached(cached.result as ExplorerResult, "cached", true),
-      plannerWarnings,
-    );
-    result.sourceMetadata.warnings = [
-      ...result.sourceMetadata.warnings,
-      "Public refresh is available after this cache entry becomes stale.",
-    ];
-    return result;
-  }
-
-  if (plan.intent === "unsupported") {
-    const result = unsupportedExplorerResult(id, query, plan, plannerWarnings);
-    await writeExplorerCache(query, queryHash, result);
-    return result;
-  }
-
-  try {
-    const result = await executeExplorerPlan(query, plan, id, plannerWarnings);
-    await writeExplorerCache(query, queryHash, result);
-    await persistAwards(result.awards);
-    return result;
-  } catch (error) {
-    if (
-      cached &&
-      Date.now() - cached.refreshedAt.getTime() < STALE_FALLBACK_MS
-    ) {
-      const result = appendExplorerWarnings(
-        markExplorerResultCached(
-          cached.result as ExplorerResult,
-          "stale",
-          true,
-        ),
-        plannerWarnings,
-      );
-      result.sourceMetadata.warnings = [
-        ...result.sourceMetadata.warnings,
-        error instanceof Error ? error.message : "USAspending refresh failed.",
-      ];
-      return result;
-    }
-
-    throw error;
-  }
-}
-
-export async function getExplorerResultFromCache(
-  cacheId: string,
-): Promise<ExplorerResult | null> {
-  const db = getDb();
-  const [entry] = await db
-    .select()
-    .from(schema.explorerQueryCache)
-    .where(
-      or(
-        eq(schema.explorerQueryCache.id, cacheId),
-        eq(schema.explorerQueryCache.queryHash, cacheId),
-        like(schema.explorerQueryCache.queryHash, `${cacheId}%`),
-      ),
-    )
-    .limit(1);
-
-  if (!entry?.result) return null;
-  return markExplorerResultCached(
-    entry.result as unknown as ExplorerResult,
-    "cached",
-    true,
-  );
-}
-
-export async function runFollowUp(
-  cacheId: string,
-  followUpQuery: string,
-  requestedMode?: FollowUpMode,
-): Promise<FollowUpResult> {
-  const prior = await getExplorerResultFromCache(cacheId);
-
-  if (!prior) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: `Explorer cache "${cacheId}" not found`,
-    });
-  }
-
-  const mode = requestedMode ?? inferFollowUpMode(followUpQuery);
-  const id = createQueryHash(`${cacheId}:${mode}:${followUpQuery}`).slice(
-    0,
-    16,
-  );
-
-  if (mode === "answer") {
-    return {
-      id,
-      mode,
-      query: followUpQuery,
-      answer: answerFromExplorerResult(prior, followUpQuery),
-      result: null,
-      sourceMetadata: {
-        ...prior.sourceMetadata,
-        generatedAt: new Date().toISOString(),
-      },
-    };
-  }
-
-  const nextQuery =
-    mode === "pivot" ? followUpQuery : `${prior.query}. ${followUpQuery}`;
-  const result = await runExplorerQueryWithCache(nextQuery);
-
-  return {
-    id,
-    mode,
-    query: followUpQuery,
-    answer: null,
-    result,
-    sourceMetadata: result.sourceMetadata,
-  };
 }
 
 export async function getContractorIntelligenceLive(
@@ -626,7 +385,7 @@ export async function getContractorIntelligenceLive(
 
   const aliases = aliasesForContractor(contractor.slug, contractor.name);
   const fiscalYears = getFiscalYears(5);
-  const plan = explorerPlanSchema.parse({
+  const plan = awardSearchPlanSchema.parse({
     intent: "company_lookup",
     contractors: [contractor.slug],
     fiscalYears,
@@ -634,7 +393,7 @@ export async function getContractorIntelligenceLive(
   });
   const query = `contractor:${contractor.slug}:${fiscalYears.join(",")}`;
   const queryHash = createPlanHash(plan, query);
-  const cached = await getExplorerCacheByHash(queryHash);
+  const cached = await getIntelligenceCacheByHash(queryHash);
 
   if (
     cached &&
@@ -788,7 +547,7 @@ export function getSpendingTrend(awards: AwardSummary[]): TrendPoint[] {
   return trendFromAwards(awards);
 }
 
-export function searchAwards(plan: ExplorerPlan): AwardSummary[] {
+export function searchAwards(plan: AwardSearchPlan): AwardSummary[] {
   const awards = filterDemoAwards(plan);
 
   if (plan.sort?.field === "startDate") {
@@ -802,21 +561,6 @@ export function searchAwards(plan: ExplorerPlan): AwardSummary[] {
     plan.sort?.direction === "asc"
       ? a.obligation - b.obligation
       : b.obligation - a.obligation,
-  );
-}
-
-export function runExplorerQuery(query: string): ExplorerResult {
-  const plan = planExplorerQuery(query);
-  const id = createPlanHash(plan, query).slice(0, 16);
-  if (plan.intent === "unsupported")
-    return unsupportedExplorerResult(id, query, plan);
-  return explorerResultFromAwards(
-    query,
-    plan,
-    id,
-    searchAwards(plan),
-    [],
-    false,
   );
 }
 
@@ -850,205 +594,6 @@ export function compareContractors(slugs: string[]): ContractorIntelligence[] {
   return slugs
     .map((slug) => getContractorIntelligence(slug))
     .filter((item): item is ContractorIntelligence => Boolean(item));
-}
-
-async function executeExplorerPlan(
-  query: string,
-  plan: ExplorerPlan,
-  id: string,
-  plannerWarnings: string[] = [],
-): Promise<ExplorerResult> {
-  const input = planToUsaSpendingInput(plan);
-  const sort = usaSpendingSortForPlan(plan);
-  const [awardResponse, trendResponse, rankingResponse] = await Promise.all([
-    searchUsaSpendingAwards({
-      ...input,
-      limit:
-        plan.sort?.field === "startDate"
-          ? plan.limit
-          : Math.max(plan.limit, 25),
-      sort: sort.sort,
-      order: sort.order,
-    }),
-    fetchUsaSpendingTrend(input).catch(() => ({ results: [], messages: [] })),
-    plan.sort?.field !== "startDate" && shouldUseRecipientRankings(plan)
-      ? fetchUsaSpendingCategoryRankings("recipient", {
-          ...input,
-          limit: plan.limit,
-        }).catch(() => ({ results: [], messages: [] }))
-      : Promise.resolve({ results: [], messages: [] }),
-  ]);
-
-  const warnings = [
-    ...plannerWarnings,
-    ...awardResponse.messages,
-    ...trendResponse.messages,
-    ...rankingResponse.messages,
-  ];
-  const result = explorerResultFromAwards(
-    query,
-    plan,
-    id,
-    awardResponse.results,
-    warnings,
-    false,
-    trendResponse.results,
-    rankingResponse.results,
-  );
-
-  return result;
-}
-
-function explorerResultFromAwards(
-  query: string,
-  plan: ExplorerPlan,
-  id: string,
-  awards: AwardSummary[],
-  warnings: string[],
-  cached: boolean,
-  liveTrend: TrendPoint[] = [],
-  liveRankings: RankingRow[] = [],
-): ExplorerResult {
-  const totalObligations = awards.reduce(
-    (sum, award) => sum + award.obligation,
-    0,
-  );
-  const rankings = liveRankings.length
-    ? liveRankings
-    : rankAwardsByRecipient(awards).slice(0, plan.limit);
-  const chart = liveTrend.length ? liveTrend : trendFromAwards(awards);
-  const table = rankings.length
-    ? rankings.map((row) => ({
-        rank: row.rank,
-        contractor: row.name,
-        obligations: row.obligations,
-        awards: row.awardCount || null,
-        uei: row.uei ?? null,
-      }))
-    : awards.slice(0, plan.limit).map((award) => ({
-        recipient: award.recipientName,
-        agency: award.awardingSubAgency ?? award.awardingAgency,
-        fiscalYear: award.fiscalYear,
-        obligations: award.obligation,
-        category: [award.naicsCode, award.pscCode].filter(Boolean).join(" / "),
-        description: award.description,
-      }));
-  const filters = planFilters(plan);
-
-  return {
-    id,
-    query,
-    plan,
-    summary: summarizeExplorerResult(plan, awards, rankings, totalObligations),
-    resultType: plan.intent,
-    filtersUsed: filters,
-    table,
-    cards: [
-      {
-        label: "Matched awards",
-        value: String(awards.length),
-        detail: "USAspending award rows returned",
-      },
-      {
-        label: "Obligations",
-        value: formatMoney(totalObligations),
-        detail: "Sum of matched award obligations",
-      },
-      {
-        label: "Top recipient",
-        value: rankings[0]?.name ?? "N/A",
-        detail: rankings[0] ? formatMoney(rankings[0].obligations) : "No match",
-      },
-    ],
-    chart,
-    awards: awards.slice(0, plan.limit),
-    rankings,
-    sourceLinks: sourceLinksForAwards(awards),
-    sourceMetadata: sourceMetadata(awards.length, filters, warnings, "live"),
-    cached,
-  };
-}
-
-function unsupportedExplorerResult(
-  id: string,
-  query: string,
-  plan: ExplorerPlan,
-  warnings: string[] = [],
-): ExplorerResult {
-  return {
-    id,
-    query,
-    plan,
-    summary:
-      "Ask about a contractor, agency, NAICS/PSC category, location, ranking, or award keyword so the explorer can use structured public award data.",
-    resultType: "unsupported",
-    filtersUsed: [],
-    table: [],
-    cards: [],
-    chart: [],
-    awards: [],
-    rankings: [],
-    sourceLinks: [{ label: "USAspending.gov", url: USA_SPENDING_BASE_URL }],
-    sourceMetadata: sourceMetadata(0, [], warnings, "live"),
-    cached: false,
-  };
-}
-
-function planToUsaSpendingInput(
-  plan: ExplorerPlan,
-): UsaSpendingAwardSearchInput {
-  const contractorNames = plan.contractors
-    .map((slug) =>
-      knownContractors.find((contractor) => contractor.slug === slug),
-    )
-    .filter((contractor): contractor is (typeof knownContractors)[number] =>
-      Boolean(contractor),
-    )
-    .flatMap((contractor) => [contractor.name, ...contractor.aliases]);
-  const recipientSearchText = [
-    ...contractorNames,
-    ...(plan.recipientSearchText ?? []),
-  ];
-  const keywords = sanitizeUsaSpendingKeywords([
-    ...plan.keywords,
-    ...(plan.location ? [plan.location] : []),
-  ]);
-
-  return {
-    recipientSearchText: recipientSearchText.length
-      ? recipientSearchText
-      : undefined,
-    agency: plan.agency,
-    naicsCodes: plan.naics ? [plan.naics] : undefined,
-    pscCodes: plan.psc ? [plan.psc] : undefined,
-    keywords: keywords.length ? keywords : undefined,
-    fiscalYears: plan.fiscalYears.length ? plan.fiscalYears : getFiscalYears(5),
-    limit: plan.limit,
-    ...usaSpendingSortForPlan(plan),
-  };
-}
-
-function usaSpendingSortForPlan(plan: ExplorerPlan): {
-  sort: string | undefined;
-  order: "asc" | "desc";
-} {
-  if (!plan.sort) {
-    return { sort: undefined, order: "desc" };
-  }
-
-  return {
-    sort: plan.sort.field === "startDate" ? "Start Date" : "Award Amount",
-    order: plan.sort.direction,
-  };
-}
-
-function shouldUseRecipientRankings(plan: ExplorerPlan): boolean {
-  return [
-    "agency_top_contractors",
-    "category_search",
-    "award_keyword_search",
-    "location_search",
-  ].includes(plan.intent);
 }
 
 function buildContractorIntelligence(
@@ -1198,99 +743,6 @@ function rankAwardsByRecipient(awards: AwardSummary[]): RankingRow[] {
   );
 }
 
-function summarizeExplorerResult(
-  plan: ExplorerPlan,
-  awards: AwardSummary[],
-  rankings: RankingRow[],
-  totalObligations: number,
-): string {
-  if (!awards.length && !rankings.length) {
-    return "No USAspending award rows matched the filters. Refine the contractor, agency, category, location, fiscal year, or keyword.";
-  }
-
-  const top = rankings[0];
-  const agency = aggregateAwards(
-    awards,
-    (award) =>
-      award.awardingSubAgency ?? award.awardingAgency ?? "Unknown agency",
-  )[0];
-
-  if (plan.intent === "company_comparison") {
-    return `${top?.name ?? "The leading recipient"} has the largest matched total at ${formatMoney(
-      top?.obligations ?? 0,
-    )}. The comparison set includes ${awards.length} award rows totaling ${formatMoney(
-      totalObligations,
-    )}.`;
-  }
-
-  return `${top?.name ?? "The leading recipient"} leads the matched set with ${formatMoney(
-    top?.obligations ?? totalObligations,
-  )}. The query matched ${awards.length} award rows totaling ${formatMoney(
-    totalObligations,
-  )}, with ${agency?.label ?? "public agencies"} as the largest agency bucket.`;
-}
-
-function planFilters(plan: ExplorerPlan): IntelligenceFilter[] {
-  const filters: Array<IntelligenceFilter | null> = [
-    ...plan.contractors.map((slug) => {
-      const contractor = knownContractors.find((item) => item.slug === slug);
-      return {
-        kind: "contractor" as const,
-        label: "Contractor",
-        value: contractor?.name ?? slug,
-        code: slug,
-      };
-    }),
-    plan.agency
-      ? {
-          kind: "agency" as const,
-          label: "Agency",
-          value: plan.agency,
-        }
-      : null,
-    plan.naics
-      ? {
-          kind: "naics" as const,
-          label: "NAICS",
-          value: plan.naics,
-          code: plan.naics,
-        }
-      : null,
-    plan.psc
-      ? {
-          kind: "psc" as const,
-          label: "PSC",
-          value: plan.psc,
-          code: plan.psc,
-        }
-      : null,
-    plan.location
-      ? {
-          kind: "location" as const,
-          label: "Location",
-          value: plan.location,
-        }
-      : null,
-    ...plan.keywords.map((keyword) => ({
-      kind: "keyword" as const,
-      label: "Keyword",
-      value: keyword,
-    })),
-    ...(plan.recipientSearchText ?? []).map((recipient) => ({
-      kind: "recipient" as const,
-      label: "Recipient search",
-      value: recipient,
-    })),
-    ...plan.fiscalYears.map((year) => ({
-      kind: "fiscal_year" as const,
-      label: "Fiscal year",
-      value: String(year),
-    })),
-  ];
-
-  return filters.filter((item): item is IntelligenceFilter => Boolean(item));
-}
-
 function sourceMetadata(
   structuredRecords: number,
   filters: IntelligenceFilter[],
@@ -1315,46 +767,8 @@ function sourceMetadata(
   };
 }
 
-function markExplorerResultCached(
-  result: ExplorerResult,
-  cacheStatus: SourceMetadata["cacheStatus"],
-  cached: boolean,
-): ExplorerResult {
-  return {
-    ...result,
-    cached,
-    sourceMetadata: {
-      ...result.sourceMetadata,
-      generatedAt: new Date().toISOString(),
-      cacheStatus,
-      freshness:
-        cacheStatus === "stale"
-          ? "USAspending refresh failed, so stale cached data is being served."
-          : "Cached USAspending data served from the local normalized cache.",
-    },
-  };
-}
-
-function appendExplorerWarnings(
-  result: ExplorerResult,
-  warnings: string[],
-): ExplorerResult {
-  if (!warnings.length) return result;
-
-  return {
-    ...result,
-    sourceMetadata: {
-      ...result.sourceMetadata,
-      warnings: formatUsaSpendingMessages([
-        ...result.sourceMetadata.warnings,
-        ...warnings,
-      ]),
-    },
-  };
-}
-
-async function getExplorerCacheByHash(queryHash: string): Promise<{
-  result: ExplorerResult | ContractorIntelligence;
+async function getIntelligenceCacheByHash(queryHash: string): Promise<{
+  result: ContractorIntelligence;
   refreshedAt: Date;
 } | null> {
   const db = getDb();
@@ -1365,9 +779,7 @@ async function getExplorerCacheByHash(queryHash: string): Promise<{
     .limit(1);
 
   if (!entry?.result) return null;
-  const result = entry.result as unknown as
-    | ExplorerResult
-    | ContractorIntelligence;
+  const result = entry.result as unknown as ContractorIntelligence;
   if (result.sourceMetadata?.warnings?.length) {
     result.sourceMetadata = {
       ...result.sourceMetadata,
@@ -1380,18 +792,10 @@ async function getExplorerCacheByHash(queryHash: string): Promise<{
   };
 }
 
-async function writeExplorerCache(
-  query: string,
-  queryHash: string,
-  result: ExplorerResult,
-): Promise<void> {
-  await writeRawCache(query, queryHash, result, result.sourceMetadata);
-}
-
 async function writeRawCache(
   query: string,
   queryHash: string,
-  result: ExplorerResult | ContractorIntelligence,
+  result: ContractorIntelligence,
   metadata: SourceMetadata,
 ): Promise<void> {
   const db = getDb();
@@ -1405,10 +809,7 @@ async function writeRawCache(
       query,
       normalizedQuery: normalizeText(query),
       queryHash,
-      plan:
-        "plan" in result
-          ? (result.plan as unknown as Record<string, unknown>)
-          : null,
+      plan: null,
       result: result as unknown as Record<string, unknown>,
       sourceMetadata: metadata as unknown as Record<string, unknown>,
       cacheStatus: "live",
@@ -1591,34 +992,7 @@ async function upsertAgency(name: string): Promise<string> {
   return id;
 }
 
-function answerFromExplorerResult(
-  result: ExplorerResult,
-  query: string,
-): string {
-  const top = result.rankings[0];
-  const filters = result.filtersUsed
-    .map((filter) => `${filter.label}: ${filter.value}`)
-    .join(", ");
-  const sourceCount = result.sourceMetadata.structuredRecords;
-
-  if (!top) {
-    return `The cached result does not contain enough structured rows to answer "${query}". It used ${filters || "no filters"} and matched ${sourceCount} records.`;
-  }
-
-  return `${top.name} is the leading recipient in the cached result, with ${formatMoney(
-    top.obligations,
-  )} across ${top.awardCount || "the matched"} award rows. This answer is limited to the structured USAspending rows already returned for ${filters || "the original query"}.`;
-}
-
-function inferFollowUpMode(query: string): FollowUpMode {
-  const normalized = normalizeText(query);
-  if (/why|how|what does|explain|summarize/.test(normalized)) return "answer";
-  if (/instead|compare|versus| vs |switch|pivot/.test(normalized))
-    return "pivot";
-  return "refine";
-}
-
-function filterDemoAwards(plan: ExplorerPlan): AwardSummary[] {
+function filterDemoAwards(plan: AwardSearchPlan): AwardSummary[] {
   let awards = [...demoAwards];
 
   if (plan.contractors.length) {

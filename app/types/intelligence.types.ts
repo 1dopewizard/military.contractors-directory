@@ -3,7 +3,7 @@
  * @description Public response contracts for USAspending-backed intelligence surfaces
  */
 
-export type ExplorerIntent =
+export type AwardSearchIntent =
   | "company_lookup"
   | "company_comparison"
   | "agency_top_contractors"
@@ -11,8 +11,6 @@ export type ExplorerIntent =
   | "location_search"
   | "award_keyword_search"
   | "unsupported";
-
-export type FollowUpMode = "refine" | "pivot" | "answer";
 
 export type IntelligenceFilterKind =
   | "contractor"
@@ -103,8 +101,8 @@ export interface IntelligenceBucket {
   awardCount: number;
 }
 
-export interface ExplorerPlan {
-  intent: ExplorerIntent;
+export interface AwardSearchPlan {
+  intent: AwardSearchIntent;
   contractors: string[];
   agency: string | null;
   naics: string | null;
@@ -118,32 +116,6 @@ export interface ExplorerPlan {
     field: "awardAmount" | "startDate";
     direction: "asc" | "desc";
   } | null;
-}
-
-export interface ExplorerResult {
-  id: string;
-  query: string;
-  plan: ExplorerPlan;
-  summary: string;
-  resultType: ExplorerIntent;
-  filtersUsed: IntelligenceFilter[];
-  table: Array<Record<string, string | number | null>>;
-  cards: Array<{ label: string; value: string; detail: string }>;
-  chart: TrendPoint[];
-  awards: AwardSummary[];
-  rankings: RankingRow[];
-  sourceLinks: SourceLink[];
-  sourceMetadata: SourceMetadata;
-  cached: boolean;
-}
-
-export interface FollowUpResult {
-  id: string;
-  mode: FollowUpMode;
-  query: string;
-  answer: string | null;
-  result: ExplorerResult | null;
-  sourceMetadata: SourceMetadata;
 }
 
 export interface ContractorIntelligence {

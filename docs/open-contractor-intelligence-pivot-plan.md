@@ -1,30 +1,30 @@
-# Open Defense Contractor Intelligence Pivot Plan
+# Defense Contractor Database MVP Plan
 
 ## Summary
 
-Reposition `military.contractors` as an open intelligence layer for U.S. defense contractors: company profiles, public award data, agencies, NAICS/PSC categories, spending trends, and structured follow-up exploration.
+Focus `military.contractors` on a simple, source-backed database of companies and recipients that received U.S. Department of Defense contract awards in the trailing 36 months.
 
 ## Product Thesis
 
-The product should answer plain-English questions about the public defense industrial base and back every answer with structured data. It is not a job board, a MOS translation tool, or a veteran placement funnel.
+The MVP should make the public DoD contractor recipient universe easy to search, sort, filter, inspect, and verify. AI analyst workflows, community features, feeds, watchlists, exports, alerts, and monetization are deferred until the database itself is complete and trusted.
 
 Primary promise:
 
-> Open intelligence on U.S. defense contractors.
+> The searchable database of companies receiving U.S. Department of Defense contract awards.
 
 ## Key Changes
 
-- Update product docs and public copy around contractor intelligence, public awards, agencies, categories, and spending trends.
-- Keep the directory foundation: `/companies`, `/companies/[slug]`, specialties, locations, contractor APIs, sitemap, auth/admin scaffolding, and claimed-profile infrastructure.
-- Remove MOS/job alert positioning from README, PRD, homepage, about, footer/nav copy, and sitemap inputs.
-- Remove public job, MOS, alert, OCONUS, and ad/recruiting surfaces from active routes and components.
-- Upgrade company profiles from career-oriented pages to intelligence profiles with identifiers, aliases, public award context, agencies, NAICS/PSC categories, spending trend, and USAspending links.
-- Add an explorer experience where users ask questions about contractors, awards, agencies, locations, NAICS/PSC, and spending.
-- Never present generated narrative without backing structured records, filters, and source links.
+- Position `/` as the database homepage, not an AI analyst or news-feed surface.
+- Keep the directory foundation: `/`, `/companies/[slug]`, contractor APIs, sitemap, auth/admin scaffolding, and refresh tooling.
+- Keep rankings, agencies, categories, topics, and compare as secondary database views when they are source-backed and easy to verify.
+- Remove public explorer, analyst workbench, feed, watchlist, briefing, and community positioning from active UI and docs.
+- Never present narrative as a substitute for structured records, source links, filters, and freshness metadata.
 
 ## Data Foundation
 
-Add a USAspending/SAM-oriented schema layer:
+The canonical broad dataset is `contractorSnapshot`: one row per USAspending recipient in the active trailing 36-month DoD-awarded contract window.
+
+Supporting profile intelligence may cache award-level records and rollups for profile/ranking pages:
 
 - `recipientEntity`: normalized recipient identity, UEI, CAGE, aliases, linked contractor.
 - `award`: award-level public contract records.
@@ -32,21 +32,27 @@ Add a USAspending/SAM-oriented schema layer:
 - `agency`: agency reference data.
 - `naicsCode`: NAICS reference data.
 - `pscCode`: PSC reference data.
-- `explorerQueryCache`: normalized query plan, result JSON, generated summary, source metadata, refresh timestamp.
-
-Keep existing `contractor`, `specialty`, and `contractorLocation`; extend rather than replace them.
+- `explorerQueryCache`: legacy cache table used for profile, ranking, and page responses. Public explorer surfaces are not part of the MVP.
 
 ## Backend Operations
 
 Deterministic operations own totals, rankings, filtering, pagination, attribution, and freshness:
 
-- Explorer planning and filter extraction.
-- USAspending award search and category rankings.
-- Contractor profiles over the last five fiscal years.
+- USAspending recipient snapshot refresh.
+- Contractor profile refreshes over recent public awards.
 - Agency, topic, NAICS, PSC, and ranking page rollups.
-- Follow-up refine, pivot, and answer workflows from structured cached results.
+- Source metadata and cache freshness display.
 
 ## Public API
+
+Core MVP APIs:
+
+- `GET /api/contractors`
+- `GET /api/contractors/[slug]`
+- `GET /api/search`
+- `POST /api/admin/contractor-snapshot/refresh`
+
+Secondary database-view APIs may remain when source-backed:
 
 - `GET /api/intelligence/contractors/[slug]`
 - `GET /api/intelligence/top-contractors`
@@ -58,53 +64,43 @@ Deterministic operations own totals, rankings, filtering, pagination, attributio
 - `GET /api/intelligence/categories/[kind]/[code]`
 - `GET /api/intelligence/topics/[topicSlug]`
 - `GET /api/intelligence/rankings/[presetSlug]`
-- `POST /api/explorer/query`
-- `POST /api/explorer/follow-up`
-- `GET /api/explorer/cache/[cacheId]`
 
-## AI Rules
+## Deferred
 
-- Query plans must validate against strict zod schemas.
-- Deterministic planners classify intent, extract filters, and map plain English to structured categories by default.
-- LLMs may summarize or propose follow-ups only from structured rows when configured.
-- The backend owns numerical calculations, ranked results, pagination, source attribution, and cache freshness.
-- Explorer results must show structured filters, source metadata, ranked tables/cards, and source links.
+- AI analyst workbench.
+- Feed or Hacker News-style discovery surface.
+- Watchlists, alerts, saved lists, and exports.
+- Briefing generation.
+- Public comments, voting, or community features.
+- RFP matching and monetization.
 
 ## Phases
 
-### Phase 1: Reposition
+### Phase 1: Database MVP Shell
 
-- Add this plan document.
-- Update README, PRD, homepage, about, navigation, and sitemap away from MOS/job-first positioning.
-- Remove MOS/job insight pages from primary navigation and sitemap inputs.
+- Update README, PRD, homepage, about, navigation, and sitemap copy around the database-first product.
+- Remove `/explorer` from public routes, navigation, global search, sitemap, and admin tools.
+- Keep source-backed contractor profiles and database views.
 
-### Phase 2: Intelligence Data Foundation
+### Phase 2: Completeness and Freshness
 
-- Add Drizzle schema and migrations for public award intelligence.
-- Create deterministic intelligence operations and USAspending-shaped return types.
-- Seed an MVP contractor set: Lockheed Martin, RTX, Northrop Grumman, Boeing, General Dynamics, Leidos, Booz Allen, CACI, Anduril, Palantir.
+- Harden snapshot refresh reliability.
+- Improve source/freshness metadata visibility.
+- Ensure every matching DoD recipient in the trailing 36 months is included without a dollar threshold.
 
-### Phase 3: Company Profiles
+### Phase 3: Profile Quality
 
-- Add contract intelligence panels to `/companies/[slug]`.
-- Show recent awards, yearly obligations, top agencies, top NAICS/PSC, identifiers, aliases, and source links.
-- Preserve specialty, location, revenue, and claimed-profile infrastructure as profile context.
+- Improve recipient/company profile evidence: recent awards, top agencies, NAICS/PSC, identifiers, aliases, and USAspending links.
+- Preserve curated overlays only as enrichment.
 
-### Phase 4: Explorer MVP
+### Phase 4: SEO and Durable Database Pages
 
-- Implement strict query planning and deterministic operation routing.
-- Support company lookup, company comparison, agency top contractors, category search, location search, and award keyword search.
-- Cache structured results and summaries.
-
-### Phase 5: SEO And Durable Pages
-
-- Generate indexable pages for top contractors, agencies, NAICS, PSC, locations, and major contractor profiles.
-- Add Organization, WebPage, BreadcrumbList, and Dataset schema where appropriate.
-- Keep USAspending/SAM source links prominent.
+- Generate indexable pages for major recipients, agencies, NAICS, PSC, locations, and rankings.
+- Keep USAspending source links prominent.
 
 ## Test Plan
 
-- Unit tests for planner schema acceptance/rejection, query planning, and aggregation math.
-- API tests for stable contractor intelligence shapes and explorer cache reuse.
-- UI tests for homepage explorer and company intelligence sections.
+- Unit tests for USAspending filter construction, snapshot normalization, and aggregation math.
+- API tests for stable contractor/search/ranking shapes and cache reuse.
+- UI tests for homepage table, profile evidence, loading, empty, and error states.
 - Verification commands: `pnpm test:run`, `pnpm build`, `pnpm db:generate`, `pnpm db:migrate` against local development data.

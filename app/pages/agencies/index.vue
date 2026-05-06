@@ -306,10 +306,10 @@ const ribbonMetrics = computed(() => {
                   </span>
                 </h2>
                 <NuxtLink
-                  to="/explorer"
+                  to="/rankings/top-defense-contractors"
                   class="text-primary inline-flex items-center gap-1 text-xs hover:underline"
                 >
-                  Open explorer
+                  View rankings
                   <Icon name="mdi:open-in-new" class="h-3 w-3" />
                 </NuxtLink>
               </div>

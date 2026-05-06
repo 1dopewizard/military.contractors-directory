@@ -1,6 +1,6 @@
 <!--
   @file Homepage
-  @description Directory-first entry point for DoD-awarded USAspending recipients
+  @description Database homepage for DoD-awarded USAspending recipients
 -->
 
 <script setup lang="ts">
@@ -59,24 +59,24 @@ const ribbonMetrics = computed(() => [
 ]);
 
 useSeoMeta({
-  title: "Defense Contractor Directory | military.contractors",
+  title: "Defense Contractor Database | military.contractors",
   description:
-    "Search the directory of companies and recipients receiving U.S. Department of Defense contract awards in the trailing 36 months.",
-  ogTitle: "Defense Contractor Directory",
+    "Search the database of companies and recipients receiving U.S. Department of Defense contract awards in the trailing 36 months.",
+  ogTitle: "Defense Contractor Database",
   ogDescription:
-    "A searchable directory of DoD-awarded USAspending contract recipients with source-backed company profiles.",
+    "A searchable database of DoD-awarded USAspending contract recipients with source-backed company profiles.",
   ogType: "website",
   twitterCard: "summary_large_image",
 });
 
 useWebSiteSchema({
   description:
-    "Searchable directory of companies and recipients receiving U.S. defense contract awards.",
+    "Searchable database of companies and recipients receiving U.S. defense contract awards.",
 });
 useWebPageSchema({
-  name: "Defense Contractor Directory",
+  name: "Defense Contractor Database",
   description:
-    "Directory-first view of Department of Defense-awarded USAspending contract recipients active in the trailing 36 months.",
+    "Database view of Department of Defense-awarded USAspending contract recipients active in the trailing 36 months.",
   type: "CollectionPage",
 });
 </script>
@@ -91,21 +91,34 @@ useWebPageSchema({
       <h1
         class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl"
       >
-        The Defense Contractor Directory
+        The Defense Contractor Database
       </h1>
       <p
         class="text-muted-foreground mt-3 max-w-3xl text-sm leading-relaxed sm:text-base"
       >
-        A searchable directory of every company and recipient that received U.S.
-        Department of Defense contract obligations during the trailing 36
-        months, sourced directly from USAspending.gov. Each profile links back
-        to the original federal award records.
+        Search every company and recipient that received U.S. Department of
+        Defense contract obligations during the trailing 36 months, sourced
+        directly from USAspending.gov. Each profile links back to the original
+        federal award records.
       </p>
+      <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+        <Button as-child>
+          <NuxtLink to="#verified-directory">Search database</NuxtLink>
+        </Button>
+        <Button as-child variant="outline">
+          <NuxtLink to="/rankings/top-defense-contractors"
+            >View rankings</NuxtLink
+          >
+        </Button>
+      </div>
     </section>
 
     <DirectoryStatRibbon :metrics="ribbonMetrics" class="mx-auto max-w-7xl" />
 
-    <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <section
+      id="verified-directory"
+      class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"
+    >
       <ContractorSnapshotTable :page-size="25" sync-route />
     </section>
 
@@ -115,23 +128,9 @@ useWebPageSchema({
       <p
         class="text-foreground/60 mb-3 text-[0.65rem] tracking-[0.18em] uppercase"
       >
-        More views
+        Database views
       </p>
       <ul class="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-        <li>
-          <NuxtLink to="/explorer" class="group block">
-            <span
-              class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
-            >
-              Explorer
-            </span>
-            <span
-              class="text-muted-foreground mt-0.5 block text-xs leading-snug"
-            >
-              Free-form question and answer over the award dataset.
-            </span>
-          </NuxtLink>
-        </li>
         <li>
           <NuxtLink to="/rankings/top-defense-contractors" class="group block">
             <span
@@ -170,7 +169,8 @@ useWebPageSchema({
             <span
               class="text-muted-foreground mt-0.5 block text-xs leading-snug"
             >
-              Side-by-side comparison of two or more contractors.
+              Verify side-by-side contractor differences with structured award
+              evidence.
             </span>
           </NuxtLink>
         </li>

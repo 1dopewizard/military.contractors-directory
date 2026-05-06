@@ -1,6 +1,6 @@
 /**
  * @file Public contractor intelligence schema
- * @description USAspending/SAM-oriented entities for awards, recipients, agencies, categories, and explorer cache
+ * @description USAspending/SAM-oriented entities for awards, recipients, agencies, categories, and intelligence cache
  */
 
 import { relations } from "drizzle-orm";
