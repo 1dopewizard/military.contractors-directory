@@ -123,7 +123,7 @@ const {
   refresh: refreshRows,
 } = useFetch<ContractorSnapshotResponse>(requestUrl, {
   lazy: true,
-  default: () => ({
+  default: (): ContractorSnapshotResponse => ({
     rows: [],
     total: 0,
     limit: pagination.value.pageSize,
@@ -223,7 +223,7 @@ const goToPage = (pageIndex: number) => {
 };
 
 const navigateRow = (slug: string) => {
-  router.push(`/companies/${slug}`);
+  router.push(`/${slug}`);
 };
 
 const syncUrl = () => {

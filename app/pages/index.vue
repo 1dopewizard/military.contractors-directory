@@ -1,6 +1,7 @@
 <!--
-  @file Homepage
-  @description Database homepage for DoD-awarded USAspending recipients
+  @file Companies directory home page
+  @route /
+  @description Canonical contractor directory over grouped USAspending recipient snapshots
 -->
 
 <script setup lang="ts">
@@ -10,7 +11,7 @@ definePageMeta({
   layout: "homepage",
 });
 
-interface HomepageStatsResponse {
+interface CompaniesStatsResponse {
   contractors: number;
   recipients: number;
   totalObligated: number;
@@ -19,17 +20,22 @@ interface HomepageStatsResponse {
   refreshedAt: string | null;
 }
 
-const { data: stats } = useFetch<HomepageStatsResponse>("/api/stats/homepage", {
-  lazy: true,
-  default: () => ({
-    contractors: 0,
-    recipients: 0,
-    totalObligated: 0,
-    totalAwards: 0,
-    topAgency: null,
-    refreshedAt: null,
-  }),
-});
+const config = useRuntimeConfig();
+
+const { data: stats } = useFetch<CompaniesStatsResponse>(
+  "/api/stats/homepage",
+  {
+    lazy: true,
+    default: () => ({
+      contractors: 0,
+      recipients: 0,
+      totalObligated: 0,
+      totalAwards: 0,
+      topAgency: null,
+      refreshedAt: null,
+    }),
+  },
+);
 
 const snapshotDate = computed(() => {
   const value = stats.value?.refreshedAt;
@@ -41,7 +47,7 @@ const snapshotDate = computed(() => {
   }).format(new Date(value));
 });
 
-const ribbonMetrics = computed(() => [
+const metrics = computed(() => [
   {
     label: "Contractors",
     value: (
@@ -65,14 +71,18 @@ const ribbonMetrics = computed(() => [
 ]);
 
 useSeoMeta({
-  title: "Defense Contractor Database | military.contractors",
+  title: "Defense Contractor Directory | military.contractors",
   description:
-    "Search the canonical directory of companies receiving U.S. Department of Defense contract awards in the trailing 36 months.",
-  ogTitle: "Defense Contractor Database",
+    "Search canonical DoD contractor profiles with USAspending-backed obligations, awards, identifiers, agencies, NAICS, PSC, and alternate recipient names.",
+  ogTitle: "Defense Contractor Directory",
   ogDescription:
-    "A searchable directory of DoD-awarded USAspending contractors with source-backed company profiles and alternate recipient names.",
+    "Canonical directory of Department of Defense contractors active in the trailing 36 months, sourced from USAspending.gov.",
   ogType: "website",
   twitterCard: "summary_large_image",
+});
+
+useHead({
+  link: [{ rel: "canonical", href: `${config.public.siteUrl}/` }],
 });
 
 useWebSiteSchema({
@@ -80,7 +90,7 @@ useWebSiteSchema({
     "Searchable directory of companies receiving U.S. defense contract awards.",
 });
 useWebPageSchema({
-  name: "Defense Contractor Database",
+  name: "Defense Contractor Directory",
   description:
     "Directory view of Department of Defense-awarded USAspending contractors active in the trailing 36 months.",
   type: "CollectionPage",
@@ -91,86 +101,16 @@ useWebPageSchema({
   <main class="min-h-full">
     <DirectoryBreadcrumb :freshness="snapshotDate" />
 
-    <section
-      class="border-border mx-auto max-w-7xl border-b px-4 py-6 sm:px-6 lg:px-8"
-    >
-      <h1
-        class="text-foreground text-2xl font-semibold tracking-tight sm:text-3xl"
-      >
-        The Defense Contractor Database
-      </h1>
-      <p
-        class="text-muted-foreground mt-3 max-w-3xl text-sm leading-relaxed sm:text-base"
-      >
-        Search the canonical directory of companies that received U.S.
-        Department of Defense contract obligations during the trailing 36
-        months, sourced directly from USAspending.gov. Alternate recipient names
-        stay visible on each source-backed profile.
-      </p>
-      <div class="mt-5 flex flex-col gap-3 sm:flex-row">
-        <Button as-child>
-          <NuxtLink to="/companies">Open directory</NuxtLink>
-        </Button>
-        <Button as-child variant="outline">
-          <NuxtLink to="/about">How it works</NuxtLink>
-        </Button>
-      </div>
-    </section>
+    <DirectoryPageHeader
+      eyebrow="Directory"
+      title="Defense contractor directory"
+      description="Search one canonical profile per active DoD contractor. Raw USAspending recipient names remain preserved as alternate names on each contractor profile."
+    />
 
-    <DirectoryStatRibbon :metrics="ribbonMetrics" class="mx-auto max-w-7xl" />
+    <DirectoryStatRibbon :metrics="metrics" class="mx-auto max-w-7xl" />
 
-    <section
-      id="verified-directory"
-      class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"
-    >
-      <ContractorSnapshotTable :page-size="10" preview />
-      <div class="mt-5">
-        <Button as-child variant="outline">
-          <NuxtLink to="/companies">View full contractor directory</NuxtLink>
-        </Button>
-      </div>
-    </section>
-
-    <section
-      class="border-border mx-auto max-w-7xl border-t px-4 py-6 sm:px-6 lg:px-8"
-    >
-      <p
-        class="text-foreground/60 mb-3 text-[0.65rem] tracking-[0.18em] uppercase"
-      >
-        Directory foundation
-      </p>
-      <ul class="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-        <li>
-          <NuxtLink to="/companies" class="group block">
-            <span
-              class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
-            >
-              Canonical contractor directory
-            </span>
-            <span
-              class="text-muted-foreground mt-0.5 block text-xs leading-snug"
-            >
-              One main result per contractor, with alternate USAspending names
-              preserved on the profile.
-            </span>
-          </NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/about" class="group block">
-            <span
-              class="text-foreground group-hover:text-primary text-sm font-medium transition-colors"
-            >
-              Source and scope
-            </span>
-            <span
-              class="text-muted-foreground mt-0.5 block text-xs leading-snug"
-            >
-              DoD-awarded contract recipients, award codes A-D, trailing 36
-              months, sourced from USAspending.gov.
-            </span>
-          </NuxtLink>
-        </li>
-      </ul>
+    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <ContractorSnapshotTable :page-size="25" sync-route />
     </section>
   </main>
 </template>

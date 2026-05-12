@@ -77,7 +77,7 @@ const {
           >
             <TableCell>
               <NuxtLink
-                :to="`/companies/${contractor.slug}`"
+                :to="`/${contractor.slug}`"
                 class="hover:text-primary font-medium"
                 target="_blank"
               >
@@ -92,7 +92,7 @@ const {
             </TableCell>
             <TableCell>
               <Button variant="ghost" size="sm" as-child>
-                <NuxtLink :to="`/companies/${contractor.slug}`" target="_blank">
+                <NuxtLink :to="`/${contractor.slug}`" target="_blank">
                   <Icon name="mdi:open-in-new" class="h-4 w-4" />
                 </NuxtLink>
               </Button>

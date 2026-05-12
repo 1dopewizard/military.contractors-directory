@@ -49,7 +49,7 @@ withDefaults(
           <TableCell class="min-w-64">
             <NuxtLink
               v-if="row.slug"
-              :to="`/companies/${row.slug}`"
+              :to="`/${row.slug}`"
               class="text-foreground hover:text-primary font-medium"
             >
               {{ row.name }}

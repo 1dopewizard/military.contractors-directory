@@ -63,6 +63,10 @@ const { data, pending, error, refresh } = useFetch<TeamingSearchResponse>(
 
 const results = computed(() => data.value?.results ?? []);
 
+const handleSearch = () => {
+  void refresh();
+};
+
 const formatCurrency = (value: number) => {
   if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
   if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M`;
@@ -92,7 +96,7 @@ useHead({
 
     <main class="container mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
       <section class="border-border bg-card/40 border p-5">
-        <form class="grid gap-4 md:grid-cols-4" @submit.prevent="refresh">
+        <form class="grid gap-4 md:grid-cols-4" @submit.prevent="handleSearch">
           <div>
             <Label for="q">Keyword</Label>
             <Input
@@ -188,7 +192,7 @@ useHead({
             >
               <div>
                 <NuxtLink
-                  :to="`/companies/${result.slug}`"
+                  :to="`/${result.slug}`"
                   class="text-foreground text-lg font-semibold hover:underline"
                 >
                   {{ result.name }}

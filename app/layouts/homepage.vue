@@ -50,26 +50,7 @@ watch(
           </span>
         </NuxtLink>
 
-        <nav class="hidden items-center gap-6 lg:flex">
-          <NuxtLink
-            to="/companies"
-            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
-          >
-            Directory
-          </NuxtLink>
-          <NuxtLink
-            to="/about"
-            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
-          >
-            About
-          </NuxtLink>
-        </nav>
-
         <div class="flex items-center gap-2 sm:gap-4">
-          <!-- Header Search (hidden on mobile, shown on md+) -->
-          <div class="hidden md:block">
-            <HeaderSearch />
-          </div>
           <div class="hidden lg:block">
             <AuthButton />
           </div>
@@ -95,26 +76,6 @@ watch(
 
         <ScrollArea class="-mx-6 flex-1 px-6">
           <div class="py-2">
-            <!-- Mobile Search -->
-            <div class="mb-6">
-              <HeaderSearch />
-            </div>
-
-            <nav class="flex flex-col gap-3">
-              <NuxtLink
-                to="/companies"
-                class="text-foreground hover:text-primary text-sm transition-colors"
-              >
-                Directory
-              </NuxtLink>
-              <NuxtLink
-                to="/about"
-                class="text-foreground hover:text-primary text-sm transition-colors"
-              >
-                About
-              </NuxtLink>
-            </nav>
-
             <div class="mt-4">
               <AuthButton />
             </div>

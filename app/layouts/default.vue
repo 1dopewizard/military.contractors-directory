@@ -55,13 +55,6 @@ watch(
 
         <nav class="hidden items-center gap-6 lg:flex">
           <NuxtLink
-            to="/"
-            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            active-class="text-foreground"
-          >
-            Database
-          </NuxtLink>
-          <NuxtLink
             to="/rankings/top-defense-contractors"
             class="text-muted-foreground hover:text-foreground text-sm transition-colors"
             active-class="text-foreground"
@@ -75,21 +68,10 @@ watch(
           >
             Agencies
           </NuxtLink>
-          <NuxtLink
-            to="/about"
-            class="text-muted-foreground hover:text-foreground text-sm transition-colors"
-            active-class="text-foreground"
-          >
-            About
-          </NuxtLink>
         </nav>
 
         <!-- Right Side Actions -->
         <div class="flex items-center gap-2 sm:gap-4">
-          <!-- Header Search (hidden on mobile, shown on md+) -->
-          <div class="hidden md:block">
-            <HeaderSearch />
-          </div>
           <!-- Auth Button (Desktop) -->
           <div class="hidden lg:block">
             <AuthButton />
@@ -117,19 +99,8 @@ watch(
           <SheetTitle class="text-left">Navigation</SheetTitle>
         </SheetHeader>
 
-        <!-- Mobile Search -->
-        <div class="mt-4 mb-6">
-          <HeaderSearch />
-        </div>
-
         <!-- Mobile Nav Links -->
         <nav class="flex flex-col gap-3">
-          <NuxtLink
-            to="/"
-            class="text-foreground hover:text-primary text-sm transition-colors"
-          >
-            Database
-          </NuxtLink>
           <NuxtLink
             to="/rankings/top-defense-contractors"
             class="text-foreground hover:text-primary text-sm transition-colors"
@@ -141,12 +112,6 @@ watch(
             class="text-foreground hover:text-primary text-sm transition-colors"
           >
             Agencies
-          </NuxtLink>
-          <NuxtLink
-            to="/about"
-            class="text-foreground hover:text-primary text-sm transition-colors"
-          >
-            About
           </NuxtLink>
         </nav>
 

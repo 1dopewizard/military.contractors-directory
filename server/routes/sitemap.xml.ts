@@ -8,7 +8,6 @@ export default defineEventHandler(async (event) => {
   // Static pages, weighted toward the directory-first v1 surface.
   const staticPages = [
     { loc: "/", priority: "1.0", changefreq: "daily" },
-    { loc: "/companies", priority: "0.9", changefreq: "daily" },
     { loc: "/about", priority: "0.5", changefreq: "monthly" },
     { loc: "/contact", priority: "0.4", changefreq: "monthly" },
     { loc: "/privacy", priority: "0.3", changefreq: "yearly" },
@@ -49,7 +48,7 @@ export default defineEventHandler(async (event) => {
       .all();
 
     contractorPages = contractors.map((contractor) => ({
-      loc: `/companies/${contractor.slug}`,
+      loc: `/${contractor.slug}`,
       priority: "0.8",
       changefreq: "daily",
     }));

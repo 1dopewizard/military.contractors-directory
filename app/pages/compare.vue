@@ -174,7 +174,7 @@ const comparisonMetrics = (item: ContractorIntelligence) => [
             class="border-border border-r border-b p-5"
           >
             <NuxtLink
-              :to="`/companies/${item.contractor.slug}`"
+              :to="`/${item.contractor.slug}`"
               class="text-foreground hover:text-primary block text-base font-semibold"
             >
               {{ item.contractor.name }}

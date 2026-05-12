@@ -22,9 +22,9 @@ export default defineEventHandler(async () => {
   try {
     const urls: SitemapUrl[] = [
       {
-        loc: `${baseUrl}/companies`,
+        loc: `${baseUrl}/`,
         changefreq: "daily",
-        priority: 0.9,
+        priority: 1,
       },
     ];
 
@@ -40,7 +40,7 @@ export default defineEventHandler(async () => {
 
     for (const contractor of contractors) {
       urls.push({
-        loc: `${baseUrl}/companies/${contractor.slug}`,
+        loc: `${baseUrl}/${contractor.slug}`,
         lastmod: contractor.updatedAt?.toISOString() ?? null,
         changefreq: "daily",
         priority: 0.8,

@@ -175,7 +175,7 @@ const metrics = computed(() => {
                 <td class="py-3 pr-4 align-top">
                   <NuxtLink
                     v-if="row.slug"
-                    :to="`/companies/${row.slug}`"
+                    :to="`/${row.slug}`"
                     class="text-foreground hover:text-primary text-sm font-medium"
                   >
                     {{ row.name }}

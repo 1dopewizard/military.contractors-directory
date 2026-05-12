@@ -23,7 +23,7 @@ const props = defineProps<{
   };
 }>();
 
-const contractorLink = computed(() => `/companies/${props.contractor.slug}`);
+const contractorLink = computed(() => `/${props.contractor.slug}`);
 
 // Format revenue for display (already in billions from API)
 const formatRevenue = (revenue: number | null | undefined): string => {

@@ -91,7 +91,7 @@ useHead(() => {
             </EmptyDescription>
           </EmptyContent>
           <Button as-child variant="default">
-            <NuxtLink to="/companies">Browse All Contractors</NuxtLink>
+            <NuxtLink to="/">Browse All Contractors</NuxtLink>
           </Button>
         </Empty>
       </div>
@@ -130,7 +130,7 @@ useHead(() => {
                 {{ locationData.state }}.
               </p>
             </div>
-            <NuxtLink to="/companies">
+            <NuxtLink to="/">
               <Button variant="outline" size="sm">All contractors</Button>
             </NuxtLink>
           </div>

@@ -53,7 +53,7 @@ const barWidth = (value: number | null | undefined): string => {
       <div class="min-w-0">
         <NuxtLink
           v-if="row.slug"
-          :to="`/companies/${row.slug}`"
+          :to="`/${row.slug}`"
           class="text-foreground group-hover:text-primary block truncate text-sm font-medium transition-colors"
         >
           {{ row.name }}

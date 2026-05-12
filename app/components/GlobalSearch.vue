@@ -104,7 +104,7 @@ const navigateToContractor = (slug: string) => {
   }
   open.value = false;
   searchQuery.value = "";
-  router.push(`/companies/${slug}`);
+  router.push(`/${slug}`);
 };
 
 const navigateToSearch = (query?: string) => {
@@ -114,7 +114,7 @@ const navigateToSearch = (query?: string) => {
   }
   open.value = false;
   searchQuery.value = "";
-  router.push(q ? `/companies?q=${encodeURIComponent(q)}` : "/companies");
+  router.push(q ? `/?q=${encodeURIComponent(q)}` : "/");
 };
 
 const handleRecentSearch = (query: string) => {
@@ -165,7 +165,7 @@ const quickLinks = [
     value: "browse-directory",
     label: "Browse contractor directory",
     icon: "mdi:view-list",
-    to: "/companies",
+    to: "/",
   },
   {
     value: "source-scope",

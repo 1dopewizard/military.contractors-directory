@@ -525,13 +525,15 @@ export function filtersToLabels(
       label: "Recipient",
       value,
     })),
-    input.agency
-      ? {
-          kind: "agency" as const,
-          label: "Agency",
-          value: input.agency,
-        }
-      : null,
+    ...(input.agency
+      ? [
+          {
+            kind: "agency" as const,
+            label: "Agency",
+            value: input.agency,
+          },
+        ]
+      : []),
     ...(input.naicsCodes ?? []).map((code) => ({
       kind: "naics" as const,
       label: "NAICS",
@@ -554,7 +556,7 @@ export function filtersToLabels(
       label: "Fiscal year",
       value: String(year),
     })),
-  ].filter((item): item is IntelligenceFilter => Boolean(item));
+  ];
 }
 
 export function dateToFiscalYear(date: string): number | null {
