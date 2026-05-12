@@ -22,6 +22,9 @@ const form = reactive({
   name: "",
   email: "",
   subject: "",
+  contractorSlug: "",
+  targetField: "",
+  evidenceUrl: "",
   message: "",
 });
 
@@ -36,26 +39,67 @@ const subjectOptions = [
   "Other",
 ];
 
+const isProfileWorkflow = computed(
+  () =>
+    form.subject === "Claim a company profile" ||
+    form.subject === "Report incorrect information",
+);
+
 const handleSubmit = async () => {
   if (!form.name || !form.email || !form.message) {
     toast.error("Please fill in all required fields");
     return;
   }
 
+  if (isProfileWorkflow.value && !form.contractorSlug) {
+    toast.error("Please include the contractor profile slug");
+    return;
+  }
+
   isSubmitting.value = true;
 
-  // Simulate submission - replace with actual API call
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  try {
+    if (form.subject === "Claim a company profile") {
+      await $fetch("/api/profile-claims", {
+        method: "POST",
+        body: {
+          contractorSlug: form.contractorSlug,
+          submitterName: form.name,
+          companyRole: form.message,
+          evidenceUrl: form.evidenceUrl || undefined,
+        },
+      });
+      toast.success("Profile claim submitted for review.");
+    } else if (form.subject === "Report incorrect information") {
+      await $fetch("/api/profile-corrections", {
+        method: "POST",
+        body: {
+          contractorSlug: form.contractorSlug,
+          targetField: form.targetField || "profile",
+          explanation: form.message,
+          evidenceUrl: form.evidenceUrl || undefined,
+        },
+      });
+      toast.success("Correction request submitted for review.");
+    } else {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast.success("Message sent. We'll get back to you soon.");
+    }
 
-  toast.success("Message sent. We'll get back to you soon.");
-
-  // Reset form
-  form.name = "";
-  form.email = "";
-  form.subject = "";
-  form.message = "";
-
-  isSubmitting.value = false;
+    form.name = "";
+    form.email = "";
+    form.subject = "";
+    form.contractorSlug = "";
+    form.targetField = "";
+    form.evidenceUrl = "";
+    form.message = "";
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Submission failed";
+    toast.error(message);
+  } finally {
+    isSubmitting.value = false;
+  }
 };
 </script>
 
@@ -139,6 +183,44 @@ const handleSubmit = async () => {
                   </SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div v-if="isProfileWorkflow" class="grid gap-6 sm:grid-cols-2">
+              <div>
+                <Label for="contractorSlug"
+                  >Contractor slug
+                  <span class="text-destructive">*</span></Label
+                >
+                <Input
+                  id="contractorSlug"
+                  v-model="form.contractorSlug"
+                  type="text"
+                  placeholder="lockheed-martin"
+                  class="mt-2"
+                  required
+                />
+              </div>
+              <div>
+                <Label for="evidenceUrl">Evidence URL</Label>
+                <Input
+                  id="evidenceUrl"
+                  v-model="form.evidenceUrl"
+                  type="url"
+                  placeholder="https://..."
+                  class="mt-2"
+                />
+              </div>
+            </div>
+
+            <div v-if="form.subject === 'Report incorrect information'">
+              <Label for="targetField">Field to correct</Label>
+              <Input
+                id="targetField"
+                v-model="form.targetField"
+                type="text"
+                placeholder="recipient name, UEI, NAICS, obligations, source link..."
+                class="mt-2"
+              />
             </div>
 
             <div>

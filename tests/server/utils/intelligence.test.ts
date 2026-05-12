@@ -6,6 +6,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
+  buildContractorIntelligenceSignals,
   compareContractors,
   createPlanHash,
   formatMoney,
@@ -21,6 +22,7 @@ import {
   normalizeUsaSpendingAward,
   sanitizeUsaSpendingKeywords,
 } from "@/server/utils/usaspending";
+import type { ContractorIntelligence } from "@/app/types/intelligence.types";
 import {
   buildContractorSnapshotFilters,
   fetchContractorSnapshotPage,
@@ -68,6 +70,120 @@ describe("contractor intelligence utilities", () => {
     expect(intelligence?.summary.totalObligations).toBeGreaterThan(0);
     expect(intelligence?.linkedRecipients[0]?.name).toContain("Lockheed");
     expect(intelligence?.sourceLinks[0]?.url).toContain("usaspending.gov");
+    expect(intelligence?.signals.map((signal) => signal.key)).toContain(
+      "agency-concentration",
+    );
+    expect(
+      intelligence?.signals.every((signal) => signal.status !== undefined),
+    ).toBe(true);
+  });
+
+  it("reports lower concentration for multi-agency award profiles", () => {
+    const intelligence = getContractorIntelligence("lockheed-martin");
+    expect(intelligence).not.toBeNull();
+
+    const singleAgencySignals = buildContractorIntelligenceSignals({
+      ...(intelligence as ContractorIntelligence),
+      summary: {
+        ...(intelligence as ContractorIntelligence).summary,
+        totalObligations: 100,
+        topAgency: {
+          key: "navy",
+          label: "Department of the Navy",
+          obligation: 100,
+          awardCount: 2,
+        },
+      },
+      topAgencies: [
+        {
+          key: "navy",
+          label: "Department of the Navy",
+          obligation: 100,
+          awardCount: 2,
+        },
+      ],
+    });
+    const multiAgencySignals = buildContractorIntelligenceSignals({
+      ...(intelligence as ContractorIntelligence),
+      summary: {
+        ...(intelligence as ContractorIntelligence).summary,
+        totalObligations: 100,
+        topAgency: {
+          key: "navy",
+          label: "Department of the Navy",
+          obligation: 40,
+          awardCount: 2,
+        },
+      },
+      topAgencies: [
+        {
+          key: "navy",
+          label: "Department of the Navy",
+          obligation: 40,
+          awardCount: 2,
+        },
+        {
+          key: "army",
+          label: "Department of the Army",
+          obligation: 35,
+          awardCount: 2,
+        },
+      ],
+    });
+
+    expect(
+      singleAgencySignals.find(
+        (signal) => signal.key === "agency-concentration",
+      )?.status,
+    ).toBe("concentrated");
+    expect(
+      multiAgencySignals.find((signal) => signal.key === "agency-concentration")
+        ?.status,
+    ).toBe("healthy");
+  });
+
+  it("marks missing NAICS/PSC signal inputs unavailable", () => {
+    const intelligence = getContractorIntelligence("lockheed-martin");
+    expect(intelligence).not.toBeNull();
+
+    const signals = buildContractorIntelligenceSignals({
+      ...(intelligence as ContractorIntelligence),
+      summary: {
+        ...(intelligence as ContractorIntelligence).summary,
+        topNaics: null,
+        topPsc: null,
+      },
+      topNaics: [],
+      topPsc: [],
+    });
+
+    expect(
+      signals.find((signal) => signal.key === "naics-concentration"),
+    ).toMatchObject({ status: "unavailable" });
+    expect(
+      signals.find((signal) => signal.key === "psc-concentration"),
+    ).toMatchObject({ status: "unavailable" });
+  });
+
+  it("reflects stale source metadata as degraded freshness confidence", () => {
+    const intelligence = getContractorIntelligence("lockheed-martin");
+    expect(intelligence).not.toBeNull();
+
+    const signals = buildContractorIntelligenceSignals({
+      ...(intelligence as ContractorIntelligence),
+      sourceMetadata: {
+        ...(intelligence as ContractorIntelligence).sourceMetadata,
+        cacheStatus: "stale",
+        warnings: ["Cached profile is older than the refresh window."],
+      },
+    });
+
+    expect(
+      signals.find((signal) => signal.key === "source-freshness"),
+    ).toMatchObject({
+      status: "stale",
+      caveats: ["Cached profile is older than the refresh window."],
+    });
   });
 
   it("compares known contractors", () => {

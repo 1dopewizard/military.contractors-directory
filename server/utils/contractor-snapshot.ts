@@ -5,7 +5,7 @@
 
 import { createHash } from "node:crypto";
 import { z } from "zod";
-import { and, asc, desc, eq, like, or, sql } from "drizzle-orm";
+import { and, asc, desc, eq, or, sql } from "drizzle-orm";
 import type {
   AwardSummary,
   ContractorIntelligence,
@@ -16,6 +16,7 @@ import type {
   TrendPoint,
 } from "@/app/types/intelligence.types";
 import { getDb, schema } from "@/server/utils/db";
+import { buildContractorIntelligenceSignals } from "@/server/utils/intelligence";
 import {
   buildUsaSpendingFilters,
   CONTRACT_AWARD_TYPE_CODES,
@@ -33,6 +34,7 @@ import {
 const RECIPIENT_CATEGORY_URL = `${USA_SPENDING_API_BASE_URL}/search/spending_by_category/recipient/`;
 const PUBLIC_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 const PROFILE_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const snapshotProfileRefreshes = new Map<string, Promise<void>>();
 
 export const SNAPSHOT_WINDOW_MONTHS = 36;
 export const DEFAULT_SNAPSHOT_LIMIT = 100;
@@ -45,6 +47,8 @@ export const DOD_AWARDING_AGENCY_FILTERS: UsaSpendingAgencyFilter[] = [
     name: "Department of Defense",
   },
 ];
+
+const CURATED_DIRECTORY_ALIAS_MAPPINGS: CuratedDirectoryAliasMapping[] = [];
 
 const snapshotCategoryRowSchema = z
   .object({
@@ -116,6 +120,20 @@ export interface SnapshotWindow {
   endDate: string;
 }
 
+export type CachedProfileIntelligenceStatus =
+  | "ready"
+  | "stale"
+  | "refreshing"
+  | "unavailable";
+
+export interface CachedProfileIntelligence {
+  status: CachedProfileIntelligenceStatus;
+  intelligence: ContractorIntelligence | null;
+  refreshedAt: string | null;
+  expiresAt: string | null;
+  warnings: string[];
+}
+
 export interface NormalizedSnapshotRow {
   id: string;
   slug: string;
@@ -137,9 +155,34 @@ export interface NormalizedSnapshotRow {
   rawAggregate: Record<string, unknown>;
 }
 
+export type DirectoryAliasMatchReason =
+  | "single_snapshot"
+  | "shared_identifier"
+  | "shared_name"
+  | "curated_alias";
+
+export interface ContractorDirectoryAliasResponse {
+  id: string;
+  groupId: string;
+  snapshotId: string;
+  slug: string;
+  recipientName: string;
+  normalizedName: string;
+  recipientUei: string | null;
+  recipientCode: string | null;
+  totalObligations36m: number;
+  awardCount36m: number;
+  lastAwardDate: string | null;
+  sourceUrl: string;
+  isCanonical: boolean;
+  matchReason: DirectoryAliasMatchReason;
+  matchKey: string;
+}
+
 export interface ContractorSnapshotListRow {
   id: string;
   slug: string;
+  canonicalSlug: string;
   recipientName: string;
   normalizedName: string;
   recipientUei: string | null;
@@ -157,6 +200,8 @@ export interface ContractorSnapshotListRow {
   refreshedAt: string;
   snapshotWindowStart: string;
   snapshotWindowEnd: string;
+  aliasCount: number;
+  alternateRecipientNames: string[];
 }
 
 export interface ContractorSnapshotListResponse {
@@ -166,6 +211,96 @@ export interface ContractorSnapshotListResponse {
   limit: number;
   offset: number;
   sourceMetadata: SourceMetadata;
+}
+
+export interface ContractorDirectoryProfile {
+  group: typeof schema.contractorDirectoryGroup.$inferSelect;
+  snapshot: typeof schema.contractorSnapshot.$inferSelect | null;
+  aliases: ContractorDirectoryAliasResponse[];
+  requestedAlias: ContractorDirectoryAliasResponse | null;
+  isAliasRequest: boolean;
+}
+
+export interface ContractorDirectorySnapshotInput {
+  id: string;
+  slug: string;
+  recipientName: string;
+  normalizedName: string;
+  recipientUei: string | null;
+  recipientCode: string | null;
+  totalObligations36m: number;
+  awardCount36m: number;
+  lastAwardDate: Date | null;
+  topAwardingAgency: string | null;
+  topAwardingSubagency: string | null;
+  topNaicsCode: string | null;
+  topNaicsTitle: string | null;
+  topPscCode: string | null;
+  topPscTitle: string | null;
+  sourceUrl: string;
+  sourceMetadata: Record<string, unknown> | null;
+  snapshotWindowStart: Date;
+  snapshotWindowEnd: Date;
+  refreshedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface CuratedDirectoryAliasMapping {
+  canonicalSlug: string;
+  canonicalName: string;
+  snapshotSlugs?: string[];
+  recipientNames?: string[];
+  recipientUeis?: string[];
+  recipientCodes?: string[];
+}
+
+export interface BuiltContractorDirectoryAlias {
+  id: string;
+  groupId: string;
+  snapshotId: string;
+  slug: string;
+  recipientName: string;
+  normalizedName: string;
+  recipientUei: string | null;
+  recipientCode: string | null;
+  totalObligations36m: number;
+  awardCount36m: number;
+  lastAwardDate: Date | null;
+  sourceUrl: string;
+  isCanonical: boolean;
+  matchReason: DirectoryAliasMatchReason;
+  matchKey: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface BuiltContractorDirectoryGroup {
+  id: string;
+  slug: string;
+  canonicalName: string;
+  normalizedName: string;
+  primarySnapshotId: string;
+  primaryRecipientUei: string | null;
+  primaryRecipientCode: string | null;
+  totalObligations36m: number;
+  awardCount36m: number;
+  lastAwardDate: Date | null;
+  topAwardingAgency: string | null;
+  topAwardingSubagency: string | null;
+  topNaicsCode: string | null;
+  topNaicsTitle: string | null;
+  topPscCode: string | null;
+  topPscTitle: string | null;
+  sourceUrl: string;
+  sourceMetadata: Record<string, unknown>;
+  aliasCount: number;
+  snapshotWindowStart: Date;
+  snapshotWindowEnd: Date;
+  refreshedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  aliases: BuiltContractorDirectoryAlias[];
 }
 
 export interface RefreshContractorSnapshotOptions {
@@ -321,6 +456,10 @@ export async function refreshContractorSnapshot(
     })
     .returning();
 
+  if (!run) {
+    throw new Error("Failed to create contractor snapshot run");
+  }
+
   const runId = run.id;
   const slugOwners = await existingSnapshotSlugOwners();
   const usedSlugs = new Map<string, string>();
@@ -376,29 +515,99 @@ export async function refreshContractorSnapshot(
     }
 
     const completedAt = new Date();
-    await db
-      .update(schema.contractorSnapshotRun)
-      .set({
-        status: "completed",
-        completedAt,
-        pageCount,
-        rowCount,
-        updatedAt: completedAt,
-        sourceMetadata: {
-          api: "usaspending",
-          endpoint: "/api/v2/search/spending_by_category/recipient/",
-          window,
-          filters: buildContractorSnapshotFilters(window),
-          messages: formatUsaSpendingMessages(messages),
-        },
-      })
-      .where(eq(schema.contractorSnapshotRun.id, runId));
 
-    await db
-      .delete(schema.contractorSnapshot)
-      .where(
-        sql`${schema.contractorSnapshot.runId} IS NULL OR ${schema.contractorSnapshot.runId} <> ${runId}`,
+    await db.transaction(async (tx) => {
+      const currentRunRows = await tx
+        .select()
+        .from(schema.contractorSnapshot)
+        .where(eq(schema.contractorSnapshot.runId, runId));
+      const groups = buildContractorDirectoryGroups(
+        currentRunRows,
+        CURATED_DIRECTORY_ALIAS_MAPPINGS,
       );
+
+      await tx.delete(schema.contractorDirectoryAlias);
+      await tx.delete(schema.contractorDirectoryGroup);
+      await tx
+        .delete(schema.contractorSnapshot)
+        .where(
+          sql`${schema.contractorSnapshot.runId} IS NULL OR ${schema.contractorSnapshot.runId} <> ${runId}`,
+        );
+
+      for (const group of groups) {
+        await tx.insert(schema.contractorDirectoryGroup).values({
+          id: group.id,
+          slug: group.slug,
+          canonicalName: group.canonicalName,
+          normalizedName: group.normalizedName,
+          primarySnapshotId: group.primarySnapshotId,
+          primaryRecipientUei: group.primaryRecipientUei,
+          primaryRecipientCode: group.primaryRecipientCode,
+          totalObligations36m: group.totalObligations36m,
+          awardCount36m: group.awardCount36m,
+          lastAwardDate: group.lastAwardDate,
+          topAwardingAgency: group.topAwardingAgency,
+          topAwardingSubagency: group.topAwardingSubagency,
+          topNaicsCode: group.topNaicsCode,
+          topNaicsTitle: group.topNaicsTitle,
+          topPscCode: group.topPscCode,
+          topPscTitle: group.topPscTitle,
+          sourceUrl: group.sourceUrl,
+          sourceMetadata: group.sourceMetadata,
+          aliasCount: group.aliasCount,
+          snapshotWindowStart: group.snapshotWindowStart,
+          snapshotWindowEnd: group.snapshotWindowEnd,
+          refreshedAt: group.refreshedAt,
+          createdAt: group.createdAt,
+          updatedAt: group.updatedAt,
+        });
+
+        for (const alias of group.aliases) {
+          await tx.insert(schema.contractorDirectoryAlias).values({
+            id: alias.id,
+            groupId: alias.groupId,
+            snapshotId: alias.snapshotId,
+            slug: alias.slug,
+            recipientName: alias.recipientName,
+            normalizedName: alias.normalizedName,
+            recipientUei: alias.recipientUei,
+            recipientCode: alias.recipientCode,
+            totalObligations36m: alias.totalObligations36m,
+            awardCount36m: alias.awardCount36m,
+            lastAwardDate: alias.lastAwardDate,
+            sourceUrl: alias.sourceUrl,
+            isCanonical: alias.isCanonical,
+            matchReason: alias.matchReason,
+            matchKey: alias.matchKey,
+            createdAt: alias.createdAt,
+            updatedAt: alias.updatedAt,
+          });
+        }
+      }
+
+      await tx
+        .update(schema.contractorSnapshotRun)
+        .set({
+          status: "completed",
+          completedAt,
+          pageCount,
+          rowCount,
+          updatedAt: completedAt,
+          sourceMetadata: {
+            api: "usaspending",
+            endpoint: "/api/v2/search/spending_by_category/recipient/",
+            window,
+            filters: buildContractorSnapshotFilters(window),
+            messages: formatUsaSpendingMessages(messages),
+            directoryGroups: groups.length,
+            directoryAliases: groups.reduce(
+              (sum, group) => sum + group.aliasCount,
+              0,
+            ),
+          },
+        })
+        .where(eq(schema.contractorSnapshotRun.id, runId));
+    });
   } catch (error) {
     const completedAt = new Date();
     await db
@@ -427,6 +636,12 @@ export async function refreshContractorSnapshot(
     .where(eq(schema.contractorSnapshotRun.id, runId))
     .limit(1);
 
+  if (!finishedRun) {
+    throw new Error(
+      `Contractor snapshot run ${runId} was not found after refresh`,
+    );
+  }
+
   return {
     id: finishedRun.id,
     status: finishedRun.status,
@@ -446,12 +661,12 @@ export async function queryContractorSnapshots(
 ): Promise<ContractorSnapshotListResponse> {
   const query = parseContractorSnapshotQuery(input);
   const db = getDb();
-  const whereClause = buildSnapshotWhereClause(query);
-  const orderBy = snapshotOrderBy(query);
+  const whereClause = buildDirectoryGroupWhereClause(query);
+  const orderBy = directoryGroupOrderBy(query);
 
   const rows = await db
     .select()
-    .from(schema.contractorSnapshot)
+    .from(schema.contractorDirectoryGroup)
     .where(whereClause)
     .orderBy(...orderBy)
     .limit(query.limit)
@@ -459,11 +674,14 @@ export async function queryContractorSnapshots(
 
   const [totalResult] = await db
     .select({ count: sql<number>`count(*)` })
-    .from(schema.contractorSnapshot)
+    .from(schema.contractorDirectoryGroup)
     .where(whereClause);
 
+  const aliasesByGroup = await aliasesForGroups(rows.map((row) => row.id));
   const sourceMetadata = await snapshotSourceMetadata(query);
-  const mappedRows = rows.map(snapshotRowToResponse);
+  const mappedRows = rows.map((row) =>
+    directoryGroupRowToResponse(row, aliasesByGroup.get(row.id) ?? []),
+  );
 
   return {
     rows: mappedRows,
@@ -486,12 +704,67 @@ export async function getContractorSnapshotBySlug(slug: string) {
   return snapshot ?? null;
 }
 
+export async function getContractorDirectoryProfileBySlug(
+  slug: string,
+): Promise<ContractorDirectoryProfile | null> {
+  const db = getDb();
+  const normalizedSlug = slug.toLowerCase();
+  let requestedAlias: ContractorDirectoryAliasResponse | null = null;
+
+  const [groupBySlug] = await db
+    .select()
+    .from(schema.contractorDirectoryGroup)
+    .where(eq(schema.contractorDirectoryGroup.slug, normalizedSlug))
+    .limit(1);
+
+  let group = groupBySlug ?? null;
+
+  if (!group) {
+    const [aliasBySlug] = await db
+      .select()
+      .from(schema.contractorDirectoryAlias)
+      .where(eq(schema.contractorDirectoryAlias.slug, normalizedSlug))
+      .limit(1);
+
+    if (!aliasBySlug) return null;
+
+    requestedAlias = directoryAliasRowToResponse(aliasBySlug);
+    const [groupByAlias] = await db
+      .select()
+      .from(schema.contractorDirectoryGroup)
+      .where(eq(schema.contractorDirectoryGroup.id, aliasBySlug.groupId))
+      .limit(1);
+
+    group = groupByAlias ?? null;
+  }
+
+  if (!group) return null;
+
+  const aliases = await getDirectoryAliasesForGroupId(group.id);
+  if (!requestedAlias) {
+    requestedAlias =
+      aliases.find((alias) => alias.slug === normalizedSlug) ?? null;
+  }
+
+  const snapshot = group.primarySnapshotId
+    ? await getContractorSnapshotById(group.primarySnapshotId)
+    : null;
+
+  return {
+    group,
+    snapshot,
+    aliases,
+    requestedAlias,
+    isAliasRequest: normalizedSlug !== group.slug,
+  };
+}
+
 export async function getCuratedContractorOverlay(
   snapshot: typeof schema.contractorSnapshot.$inferSelect | null,
   slug: string,
+  canonicalName?: string | null,
 ) {
   const db = getDb();
-  const normalized = snapshot?.normalizedName ?? normalizeText(slug);
   const [bySlug] = await db
     .select()
     .from(schema.contractor)
@@ -499,32 +772,30 @@ export async function getCuratedContractorOverlay(
     .limit(1);
 
   if (bySlug) return bySlug;
-  if (!snapshot) return null;
 
-  const [byName] = await db
-    .select()
-    .from(schema.contractor)
-    .where(
-      sql`lower(${schema.contractor.name}) = ${snapshot.recipientName.toLowerCase()}`,
-    )
-    .limit(1);
+  const exactNames = [canonicalName, snapshot?.recipientName]
+    .filter((value): value is string => !!value?.trim())
+    .map((value) => value.trim().toLowerCase());
 
-  if (byName) return byName;
+  for (const name of new Set(exactNames)) {
+    const [byName] = await db
+      .select()
+      .from(schema.contractor)
+      .where(sql`lower(${schema.contractor.name}) = ${name}`)
+      .limit(1);
 
-  const [looseMatch] = await db
-    .select()
-    .from(schema.contractor)
-    .where(sql`lower(${schema.contractor.name}) LIKE ${`%${normalized}%`}`)
-    .limit(1);
+    if (byName) return byName;
+  }
 
-  return looseMatch ?? null;
+  return null;
 }
 
-export async function getSnapshotProfileIntelligence(
+export async function getCachedSnapshotProfileIntelligence(
   slug: string,
-  options: { forceRefresh?: boolean } = {},
-): Promise<ContractorIntelligence> {
-  const snapshot = await getContractorSnapshotBySlug(slug);
+): Promise<CachedProfileIntelligence> {
+  const profile = await getContractorDirectoryProfileBySlug(slug);
+  const snapshot =
+    profile?.snapshot ?? (await getContractorSnapshotBySlug(slug));
 
   if (!snapshot) {
     throw createError({
@@ -533,7 +804,81 @@ export async function getSnapshotProfileIntelligence(
     });
   }
 
-  const cacheKey = stableHash(`snapshot-profile:${snapshot.slug}`);
+  const profileSlug = profile?.group.slug ?? snapshot.slug;
+  const cached = await getSnapshotProfileCache(
+    snapshotProfileCacheKey(profileSlug),
+  );
+  const refreshKey = normalizeProfileRefreshKey(profileSlug);
+
+  if (!cached) {
+    return {
+      status: snapshotProfileRefreshes.has(refreshKey)
+        ? "refreshing"
+        : "unavailable",
+      intelligence: null,
+      refreshedAt: null,
+      expiresAt: null,
+      warnings: [],
+    };
+  }
+
+  const isStale =
+    Date.now() - cached.refreshedAt.getTime() >= PROFILE_CACHE_TTL_MS;
+  const status = isStale ? "stale" : "ready";
+
+  return {
+    status,
+    intelligence: withProfileCacheStatus(
+      cached.result,
+      isStale ? "stale" : "cached",
+    ),
+    refreshedAt: cached.refreshedAt.toISOString(),
+    expiresAt: cached.expiresAt?.toISOString() ?? null,
+    warnings: cached.result.sourceMetadata.warnings,
+  };
+}
+
+export function enqueueSnapshotProfileRefresh(
+  slug: string,
+  options: { forceRefresh?: boolean } = {},
+): boolean {
+  const refreshKey = normalizeProfileRefreshKey(slug);
+  if (snapshotProfileRefreshes.has(refreshKey)) return false;
+
+  const refresh = getSnapshotProfileIntelligence(slug, {
+    forceRefresh: options.forceRefresh ?? true,
+  })
+    .then(() => undefined)
+    .catch(() => undefined)
+    .finally(() => {
+      snapshotProfileRefreshes.delete(refreshKey);
+    });
+
+  snapshotProfileRefreshes.set(refreshKey, refresh);
+  return true;
+}
+
+export async function getSnapshotProfileIntelligence(
+  slug: string,
+  options: { forceRefresh?: boolean } = {},
+): Promise<ContractorIntelligence> {
+  const profile = await getContractorDirectoryProfileBySlug(slug);
+  const snapshot =
+    profile?.snapshot ?? (await getContractorSnapshotBySlug(slug));
+
+  if (!snapshot) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: `Contractor snapshot "${slug}" not found`,
+    });
+  }
+
+  const profileSlug = profile?.group.slug ?? snapshot.slug;
+  const profileName = profile?.group.canonicalName ?? snapshot.recipientName;
+  const directoryAliases = profile?.aliases ?? [
+    snapshotToDirectoryAlias(snapshot),
+  ];
+  const cacheKey = snapshotProfileCacheKey(profileSlug);
   const cached = await getSnapshotProfileCache(cacheKey);
   if (
     cached &&
@@ -544,7 +889,7 @@ export async function getSnapshotProfileIntelligence(
   }
 
   const searchInput: UsaSpendingAwardSearchInput = {
-    recipientSearchText: [snapshot.recipientName],
+    recipientSearchText: uniqueRecipientNames(directoryAliases),
     agencies: DOD_AWARDING_AGENCY_FILTERS,
     timePeriod: [
       {
@@ -569,13 +914,27 @@ export async function getSnapshotProfileIntelligence(
     const trend = trendResponse.results.length
       ? trendResponse.results
       : trendFromAwards(awards);
-    const result = buildSnapshotIntelligence(snapshot, awards, trend, [
-      ...awardResponse.messages,
-      ...trendResponse.messages,
-    ]);
+    const result = buildSnapshotIntelligence(
+      snapshot,
+      awards,
+      trend,
+      [...awardResponse.messages, ...trendResponse.messages],
+      {
+        aliases: directoryAliases,
+        canonicalName: profileName,
+        canonicalSlug: profileSlug,
+      },
+    );
 
-    await writeSnapshotProfileCache(cacheKey, snapshot, result);
-    await applyProfileEnrichment(snapshot.slug, awards);
+    await writeSnapshotProfileCache(
+      cacheKey,
+      profileSlug,
+      normalizeText(profileName),
+      result,
+    );
+    if (directoryAliases.length === 1) {
+      await applyProfileEnrichment(snapshot.slug, awards);
+    }
     return result;
   } catch (error) {
     if (cached) {
@@ -603,8 +962,250 @@ export async function getSnapshotProfileIntelligence(
           ? error.message
           : "USAspending profile refresh failed.",
       ],
+      {
+        aliases: directoryAliases,
+        canonicalName: profileName,
+        canonicalSlug: profileSlug,
+      },
     );
   }
+}
+
+export async function rebuildContractorDirectoryGroups(): Promise<{
+  groupCount: number;
+  aliasCount: number;
+}> {
+  const db = getDb();
+  const rows = await db.select().from(schema.contractorSnapshot);
+  const groups = buildContractorDirectoryGroups(
+    rows,
+    CURATED_DIRECTORY_ALIAS_MAPPINGS,
+  );
+
+  await db.transaction(async (tx) => {
+    await tx.delete(schema.contractorDirectoryAlias);
+    await tx.delete(schema.contractorDirectoryGroup);
+
+    for (const group of groups) {
+      await tx.insert(schema.contractorDirectoryGroup).values({
+        id: group.id,
+        slug: group.slug,
+        canonicalName: group.canonicalName,
+        normalizedName: group.normalizedName,
+        primarySnapshotId: group.primarySnapshotId,
+        primaryRecipientUei: group.primaryRecipientUei,
+        primaryRecipientCode: group.primaryRecipientCode,
+        totalObligations36m: group.totalObligations36m,
+        awardCount36m: group.awardCount36m,
+        lastAwardDate: group.lastAwardDate,
+        topAwardingAgency: group.topAwardingAgency,
+        topAwardingSubagency: group.topAwardingSubagency,
+        topNaicsCode: group.topNaicsCode,
+        topNaicsTitle: group.topNaicsTitle,
+        topPscCode: group.topPscCode,
+        topPscTitle: group.topPscTitle,
+        sourceUrl: group.sourceUrl,
+        sourceMetadata: group.sourceMetadata,
+        aliasCount: group.aliasCount,
+        snapshotWindowStart: group.snapshotWindowStart,
+        snapshotWindowEnd: group.snapshotWindowEnd,
+        refreshedAt: group.refreshedAt,
+        createdAt: group.createdAt,
+        updatedAt: group.updatedAt,
+      });
+
+      for (const alias of group.aliases) {
+        await tx.insert(schema.contractorDirectoryAlias).values({
+          id: alias.id,
+          groupId: alias.groupId,
+          snapshotId: alias.snapshotId,
+          slug: alias.slug,
+          recipientName: alias.recipientName,
+          normalizedName: alias.normalizedName,
+          recipientUei: alias.recipientUei,
+          recipientCode: alias.recipientCode,
+          totalObligations36m: alias.totalObligations36m,
+          awardCount36m: alias.awardCount36m,
+          lastAwardDate: alias.lastAwardDate,
+          sourceUrl: alias.sourceUrl,
+          isCanonical: alias.isCanonical,
+          matchReason: alias.matchReason,
+          matchKey: alias.matchKey,
+          createdAt: alias.createdAt,
+          updatedAt: alias.updatedAt,
+        });
+      }
+    }
+  });
+
+  return {
+    groupCount: groups.length,
+    aliasCount: groups.reduce((sum, group) => sum + group.aliasCount, 0),
+  };
+}
+
+export function buildContractorDirectoryGroups(
+  rows: ContractorDirectorySnapshotInput[],
+  curatedMappings: CuratedDirectoryAliasMapping[] = [],
+): BuiltContractorDirectoryGroup[] {
+  const parent = new Map<string, string>();
+  const identifierOwners = new Map<string, string>();
+  const curatedByRow = new Map<string, CuratedDirectoryAliasMapping>();
+
+  for (const row of rows) {
+    parent.set(row.id, row.id);
+  }
+
+  const findRoot = (id: string): string => {
+    const current = parent.get(id) ?? id;
+    if (current === id) return current;
+    const root = findRoot(current);
+    parent.set(id, root);
+    return root;
+  };
+
+  const unionRows = (left: string, right: string) => {
+    const leftRoot = findRoot(left);
+    const rightRoot = findRoot(right);
+    if (leftRoot !== rightRoot) parent.set(rightRoot, leftRoot);
+  };
+
+  for (const row of rows) {
+    for (const key of directoryMergeKeys(row)) {
+      const owner = identifierOwners.get(key);
+      if (owner) {
+        unionRows(row.id, owner);
+      } else {
+        identifierOwners.set(key, row.id);
+      }
+    }
+
+    for (const mapping of curatedMappings) {
+      if (!rowMatchesCuratedMapping(row, mapping)) continue;
+      curatedByRow.set(row.id, mapping);
+      const key = `curated:${slugify(mapping.canonicalSlug)}`;
+      const owner = identifierOwners.get(key);
+      if (owner) {
+        unionRows(row.id, owner);
+      } else {
+        identifierOwners.set(key, row.id);
+      }
+    }
+  }
+
+  const rowsByRoot = new Map<string, ContractorDirectorySnapshotInput[]>();
+  for (const row of rows) {
+    const root = findRoot(row.id);
+    rowsByRoot.set(root, [...(rowsByRoot.get(root) ?? []), row]);
+  }
+
+  const usedSlugs = new Map<string, string>();
+  const groups = [...rowsByRoot.values()].map((members) => {
+    const sortedMembers = [...members].sort(compareDirectoryRows);
+    const canonicalRow = sortedMembers[0]!;
+    const curated = sortedMembers
+      .map((row) => curatedByRow.get(row.id))
+      .find((mapping): mapping is CuratedDirectoryAliasMapping => !!mapping);
+    const groupKey = directoryGroupKey(sortedMembers, curated);
+    const groupId = stableId(`directory-group:${groupKey}`);
+    const matchReason = directoryMatchReason(sortedMembers, curated);
+    const slug = uniqueDirectoryGroupSlug(
+      curated?.canonicalSlug ?? canonicalRow.slug,
+      groupKey,
+      usedSlugs,
+    );
+    const canonicalName = curated?.canonicalName ?? canonicalRow.recipientName;
+    const now = new Date();
+    const aliases = sortedMembers.map((row) => ({
+      id: stableId(`directory-alias:${groupId}:${row.id}`),
+      groupId,
+      snapshotId: row.id,
+      slug: row.slug,
+      recipientName: row.recipientName,
+      normalizedName: row.normalizedName,
+      recipientUei: row.recipientUei,
+      recipientCode: row.recipientCode,
+      totalObligations36m: row.totalObligations36m,
+      awardCount36m: row.awardCount36m,
+      lastAwardDate: row.lastAwardDate,
+      sourceUrl: row.sourceUrl,
+      isCanonical: row.id === canonicalRow.id,
+      matchReason,
+      matchKey: groupKey,
+      createdAt: row.createdAt ?? now,
+      updatedAt: row.updatedAt ?? now,
+    }));
+
+    return {
+      id: groupId,
+      slug,
+      canonicalName,
+      normalizedName: normalizeText(canonicalName),
+      primarySnapshotId: canonicalRow.id,
+      primaryRecipientUei: canonicalRow.recipientUei,
+      primaryRecipientCode: canonicalRow.recipientCode,
+      totalObligations36m: sortedMembers.reduce(
+        (sum, row) => sum + row.totalObligations36m,
+        0,
+      ),
+      awardCount36m: sortedMembers.reduce(
+        (sum, row) => sum + row.awardCount36m,
+        0,
+      ),
+      lastAwardDate: latestDate(sortedMembers.map((row) => row.lastAwardDate)),
+      topAwardingAgency: canonicalRow.topAwardingAgency,
+      topAwardingSubagency: canonicalRow.topAwardingSubagency,
+      topNaicsCode: canonicalRow.topNaicsCode,
+      topNaicsTitle: canonicalRow.topNaicsTitle,
+      topPscCode: canonicalRow.topPscCode,
+      topPscTitle: canonicalRow.topPscTitle,
+      sourceUrl: canonicalRow.sourceUrl,
+      sourceMetadata: {
+        ...(canonicalRow.sourceMetadata ?? {}),
+        grouping: {
+          matchReason,
+          matchKey: groupKey,
+          aliasCount: sortedMembers.length,
+        },
+      },
+      aliasCount: sortedMembers.length,
+      snapshotWindowStart:
+        earliestDate(sortedMembers.map((row) => row.snapshotWindowStart)) ??
+        canonicalRow.snapshotWindowStart,
+      snapshotWindowEnd:
+        latestDate(sortedMembers.map((row) => row.snapshotWindowEnd)) ??
+        canonicalRow.snapshotWindowEnd,
+      refreshedAt:
+        latestDate(sortedMembers.map((row) => row.refreshedAt)) ??
+        canonicalRow.refreshedAt,
+      createdAt: canonicalRow.createdAt ?? now,
+      updatedAt:
+        latestDate(
+          sortedMembers.map((row) => row.updatedAt ?? row.refreshedAt),
+        ) ?? now,
+      aliases,
+    };
+  });
+
+  return groups.sort(
+    (left, right) =>
+      right.totalObligations36m - left.totalObligations36m ||
+      left.canonicalName.localeCompare(right.canonicalName),
+  );
+}
+
+export function findBuiltContractorDirectoryGroupBySlug(
+  groups: BuiltContractorDirectoryGroup[],
+  slug: string,
+): BuiltContractorDirectoryGroup | null {
+  const normalizedSlug = slug.trim().toLowerCase();
+  return (
+    groups.find(
+      (group) =>
+        group.slug === normalizedSlug ||
+        group.aliases.some((alias) => alias.slug === normalizedSlug),
+    ) ?? null
+  );
 }
 
 async function upsertSnapshotRow(
@@ -640,30 +1241,38 @@ async function upsertSnapshotRow(
     updatedAt: now,
   };
 
-  await db
-    .insert(schema.contractorSnapshot)
-    .values(values)
-    .onConflictDoUpdate({
-      target: schema.contractorSnapshot.slug,
-      set: {
-        ...values,
-        id: row.id,
-      },
-    });
+  const { id: _id, ...updateValues } = values;
+
+  await db.insert(schema.contractorSnapshot).values(values).onConflictDoUpdate({
+    target: schema.contractorSnapshot.id,
+    set: updateValues,
+  });
 }
 
-function buildSnapshotWhereClause(query: SnapshotQuery) {
+function buildDirectoryGroupWhereClause(query: SnapshotQuery) {
   const conditions = [];
 
   if (query.q) {
     const search = `%${query.q.toLowerCase()}%`;
     conditions.push(
       or(
-        sql`lower(${schema.contractorSnapshot.recipientName}) LIKE ${search}`,
-        sql`lower(${schema.contractorSnapshot.normalizedName}) LIKE ${search}`,
-        sql`lower(${schema.contractorSnapshot.slug}) LIKE ${search}`,
-        sql`lower(coalesce(${schema.contractorSnapshot.recipientUei}, '')) LIKE ${search}`,
-        sql`lower(coalesce(${schema.contractorSnapshot.recipientCode}, '')) LIKE ${search}`,
+        sql`lower(${schema.contractorDirectoryGroup.canonicalName}) LIKE ${search}`,
+        sql`lower(${schema.contractorDirectoryGroup.normalizedName}) LIKE ${search}`,
+        sql`lower(${schema.contractorDirectoryGroup.slug}) LIKE ${search}`,
+        sql`lower(coalesce(${schema.contractorDirectoryGroup.primaryRecipientUei}, '')) LIKE ${search}`,
+        sql`lower(coalesce(${schema.contractorDirectoryGroup.primaryRecipientCode}, '')) LIKE ${search}`,
+        sql`exists (
+          select 1
+          from ${schema.contractorDirectoryAlias}
+          where ${schema.contractorDirectoryAlias.groupId} = ${schema.contractorDirectoryGroup.id}
+            and (
+              lower(${schema.contractorDirectoryAlias.recipientName}) LIKE ${search}
+              or lower(${schema.contractorDirectoryAlias.normalizedName}) LIKE ${search}
+              or lower(${schema.contractorDirectoryAlias.slug}) LIKE ${search}
+              or lower(coalesce(${schema.contractorDirectoryAlias.recipientUei}, '')) LIKE ${search}
+              or lower(coalesce(${schema.contractorDirectoryAlias.recipientCode}, '')) LIKE ${search}
+            )
+        )`,
       ),
     );
   }
@@ -672,8 +1281,8 @@ function buildSnapshotWhereClause(query: SnapshotQuery) {
     const agency = `%${query.agency.toLowerCase()}%`;
     conditions.push(
       or(
-        sql`lower(coalesce(${schema.contractorSnapshot.topAwardingAgency}, '')) LIKE ${agency}`,
-        sql`lower(coalesce(${schema.contractorSnapshot.topAwardingSubagency}, '')) LIKE ${agency}`,
+        sql`lower(coalesce(${schema.contractorDirectoryGroup.topAwardingAgency}, '')) LIKE ${agency}`,
+        sql`lower(coalesce(${schema.contractorDirectoryGroup.topAwardingSubagency}, '')) LIKE ${agency}`,
       ),
     );
   }
@@ -682,8 +1291,8 @@ function buildSnapshotWhereClause(query: SnapshotQuery) {
     const naics = `%${query.naics.toLowerCase()}%`;
     conditions.push(
       or(
-        sql`lower(coalesce(${schema.contractorSnapshot.topNaicsCode}, '')) LIKE ${naics}`,
-        sql`lower(coalesce(${schema.contractorSnapshot.topNaicsTitle}, '')) LIKE ${naics}`,
+        sql`lower(coalesce(${schema.contractorDirectoryGroup.topNaicsCode}, '')) LIKE ${naics}`,
+        sql`lower(coalesce(${schema.contractorDirectoryGroup.topNaicsTitle}, '')) LIKE ${naics}`,
       ),
     );
   }
@@ -692,8 +1301,8 @@ function buildSnapshotWhereClause(query: SnapshotQuery) {
     const psc = `%${query.psc.toLowerCase()}%`;
     conditions.push(
       or(
-        sql`lower(coalesce(${schema.contractorSnapshot.topPscCode}, '')) LIKE ${psc}`,
-        sql`lower(coalesce(${schema.contractorSnapshot.topPscTitle}, '')) LIKE ${psc}`,
+        sql`lower(coalesce(${schema.contractorDirectoryGroup.topPscCode}, '')) LIKE ${psc}`,
+        sql`lower(coalesce(${schema.contractorDirectoryGroup.topPscTitle}, '')) LIKE ${psc}`,
       ),
     );
   }
@@ -701,42 +1310,42 @@ function buildSnapshotWhereClause(query: SnapshotQuery) {
   return conditions.length ? and(...conditions) : undefined;
 }
 
-function snapshotOrderBy(query: SnapshotQuery) {
+function directoryGroupOrderBy(query: SnapshotQuery) {
   const direction = query.order === "asc" ? asc : desc;
 
   switch (query.sort) {
     case "awardCount36m":
       return [
-        direction(schema.contractorSnapshot.awardCount36m),
-        asc(schema.contractorSnapshot.recipientName),
+        direction(schema.contractorDirectoryGroup.awardCount36m),
+        asc(schema.contractorDirectoryGroup.canonicalName),
       ];
     case "lastAwardDate":
       return [
-        direction(schema.contractorSnapshot.lastAwardDate),
-        asc(schema.contractorSnapshot.recipientName),
+        direction(schema.contractorDirectoryGroup.lastAwardDate),
+        asc(schema.contractorDirectoryGroup.canonicalName),
       ];
     case "recipientName":
-      return [direction(schema.contractorSnapshot.recipientName)];
+      return [direction(schema.contractorDirectoryGroup.canonicalName)];
     case "topAwardingAgency":
       return [
-        direction(schema.contractorSnapshot.topAwardingAgency),
-        asc(schema.contractorSnapshot.recipientName),
+        direction(schema.contractorDirectoryGroup.topAwardingAgency),
+        asc(schema.contractorDirectoryGroup.canonicalName),
       ];
     case "topNaics":
       return [
-        direction(schema.contractorSnapshot.topNaicsCode),
-        asc(schema.contractorSnapshot.recipientName),
+        direction(schema.contractorDirectoryGroup.topNaicsCode),
+        asc(schema.contractorDirectoryGroup.canonicalName),
       ];
     case "topPsc":
       return [
-        direction(schema.contractorSnapshot.topPscCode),
-        asc(schema.contractorSnapshot.recipientName),
+        direction(schema.contractorDirectoryGroup.topPscCode),
+        asc(schema.contractorDirectoryGroup.canonicalName),
       ];
     case "totalObligations36m":
     default:
       return [
-        direction(schema.contractorSnapshot.totalObligations36m),
-        asc(schema.contractorSnapshot.recipientName),
+        direction(schema.contractorDirectoryGroup.totalObligations36m),
+        asc(schema.contractorDirectoryGroup.canonicalName),
       ];
   }
 }
@@ -806,16 +1415,18 @@ async function snapshotSourceMetadata(
   };
 }
 
-function snapshotRowToResponse(
-  row: typeof schema.contractorSnapshot.$inferSelect,
+function directoryGroupRowToResponse(
+  row: typeof schema.contractorDirectoryGroup.$inferSelect,
+  aliases: ContractorDirectoryAliasResponse[],
 ): ContractorSnapshotListRow {
   return {
     id: row.id,
     slug: row.slug,
-    recipientName: row.recipientName,
+    canonicalSlug: row.slug,
+    recipientName: row.canonicalName,
     normalizedName: row.normalizedName,
-    recipientUei: row.recipientUei,
-    recipientCode: row.recipientCode,
+    recipientUei: row.primaryRecipientUei,
+    recipientCode: row.primaryRecipientCode,
     totalObligations36m: row.totalObligations36m,
     awardCount36m: row.awardCount36m,
     lastAwardDate: row.lastAwardDate?.toISOString() ?? null,
@@ -829,7 +1440,214 @@ function snapshotRowToResponse(
     refreshedAt: row.refreshedAt.toISOString(),
     snapshotWindowStart: row.snapshotWindowStart.toISOString(),
     snapshotWindowEnd: row.snapshotWindowEnd.toISOString(),
+    aliasCount: row.aliasCount,
+    alternateRecipientNames: aliases
+      .filter((alias) => !alias.isCanonical)
+      .map((alias) => alias.recipientName),
   };
+}
+
+function directoryAliasRowToResponse(
+  row: typeof schema.contractorDirectoryAlias.$inferSelect,
+): ContractorDirectoryAliasResponse {
+  return {
+    id: row.id,
+    groupId: row.groupId,
+    snapshotId: row.snapshotId,
+    slug: row.slug,
+    recipientName: row.recipientName,
+    normalizedName: row.normalizedName,
+    recipientUei: row.recipientUei,
+    recipientCode: row.recipientCode,
+    totalObligations36m: row.totalObligations36m,
+    awardCount36m: row.awardCount36m,
+    lastAwardDate: row.lastAwardDate?.toISOString() ?? null,
+    sourceUrl: row.sourceUrl,
+    isCanonical: row.isCanonical,
+    matchReason: row.matchReason,
+    matchKey: row.matchKey,
+  };
+}
+
+async function aliasesForGroups(
+  groupIds: string[],
+): Promise<Map<string, ContractorDirectoryAliasResponse[]>> {
+  const result = new Map<string, ContractorDirectoryAliasResponse[]>();
+  if (!groupIds.length) return result;
+
+  await Promise.all(
+    groupIds.map(async (groupId) => {
+      result.set(groupId, await getDirectoryAliasesForGroupId(groupId));
+    }),
+  );
+
+  return result;
+}
+
+async function getDirectoryAliasesForGroupId(
+  groupId: string,
+): Promise<ContractorDirectoryAliasResponse[]> {
+  const db = getDb();
+  const rows = await db
+    .select()
+    .from(schema.contractorDirectoryAlias)
+    .where(eq(schema.contractorDirectoryAlias.groupId, groupId))
+    .orderBy(
+      desc(schema.contractorDirectoryAlias.isCanonical),
+      desc(schema.contractorDirectoryAlias.totalObligations36m),
+      asc(schema.contractorDirectoryAlias.recipientName),
+    );
+
+  return rows.map(directoryAliasRowToResponse);
+}
+
+async function getContractorSnapshotById(id: string) {
+  const db = getDb();
+  const [snapshot] = await db
+    .select()
+    .from(schema.contractorSnapshot)
+    .where(eq(schema.contractorSnapshot.id, id))
+    .limit(1);
+
+  return snapshot ?? null;
+}
+
+function directoryIdentifierKeys(
+  row: ContractorDirectorySnapshotInput,
+): string[] {
+  const keys = new Set<string>();
+  const uei = normalizeIdentifier(row.recipientUei);
+  const code = normalizeIdentifier(row.recipientCode);
+
+  if (uei) keys.add(`uei:${uei}`);
+  if (code) keys.add(`recipient-code:${code}`);
+
+  return [...keys].sort();
+}
+
+function directoryMergeKeys(row: ContractorDirectorySnapshotInput): string[] {
+  const keys = new Set(directoryIdentifierKeys(row));
+  if (row.normalizedName) keys.add(`name:${row.normalizedName}`);
+  return [...keys].sort();
+}
+
+function rowMatchesCuratedMapping(
+  row: ContractorDirectorySnapshotInput,
+  mapping: CuratedDirectoryAliasMapping,
+): boolean {
+  const slugMatches = mapping.snapshotSlugs?.some(
+    (slug) => slug.trim().toLowerCase() === row.slug,
+  );
+  if (slugMatches) return true;
+
+  const nameMatches = mapping.recipientNames?.some(
+    (name) => normalizeText(name) === row.normalizedName,
+  );
+  if (nameMatches) return true;
+
+  const uei = normalizeIdentifier(row.recipientUei);
+  const ueiMatches = mapping.recipientUeis?.some(
+    (value) => normalizeIdentifier(value) === uei,
+  );
+  if (uei && ueiMatches) return true;
+
+  const code = normalizeIdentifier(row.recipientCode);
+  return Boolean(
+    code &&
+    mapping.recipientCodes?.some(
+      (value) => normalizeIdentifier(value) === code,
+    ),
+  );
+}
+
+function directoryGroupKey(
+  rows: ContractorDirectorySnapshotInput[],
+  curated?: CuratedDirectoryAliasMapping,
+): string {
+  if (curated) return `curated:${slugify(curated.canonicalSlug)}`;
+
+  const sharedIdentifier = sharedIdentifierKey(rows);
+  if (sharedIdentifier) return sharedIdentifier;
+
+  const sharedName = sharedNormalizedName(rows);
+  if (sharedName) return `name:${sharedName}`;
+
+  const identifierKeys = rows.flatMap(directoryIdentifierKeys).sort();
+  return identifierKeys[0] ?? `snapshot:${rows[0]?.id ?? "unknown"}`;
+}
+
+function directoryMatchReason(
+  rows: ContractorDirectorySnapshotInput[],
+  curated?: CuratedDirectoryAliasMapping,
+): DirectoryAliasMatchReason {
+  if (curated) return "curated_alias";
+  if (rows.length === 1) return "single_snapshot";
+  return sharedIdentifierKey(rows) ? "shared_identifier" : "shared_name";
+}
+
+function sharedIdentifierKey(
+  rows: ContractorDirectorySnapshotInput[],
+): string | null {
+  const counts = new Map<string, number>();
+  for (const key of rows.flatMap(directoryIdentifierKeys)) {
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  return (
+    [...counts.entries()]
+      .filter(([, count]) => count > 1)
+      .map(([key]) => key)
+      .sort()[0] ?? null
+  );
+}
+
+function sharedNormalizedName(
+  rows: ContractorDirectorySnapshotInput[],
+): string | null {
+  const names = new Set(rows.map((row) => row.normalizedName).filter(Boolean));
+  return names.size === 1 ? [...names][0]! : null;
+}
+
+function uniqueDirectoryGroupSlug(
+  value: string,
+  groupKey: string,
+  usedSlugs: Map<string, string>,
+): string {
+  const base = slugify(value) || "unknown-contractor";
+  const existing = usedSlugs.get(base);
+  const slug =
+    existing && existing !== groupKey
+      ? `${base}-${stableHash(groupKey).slice(0, 8)}`
+      : base;
+  usedSlugs.set(slug, groupKey);
+  return slug;
+}
+
+function compareDirectoryRows(
+  left: ContractorDirectorySnapshotInput,
+  right: ContractorDirectorySnapshotInput,
+): number {
+  return (
+    right.totalObligations36m - left.totalObligations36m ||
+    right.awardCount36m - left.awardCount36m ||
+    dateTime(right.lastAwardDate) - dateTime(left.lastAwardDate) ||
+    left.recipientName.localeCompare(right.recipientName)
+  );
+}
+
+function earliestDate(values: Array<Date | null | undefined>): Date | null {
+  const dates = values.filter((value): value is Date => value instanceof Date);
+  if (!dates.length) return null;
+  return new Date(Math.min(...dates.map((date) => date.getTime())));
+}
+
+function latestDate(values: Array<Date | null | undefined>): Date | null {
+  const dates = values.filter((value): value is Date => value instanceof Date);
+  if (!dates.length) return null;
+  return new Date(Math.max(...dates.map((date) => date.getTime())));
+}
+
+function dateTime(value: Date | null | undefined): number {
+  return value?.getTime() ?? 0;
 }
 
 async function existingSnapshotSlugOwners(): Promise<Map<string, string>> {
@@ -886,9 +1704,39 @@ function snapshotOwnerKey(row: SnapshotCategoryRow): string {
   );
 }
 
+function snapshotProfileCacheKey(slug: string): string {
+  return stableHash(`snapshot-profile:${slug}`);
+}
+
+function normalizeProfileRefreshKey(slug: string): string {
+  return slug.trim().toLowerCase();
+}
+
+function withProfileCacheStatus(
+  result: ContractorIntelligence,
+  cacheStatus: "cached" | "stale",
+): ContractorIntelligence {
+  const updated = {
+    ...result,
+    sourceMetadata: {
+      ...result.sourceMetadata,
+      cacheStatus,
+      warnings: formatUsaSpendingMessages(result.sourceMetadata.warnings),
+    },
+  };
+
+  return {
+    ...updated,
+    signals: updated.signals?.length
+      ? updated.signals
+      : buildContractorIntelligenceSignals(updated),
+  };
+}
+
 async function getSnapshotProfileCache(queryHash: string): Promise<{
   result: ContractorIntelligence;
   refreshedAt: Date;
+  expiresAt: Date | null;
 } | null> {
   const db = getDb();
   const [entry] = await db
@@ -898,15 +1746,31 @@ async function getSnapshotProfileCache(queryHash: string): Promise<{
     .limit(1);
 
   if (!entry?.result) return null;
+  const result = entry.result as unknown as ContractorIntelligence;
+  const normalized = {
+    ...result,
+    sourceMetadata: {
+      ...result.sourceMetadata,
+      warnings: formatUsaSpendingMessages(result.sourceMetadata.warnings),
+    },
+  };
+
   return {
-    result: entry.result as unknown as ContractorIntelligence,
+    result: {
+      ...normalized,
+      signals: normalized.signals?.length
+        ? normalized.signals
+        : buildContractorIntelligenceSignals(normalized),
+    },
     refreshedAt: entry.refreshedAt,
+    expiresAt: entry.expiresAt ?? null,
   };
 }
 
 async function writeSnapshotProfileCache(
   queryHash: string,
-  snapshot: typeof schema.contractorSnapshot.$inferSelect,
+  profileSlug: string,
+  normalizedQuery: string,
   result: ContractorIntelligence,
 ): Promise<void> {
   const db = getDb();
@@ -917,8 +1781,8 @@ async function writeSnapshotProfileCache(
     .insert(schema.explorerQueryCache)
     .values({
       id: queryHash.slice(0, 16),
-      query: `snapshot-profile:${snapshot.slug}`,
-      normalizedQuery: snapshot.normalizedName,
+      query: `snapshot-profile:${profileSlug}`,
+      normalizedQuery,
       queryHash,
       result: result as unknown as Record<string, unknown>,
       sourceMetadata: result.sourceMetadata as unknown as Record<
@@ -992,11 +1856,55 @@ async function applyProfileEnrichment(slug: string, awards: AwardSummary[]) {
     .where(eq(schema.contractorSnapshot.slug, slug));
 }
 
+function snapshotToDirectoryAlias(
+  snapshot: typeof schema.contractorSnapshot.$inferSelect,
+): ContractorDirectoryAliasResponse {
+  return {
+    id: stableId(`directory-alias:fallback:${snapshot.id}`),
+    groupId: stableId(`directory-group:fallback:${snapshot.id}`),
+    snapshotId: snapshot.id,
+    slug: snapshot.slug,
+    recipientName: snapshot.recipientName,
+    normalizedName: snapshot.normalizedName,
+    recipientUei: snapshot.recipientUei,
+    recipientCode: snapshot.recipientCode,
+    totalObligations36m: snapshot.totalObligations36m,
+    awardCount36m: snapshot.awardCount36m,
+    lastAwardDate: snapshot.lastAwardDate?.toISOString() ?? null,
+    sourceUrl: snapshot.sourceUrl,
+    isCanonical: true,
+    matchReason: "single_snapshot",
+    matchKey: `snapshot:${snapshot.id}`,
+  };
+}
+
+function uniqueRecipientNames(
+  aliases: ContractorDirectoryAliasResponse[],
+): string[] {
+  const names = new Set<string>();
+  for (const alias of aliases) {
+    const name = alias.recipientName.trim();
+    if (name) names.add(name);
+  }
+  return [...names];
+}
+
+interface SnapshotIntelligenceOptions {
+  aliases: ContractorDirectoryAliasResponse[];
+  canonicalName: string;
+  canonicalSlug: string;
+}
+
 function buildSnapshotIntelligence(
   snapshot: typeof schema.contractorSnapshot.$inferSelect,
   awards: AwardSummary[],
   yearlyTrend: TrendPoint[],
   warnings: string[],
+  options: SnapshotIntelligenceOptions = {
+    aliases: [snapshotToDirectoryAlias(snapshot)],
+    canonicalName: snapshot.recipientName,
+    canonicalSlug: snapshot.slug,
+  },
 ): ContractorIntelligence {
   const topAgencies = aggregateAwards(
     awards,
@@ -1025,6 +1933,18 @@ function buildSnapshotIntelligence(
     awardCount: row.awardCount,
     obligations: row.obligations,
   }));
+  const snapshotLinkedRecipients = options.aliases.map((alias) => ({
+    name: alias.recipientName,
+    uei: alias.recipientUei,
+    awardCount: alias.awardCount36m,
+    obligations: alias.totalObligations36m,
+  }));
+  const fallbackObligations = options.aliases.length
+    ? options.aliases.reduce((sum, alias) => sum + alias.totalObligations36m, 0)
+    : snapshot.totalObligations36m;
+  const fallbackAwardCount = options.aliases.length
+    ? options.aliases.reduce((sum, alias) => sum + alias.awardCount36m, 0)
+    : snapshot.awardCount36m;
   const latestFiscalYear = yearlyTrend.at(-1)?.fiscalYear ?? null;
   const currentYear = yearlyTrend.at(-1)?.obligation ?? null;
   const previousYear = yearlyTrend.at(-2)?.obligation ?? null;
@@ -1032,7 +1952,7 @@ function buildSnapshotIntelligence(
     {
       kind: "recipient",
       label: "Recipient",
-      value: snapshot.recipientName,
+      value: options.canonicalName,
       code: snapshot.recipientCode ?? undefined,
     },
     {
@@ -1047,11 +1967,11 @@ function buildSnapshotIntelligence(
     },
   ];
 
-  return {
+  const intelligence = {
     contractor: {
       id: snapshot.id,
-      slug: snapshot.slug,
-      name: snapshot.recipientName,
+      slug: options.canonicalSlug,
+      name: options.canonicalName,
       headquarters: null,
       website: null,
       defenseRevenue: null,
@@ -1060,8 +1980,8 @@ function buildSnapshotIntelligence(
     summary: {
       totalObligations: awards.length
         ? awards.reduce((sum, award) => sum + award.obligation, 0)
-        : snapshot.totalObligations36m,
-      awardCount: awards.length || snapshot.awardCount36m,
+        : fallbackObligations,
+      awardCount: awards.length || fallbackAwardCount,
       latestFiscalYear,
       yoyDelta:
         currentYear != null && previousYear != null
@@ -1072,21 +1992,16 @@ function buildSnapshotIntelligence(
       topNaics: topNaics[0] ?? bucketFromSnapshotNaics(snapshot),
       topPsc: topPsc[0] ?? bucketFromSnapshotPsc(snapshot),
     },
-    aliases: [],
+    aliases: options.aliases
+      .filter((alias) => !alias.isCanonical)
+      .map((alias) => alias.recipientName),
     identifiers: {
       uei: snapshot.recipientUei,
       cageCode: null,
     },
     linkedRecipients: linkedRecipients.length
       ? linkedRecipients
-      : [
-          {
-            name: snapshot.recipientName,
-            uei: snapshot.recipientUei,
-            awardCount: snapshot.awardCount36m,
-            obligations: snapshot.totalObligations36m,
-          },
-        ],
+      : snapshotLinkedRecipients,
     topAwards: [...awards]
       .sort((a, b) => b.obligation - a.obligation)
       .slice(0, 10),
@@ -1100,7 +2015,12 @@ function buildSnapshotIntelligence(
     topPsc,
     sourceLinks: awards.length
       ? sourceLinksForAwards(awards)
-      : [{ label: "USAspending recipient", url: snapshot.sourceUrl }],
+      : options.aliases.map((alias) => ({
+          label: alias.isCanonical
+            ? "USAspending canonical recipient"
+            : "USAspending alternate recipient",
+          url: alias.sourceUrl,
+        })),
     sourceMetadata: {
       sources: [{ label: "USAspending.gov", url: USA_SPENDING_BASE_URL }],
       generatedAt: new Date().toISOString(),
@@ -1115,6 +2035,11 @@ function buildSnapshotIntelligence(
       filters,
       warnings: formatUsaSpendingMessages(warnings),
     },
+  } satisfies Omit<ContractorIntelligence, "signals">;
+
+  return {
+    ...intelligence,
+    signals: buildContractorIntelligenceSignals(intelligence, awards),
   };
 }
 
@@ -1266,6 +2191,11 @@ function inferUei(value: unknown): string | null {
   const text = stringOrNull(value);
   if (!text) return null;
   return /^[A-Z0-9]{12}$/i.test(text) ? text : null;
+}
+
+function normalizeIdentifier(value: string | null | undefined): string | null {
+  const text = stringOrNull(value);
+  return text ? text.toLowerCase() : null;
 }
 
 function normalizeText(value: string): string {

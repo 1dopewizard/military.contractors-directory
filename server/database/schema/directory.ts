@@ -3,8 +3,15 @@
  * @description Defense contractor directory - contractors, specialties, locations
  */
 
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
+import {
+  sqliteTable,
+  text,
+  integer,
+  real,
+  index,
+} from "drizzle-orm/sqlite-core";
 import { relations } from "drizzle-orm";
+import { user } from "./auth";
 
 /**
  * Contractor table - Core company data
@@ -92,6 +99,46 @@ export const contractorLocation = sqliteTable("contractorLocation", {
     .$defaultFn(() => new Date()),
 });
 
+export const profileClaim = sqliteTable(
+  "profileClaim",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    contractorSlug: text("contractorSlug").notNull(),
+    contractorSnapshotId: text("contractorSnapshotId"),
+    contractorId: text("contractorId").references(() => contractor.id, {
+      onDelete: "set null",
+    }),
+    submitterUserId: text("submitterUserId")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    submitterEmail: text("submitterEmail").notNull(),
+    submitterName: text("submitterName"),
+    companyRole: text("companyRole"),
+    evidenceUrl: text("evidenceUrl"),
+    requestedContext: text("requestedContext", { mode: "json" }).$type<
+      Record<string, unknown>
+    >(),
+    status: text("status", {
+      enum: ["pending", "approved", "rejected", "needs_more_info"],
+    })
+      .notNull()
+      .default("pending"),
+    createdAt: integer("createdAt", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updatedAt", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => [
+    index("profileClaim_slug_idx").on(table.contractorSlug),
+    index("profileClaim_user_idx").on(table.submitterUserId),
+    index("profileClaim_status_idx").on(table.status),
+  ],
+);
+
 // Relations
 export const contractorRelations = relations(contractor, ({ many }) => ({
   specialties: many(contractorSpecialty),
@@ -125,3 +172,14 @@ export const contractorLocationRelations = relations(
     }),
   }),
 );
+
+export const profileClaimRelations = relations(profileClaim, ({ one }) => ({
+  contractor: one(contractor, {
+    fields: [profileClaim.contractorId],
+    references: [contractor.id],
+  }),
+  submitter: one(user, {
+    fields: [profileClaim.submitterUserId],
+    references: [user.id],
+  }),
+}));

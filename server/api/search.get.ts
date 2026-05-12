@@ -1,6 +1,6 @@
 /**
  * @file GET /api/search
- * @description Snapshot-backed directory search endpoint
+ * @description Canonical contractor directory search endpoint
  */
 
 import { queryContractorSnapshots } from "@/server/utils/contractor-snapshot";
@@ -22,6 +22,9 @@ export default defineEventHandler(async (event) => {
       slug: row.slug,
       name: row.recipientName,
       recipientName: row.recipientName,
+      canonicalSlug: row.canonicalSlug,
+      aliasCount: row.aliasCount,
+      alternateRecipientNames: row.alternateRecipientNames,
       headquarters: null,
       defenseNewsRank: null,
       logoUrl: null,

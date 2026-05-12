@@ -9,12 +9,14 @@ import { z } from "zod";
 import type {
   AwardSummary,
   ContractorIntelligence,
+  ContractorSignal,
   AwardSearchIntent,
   AwardSearchPlan,
   IntelligenceBucket,
   IntelligenceFilter,
   RankingRow,
   SourceMetadata,
+  SourceLink,
   TrendPoint,
 } from "@/app/types/intelligence.types";
 import { getDb, schema } from "@/server/utils/db";
@@ -67,6 +69,22 @@ export const awardSearchPlanSchema = z
 export const PUBLIC_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 export const PROFILE_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 export const STALE_FALLBACK_MS = 14 * 24 * 60 * 60 * 1000;
+
+const contractorProfileRefreshes = new Map<string, Promise<void>>();
+
+export type CachedContractorIntelligenceStatus =
+  | "ready"
+  | "stale"
+  | "refreshing"
+  | "unavailable";
+
+export interface CachedContractorIntelligence {
+  status: CachedContractorIntelligenceStatus;
+  intelligence: ContractorIntelligence | null;
+  refreshedAt: string | null;
+  expiresAt: string | null;
+  warnings: string[];
+}
 
 export const rankingPresets = [
   {
@@ -310,9 +328,42 @@ export function createPlanHash(plan: unknown, query = ""): string {
 }
 
 export function formatMoney(value: number): string {
-  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
-  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(0)}M`;
-  return `$${Math.round(value).toLocaleString()}`;
+  const prefix = value < 0 ? "-$" : "$";
+  const absolute = Math.abs(value);
+  if (absolute >= 1_000_000_000) {
+    return `${prefix}${(absolute / 1_000_000_000).toFixed(1)}B`;
+  }
+  if (absolute >= 1_000_000) {
+    return `${prefix}${(absolute / 1_000_000).toFixed(0)}M`;
+  }
+  return `${prefix}${Math.round(absolute).toLocaleString()}`;
+}
+
+function formatPercent(value: number): string {
+  return `${Math.round(value * 100)}%`;
+}
+
+function unavailableSignal(
+  key: string,
+  label: string,
+  calculationWindow: string,
+  sourceFields: string[],
+  sourceLinks: SourceLink[],
+): ContractorSignal {
+  return {
+    key,
+    label,
+    status: "unavailable",
+    value: null,
+    explanation:
+      "Required public-data inputs are missing or insufficient for this signal.",
+    calculationWindow,
+    inputs: [],
+    sourceFields,
+    sourceLinks,
+    confidence: "low",
+    caveats: ["Unavailable is a data coverage state, not a negative judgment."],
+  };
 }
 
 export function planAwardSearchQuery(query: string): AwardSearchPlan {
@@ -365,34 +416,70 @@ export function planAwardSearchQuery(query: string): AwardSearchPlan {
   });
 }
 
+export async function getCachedContractorIntelligence(
+  slug: string,
+): Promise<CachedContractorIntelligence> {
+  const contractor = await getContractorProfileBySlug(slug);
+  const { queryHash } = contractorProfileCacheDescriptor(contractor);
+  const cached = await getIntelligenceCacheByHash(queryHash);
+  const refreshKey = normalizeContractorRefreshKey(contractor.slug);
+
+  if (!cached) {
+    return {
+      status: contractorProfileRefreshes.has(refreshKey)
+        ? "refreshing"
+        : "unavailable",
+      intelligence: null,
+      refreshedAt: null,
+      expiresAt: null,
+      warnings: [],
+    };
+  }
+
+  const isStale =
+    Date.now() - cached.refreshedAt.getTime() >= PROFILE_CACHE_TTL_MS;
+  const status = isStale ? "stale" : "ready";
+
+  return {
+    status,
+    intelligence: withContractorCacheStatus(
+      cached.result,
+      isStale ? "stale" : "cached",
+    ),
+    refreshedAt: cached.refreshedAt.toISOString(),
+    expiresAt: cached.expiresAt?.toISOString() ?? null,
+    warnings: cached.result.sourceMetadata.warnings,
+  };
+}
+
+export function enqueueContractorIntelligenceRefresh(
+  slug: string,
+  options: { forceRefresh?: boolean } = {},
+): boolean {
+  const refreshKey = normalizeContractorRefreshKey(slug);
+  if (contractorProfileRefreshes.has(refreshKey)) return false;
+
+  const refresh = getContractorIntelligenceLive(slug, {
+    forceRefresh: options.forceRefresh ?? true,
+  })
+    .then(() => undefined)
+    .catch(() => undefined)
+    .finally(() => {
+      contractorProfileRefreshes.delete(refreshKey);
+    });
+
+  contractorProfileRefreshes.set(refreshKey, refresh);
+  return true;
+}
+
 export async function getContractorIntelligenceLive(
   slug: string,
   options: { forceRefresh?: boolean } = {},
 ): Promise<ContractorIntelligence> {
-  const db = getDb();
-  const [contractor] = await db
-    .select()
-    .from(schema.contractor)
-    .where(eq(schema.contractor.slug, slug.toLowerCase()))
-    .limit(1);
-
-  if (!contractor) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: `Contractor "${slug}" not found`,
-    });
-  }
-
+  const contractor = await getContractorProfileBySlug(slug);
   const aliases = aliasesForContractor(contractor.slug, contractor.name);
-  const fiscalYears = getFiscalYears(5);
-  const plan = awardSearchPlanSchema.parse({
-    intent: "company_lookup",
-    contractors: [contractor.slug],
-    fiscalYears,
-    limit: 100,
-  });
-  const query = `contractor:${contractor.slug}:${fiscalYears.join(",")}`;
-  const queryHash = createPlanHash(plan, query);
+  const { fiscalYears, query, queryHash } =
+    contractorProfileCacheDescriptor(contractor);
   const cached = await getIntelligenceCacheByHash(queryHash);
 
   if (
@@ -596,6 +683,191 @@ export function compareContractors(slugs: string[]): ContractorIntelligence[] {
     .filter((item): item is ContractorIntelligence => Boolean(item));
 }
 
+export function buildContractorIntelligenceSignals(
+  intelligence: Omit<ContractorIntelligence, "signals">,
+  awards: AwardSummary[] = [],
+): ContractorSignal[] {
+  const windowLabel =
+    intelligence.sourceMetadata.filters
+      .filter(
+        (filter) =>
+          filter.kind === "fiscal_year" || filter.kind === "time_period",
+      )
+      .map((filter) => filter.label)
+      .join(", ") || "Current USAspending profile window";
+  const sourceLinks = intelligence.sourceLinks.slice(0, 3);
+  const totalObligations = intelligence.summary.totalObligations;
+  const signalSources = [
+    "USAspending award search",
+    "Normalized profile buckets",
+  ];
+
+  const concentrationSignal = (
+    key: string,
+    label: string,
+    bucket: IntelligenceBucket | null,
+    sourceFields: string[],
+  ): ContractorSignal => {
+    if (!bucket || totalObligations <= 0) {
+      return unavailableSignal(
+        key,
+        label,
+        windowLabel,
+        sourceFields,
+        sourceLinks,
+      );
+    }
+
+    const share = bucket.obligation / totalObligations;
+    const percent = formatPercent(share);
+    const status =
+      share >= 0.7 ? "concentrated" : share >= 0.45 ? "watch" : "healthy";
+
+    return {
+      key,
+      label,
+      status,
+      value: percent,
+      explanation: `${bucket.label} represents ${percent} of observed obligations in this profile window.`,
+      calculationWindow: windowLabel,
+      inputs: [
+        `total obligations: ${totalObligations}`,
+        `top bucket obligations: ${bucket.obligation}`,
+        ...signalSources,
+      ],
+      sourceFields,
+      sourceLinks,
+      confidence:
+        intelligence.sourceMetadata.structuredRecords > 0 ? "medium" : "low",
+      caveats: [
+        "Concentration describes observed public award activity; it is not a performance grade.",
+      ],
+    };
+  };
+
+  const trend = intelligence.yearlyTrend;
+  const previousYear = trend.at(-2);
+  const latestYear = trend.at(-1);
+  const awardTrendSignal: ContractorSignal =
+    previousYear && latestYear
+      ? {
+          key: "award-trend",
+          label: "Award trend",
+          status:
+            latestYear.obligation > previousYear.obligation * 1.1
+              ? "growing"
+              : latestYear.obligation < previousYear.obligation * 0.9
+                ? "declining"
+                : "stable",
+          value: formatMoney(latestYear.obligation - previousYear.obligation),
+          explanation: `Observed obligations changed from ${previousYear.label} to ${latestYear.label}.`,
+          calculationWindow: windowLabel,
+          inputs: [
+            `${previousYear.label}: ${previousYear.obligation}`,
+            `${latestYear.label}: ${latestYear.obligation}`,
+          ],
+          sourceFields: ["fiscalYear", "obligation"],
+          sourceLinks,
+          confidence: "medium",
+          caveats: [
+            "Recent-year obligations can lag because public award records continue to update.",
+          ],
+        }
+      : unavailableSignal(
+          "award-trend",
+          "Award trend",
+          windowLabel,
+          ["fiscalYear", "obligation"],
+          sourceLinks,
+        );
+
+  const competitionAwards = awards.filter((award) => award.awardType);
+  const competitiveAwards = competitionAwards.filter((award) =>
+    String(award.awardType).toLowerCase().includes("definitive"),
+  );
+  const competitionSignal: ContractorSignal = competitionAwards.length
+    ? {
+        key: "competition-exposure",
+        label: "Competition exposure",
+        status:
+          competitiveAwards.length / competitionAwards.length >= 0.5
+            ? "healthy"
+            : "watch",
+        value: formatPercent(
+          competitiveAwards.length / competitionAwards.length,
+        ),
+        explanation:
+          "Share of sampled awards that appear in competitive contract award-type categories.",
+        calculationWindow: windowLabel,
+        inputs: [
+          `sampled awards with award type: ${competitionAwards.length}`,
+          `competitive-looking awards: ${competitiveAwards.length}`,
+        ],
+        sourceFields: ["awardType"],
+        sourceLinks,
+        confidence: "low",
+        caveats: [
+          "Award type is a rough public-data proxy and does not fully describe solicitation competition.",
+        ],
+      }
+    : unavailableSignal(
+        "competition-exposure",
+        "Competition exposure",
+        windowLabel,
+        ["awardType"],
+        sourceLinks,
+      );
+
+  const freshnessSignal: ContractorSignal = {
+    key: "source-freshness",
+    label: "Source freshness",
+    status:
+      intelligence.sourceMetadata.cacheStatus === "stale" ||
+      intelligence.sourceMetadata.cacheStatus === "error"
+        ? "stale"
+        : "fresh",
+    value: intelligence.sourceMetadata.freshness,
+    explanation: `Profile data is marked ${intelligence.sourceMetadata.cacheStatus} from the USAspending-backed cache workflow.`,
+    calculationWindow: windowLabel,
+    inputs: [
+      `cache status: ${intelligence.sourceMetadata.cacheStatus}`,
+      `structured records: ${intelligence.sourceMetadata.structuredRecords}`,
+    ],
+    sourceFields: ["sourceMetadata.cacheStatus", "sourceMetadata.refreshedAt"],
+    sourceLinks,
+    confidence: "high",
+    caveats: intelligence.sourceMetadata.warnings.length
+      ? intelligence.sourceMetadata.warnings
+      : [
+          "Freshness reflects local cache timing, not an endorsement of data completeness.",
+        ],
+  };
+
+  return [
+    competitionSignal,
+    concentrationSignal(
+      "agency-concentration",
+      "Agency concentration",
+      intelligence.summary.topAgency,
+      ["awardingAgency", "obligation"],
+    ),
+    concentrationSignal(
+      "naics-concentration",
+      "NAICS concentration",
+      intelligence.summary.topNaics,
+      ["naicsCode", "naicsTitle", "obligation"],
+    ),
+    concentrationSignal(
+      "psc-concentration",
+      "PSC concentration",
+      intelligence.summary.topPsc,
+      ["pscCode", "pscTitle", "obligation"],
+    ),
+    awardTrendSignal,
+    freshnessSignal,
+  ];
+}
+
 function buildContractorIntelligence(
   contractor: ContractorIntelligence["contractor"],
   aliases: string[],
@@ -632,7 +904,7 @@ function buildContractorIntelligence(
   const currentYear = yearlyTrend.at(-1)?.obligation ?? null;
   const previousYear = yearlyTrend.at(-2)?.obligation ?? null;
 
-  return {
+  const intelligence = {
     contractor,
     summary: {
       totalObligations: awards.reduce(
@@ -681,6 +953,11 @@ function buildContractorIntelligence(
       warnings,
       "live",
     ),
+  } satisfies Omit<ContractorIntelligence, "signals">;
+
+  return {
+    ...intelligence,
+    signals: buildContractorIntelligenceSignals(intelligence, awards),
   };
 }
 
@@ -767,9 +1044,68 @@ function sourceMetadata(
   };
 }
 
+async function getContractorProfileBySlug(slug: string) {
+  const db = getDb();
+  const [contractor] = await db
+    .select()
+    .from(schema.contractor)
+    .where(eq(schema.contractor.slug, slug.toLowerCase()))
+    .limit(1);
+
+  if (!contractor) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: `Contractor "${slug}" not found`,
+    });
+  }
+
+  return contractor;
+}
+
+function contractorProfileCacheDescriptor(
+  contractor: typeof schema.contractor.$inferSelect,
+) {
+  const fiscalYears = getFiscalYears(5);
+  const plan = awardSearchPlanSchema.parse({
+    intent: "company_lookup",
+    contractors: [contractor.slug],
+    fiscalYears,
+    limit: 100,
+  });
+  const query = `contractor:${contractor.slug}:${fiscalYears.join(",")}`;
+  const queryHash = createPlanHash(plan, query);
+  return { fiscalYears, plan, query, queryHash };
+}
+
+function normalizeContractorRefreshKey(slug: string): string {
+  return slug.trim().toLowerCase();
+}
+
+function withContractorCacheStatus(
+  result: ContractorIntelligence,
+  cacheStatus: "cached" | "stale",
+): ContractorIntelligence {
+  const updated = {
+    ...result,
+    sourceMetadata: {
+      ...result.sourceMetadata,
+      cacheStatus,
+      warnings: formatUsaSpendingMessages(result.sourceMetadata.warnings),
+    },
+  };
+
+  return {
+    ...updated,
+    signals: updated.signals?.length
+      ? updated.signals
+      : buildContractorIntelligenceSignals(updated),
+  };
+}
+
 async function getIntelligenceCacheByHash(queryHash: string): Promise<{
   result: ContractorIntelligence;
   refreshedAt: Date;
+  expiresAt: Date | null;
 } | null> {
   const db = getDb();
   const [entry] = await db
@@ -787,8 +1123,14 @@ async function getIntelligenceCacheByHash(queryHash: string): Promise<{
     };
   }
   return {
-    result,
+    result: {
+      ...result,
+      signals: result.signals?.length
+        ? result.signals
+        : buildContractorIntelligenceSignals(result),
+    },
     refreshedAt: entry.refreshedAt,
+    expiresAt: entry.expiresAt ?? null,
   };
 }
 

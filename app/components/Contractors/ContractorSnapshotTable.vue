@@ -1,6 +1,6 @@
 <!--
   @file ContractorSnapshotTable
-  @description Server-backed contractor recipient directory table
+  @description Server-backed canonical contractor directory table
 -->
 
 <script setup lang="ts">
@@ -15,6 +15,7 @@ import {
 interface ContractorSnapshotRow {
   id: string;
   slug: string;
+  canonicalSlug: string;
   recipientName: string;
   recipientUei: string | null;
   recipientCode: string | null;
@@ -29,6 +30,8 @@ interface ContractorSnapshotRow {
   topPscTitle: string | null;
   sourceUrl: string;
   refreshedAt: string;
+  aliasCount: number;
+  alternateRecipientNames: string[];
 }
 
 interface SourceMetadata {
@@ -87,7 +90,7 @@ const pagination = ref<PaginationState>({
 });
 
 const columns: ColumnDef<ContractorSnapshotRow>[] = [
-  { accessorKey: "recipientName", header: "Recipient" },
+  { accessorKey: "recipientName", header: "Contractor" },
   { accessorKey: "totalObligations36m", header: "Obligations" },
   { accessorKey: "awardCount36m", header: "Awards" },
   { accessorKey: "topAwardingSubagency", header: "Top Agency" },
@@ -280,7 +283,7 @@ const sourceLabel = computed(() => {
       <Input
         v-model="searchInput"
         class="h-10 rounded-none"
-        placeholder="Search recipient, UEI, or code"
+        placeholder="Search contractor, alternate recipient, UEI, or code"
       />
       <Input v-model="agency" class="h-10 rounded-none" placeholder="Agency" />
       <Input v-model="naics" class="h-10 rounded-none" placeholder="NAICS" />
@@ -313,7 +316,7 @@ const sourceLabel = computed(() => {
           <span class="font-medium tabular-nums">{{
             total.toLocaleString()
           }}</span>
-          active DoD recipient records
+          canonical active DoD contractors
         </p>
       </div>
       <div v-if="!preview" class="flex items-center gap-2">
@@ -357,10 +360,10 @@ const sourceLabel = computed(() => {
           <Icon name="mdi:database-off-outline" class="size-5" />
         </EmptyMedia>
         <EmptyContent>
-          <EmptyTitle>No Snapshot Rows</EmptyTitle>
+          <EmptyTitle>No Contractor Groups</EmptyTitle>
           <EmptyDescription>
             Run the USAspending recipient snapshot refresh to populate the
-            directory.
+            canonical contractor directory.
           </EmptyDescription>
         </EmptyContent>
       </Empty>
@@ -386,7 +389,7 @@ const sourceLabel = computed(() => {
                 :class="{ 'text-foreground': isActiveSort('recipientName') }"
                 @click="setSort('recipientName')"
               >
-                Recipient
+                Contractor
                 <Icon
                   v-if="activeSortDir('recipientName')"
                   :name="
@@ -501,6 +504,13 @@ const sourceLabel = computed(() => {
                     ? `UEI ${row.original.recipientUei}`
                     : row.original.recipientCode || row.original.slug
                 }}
+              </p>
+              <p
+                v-if="row.original.aliasCount > 1"
+                class="text-muted-foreground mt-1 text-[11px]"
+              >
+                {{ row.original.aliasCount.toLocaleString() }} USAspending
+                recipient names
               </p>
             </TableCell>
             <TableCell class="text-right align-top font-medium tabular-nums">

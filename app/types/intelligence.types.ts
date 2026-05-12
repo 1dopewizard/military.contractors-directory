@@ -47,6 +47,31 @@ export interface SourceMetadata {
   warnings: string[];
 }
 
+export type ContractorSignalStatus =
+  | "healthy"
+  | "watch"
+  | "concentrated"
+  | "growing"
+  | "declining"
+  | "stable"
+  | "fresh"
+  | "stale"
+  | "unavailable";
+
+export interface ContractorSignal {
+  key: string;
+  label: string;
+  status: ContractorSignalStatus;
+  value: string | null;
+  explanation: string;
+  calculationWindow: string;
+  inputs: string[];
+  sourceFields: string[];
+  sourceLinks: SourceLink[];
+  confidence: "high" | "medium" | "low";
+  caveats: string[];
+}
+
 export interface AwardSummary {
   key: string;
   awardId: string;
@@ -158,4 +183,5 @@ export interface ContractorIntelligence {
   topPsc: IntelligenceBucket[];
   sourceLinks: SourceLink[];
   sourceMetadata: SourceMetadata;
+  signals: ContractorSignal[];
 }

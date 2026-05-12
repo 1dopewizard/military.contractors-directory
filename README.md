@@ -1,12 +1,27 @@
 # military.contractors
 
-Searchable database of companies and recipients receiving U.S. Department of Defense contract awards.
+Searchable directory of companies receiving U.S. Department of Defense contract awards.
 
 ## Product
 
-`military.contractors` is database-first. The primary product surface is a fast server-backed table of Department of Defense-awarded USAspending contract recipients active in the trailing 36 months. Recipient rows link to source-backed profiles with obligations, award counts, agency buckets, NAICS buckets, PSC buckets, recent awards, trends, and public USAspending links.
+`military.contractors` is directory-first. The primary product surface is a fast server-backed table of Department of Defense contractors active in the trailing 36 months, sourced from USAspending.gov. Public results are grouped conservatively so one canonical contractor profile is listed while alternate USAspending recipient names remain visible on the detail page with identifiers, obligations, award counts, and source links.
 
-Rankings, agencies, categories, topics, and compare pages remain secondary database views over the same source-backed contractor dataset.
+Rankings and agency views remain secondary database lenses. Topics, comparisons, claimed profiles, teaming discovery, and institutional workflows are deferred until the directory foundation is complete and trusted.
+
+## Product Direction
+
+The current v1 product is the searchable, source-backed contractor directory. The long-term product direction is a public intelligence layer for the defense industrial base after the directory foundation is stable:
+
+1. **Directory foundation** - complete, fresh, source-linked DoD contractor coverage with canonical groups and visible alternate USAspending recipient names.
+2. **Profile intelligence** - richer profile context, trends, identifiers, categories, and relationship evidence.
+3. **Transparent signals** - explainable indicators such as competition exposure, agency concentration, award trend, category concentration, and source freshness. These are not A-F grades in the initial rollout.
+4. **Claimed profiles** - contractor-provided capabilities and correction requests that remain visibly separate from public USAspending facts.
+5. **Teaming discovery** - discovery workflows that help primes and small businesses find relevant partners using public activity and verified profile context.
+6. **Institutional access** - bulk data, monitoring, exports, and reports for analysts, investors, journalists, consultants, and oversight users.
+
+Future commercial features must preserve source-backed trust: public award facts cannot be pay-to-edit, corrections are not a paid product, and visibility cannot mean paid score improvement.
+
+See `docs/plans/2026-05-10-001-feat-contractor-intelligence-roadmap-plan.md`, `docs/contractor-intelligence-signals.md`, and `docs/premium-institutional-access-plan.md` for the phased roadmap and methodology constraints.
 
 ## Data Scope
 
@@ -20,27 +35,26 @@ Rankings, agencies, categories, topics, and compare pages remain secondary datab
 | Refresh         | Daily scheduled snapshot plus manual admin refresh |
 | Storage         | libSQL/SQLite via Drizzle ORM                      |
 
-Curated `contractor` records are retained as enrichment overlays for known companies. Raw USAspending recipient rows live in `contractorSnapshot` and are the canonical directory dataset.
+Curated `contractor` records are retained as enrichment overlays for known companies. Raw USAspending recipient rows remain preserved in `contractorSnapshot`; public directory results are derived into `contractorDirectoryGroup` and `contractorDirectoryAlias` without fuzzy name-only merges.
 
 ## Pages
 
-| URL                                   | Purpose                                                                |
-| ------------------------------------- | ---------------------------------------------------------------------- |
-| `/`                                   | Database homepage with search, stats, and full table preview           |
-| `/companies`                          | Verified recipient directory with search, filters, sorting, pagination |
-| `/companies/[slug]`                   | Contractor profile with award evidence and curated overlay             |
-| `/rankings/[presetSlug]`              | Saved ranking lenses                                                   |
-| `/agencies`, `/agencies/[agencySlug]` | Agency research surfaces                                               |
-| `/categories/[kind]/[code]`           | NAICS/PSC research surfaces                                            |
-| `/topics/[topicSlug]`                 | Topic research surfaces                                                |
-| `/compare`                            | Known-contractor comparison                                            |
-| `/admin`                              | Admin tools, including snapshot refresh                                |
+| URL                                   | Purpose                                                                  |
+| ------------------------------------- | ------------------------------------------------------------------------ |
+| `/`                                   | Directory homepage with search, stats, and table preview                 |
+| `/companies`                          | Canonical contractor directory with search, filters, sorting, pagination |
+| `/companies/[slug]`                   | Canonical contractor profile with alternate USAspending names            |
+| `/rankings/[presetSlug]`              | Secondary saved ranking lenses                                           |
+| `/agencies`, `/agencies/[agencySlug]` | Secondary agency research surfaces                                       |
+| `/admin`                              | Admin tools, including snapshot refresh                                  |
+
+Deferred routes and workflows such as topics, comparisons, claims, corrections, teaming discovery, and institutional access may remain in code but are not the primary public v1 product surface.
 
 ## API
 
 ### `GET /api/contractors`
 
-Snapshot-backed directory query.
+Canonical grouped directory query.
 
 Query params:
 
@@ -67,7 +81,31 @@ Response:
 
 ### `GET /api/contractors/[slug]`
 
-Returns the snapshot row, optional curated company overlay, and on-demand USAspending profile intelligence.
+Returns the fast local profile shell from the canonical directory group plus optional curated company overlay. Alias slugs resolve to the canonical profile and include `directoryAliases`. This endpoint does not call USAspending live; `intelligence` is returned as `null` and detailed award intelligence is loaded separately.
+
+### `GET /api/contractors/[slug]/intelligence`
+
+Returns cached award-level intelligence using stale-while-revalidate behavior.
+
+Response:
+
+```json
+{
+  "status": "ready",
+  "intelligence": null,
+  "refreshedAt": null,
+  "expiresAt": null,
+  "refreshQueued": false,
+  "warnings": []
+}
+```
+
+Statuses:
+
+- `ready` - fresh cached intelligence returned
+- `stale` - stale cached intelligence returned while a background refresh is queued
+- `refreshing` - no cached intelligence is available yet and a background refresh is queued or running
+- `unavailable` - no cached intelligence is available
 
 ### `POST /api/admin/contractor-snapshot/refresh`
 
@@ -114,14 +152,14 @@ pnpm db:studio
 
 ## Tech Stack
 
-| Layer     | Technology                                                           |
-| --------- | -------------------------------------------------------------------- |
-| Framework | Nuxt 4                                                               |
-| UI        | shadcn-vue, Tailwind CSS, TanStack Vue Table                         |
-| Database  | libSQL/SQLite via Drizzle ORM                                        |
-| Auth      | Better Auth                                                          |
-| Search    | SQLite filters for snapshot rows; USAspending API for source refresh |
-| Testing   | Vitest                                                               |
+| Layer     | Technology                                                                           |
+| --------- | ------------------------------------------------------------------------------------ |
+| Framework | Nuxt 4                                                                               |
+| UI        | shadcn-vue, Tailwind CSS, TanStack Vue Table                                         |
+| Database  | libSQL/SQLite via Drizzle ORM                                                        |
+| Auth      | Better Auth                                                                          |
+| Search    | SQLite filters over canonical groups and aliases; USAspending API for source refresh |
+| Testing   | Vitest                                                                               |
 
 ## Development
 
@@ -135,19 +173,24 @@ Verification:
 
 ```bash
 pnpm test:run
-pnpm build
+pnpm format:check
 ```
 
 ## Key Paths
 
-| Purpose            | Path                                                     |
-| ------------------ | -------------------------------------------------------- |
-| Snapshot schema    | `server/database/schema/snapshot.ts`                     |
-| Snapshot service   | `server/utils/contractor-snapshot.ts`                    |
-| Directory API      | `server/api/contractors/index.get.ts`                    |
-| Profile API        | `server/api/contractors/[slug].get.ts`                   |
-| Intelligence logic | `server/utils/intelligence.ts`                           |
-| Manual refresh API | `server/api/admin/contractor-snapshot/refresh.post.ts`   |
-| Scheduled task     | `server/tasks/contractor-snapshot-refresh.ts`            |
-| Table component    | `app/components/Contractors/ContractorSnapshotTable.vue` |
-| Front page         | `app/pages/index.vue`                                    |
+| Purpose                  | Path                                                                     |
+| ------------------------ | ------------------------------------------------------------------------ |
+| Snapshot schema          | `server/database/schema/snapshot.ts`                                     |
+| Snapshot service         | `server/utils/contractor-snapshot.ts`                                    |
+| Directory API            | `server/api/contractors/index.get.ts`                                    |
+| Profile API              | `server/api/contractors/[slug].get.ts`                                   |
+| Profile intelligence API | `server/api/contractors/[slug]/intelligence.get.ts`                      |
+| Intelligence logic       | `server/utils/intelligence.ts`                                           |
+| Manual refresh API       | `server/api/admin/contractor-snapshot/refresh.post.ts`                   |
+| Scheduled task           | `server/tasks/contractor-snapshot-refresh.ts`                            |
+| Table component          | `app/components/Contractors/ContractorSnapshotTable.vue`                 |
+| Front page               | `app/pages/index.vue`                                                    |
+| Companies directory page | `app/pages/companies/index.vue`                                          |
+| Product roadmap          | `docs/plans/2026-05-10-001-feat-contractor-intelligence-roadmap-plan.md` |
+| Signal methodology       | `docs/contractor-intelligence-signals.md`                                |
+| Premium access plan      | `docs/premium-institutional-access-plan.md`                              |

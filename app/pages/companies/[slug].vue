@@ -1,7 +1,7 @@
 <!--
   @file Company profile page
   @route /companies/[slug]
-  @description Contractor intelligence dossier with source-backed award context first
+  @description Canonical contractor profile with source-backed award context and alternate USAspending names
 -->
 
 <script setup lang="ts">
@@ -18,6 +18,9 @@ definePageMeta({
 interface ContractorResponse {
   id: string;
   slug: string;
+  canonicalSlug: string;
+  requestedSlug: string;
+  isAliasSlug: boolean;
   name: string;
   recipientName: string | null;
   normalizedName: string | null;
@@ -67,6 +70,34 @@ interface ContractorResponse {
     icon: string | null;
     isPrimary: boolean;
   } | null;
+  directoryAliases: Array<{
+    id: string;
+    groupId: string;
+    snapshotId: string;
+    slug: string;
+    recipientName: string;
+    normalizedName: string;
+    recipientUei: string | null;
+    recipientCode: string | null;
+    totalObligations36m: number;
+    awardCount36m: number;
+    lastAwardDate: string | null;
+    sourceUrl: string;
+    isCanonical: boolean;
+    matchReason:
+      | "single_snapshot"
+      | "shared_identifier"
+      | "shared_name"
+      | "curated_alias";
+    matchKey: string;
+  }>;
+  alternateRecipientNames: string[];
+  directoryGroup: {
+    id: string;
+    slug: string;
+    canonicalName: string;
+    aliasCount: number;
+  } | null;
   locations: Array<{
     id: string;
     city: string | null;
@@ -101,9 +132,19 @@ interface ContractorResponse {
     name: string;
     description: string | null;
   } | null;
-  intelligence: ContractorIntelligence;
+  intelligence: ContractorIntelligence | null;
+  intelligenceStatus: "separate_endpoint";
   createdAt: string | null;
   updatedAt: string | null;
+}
+
+interface ProfileIntelligenceResponse {
+  status: "ready" | "stale" | "refreshing" | "unavailable";
+  intelligence: ContractorIntelligence | null;
+  refreshedAt: string | null;
+  expiresAt: string | null;
+  refreshQueued: boolean;
+  warnings: string[];
 }
 
 const config = useRuntimeConfig();
@@ -123,7 +164,24 @@ const {
   },
 );
 
-const intelligence = computed(() => contractor.value?.intelligence ?? null);
+const {
+  data: intelligenceResponse,
+  pending: isIntelligenceLoading,
+  error: intelligenceError,
+} = useFetch<ProfileIntelligenceResponse>(
+  () => `/api/contractors/${slug.value}/intelligence`,
+  {
+    lazy: true,
+    watch: [slug],
+  },
+);
+
+const intelligence = computed(
+  () =>
+    intelligenceResponse.value?.intelligence ??
+    contractor.value?.intelligence ??
+    null,
+);
 
 const stockExchange = computed(() => {
   if (!contractor.value?.stockTicker) return null;
@@ -140,7 +198,39 @@ const yahooFinanceUrl = computed(() => {
 
 const headlineMetrics = computed(() => {
   const summary = intelligence.value?.summary;
-  if (!summary) return [];
+  if (!summary) {
+    const profile = contractor.value;
+    if (!profile) return [];
+
+    return [
+      {
+        label: "Obligations",
+        value: formatIntelligenceMoney(profile.totalObligations36m ?? 0),
+        detail: "Snapshot aggregate",
+      },
+      {
+        label: "Awards",
+        value: (profile.awardCount36m ?? 0).toLocaleString(),
+        detail: "Trailing 36 months",
+      },
+      {
+        label: "Top agency",
+        value:
+          profile.topAwardingSubagency || profile.topAwardingAgency || "N/A",
+        detail: profile.topAwardingAgency ?? null,
+      },
+      {
+        label: "Top NAICS",
+        value: profile.topNaicsCode || "N/A",
+        detail: profile.topNaicsTitle ?? null,
+      },
+      {
+        label: "Freshness",
+        value: intelligenceStatusLabel.value,
+        detail: profile.refreshedAt ? "Snapshot available" : null,
+      },
+    ];
+  }
 
   return [
     {
@@ -182,22 +272,172 @@ const headlineMetrics = computed(() => {
 
 const agencyRows = computed(() => {
   const intel = intelligence.value;
-  if (!intel) return [];
-  return (
-    intel.topSubAgencies?.length
-      ? intel.topSubAgencies
-      : (intel.topAgencies ?? [])
-  ).slice(0, 6);
+  if (intel) {
+    return (
+      intel.topSubAgencies?.length
+        ? intel.topSubAgencies
+        : (intel.topAgencies ?? [])
+    ).slice(0, 6);
+  }
+
+  const profile = contractor.value;
+  const key = profile?.topAwardingSubagency || profile?.topAwardingAgency;
+  if (!profile || !key) return [];
+  return [
+    {
+      key,
+      label: key,
+      obligation: profile.totalObligations36m ?? 0,
+      awardCount: profile.awardCount36m ?? 0,
+    },
+  ];
 });
 
-const naicsRows = computed(() =>
-  (intelligence.value?.topNaics ?? []).slice(0, 6),
-);
-const pscRows = computed(() => (intelligence.value?.topPsc ?? []).slice(0, 6));
+const naicsRows = computed(() => {
+  if (intelligence.value?.topNaics?.length) {
+    return intelligence.value.topNaics.slice(0, 6);
+  }
 
-const linkedRecipients = computed(
-  () => intelligence.value?.linkedRecipients ?? [],
+  const profile = contractor.value;
+  if (!profile?.topNaicsCode) return [];
+  return [
+    {
+      key: profile.topNaicsCode,
+      label: profile.topNaicsTitle ?? `NAICS ${profile.topNaicsCode}`,
+      obligation: profile.totalObligations36m ?? 0,
+      awardCount: profile.awardCount36m ?? 0,
+    },
+  ];
+});
+const pscRows = computed(() => {
+  if (intelligence.value?.topPsc?.length) {
+    return intelligence.value.topPsc.slice(0, 6);
+  }
+
+  const profile = contractor.value;
+  if (!profile?.topPscCode) return [];
+  return [
+    {
+      key: profile.topPscCode,
+      label: profile.topPscTitle ?? `PSC ${profile.topPscCode}`,
+      obligation: profile.totalObligations36m ?? 0,
+      awardCount: profile.awardCount36m ?? 0,
+    },
+  ];
+});
+
+const directoryAliases = computed(
+  () => contractor.value?.directoryAliases ?? [],
 );
+
+const alternateDirectoryAliases = computed(() =>
+  directoryAliases.value.filter((alias) => !alias.isCanonical),
+);
+
+const linkedRecipients = computed(() => {
+  if (directoryAliases.value.length > 0) {
+    return directoryAliases.value.map((alias) => ({
+      name: alias.recipientName,
+      uei: alias.recipientUei,
+      code: alias.recipientCode,
+      awardCount: alias.awardCount36m,
+      obligations: alias.totalObligations36m,
+      sourceUrl: alias.sourceUrl,
+      isCanonical: alias.isCanonical,
+    }));
+  }
+
+  if (intelligence.value?.linkedRecipients?.length) {
+    return intelligence.value.linkedRecipients.map((recipient) => ({
+      name: recipient.name,
+      uei: recipient.uei,
+      code: null,
+      awardCount: recipient.awardCount,
+      obligations: recipient.obligations,
+      sourceUrl: null,
+      isCanonical: false,
+    }));
+  }
+
+  return contractor.value
+    ? [
+        {
+          name: contractor.value.name,
+          uei: contractor.value.recipientUei,
+          code: contractor.value.recipientCode,
+          awardCount: contractor.value.awardCount36m ?? 0,
+          obligations: contractor.value.totalObligations36m ?? 0,
+          sourceUrl: contractor.value.sourceUrl,
+          isCanonical: true,
+        },
+      ]
+    : [];
+});
+
+const intelligenceStatus = computed<ProfileIntelligenceResponse["status"]>(
+  () => {
+    if (isIntelligenceLoading.value && !intelligence.value) return "refreshing";
+    return intelligenceResponse.value?.status ?? "unavailable";
+  },
+);
+
+const intelligenceStatusLabel = computed(() => {
+  const labels: Record<ProfileIntelligenceResponse["status"], string> = {
+    ready: "cached",
+    stale: "stale",
+    refreshing: "refreshing",
+    unavailable: "snapshot",
+  };
+  return labels[intelligenceStatus.value];
+});
+
+const intelligenceFreshness = computed(
+  () =>
+    intelligence.value?.sourceMetadata?.cacheStatus ??
+    intelligenceStatusLabel.value,
+);
+
+const contractorSignals = computed(() => intelligence.value?.signals ?? []);
+
+const showIntelligenceNotice = computed(
+  () =>
+    !!intelligenceError.value ||
+    !intelligence.value ||
+    intelligenceStatus.value === "stale" ||
+    intelligenceStatus.value === "refreshing",
+);
+
+const intelligenceNotice = computed(() => {
+  if (intelligenceError.value) {
+    return {
+      title: "Detailed intelligence is unavailable",
+      detail:
+        "The source-backed profile shell is available. Detailed award intelligence will be retried from the local cache workflow.",
+    };
+  }
+
+  if (intelligenceStatus.value === "stale" && intelligence.value) {
+    return {
+      title: "Showing cached intelligence",
+      detail:
+        "Detailed award intelligence is being refreshed in the background. Snapshot totals remain available while the cache updates.",
+    };
+  }
+
+  if (intelligenceStatus.value === "refreshing") {
+    return {
+      title: "Detailed intelligence is refreshing",
+      detail:
+        "This page is served from the local snapshot now. Award-level breakdowns will appear after the USAspending cache is warmed.",
+    };
+  }
+
+  return {
+    title: "Snapshot profile loaded",
+    detail:
+      "Award-level intelligence has not been cached yet. The profile remains available from the local USAspending recipient snapshot.",
+  };
+});
 
 useHead(() => {
   if (!contractor.value) return {};
@@ -207,7 +447,7 @@ useHead(() => {
     link: [
       {
         rel: "canonical",
-        href: `${config.public.siteUrl}/companies/${slug.value}`,
+        href: `${config.public.siteUrl}/companies/${contractor.value.canonicalSlug}`,
       },
     ],
     meta: [
@@ -220,6 +460,7 @@ useHead(() => {
       {
         name: "robots",
         content:
+          contractor.value.snapshot ||
           (intelligence.value?.sourceMetadata.structuredRecords ?? 0) > 0
             ? "index, follow"
             : "noindex",
@@ -272,14 +513,11 @@ watchEffect(() => {
     <div v-else>
       <DirectoryBreadcrumb
         :extra="[{ label: contractor.name }]"
-        :freshness="intelligence?.sourceMetadata?.cacheStatus || null"
+        :freshness="intelligenceFreshness"
       />
 
       <DirectoryPageHeader eyebrow="Contractor" :title="contractor.name">
         <template #actions>
-          <NuxtLink :to="`/compare?contractors=${contractor.slug}`">
-            <Button variant="outline" size="sm">Compare</Button>
-          </NuxtLink>
           <NuxtLink
             v-if="contractor.website"
             :to="contractor.website"
@@ -299,6 +537,26 @@ watchEffect(() => {
       />
 
       <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <section
+          v-if="showIntelligenceNotice"
+          class="border-border bg-muted/20 mb-10 border-l-2 px-4 py-3"
+        >
+          <div class="flex items-start gap-3">
+            <Icon
+              name="mdi:database-clock-outline"
+              class="text-primary mt-0.5 h-4 w-4 shrink-0"
+            />
+            <div>
+              <h2 class="text-foreground text-sm font-semibold">
+                {{ intelligenceNotice.title }}
+              </h2>
+              <p class="text-muted-foreground mt-1 text-sm leading-relaxed">
+                {{ intelligenceNotice.detail }}
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section v-if="intelligence?.yearlyTrend?.length">
           <h2
             class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
@@ -496,6 +754,13 @@ watchEffect(() => {
           </ul>
         </section>
 
+        <ContractorSignalPanel
+          v-if="contractorSignals.length"
+          class="mt-12"
+          :signals="contractorSignals"
+          :warnings="intelligence?.sourceMetadata?.warnings ?? []"
+        />
+
         <section
           v-if="intelligence?.recentAwards?.length"
           class="border-border mt-12 border-t pt-10"
@@ -578,13 +843,17 @@ watchEffect(() => {
             <div class="space-y-8">
               <dl class="grid gap-x-8 gap-y-4 sm:grid-cols-2">
                 <div>
-                  <dt class="text-muted-foreground text-xs">Recipient name</dt>
+                  <dt class="text-muted-foreground text-xs">
+                    Canonical contractor name
+                  </dt>
                   <dd class="text-foreground mt-1 text-sm font-medium">
                     {{ contractor.name }}
                   </dd>
                 </div>
                 <div>
-                  <dt class="text-muted-foreground text-xs">Directory slug</dt>
+                  <dt class="text-muted-foreground text-xs">
+                    Canonical directory slug
+                  </dt>
                   <dd class="text-foreground mt-1 font-mono text-xs">
                     {{ contractor.slug }}
                   </dd>
@@ -592,7 +861,11 @@ watchEffect(() => {
                 <div>
                   <dt class="text-muted-foreground text-xs">UEI</dt>
                   <dd class="text-foreground mt-1 font-mono text-xs">
-                    {{ intelligence?.identifiers?.uei || "N/A" }}
+                    {{
+                      intelligence?.identifiers?.uei ||
+                      contractor.recipientUei ||
+                      "N/A"
+                    }}
                   </dd>
                 </div>
                 <div>
@@ -607,40 +880,53 @@ watchEffect(() => {
                 </div>
               </dl>
 
-              <div v-if="intelligence?.aliases?.length">
-                <p class="text-muted-foreground mb-2 text-xs">Aliases</p>
-                <div class="flex flex-wrap gap-2">
-                  <Badge
-                    v-for="alias in intelligence.aliases"
-                    :key="alias"
-                    variant="outline"
-                    class="text-xs"
-                  >
-                    {{ alias }}
-                  </Badge>
-                </div>
+              <div v-if="contractor.isAliasSlug">
+                <p class="text-muted-foreground text-sm">
+                  This URL matched an alternate USAspending recipient slug and
+                  resolves to the canonical contractor profile.
+                </p>
               </div>
 
-              <div v-if="linkedRecipients.length > 1">
+              <div v-if="alternateDirectoryAliases.length > 0">
                 <p class="text-muted-foreground mb-2 text-xs">
-                  Linked USAspending recipients
+                  USAspending recipient names
                 </p>
                 <ul class="divide-border/50 divide-y text-sm">
                   <li
                     v-for="recipient in linkedRecipients"
-                    :key="`${recipient.name}-${recipient.uei}`"
+                    :key="`${recipient.name}-${recipient.uei || recipient.code || recipient.sourceUrl}`"
                     class="flex items-start justify-between gap-4 py-2 first:pt-0"
                   >
                     <div class="min-w-0">
-                      <p class="text-foreground font-medium">
-                        {{ recipient.name }}
-                      </p>
+                      <div class="flex flex-wrap items-center gap-2">
+                        <p class="text-foreground font-medium">
+                          {{ recipient.name }}
+                        </p>
+                        <Badge
+                          v-if="recipient.isCanonical"
+                          variant="outline"
+                          class="text-[10px]"
+                        >
+                          Canonical
+                        </Badge>
+                      </div>
                       <p
-                        v-if="recipient.uei"
+                        v-if="recipient.uei || recipient.code"
                         class="text-muted-foreground mt-0.5 font-mono text-[11px]"
                       >
-                        UEI {{ recipient.uei }}
+                        {{ recipient.uei ? `UEI ${recipient.uei}` : "" }}
+                        {{ recipient.code ? `Code ${recipient.code}` : "" }}
                       </p>
+                      <NuxtLink
+                        v-if="recipient.sourceUrl"
+                        :to="recipient.sourceUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-primary mt-1 inline-flex items-center gap-1 text-xs hover:underline"
+                      >
+                        USAspending source
+                        <Icon name="mdi:open-in-new" class="h-3 w-3" />
+                      </NuxtLink>
                     </div>
                     <div class="shrink-0 text-right">
                       <p class="text-foreground font-medium tabular-nums">
@@ -841,6 +1127,30 @@ watchEffect(() => {
             :metadata="intelligence.sourceMetadata"
             :source-links="intelligence.sourceLinks ?? []"
           />
+        </section>
+        <section
+          v-else-if="contractor.sourceUrl"
+          class="border-border mt-12 border-t pt-10"
+        >
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Source
+          </h2>
+          <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+            This profile shell is served from the local contractor snapshot.
+            Detailed award intelligence is refreshed asynchronously from
+            USAspending.gov.
+          </p>
+          <NuxtLink
+            :to="contractor.sourceUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-primary mt-3 inline-flex items-center gap-1 text-sm hover:underline"
+          >
+            View USAspending source
+            <Icon name="mdi:open-in-new" class="h-3 w-3" />
+          </NuxtLink>
         </section>
       </div>
     </div>

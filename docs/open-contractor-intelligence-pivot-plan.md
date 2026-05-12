@@ -2,27 +2,27 @@
 
 ## Summary
 
-Focus `military.contractors` on a simple, source-backed database of companies and recipients that received U.S. Department of Defense contract awards in the trailing 36 months.
+Focus `military.contractors` on a simple, source-backed directory of companies that received U.S. Department of Defense contract awards in the trailing 36 months.
 
 ## Product Thesis
 
-The MVP should make the public DoD contractor recipient universe easy to search, sort, filter, inspect, and verify. AI analyst workflows, community features, feeds, watchlists, exports, alerts, and monetization are deferred until the database itself is complete and trusted.
+The MVP should make the public DoD contractor universe easy to search, sort, filter, inspect, and verify. Public results should show one canonical contractor profile while preserving alternate USAspending recipient names on the detail page. AI analyst workflows, community features, feeds, watchlists, exports, alerts, and monetization are deferred until the directory itself is complete and trusted.
 
 Primary promise:
 
-> The searchable database of companies receiving U.S. Department of Defense contract awards.
+> The searchable directory of companies receiving U.S. Department of Defense contract awards.
 
 ## Key Changes
 
-- Position `/` as the database homepage, not an AI analyst or news-feed surface.
-- Keep the directory foundation: `/`, `/companies/[slug]`, contractor APIs, sitemap, auth/admin scaffolding, and refresh tooling.
-- Keep rankings, agencies, categories, topics, and compare as secondary database views when they are source-backed and easy to verify.
+- Position `/` as the directory homepage, not an AI analyst or news-feed surface.
+- Keep the directory foundation: `/`, `/companies`, `/companies/[slug]`, contractor APIs, sitemap, auth/admin scaffolding, and refresh tooling.
+- Keep rankings and agencies as secondary database views when they are source-backed and easy to verify; topics, comparisons, teaming, claims, and institutional access are deferred from primary positioning.
 - Remove public explorer, analyst workbench, feed, watchlist, briefing, and community positioning from active UI and docs.
 - Never present narrative as a substitute for structured records, source links, filters, and freshness metadata.
 
 ## Data Foundation
 
-The canonical broad dataset is `contractorSnapshot`: one row per USAspending recipient in the active trailing 36-month DoD-awarded contract window.
+The raw broad dataset is `contractorSnapshot`: one row per USAspending recipient in the active trailing 36-month DoD-awarded contract window. The public directory is derived into canonical `contractorDirectoryGroup` rows and `contractorDirectoryAlias` rows. Raw snapshot rows remain preserved and regenerable.
 
 Supporting profile intelligence may cache award-level records and rollups for profile/ranking pages:
 
@@ -76,11 +76,11 @@ Secondary database-view APIs may remain when source-backed:
 
 ## Phases
 
-### Phase 1: Database MVP Shell
+### Phase 1: Directory MVP Shell
 
-- Update README, PRD, homepage, about, navigation, and sitemap copy around the database-first product.
-- Remove `/explorer` from public routes, navigation, global search, sitemap, and admin tools.
-- Keep source-backed contractor profiles and database views.
+- Update README, PRD, homepage, `/companies`, navigation, and sitemap copy around the directory-first product.
+- Remove `/explorer` and future-feature surfaces from public navigation, global search, and sitemap priority.
+- Keep source-backed contractor profiles and secondary database views without making them the primary product promise.
 
 ### Phase 2: Completeness and Freshness
 
@@ -90,7 +90,7 @@ Secondary database-view APIs may remain when source-backed:
 
 ### Phase 3: Profile Quality
 
-- Improve recipient/company profile evidence: recent awards, top agencies, NAICS/PSC, identifiers, aliases, and USAspending links.
+- Improve contractor profile evidence: recent awards, top agencies, NAICS/PSC, identifiers, alternate USAspending recipient names, and USAspending links.
 - Preserve curated overlays only as enrichment.
 
 ### Phase 4: SEO and Durable Database Pages
@@ -103,4 +103,4 @@ Secondary database-view APIs may remain when source-backed:
 - Unit tests for USAspending filter construction, snapshot normalization, and aggregation math.
 - API tests for stable contractor/search/ranking shapes and cache reuse.
 - UI tests for homepage table, profile evidence, loading, empty, and error states.
-- Verification commands: `pnpm test:run`, `pnpm build`, `pnpm db:generate`, `pnpm db:migrate` against local development data.
+- Verification commands: `pnpm test:run`, `pnpm format:check`, `pnpm db:generate`, `pnpm db:migrate` against local development data.

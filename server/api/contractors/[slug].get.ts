@@ -5,21 +5,14 @@
 
 import { getDb, schema } from "@/server/utils/db";
 import {
+  getContractorDirectoryProfileBySlug,
   getContractorSnapshotBySlug,
   getCuratedContractorOverlay,
-  getSnapshotProfileIntelligence,
 } from "@/server/utils/contractor-snapshot";
-import { getContractorIntelligenceLive } from "@/server/utils/intelligence";
 import { eq } from "drizzle-orm";
-import { z } from "zod";
-
-const querySchema = z.object({
-  refresh: z.coerce.boolean().optional().default(false),
-});
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, "slug");
-  const query = await getValidatedQuery(event, querySchema.parse);
 
   if (!slug) {
     throw createError({
@@ -28,11 +21,41 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const db = getDb();
-  const snapshot = await getContractorSnapshotBySlug(slug);
+  const directoryProfile = await getContractorDirectoryProfileBySlug(slug);
+  const snapshot =
+    directoryProfile?.snapshot ?? (await getContractorSnapshotBySlug(slug));
+  const canonicalSlug = directoryProfile?.group.slug ?? snapshot?.slug ?? slug;
+  const canonicalName =
+    directoryProfile?.group.canonicalName ?? snapshot?.recipientName ?? null;
+  const directoryAliases =
+    directoryProfile?.aliases ??
+    (snapshot
+      ? [
+          {
+            id: snapshot.id,
+            groupId: snapshot.id,
+            snapshotId: snapshot.id,
+            slug: snapshot.slug,
+            recipientName: snapshot.recipientName,
+            normalizedName: snapshot.normalizedName,
+            recipientUei: snapshot.recipientUei,
+            recipientCode: snapshot.recipientCode,
+            totalObligations36m: snapshot.totalObligations36m,
+            awardCount36m: snapshot.awardCount36m,
+            lastAwardDate: snapshot.lastAwardDate?.toISOString() ?? null,
+            sourceUrl: snapshot.sourceUrl,
+            isCanonical: true,
+            matchReason: "single_snapshot" as const,
+            matchKey: `snapshot:${snapshot.id}`,
+          },
+        ]
+      : []);
   const curated =
-    (await getCuratedContractorOverlay(snapshot, slug)) ??
-    (await getCuratedContractorBySlug(slug));
+    (await getCuratedContractorOverlay(
+      snapshot,
+      canonicalSlug,
+      canonicalName,
+    )) ?? (await getCuratedContractorBySlug(canonicalSlug));
 
   if (!snapshot && !curated) {
     throw createError({
@@ -51,37 +74,71 @@ export default defineEventHandler(async (event) => {
     specialties.find((specialty) => specialty.isPrimary) ??
     specialties[0] ??
     null;
-  const intelligence = snapshot
-    ? await getSnapshotProfileIntelligence(snapshot.slug, {
-        forceRefresh: query.refresh,
-      })
-    : await getContractorIntelligenceLive(curated!.slug, {
-        forceRefresh: query.refresh,
-      });
 
-  const name = snapshot?.recipientName ?? curated!.name;
+  const name = canonicalName ?? curated!.name;
   const response = {
     id: snapshot?.id ?? curated!.id,
-    slug: snapshot?.slug ?? curated!.slug,
+    slug: canonicalSlug,
+    canonicalSlug,
+    requestedSlug: slug.toLowerCase(),
+    isAliasSlug: directoryProfile?.isAliasRequest ?? false,
     name,
-    recipientName: snapshot?.recipientName ?? null,
-    normalizedName: snapshot?.normalizedName ?? null,
-    recipientUei: snapshot?.recipientUei ?? null,
-    recipientCode: snapshot?.recipientCode ?? null,
-    totalObligations36m: snapshot?.totalObligations36m ?? null,
-    awardCount36m: snapshot?.awardCount36m ?? null,
-    lastAwardDate: snapshot?.lastAwardDate?.toISOString() ?? null,
-    topAwardingAgency: snapshot?.topAwardingAgency ?? null,
-    topAwardingSubagency: snapshot?.topAwardingSubagency ?? null,
-    topNaicsCode: snapshot?.topNaicsCode ?? null,
-    topNaicsTitle: snapshot?.topNaicsTitle ?? null,
-    topPscCode: snapshot?.topPscCode ?? null,
-    topPscTitle: snapshot?.topPscTitle ?? null,
-    sourceUrl: snapshot?.sourceUrl ?? null,
-    sourceMetadata: snapshot?.sourceMetadata ?? null,
-    snapshotWindowStart: snapshot?.snapshotWindowStart?.toISOString() ?? null,
-    snapshotWindowEnd: snapshot?.snapshotWindowEnd?.toISOString() ?? null,
-    refreshedAt: snapshot?.refreshedAt?.toISOString() ?? null,
+    recipientName: canonicalName,
+    normalizedName:
+      directoryProfile?.group.normalizedName ??
+      snapshot?.normalizedName ??
+      null,
+    recipientUei:
+      directoryProfile?.group.primaryRecipientUei ??
+      snapshot?.recipientUei ??
+      null,
+    recipientCode:
+      directoryProfile?.group.primaryRecipientCode ??
+      snapshot?.recipientCode ??
+      null,
+    totalObligations36m:
+      directoryProfile?.group.totalObligations36m ??
+      snapshot?.totalObligations36m ??
+      null,
+    awardCount36m:
+      directoryProfile?.group.awardCount36m ?? snapshot?.awardCount36m ?? null,
+    lastAwardDate:
+      directoryProfile?.group.lastAwardDate?.toISOString() ??
+      snapshot?.lastAwardDate?.toISOString() ??
+      null,
+    topAwardingAgency:
+      directoryProfile?.group.topAwardingAgency ??
+      snapshot?.topAwardingAgency ??
+      null,
+    topAwardingSubagency:
+      directoryProfile?.group.topAwardingSubagency ??
+      snapshot?.topAwardingSubagency ??
+      null,
+    topNaicsCode:
+      directoryProfile?.group.topNaicsCode ?? snapshot?.topNaicsCode ?? null,
+    topNaicsTitle:
+      directoryProfile?.group.topNaicsTitle ?? snapshot?.topNaicsTitle ?? null,
+    topPscCode:
+      directoryProfile?.group.topPscCode ?? snapshot?.topPscCode ?? null,
+    topPscTitle:
+      directoryProfile?.group.topPscTitle ?? snapshot?.topPscTitle ?? null,
+    sourceUrl: directoryProfile?.group.sourceUrl ?? snapshot?.sourceUrl ?? null,
+    sourceMetadata:
+      directoryProfile?.group.sourceMetadata ??
+      snapshot?.sourceMetadata ??
+      null,
+    snapshotWindowStart:
+      directoryProfile?.group.snapshotWindowStart?.toISOString() ??
+      snapshot?.snapshotWindowStart?.toISOString() ??
+      null,
+    snapshotWindowEnd:
+      directoryProfile?.group.snapshotWindowEnd?.toISOString() ??
+      snapshot?.snapshotWindowEnd?.toISOString() ??
+      null,
+    refreshedAt:
+      directoryProfile?.group.refreshedAt?.toISOString() ??
+      snapshot?.refreshedAt?.toISOString() ??
+      null,
     description: curated?.description ?? null,
     defenseNewsRank: curated?.defenseNewsRank ?? null,
     country: curated?.country ?? null,
@@ -100,12 +157,24 @@ export default defineEventHandler(async (event) => {
     specialties,
     primarySpecialty,
     locations,
+    directoryAliases,
+    alternateRecipientNames: directoryAliases
+      .filter((alias) => !alias.isCanonical)
+      .map((alias) => alias.recipientName),
     curated: curated
       ? {
           id: curated.id,
           slug: curated.slug,
           name: curated.name,
           description: curated.description,
+        }
+      : null,
+    directoryGroup: directoryProfile
+      ? {
+          id: directoryProfile.group.id,
+          slug: directoryProfile.group.slug,
+          canonicalName: directoryProfile.group.canonicalName,
+          aliasCount: directoryProfile.group.aliasCount,
         }
       : null,
     snapshot: snapshot
@@ -131,7 +200,8 @@ export default defineEventHandler(async (event) => {
           snapshotWindowEnd: snapshot.snapshotWindowEnd.toISOString(),
         }
       : null,
-    intelligence,
+    intelligence: null,
+    intelligenceStatus: "separate_endpoint" as const,
     createdAt:
       snapshot?.createdAt?.toISOString() ??
       curated?.createdAt?.toISOString() ??

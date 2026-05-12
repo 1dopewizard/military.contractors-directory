@@ -10,6 +10,7 @@ interface ContractorResult {
   headquarters: string | null;
   defenseNewsRank: number | null;
   logoUrl: string | null;
+  aliasCount?: number;
 }
 
 interface SearchResponse {
@@ -113,7 +114,7 @@ const navigateToSearch = (query?: string) => {
   }
   open.value = false;
   searchQuery.value = "";
-  router.push(q ? `/?q=${encodeURIComponent(q)}` : "/");
+  router.push(q ? `/companies?q=${encodeURIComponent(q)}` : "/companies");
 };
 
 const handleRecentSearch = (query: string) => {
@@ -159,38 +160,18 @@ watch(open, (isOpen) => {
   }
 });
 
-// Specialties for quick browse
-const specialtyLinks = [
-  { slug: "aerospace-defense", name: "Aerospace", icon: "mdi:airplane" },
-  { slug: "cybersecurity-it", name: "Cybersecurity", icon: "mdi:shield-lock" },
-  { slug: "intelligence-analytics", name: "Intelligence", icon: "mdi:brain" },
-  { slug: "space-systems", name: "Space", icon: "mdi:rocket-launch" },
-];
-
-const browseBySpecialty = (slug: string) => {
-  open.value = false;
-  searchQuery.value = "";
-  router.push(`/companies/specialty/${slug}`);
-};
-
 const quickLinks = [
   {
-    value: "ranking-top-defense",
-    label: "Top defense contractors",
-    icon: "mdi:format-list-numbered",
-    to: "/rankings/top-defense-contractors",
+    value: "browse-directory",
+    label: "Browse contractor directory",
+    icon: "mdi:view-list",
+    to: "/companies",
   },
   {
-    value: "agencies",
-    label: "Browse agencies",
-    icon: "mdi:bank-outline",
-    to: "/agencies",
-  },
-  {
-    value: "topic-cyber",
-    label: "Cybersecurity topic",
-    icon: "mdi:shield-lock-outline",
-    to: "/topics/cybersecurity",
+    value: "source-scope",
+    label: "Source and scope",
+    icon: "mdi:database-search-outline",
+    to: "/about",
   },
 ];
 
@@ -256,11 +237,12 @@ const navigateToQuickLink = (to: string) => {
               </div>
               <div class="min-w-0 flex-1">
                 <div class="truncate font-medium">{{ contractor.name }}</div>
-                <div
-                  v-if="contractor.headquarters"
-                  class="text-muted-foreground truncate text-xs"
-                >
-                  {{ contractor.headquarters }}
+                <div class="text-muted-foreground truncate text-xs">
+                  {{
+                    contractor.aliasCount && contractor.aliasCount > 1
+                      ? `${contractor.aliasCount} USAspending names`
+                      : contractor.headquarters || "Source-backed profile"
+                  }}
                 </div>
               </div>
               <Badge
@@ -322,27 +304,8 @@ const navigateToQuickLink = (to: string) => {
 
         <CommandSeparator v-if="recentSearches.length > 0" />
 
-        <!-- Quick browse -->
-        <CommandGroup heading="Browse by Category">
-          <CommandItem
-            v-for="specialty in specialtyLinks"
-            :key="specialty.slug"
-            :value="`specialty-${specialty.slug}`"
-            class="cursor-pointer"
-            @select="browseBySpecialty(specialty.slug)"
-          >
-            <Icon
-              :name="specialty.icon"
-              class="text-muted-foreground mr-2 h-4 w-4"
-            />
-            <span>{{ specialty.name }}</span>
-          </CommandItem>
-        </CommandGroup>
-
-        <CommandSeparator />
-
         <!-- Quick actions -->
-        <CommandGroup heading="Database views">
+        <CommandGroup heading="Directory">
           <CommandItem
             v-for="link in quickLinks"
             :key="link.value"
@@ -355,17 +318,6 @@ const navigateToQuickLink = (to: string) => {
               class="text-muted-foreground mr-2 h-4 w-4"
             />
             <span>{{ link.label }}</span>
-          </CommandItem>
-          <CommandItem
-            value="browse-all"
-            class="cursor-pointer"
-            @select="navigateToSearch('')"
-          >
-            <Icon
-              name="mdi:view-list"
-              class="text-muted-foreground mr-2 h-4 w-4"
-            />
-            <span>Browse verified directory</span>
           </CommandItem>
         </CommandGroup>
       </template>

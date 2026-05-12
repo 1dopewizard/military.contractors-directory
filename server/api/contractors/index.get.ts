@@ -1,6 +1,6 @@
 /**
  * @file GET /api/contractors
- * @description Snapshot-backed directory query for DoD-awarded USAspending recipients
+ * @description Canonical grouped directory query for DoD-awarded USAspending contractors
  */
 
 import { queryContractorSnapshots } from "@/server/utils/contractor-snapshot";

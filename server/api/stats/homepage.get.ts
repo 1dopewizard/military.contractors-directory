@@ -7,6 +7,7 @@ import { getDb, schema } from "@/server/utils/db";
 import { desc, sql } from "drizzle-orm";
 
 export interface HomepageStatsResponse {
+  contractors: number;
   recipients: number;
   totalObligated: number;
   totalAwards: number;
@@ -20,30 +21,39 @@ export default defineEventHandler(async (): Promise<HomepageStatsResponse> => {
   try {
     const [aggregates] = await db
       .select({
-        recipients: sql<number>`count(*)`,
-        totalObligated: sql<number>`coalesce(sum(${schema.contractorSnapshot.totalObligations36m}), 0)`,
-        totalAwards: sql<number>`coalesce(sum(${schema.contractorSnapshot.awardCount36m}), 0)`,
+        contractors: sql<number>`count(*)`,
+        totalObligated: sql<number>`coalesce(sum(${schema.contractorDirectoryGroup.totalObligations36m}), 0)`,
+        totalAwards: sql<number>`coalesce(sum(${schema.contractorDirectoryGroup.awardCount36m}), 0)`,
         refreshedAt: sql<
           number | null
-        >`max(${schema.contractorSnapshot.refreshedAt})`,
+        >`max(${schema.contractorDirectoryGroup.refreshedAt})`,
       })
-      .from(schema.contractorSnapshot);
+      .from(schema.contractorDirectoryGroup);
+
+    const [recipientAggregate] = await db
+      .select({ recipients: sql<number>`count(*)` })
+      .from(schema.contractorDirectoryAlias);
 
     const [topAgencyRow] = await db
       .select({
-        agency: schema.contractorSnapshot.topAwardingAgency,
-        obligations: sql<number>`sum(${schema.contractorSnapshot.totalObligations36m})`,
+        agency: schema.contractorDirectoryGroup.topAwardingAgency,
+        obligations: sql<number>`sum(${schema.contractorDirectoryGroup.totalObligations36m})`,
       })
-      .from(schema.contractorSnapshot)
-      .where(sql`${schema.contractorSnapshot.topAwardingAgency} is not null`)
-      .groupBy(schema.contractorSnapshot.topAwardingAgency)
-      .orderBy(desc(sql`sum(${schema.contractorSnapshot.totalObligations36m})`))
+      .from(schema.contractorDirectoryGroup)
+      .where(
+        sql`${schema.contractorDirectoryGroup.topAwardingAgency} is not null`,
+      )
+      .groupBy(schema.contractorDirectoryGroup.topAwardingAgency)
+      .orderBy(
+        desc(sql`sum(${schema.contractorDirectoryGroup.totalObligations36m})`),
+      )
       .limit(1);
 
     const refreshedAtMs = aggregates?.refreshedAt;
 
     return {
-      recipients: aggregates?.recipients ?? 0,
+      contractors: aggregates?.contractors ?? 0,
+      recipients: recipientAggregate?.recipients ?? 0,
       totalObligated: aggregates?.totalObligated ?? 0,
       totalAwards: aggregates?.totalAwards ?? 0,
       topAgency: topAgencyRow?.agency ?? null,

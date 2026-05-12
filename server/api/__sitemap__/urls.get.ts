@@ -1,11 +1,11 @@
 /**
  * @file Dynamic sitemap URL source
  * @route GET /api/__sitemap__/urls
- * @description Generates dynamic sitemap URLs for contractor intelligence pages
+ * @description Generates dynamic sitemap URLs for canonical contractor directory pages
  */
 
 import { getDb, schema } from "@/server/utils/db";
-import { rankingPresets, topicPresets } from "@/server/utils/intelligence";
+import { rankingPresets } from "@/server/utils/intelligence";
 import { desc } from "drizzle-orm";
 
 interface SitemapUrl {
@@ -20,16 +20,23 @@ export default defineEventHandler(async () => {
   const baseUrl = "https://military.contractors";
 
   try {
-    const urls: SitemapUrl[] = [];
+    const urls: SitemapUrl[] = [
+      {
+        loc: `${baseUrl}/companies`,
+        changefreq: "daily",
+        priority: 0.9,
+      },
+    ];
 
-    // Add snapshot-backed contractor recipient profiles
+    // Add canonical grouped contractor profiles. Alias slugs are intentionally
+    // omitted so search engines consolidate on one profile URL per contractor.
     const contractors = await db
       .select({
-        slug: schema.contractorSnapshot.slug,
-        updatedAt: schema.contractorSnapshot.updatedAt,
+        slug: schema.contractorDirectoryGroup.slug,
+        updatedAt: schema.contractorDirectoryGroup.updatedAt,
       })
-      .from(schema.contractorSnapshot)
-      .orderBy(desc(schema.contractorSnapshot.updatedAt));
+      .from(schema.contractorDirectoryGroup)
+      .orderBy(desc(schema.contractorDirectoryGroup.updatedAt));
 
     for (const contractor of contractors) {
       urls.push({
@@ -40,37 +47,11 @@ export default defineEventHandler(async () => {
       });
     }
 
-    // Add specialties
-    const specialties = await db
-      .select({
-        slug: schema.specialty.slug,
-        updatedAt: schema.specialty.updatedAt,
-      })
-      .from(schema.specialty)
-      .orderBy(desc(schema.specialty.updatedAt));
-
-    for (const specialty of specialties) {
-      urls.push({
-        loc: `${baseUrl}/companies/specialty/${specialty.slug}`,
-        lastmod: specialty.updatedAt?.toISOString() ?? null,
-        changefreq: "monthly",
-        priority: 0.5,
-      });
-    }
-
     for (const preset of rankingPresets) {
       urls.push({
         loc: `${baseUrl}/rankings/${preset.slug}`,
-        changefreq: "daily",
-        priority: 0.7,
-      });
-    }
-
-    for (const topic of topicPresets) {
-      urls.push({
-        loc: `${baseUrl}/topics/${topic.slug}`,
-        changefreq: "daily",
-        priority: 0.6,
+        changefreq: "weekly",
+        priority: 0.4,
       });
     }
 
@@ -85,23 +66,8 @@ export default defineEventHandler(async () => {
     ]) {
       urls.push({
         loc: `${baseUrl}/agencies/${agencySlug}`,
-        changefreq: "daily",
-        priority: 0.7,
-      });
-    }
-
-    for (const categoryPath of [
-      "/categories/naics/541512",
-      "/categories/naics/336414",
-      "/categories/naics/336611",
-      "/categories/psc/1410",
-      "/categories/psc/5840",
-      "/categories/psc/D399",
-    ]) {
-      urls.push({
-        loc: `${baseUrl}${categoryPath}`,
         changefreq: "weekly",
-        priority: 0.6,
+        priority: 0.4,
       });
     }
 
