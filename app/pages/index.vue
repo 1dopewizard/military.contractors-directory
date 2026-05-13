@@ -5,40 +5,28 @@
 -->
 
 <script setup lang="ts">
-import { formatIntelligenceMoney } from "@/app/lib/intelligence-ui";
-
 definePageMeta({
   layout: "homepage",
 });
 
-interface CompaniesStatsResponse {
-  contractors: number;
-  recipients: number;
-  totalObligated: number;
-  totalAwards: number;
-  topAgency: string | null;
+interface HomepageFreshnessResponse {
   refreshedAt: string | null;
 }
 
 const config = useRuntimeConfig();
 
-const { data: stats } = useFetch<CompaniesStatsResponse>(
+const { data: freshness } = useFetch<HomepageFreshnessResponse>(
   "/api/stats/homepage",
   {
     lazy: true,
     default: () => ({
-      contractors: 0,
-      recipients: 0,
-      totalObligated: 0,
-      totalAwards: 0,
-      topAgency: null,
       refreshedAt: null,
     }),
   },
 );
 
 const snapshotDate = computed(() => {
-  const value = stats.value?.refreshedAt;
+  const value = freshness.value?.refreshedAt;
   if (!value) return null;
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
@@ -46,29 +34,6 @@ const snapshotDate = computed(() => {
     year: "numeric",
   }).format(new Date(value));
 });
-
-const metrics = computed(() => [
-  {
-    label: "Contractors",
-    value: (
-      stats.value?.contractors ??
-      stats.value?.recipients ??
-      0
-    ).toLocaleString(),
-  },
-  {
-    label: "Obligated (36mo)",
-    value: formatIntelligenceMoney(stats.value?.totalObligated ?? 0),
-  },
-  {
-    label: "Awards",
-    value: (stats.value?.totalAwards ?? 0).toLocaleString(),
-  },
-  {
-    label: "Top Awarder",
-    value: stats.value?.topAgency ?? "—",
-  },
-]);
 
 useSeoMeta({
   title: "Defense Contractor Directory | military.contractors",
@@ -106,8 +71,6 @@ useWebPageSchema({
       title="Defense contractor directory"
       description="Search one canonical profile per active DoD contractor. Raw USAspending recipient names remain preserved as alternate names on each contractor profile."
     />
-
-    <DirectoryStatRibbon :metrics="metrics" class="mx-auto max-w-7xl" />
 
     <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <ContractorSnapshotTable :page-size="25" sync-route />

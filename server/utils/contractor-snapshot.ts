@@ -682,15 +682,96 @@ export async function queryContractorSnapshots(
   const mappedRows = rows.map((row) =>
     directoryGroupRowToResponse(row, aliasesByGroup.get(row.id) ?? []),
   );
+  const { rows: enrichedRows, queuedRefreshCount } =
+    await enrichSnapshotRowsFromProfileCaches(mappedRows);
+  const enrichedSourceMetadata = queuedRefreshCount
+    ? {
+        ...sourceMetadata,
+        warnings: formatUsaSpendingMessages([
+          ...sourceMetadata.warnings,
+          `Queued ${queuedRefreshCount} visible contractor profile refreshes to populate award counts, last-award dates, and contract codes.`,
+        ]),
+      }
+    : sourceMetadata;
 
   return {
-    rows: mappedRows,
-    contractors: mappedRows.map((row) => ({ ...row, name: row.recipientName })),
+    rows: enrichedRows,
+    contractors: enrichedRows.map((row) => ({
+      ...row,
+      name: row.recipientName,
+    })),
     total: totalResult?.count ?? 0,
     limit: query.limit,
     offset: query.offset,
-    sourceMetadata,
+    sourceMetadata: enrichedSourceMetadata,
   };
+}
+
+async function enrichSnapshotRowsFromProfileCaches(
+  rows: ContractorSnapshotListRow[],
+): Promise<{ rows: ContractorSnapshotListRow[]; queuedRefreshCount: number }> {
+  let queuedRefreshCount = 0;
+  const enrichedRows = await Promise.all(
+    rows.map(async (row) => {
+      const cached = await getSnapshotProfileCache(
+        snapshotProfileCacheKey(row.slug),
+      );
+      if (!cached) {
+        if (snapshotRowNeedsProfileEnrichment(row)) {
+          queuedRefreshCount += enqueueSnapshotProfileRefresh(row.slug) ? 1 : 0;
+        }
+        return row;
+      }
+
+      const enriched = mergeSnapshotRowProfileCache(row, cached.result);
+      if (snapshotRowNeedsProfileEnrichment(enriched)) {
+        queuedRefreshCount += enqueueSnapshotProfileRefresh(row.slug) ? 1 : 0;
+      }
+      return enriched;
+    }),
+  );
+
+  return { rows: enrichedRows, queuedRefreshCount };
+}
+
+function snapshotRowNeedsProfileEnrichment(row: ContractorSnapshotListRow) {
+  return (
+    row.awardCount36m === 0 ||
+    !row.lastAwardDate ||
+    !row.topNaicsCode ||
+    !row.topPscCode
+  );
+}
+
+function mergeSnapshotRowProfileCache(
+  row: ContractorSnapshotListRow,
+  intelligence: ContractorIntelligence,
+): ContractorSnapshotListRow {
+  const latestAwardDate = latestDateString(
+    [...intelligence.topAwards, ...intelligence.recentAwards].map(
+      (award) => award.startDate,
+    ),
+  );
+  const topNaics = intelligence.summary.topNaics ?? intelligence.topNaics[0];
+  const topPsc = intelligence.summary.topPsc ?? intelligence.topPsc[0];
+
+  return {
+    ...row,
+    awardCount36m: row.awardCount36m || intelligence.summary.awardCount,
+    lastAwardDate: row.lastAwardDate ?? latestAwardDate,
+    topNaicsCode: row.topNaicsCode ?? topNaics?.key ?? null,
+    topNaicsTitle: row.topNaicsTitle ?? topNaics?.label ?? null,
+    topPscCode: row.topPscCode ?? topPsc?.key ?? null,
+    topPscTitle: row.topPscTitle ?? topPsc?.label ?? null,
+  };
+}
+
+function latestDateString(values: Array<string | null>): string | null {
+  const latest = values
+    .filter((value): value is string => !!value)
+    .sort()
+    .at(-1);
+  return latest ?? null;
 }
 
 export async function getContractorSnapshotBySlug(slug: string) {
@@ -824,17 +905,30 @@ export async function getCachedSnapshotProfileIntelligence(
 
   const isStale =
     Date.now() - cached.refreshedAt.getTime() >= PROFILE_CACHE_TTL_MS;
-  const status = isStale ? "stale" : "ready";
+  const needsCodeRefresh = profileCacheNeedsContractCodeRefresh(cached.result);
+  const status = isStale || needsCodeRefresh ? "stale" : "ready";
+  const warnings = needsCodeRefresh
+    ? [
+        ...cached.result.sourceMetadata.warnings,
+        "Cached profile is missing NAICS/PSC contract code fields and will be refreshed.",
+      ]
+    : cached.result.sourceMetadata.warnings;
 
   return {
     status,
     intelligence: withProfileCacheStatus(
-      cached.result,
-      isStale ? "stale" : "cached",
+      {
+        ...cached.result,
+        sourceMetadata: {
+          ...cached.result.sourceMetadata,
+          warnings,
+        },
+      },
+      status === "stale" ? "stale" : "cached",
     ),
     refreshedAt: cached.refreshedAt.toISOString(),
     expiresAt: cached.expiresAt?.toISOString() ?? null,
-    warnings: cached.result.sourceMetadata.warnings,
+    warnings,
   };
 }
 
@@ -883,7 +977,8 @@ export async function getSnapshotProfileIntelligence(
   if (
     cached &&
     !options.forceRefresh &&
-    Date.now() - cached.refreshedAt.getTime() < PROFILE_CACHE_TTL_MS
+    Date.now() - cached.refreshedAt.getTime() < PROFILE_CACHE_TTL_MS &&
+    !profileCacheNeedsContractCodeRefresh(cached.result)
   ) {
     return cached.result;
   }
@@ -1731,6 +1826,20 @@ function withProfileCacheStatus(
       ? updated.signals
       : buildContractorIntelligenceSignals(updated),
   };
+}
+
+function profileCacheNeedsContractCodeRefresh(
+  intelligence: ContractorIntelligence,
+): boolean {
+  const structuredRecords = intelligence.sourceMetadata.structuredRecords;
+  if (structuredRecords <= 0) return false;
+  if (intelligence.topNaics.length || intelligence.topPsc.length) return false;
+
+  const awards = [...intelligence.topAwards, ...intelligence.recentAwards];
+  return (
+    awards.length > 0 &&
+    awards.every((award) => !award.naicsCode && !award.pscCode)
+  );
 }
 
 async function getSnapshotProfileCache(queryHash: string): Promise<{

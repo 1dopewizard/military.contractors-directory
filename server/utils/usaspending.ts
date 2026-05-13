@@ -23,6 +23,13 @@ const SPENDING_OVER_TIME_URL = `${USA_SPENDING_API_BASE_URL}/search/spending_ove
 const AUTOCOMPLETE_RECIPIENT_URL = `${USA_SPENDING_API_BASE_URL}/autocomplete/recipient/`;
 const TOPTIER_AGENCIES_URL = `${USA_SPENDING_API_BASE_URL}/references/toptier_agencies/`;
 
+const usaSpendingCodeSchema = z
+  .object({
+    code: z.union([z.string(), z.number()]).nullable().optional(),
+    description: z.string().nullable().optional(),
+  })
+  .passthrough();
+
 export const usaSpendingAwardSchema = z
   .object({
     internal_id: z.union([z.string(), z.number()]).nullable().optional(),
@@ -39,6 +46,8 @@ export const usaSpendingAwardSchema = z
     "Funding Sub Agency": z.string().nullable().optional(),
     "Award Type": z.string().nullable().optional(),
     Description: z.string().nullable().optional(),
+    NAICS: usaSpendingCodeSchema.nullable().optional(),
+    PSC: usaSpendingCodeSchema.nullable().optional(),
     "NAICS Code": z.string().nullable().optional(),
     "NAICS Description": z.string().nullable().optional(),
     "PSC Code": z.string().nullable().optional(),
@@ -325,10 +334,8 @@ export async function searchUsaSpendingAwards(
       "Funding Sub Agency",
       "Award Type",
       "Description",
-      "NAICS Code",
-      "NAICS Description",
-      "PSC Code",
-      "PSC Description",
+      "NAICS",
+      "PSC",
     ],
     page: input.page ?? 1,
     limit: input.limit ?? 25,
@@ -444,6 +451,13 @@ export function normalizeUsaSpendingAward(
     award["Award ID"] ?? String(award.internal_id ?? "unknown-award");
   const generatedAwardId = award.generated_internal_id ?? null;
   const startDate = award["Start Date"] ?? null;
+  const naicsCode =
+    normalizeCodeValue(award.NAICS?.code) ?? award["NAICS Code"] ?? null;
+  const naicsTitle =
+    award.NAICS?.description ?? award["NAICS Description"] ?? null;
+  const pscCode =
+    normalizeCodeValue(award.PSC?.code) ?? award["PSC Code"] ?? null;
+  const pscTitle = award.PSC?.description ?? award["PSC Description"] ?? null;
 
   return {
     key: generatedAwardId ?? awardId,
@@ -460,10 +474,10 @@ export function normalizeUsaSpendingAward(
     awardingSubAgency: award["Awarding Sub Agency"] ?? null,
     fundingAgency: award["Funding Agency"] ?? null,
     fundingSubAgency: award["Funding Sub Agency"] ?? null,
-    naicsCode: award["NAICS Code"] ?? null,
-    naicsTitle: award["NAICS Description"] ?? null,
-    pscCode: award["PSC Code"] ?? null,
-    pscTitle: award["PSC Description"] ?? null,
+    naicsCode,
+    naicsTitle,
+    pscCode,
+    pscTitle,
     fiscalYear: startDate ? dateToFiscalYear(startDate) : null,
     startDate,
     endDate: award["End Date"] ?? null,
@@ -473,6 +487,12 @@ export function normalizeUsaSpendingAward(
     placeOfPerformance: null,
     sourceUrl: sourceUrlForAward(generatedAwardId ?? awardId),
   };
+}
+
+function normalizeCodeValue(value: string | number | null | undefined) {
+  if (value == null) return null;
+  const code = String(value).trim();
+  return code || null;
 }
 
 export function sourceUrlForAward(awardKey: string): string {

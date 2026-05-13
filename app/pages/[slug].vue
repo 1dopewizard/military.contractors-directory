@@ -217,10 +217,51 @@ const intelligenceFreshness = computed(
     "snapshot",
 );
 
+const topNaicsRows = computed(() => {
+  if (intelligence.value?.topNaics?.length) {
+    return intelligence.value.topNaics.slice(0, 5);
+  }
+
+  const profile = contractor.value;
+  if (!profile?.topNaicsCode) return [];
+  return [
+    {
+      key: profile.topNaicsCode,
+      label: profile.topNaicsTitle ?? `NAICS ${profile.topNaicsCode}`,
+      obligation: profile.totalObligations36m ?? 0,
+      awardCount: profile.awardCount36m ?? 0,
+    },
+  ];
+});
+
+const topPscRows = computed(() => {
+  if (intelligence.value?.topPsc?.length) {
+    return intelligence.value.topPsc.slice(0, 5);
+  }
+
+  const profile = contractor.value;
+  if (!profile?.topPscCode) return [];
+  return [
+    {
+      key: profile.topPscCode,
+      label: profile.topPscTitle ?? `PSC ${profile.topPscCode}`,
+      obligation: profile.totalObligations36m ?? 0,
+      awardCount: profile.awardCount36m ?? 0,
+    },
+  ];
+});
+
+const needsContractCodeRefresh = computed(
+  () =>
+    !!intelligence.value?.sourceMetadata.structuredRecords &&
+    topNaicsRows.value.length === 0 &&
+    topPscRows.value.length === 0,
+);
+
 const shouldPollIntelligence = computed(
   () =>
-    !intelligence.value &&
     !isIntelligenceLoading.value &&
+    (!intelligence.value || needsContractCodeRefresh.value) &&
     (intelligenceResponse.value?.status === "refreshing" ||
       intelligenceResponse.value?.refreshQueued === true),
 );
@@ -341,7 +382,85 @@ watchEffect(() => {
           <LoadingText text="Loading award records" />
         </div>
 
-        <section v-if="intelligence?.topAwards?.length">
+        <section v-if="topNaicsRows.length || topPscRows.length">
+          <h2
+            class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
+          >
+            Contract codes
+          </h2>
+          <div class="mt-5 grid gap-10 lg:grid-cols-2">
+            <div v-if="topNaicsRows.length">
+              <h3 class="text-foreground mb-3 text-sm font-semibold">
+                Top NAICS codes
+              </h3>
+              <ul class="divide-border/50 divide-y text-sm">
+                <li
+                  v-for="row in topNaicsRows"
+                  :key="row.key"
+                  class="grid gap-3 py-3 first:pt-0 sm:grid-cols-[minmax(0,1fr)_7rem]"
+                >
+                  <div class="min-w-0">
+                    <p class="text-foreground font-mono text-xs">
+                      {{ row.key }}
+                    </p>
+                    <p
+                      v-if="row.label"
+                      class="text-muted-foreground mt-1 leading-snug break-words"
+                    >
+                      {{ row.label }}
+                    </p>
+                    <p class="text-muted-foreground mt-1 text-xs">
+                      {{ row.awardCount.toLocaleString() }} awards
+                    </p>
+                  </div>
+                  <p
+                    class="text-foreground text-sm font-medium tabular-nums sm:text-right"
+                  >
+                    {{ formatIntelligenceMoney(row.obligation) }}
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            <div v-if="topPscRows.length">
+              <h3 class="text-foreground mb-3 text-sm font-semibold">
+                Top PSC codes
+              </h3>
+              <ul class="divide-border/50 divide-y text-sm">
+                <li
+                  v-for="row in topPscRows"
+                  :key="row.key"
+                  class="grid gap-3 py-3 first:pt-0 sm:grid-cols-[minmax(0,1fr)_7rem]"
+                >
+                  <div class="min-w-0">
+                    <p class="text-foreground font-mono text-xs">
+                      {{ row.key }}
+                    </p>
+                    <p
+                      v-if="row.label"
+                      class="text-muted-foreground mt-1 leading-snug break-words"
+                    >
+                      {{ row.label }}
+                    </p>
+                    <p class="text-muted-foreground mt-1 text-xs">
+                      {{ row.awardCount.toLocaleString() }} awards
+                    </p>
+                  </div>
+                  <p
+                    class="text-foreground text-sm font-medium tabular-nums sm:text-right"
+                  >
+                    {{ formatIntelligenceMoney(row.obligation) }}
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section
+          v-if="intelligence?.topAwards?.length"
+          :class="{ 'mt-12': topNaicsRows.length || topPscRows.length }"
+        >
           <h2
             class="text-muted-foreground text-[0.7rem] tracking-[0.18em] uppercase"
           >
@@ -357,7 +476,7 @@ watchEffect(() => {
               class="py-4 first:pt-0"
             >
               <div
-                class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
+                class="grid gap-2 sm:grid-cols-[minmax(0,1fr)_8rem] sm:items-start"
               >
                 <div class="min-w-0">
                   <p
@@ -366,51 +485,61 @@ watchEffect(() => {
                     {{ award.recipientName }}
                   </p>
                   <p
-                    class="text-muted-foreground mt-1 text-sm leading-relaxed [overflow-wrap:anywhere]"
+                    class="text-muted-foreground mt-1 max-w-full text-sm leading-relaxed [overflow-wrap:anywhere] break-words"
                   >
                     {{ award.description || "No description provided." }}
                   </p>
+                  <div
+                    class="text-muted-foreground mt-2 flex max-w-full flex-wrap gap-x-4 gap-y-1 text-xs"
+                  >
+                    <span v-if="award.fiscalYear"
+                      >FY{{ award.fiscalYear }}</span
+                    >
+                    <span
+                      v-if="formatContractDates(award.startDate, award.endDate)"
+                    >
+                      Contract
+                      {{ formatContractDates(award.startDate, award.endDate) }}
+                    </span>
+                    <span>
+                      {{
+                        award.awardingSubAgency ||
+                        award.awardingAgency ||
+                        "Agency N/A"
+                      }}
+                    </span>
+                    <span v-if="award.naicsCode">
+                      NAICS {{ award.naicsCode }}
+                      <span v-if="award.naicsTitle"
+                        >- {{ award.naicsTitle }}</span
+                      >
+                    </span>
+                    <span v-if="award.pscCode">
+                      PSC {{ award.pscCode }}
+                      <span v-if="award.pscTitle">- {{ award.pscTitle }}</span>
+                    </span>
+                    <span
+                      v-if="award.piid"
+                      class="font-mono [overflow-wrap:anywhere]"
+                    >
+                      PIID {{ award.piid }}
+                    </span>
+                    <NuxtLink
+                      v-if="award.sourceUrl"
+                      :to="award.sourceUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary hover:underline"
+                    >
+                      Source
+                    </NuxtLink>
+                  </div>
                 </div>
                 <p
-                  class="text-foreground shrink-0 text-sm font-semibold tabular-nums"
+                  class="text-foreground text-sm font-semibold tabular-nums sm:text-right"
                 >
                   {{ formatIntelligenceMoney(award.obligation) }}
                 </p>
-              </div>
-              <div
-                class="text-muted-foreground mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs"
-              >
-                <span v-if="award.fiscalYear">FY{{ award.fiscalYear }}</span>
-                <span
-                  v-if="formatContractDates(award.startDate, award.endDate)"
-                >
-                  Contract
-                  {{ formatContractDates(award.startDate, award.endDate) }}
-                </span>
-                <span>
-                  {{
-                    award.awardingSubAgency ||
-                    award.awardingAgency ||
-                    "Agency N/A"
-                  }}
-                </span>
-                <span v-if="award.naicsCode">NAICS {{ award.naicsCode }}</span>
-                <span v-if="award.pscCode">PSC {{ award.pscCode }}</span>
-                <span
-                  v-if="award.piid"
-                  class="font-mono [overflow-wrap:anywhere]"
-                >
-                  PIID {{ award.piid }}
-                </span>
-                <NuxtLink
-                  v-if="award.sourceUrl"
-                  :to="award.sourceUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-primary hover:underline"
-                >
-                  Source
-                </NuxtLink>
               </div>
             </li>
           </ul>
@@ -435,7 +564,7 @@ watchEffect(() => {
               class="py-4 first:pt-0"
             >
               <div
-                class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"
+                class="grid gap-2 sm:grid-cols-[minmax(0,1fr)_8rem] sm:items-start"
               >
                 <div class="min-w-0">
                   <p
@@ -444,51 +573,61 @@ watchEffect(() => {
                     {{ award.recipientName }}
                   </p>
                   <p
-                    class="text-muted-foreground mt-1 text-sm leading-relaxed [overflow-wrap:anywhere]"
+                    class="text-muted-foreground mt-1 max-w-full text-sm leading-relaxed [overflow-wrap:anywhere] break-words"
                   >
                     {{ award.description || "No description provided." }}
                   </p>
+                  <div
+                    class="text-muted-foreground mt-2 flex max-w-full flex-wrap gap-x-4 gap-y-1 text-xs"
+                  >
+                    <span v-if="award.fiscalYear"
+                      >FY{{ award.fiscalYear }}</span
+                    >
+                    <span
+                      v-if="formatContractDates(award.startDate, award.endDate)"
+                    >
+                      Contract
+                      {{ formatContractDates(award.startDate, award.endDate) }}
+                    </span>
+                    <span>
+                      {{
+                        award.awardingSubAgency ||
+                        award.awardingAgency ||
+                        "Agency N/A"
+                      }}
+                    </span>
+                    <span v-if="award.naicsCode">
+                      NAICS {{ award.naicsCode }}
+                      <span v-if="award.naicsTitle"
+                        >- {{ award.naicsTitle }}</span
+                      >
+                    </span>
+                    <span v-if="award.pscCode">
+                      PSC {{ award.pscCode }}
+                      <span v-if="award.pscTitle">- {{ award.pscTitle }}</span>
+                    </span>
+                    <span
+                      v-if="award.piid"
+                      class="font-mono [overflow-wrap:anywhere]"
+                    >
+                      PIID {{ award.piid }}
+                    </span>
+                    <NuxtLink
+                      v-if="award.sourceUrl"
+                      :to="award.sourceUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-primary hover:underline"
+                    >
+                      Source
+                    </NuxtLink>
+                  </div>
                 </div>
                 <p
-                  class="text-foreground shrink-0 text-sm font-semibold tabular-nums"
+                  class="text-foreground text-sm font-semibold tabular-nums sm:text-right"
                 >
                   {{ formatIntelligenceMoney(award.obligation) }}
                 </p>
-              </div>
-              <div
-                class="text-muted-foreground mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs"
-              >
-                <span v-if="award.fiscalYear">FY{{ award.fiscalYear }}</span>
-                <span
-                  v-if="formatContractDates(award.startDate, award.endDate)"
-                >
-                  Contract
-                  {{ formatContractDates(award.startDate, award.endDate) }}
-                </span>
-                <span>
-                  {{
-                    award.awardingSubAgency ||
-                    award.awardingAgency ||
-                    "Agency N/A"
-                  }}
-                </span>
-                <span v-if="award.naicsCode">NAICS {{ award.naicsCode }}</span>
-                <span v-if="award.pscCode">PSC {{ award.pscCode }}</span>
-                <span
-                  v-if="award.piid"
-                  class="font-mono [overflow-wrap:anywhere]"
-                >
-                  PIID {{ award.piid }}
-                </span>
-                <NuxtLink
-                  v-if="award.sourceUrl"
-                  :to="award.sourceUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-primary hover:underline"
-                >
-                  Source
-                </NuxtLink>
               </div>
             </li>
           </ul>

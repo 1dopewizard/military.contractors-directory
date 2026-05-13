@@ -73,11 +73,6 @@ const searchInput = ref(
   props.syncRoute ? ((route.query.q as string) ?? "") : "",
 );
 const q = ref(searchInput.value);
-const agency = ref(
-  props.syncRoute ? ((route.query.agency as string) ?? "") : "",
-);
-const naics = ref(props.syncRoute ? ((route.query.naics as string) ?? "") : "");
-const psc = ref(props.syncRoute ? ((route.query.psc as string) ?? "") : "");
 const sorting = ref<SortingState>([
   {
     id: (route.query.sort as string) || "totalObligations36m",
@@ -102,9 +97,6 @@ const columns: ColumnDef<ContractorSnapshotRow>[] = [
 const requestUrl = computed(() => {
   const params = new URLSearchParams();
   if (q.value) params.set("q", q.value);
-  if (agency.value) params.set("agency", agency.value);
-  if (naics.value) params.set("naics", naics.value);
-  if (psc.value) params.set("psc", psc.value);
   const currentSort = sorting.value[0];
   params.set("sort", currentSort?.id || "totalObligations36m");
   params.set("order", currentSort?.desc === false ? "asc" : "desc");
@@ -140,12 +132,29 @@ const {
 
 const rows = computed(() => data.value?.rows ?? []);
 const total = computed(() => data.value?.total ?? 0);
+const enrichmentRefreshAttempts = ref(0);
+const maxEnrichmentRefreshAttempts = 8;
+let enrichmentRefreshTimer: ReturnType<typeof setTimeout> | null = null;
+
+const clearEnrichmentRefreshTimer = () => {
+  if (!enrichmentRefreshTimer) return;
+  clearTimeout(enrichmentRefreshTimer);
+  enrichmentRefreshTimer = null;
+};
+
+const rowsNeedProfileEnrichment = computed(() =>
+  rows.value.some(
+    (row) =>
+      row.awardCount36m === 0 ||
+      !row.lastAwardDate ||
+      !row.topNaicsCode ||
+      !row.topPscCode,
+  ),
+);
 const pageCount = computed(() =>
   Math.max(1, Math.ceil(total.value / pagination.value.pageSize)),
 );
-const hasFilters = computed(
-  () => !!q.value || !!agency.value || !!naics.value || !!psc.value,
-);
+const hasFilters = computed(() => !!q.value);
 const firstRowNumber = computed(() =>
   total.value === 0
     ? 0
@@ -207,9 +216,6 @@ const applyFilters = () => {
 const clearFilters = () => {
   searchInput.value = "";
   q.value = "";
-  agency.value = "";
-  naics.value = "";
-  psc.value = "";
   pagination.value = { ...pagination.value, pageIndex: 0 };
   syncUrl();
 };
@@ -231,9 +237,6 @@ const syncUrl = () => {
   const currentSort = sorting.value[0];
   const query: Record<string, string> = {};
   if (q.value) query.q = q.value;
-  if (agency.value) query.agency = agency.value;
-  if (naics.value) query.naics = naics.value;
-  if (psc.value) query.psc = psc.value;
   if (currentSort?.id && currentSort.id !== "totalObligations36m") {
     query.sort = currentSort.id;
   }
@@ -271,13 +274,41 @@ const sourceLabel = computed(() => {
   if (!metadata?.refreshedAt) return "No snapshot yet";
   return `Snapshot ${metadata.cacheStatus} · ${formatDate(metadata.refreshedAt)}`;
 });
+
+watch(requestUrl, () => {
+  enrichmentRefreshAttempts.value = 0;
+  clearEnrichmentRefreshTimer();
+});
+
+watch(
+  [rowsNeedProfileEnrichment, pending],
+  ([needsEnrichment, isPending]) => {
+    clearEnrichmentRefreshTimer();
+
+    if (
+      !needsEnrichment ||
+      isPending ||
+      enrichmentRefreshAttempts.value >= maxEnrichmentRefreshAttempts
+    ) {
+      return;
+    }
+
+    enrichmentRefreshTimer = setTimeout(() => {
+      enrichmentRefreshAttempts.value += 1;
+      void refreshRows();
+    }, 4000);
+  },
+  { immediate: true },
+);
+
+onUnmounted(clearEnrichmentRefreshTimer);
 </script>
 
 <template>
   <section class="space-y-4">
     <form
       v-if="showFilters && !preview"
-      class="border-border bg-card grid gap-3 border p-3 lg:grid-cols-[minmax(14rem,1.5fr)_repeat(3,minmax(8rem,1fr))_auto]"
+      class="border-border bg-card grid gap-3 border p-3 lg:grid-cols-[minmax(14rem,1fr)_auto]"
       @submit.prevent="applyFilters"
     >
       <Input
@@ -285,9 +316,6 @@ const sourceLabel = computed(() => {
         class="h-10 rounded-none"
         placeholder="Search contractor, alternate recipient, UEI, or code"
       />
-      <Input v-model="agency" class="h-10 rounded-none" placeholder="Agency" />
-      <Input v-model="naics" class="h-10 rounded-none" placeholder="NAICS" />
-      <Input v-model="psc" class="h-10 rounded-none" placeholder="PSC" />
       <div class="flex gap-2">
         <Button type="submit" class="h-10">
           <Icon name="mdi:magnify" class="mr-2 h-4 w-4" />

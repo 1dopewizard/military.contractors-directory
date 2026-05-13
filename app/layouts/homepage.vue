@@ -51,6 +51,14 @@ watch(
         </NuxtLink>
 
         <div class="flex items-center gap-2 sm:gap-4">
+          <nav class="hidden items-center gap-4 text-sm lg:flex">
+            <NuxtLink
+              to="/find-primes-subs"
+              class="text-muted-foreground hover:text-primary transition-colors"
+            >
+              Find Primes/Subs
+            </NuxtLink>
+          </nav>
           <div class="hidden lg:block">
             <AuthButton />
           </div>
@@ -76,6 +84,12 @@ watch(
 
         <ScrollArea class="-mx-6 flex-1 px-6">
           <div class="py-2">
+            <NuxtLink
+              to="/find-primes-subs"
+              class="text-foreground hover:text-primary block py-3 text-sm font-medium transition-colors"
+            >
+              Find Primes/Subs
+            </NuxtLink>
             <div class="mt-4">
               <AuthButton />
             </div>
@@ -99,6 +113,11 @@ watch(
         >
           <p>© {{ currentYear }} military.contractors</p>
           <div class="flex items-center gap-4">
+            <NuxtLink
+              to="/find-primes-subs"
+              class="hover:text-primary transition-colors"
+              >Find Primes/Subs</NuxtLink
+            >
             <NuxtLink to="/about" class="hover:text-primary transition-colors"
               >About</NuxtLink
             >

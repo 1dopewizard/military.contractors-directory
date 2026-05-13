@@ -26,6 +26,11 @@ export default defineEventHandler(async () => {
         changefreq: "daily",
         priority: 1,
       },
+      {
+        loc: `${baseUrl}/find-primes-subs`,
+        changefreq: "daily",
+        priority: 0.7,
+      },
     ];
 
     // Add canonical grouped contractor profiles. Alias slugs are intentionally
