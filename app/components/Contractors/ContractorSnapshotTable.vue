@@ -88,9 +88,6 @@ const columns: ColumnDef<ContractorSnapshotRow>[] = [
   { accessorKey: "recipientName", header: "Contractor" },
   { accessorKey: "totalObligations36m", header: "Obligations" },
   { accessorKey: "awardCount36m", header: "Awards" },
-  { accessorKey: "topAwardingSubagency", header: "Top Agency" },
-  { accessorKey: "topNaicsCode", header: "NAICS" },
-  { accessorKey: "topPscCode", header: "PSC" },
   { accessorKey: "lastAwardDate", header: "Last Award" },
 ];
 
@@ -143,13 +140,7 @@ const clearEnrichmentRefreshTimer = () => {
 };
 
 const rowsNeedProfileEnrichment = computed(() =>
-  rows.value.some(
-    (row) =>
-      row.awardCount36m === 0 ||
-      !row.lastAwardDate ||
-      !row.topNaicsCode ||
-      !row.topPscCode,
-  ),
+  rows.value.some((row) => row.awardCount36m === 0 || !row.lastAwardDate),
 );
 const pageCount = computed(() =>
   Math.max(1, Math.ceil(total.value / pagination.value.pageSize)),
@@ -258,6 +249,11 @@ const formatMoney = (value: number | null | undefined): string => {
     return `${sign}$${(absolute / 1_000_000).toFixed(0)}M`;
   }
   return `${sign}$${Math.round(absolute).toLocaleString()}`;
+};
+
+const formatAwardCount = (value: number): string => {
+  if (value > 100) return "100+";
+  return value.toLocaleString();
 };
 
 const formatDate = (value: string | null): string => {
@@ -396,15 +392,12 @@ onUnmounted(clearEnrichmentRefreshTimer);
         </EmptyContent>
       </Empty>
 
-      <Table v-else class="min-w-[960px] table-fixed">
+      <Table v-else class="min-w-[720px] table-fixed">
         <colgroup>
-          <col class="w-[28%]" />
+          <col class="w-[54%]" />
+          <col class="w-[17%]" />
           <col class="w-[11%]" />
-          <col class="w-[8%]" />
-          <col class="w-[22%]" />
-          <col class="w-[9%]" />
-          <col class="w-[9%]" />
-          <col class="w-[13%]" />
+          <col class="w-[18%]" />
         </colgroup>
         <TableHeader>
           <TableRow class="hover:bg-transparent">
@@ -474,22 +467,7 @@ onUnmounted(clearEnrichmentRefreshTimer);
               </button>
             </TableHead>
             <TableHead
-              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
-            >
-              Top Agency
-            </TableHead>
-            <TableHead
-              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
-            >
-              NAICS
-            </TableHead>
-            <TableHead
-              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
-            >
-              PSC
-            </TableHead>
-            <TableHead
-              class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.16em] uppercase"
+              class="text-muted-foreground text-right text-[0.65rem] font-medium tracking-[0.16em] uppercase"
             >
               <button
                 type="button"
@@ -545,30 +523,9 @@ onUnmounted(clearEnrichmentRefreshTimer);
               {{ formatMoney(row.original.totalObligations36m) }}
             </TableCell>
             <TableCell class="text-right align-top tabular-nums">
-              {{ row.original.awardCount36m.toLocaleString() }}
+              {{ formatAwardCount(row.original.awardCount36m) }}
             </TableCell>
-            <TableCell class="align-top">
-              <span class="line-clamp-2 break-words">
-                {{
-                  row.original.topAwardingSubagency ||
-                  row.original.topAwardingAgency ||
-                  "N/A"
-                }}
-              </span>
-            </TableCell>
-            <TableCell class="align-top">
-              <span v-if="row.original.topNaicsCode" class="font-mono text-xs">
-                {{ row.original.topNaicsCode }}
-              </span>
-              <span v-else class="text-muted-foreground">N/A</span>
-            </TableCell>
-            <TableCell class="align-top">
-              <span v-if="row.original.topPscCode" class="font-mono text-xs">
-                {{ row.original.topPscCode }}
-              </span>
-              <span v-else class="text-muted-foreground">N/A</span>
-            </TableCell>
-            <TableCell class="align-top text-sm">
+            <TableCell class="text-right align-top text-sm">
               {{ formatDate(row.original.lastAwardDate) }}
             </TableCell>
           </TableRow>
