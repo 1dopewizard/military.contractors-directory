@@ -39,7 +39,6 @@ const filters = reactive({
   q: "",
   naics: "",
   psc: "",
-  agency: "",
   role: "any" as "any" | "prime" | "sub",
 });
 
@@ -47,7 +46,6 @@ const queryParams = computed(() => ({
   q: filters.q || undefined,
   naics: filters.naics || undefined,
   psc: filters.psc || undefined,
-  agency: filters.agency || undefined,
   role: filters.role,
   limit: 20,
 }));
@@ -91,7 +89,7 @@ useHead({
     {
       name: "description",
       content:
-        "Find likely defense primes and potential subcontractors by NAICS, PSC, agency, and public award evidence.",
+        "Find likely defense primes and potential subcontractors by NAICS, PSC, role, and public award evidence.",
     },
   ],
 });
@@ -104,75 +102,49 @@ useHead({
     <DirectoryPageHeader
       eyebrow="Capability search"
       title="Find primes and potential subs"
-      description="Search public award evidence by capability, NAICS, PSC, and agency. Results separate likely prime capacity from potential subcontractor fit."
+      description="Search public award evidence by capability, NAICS, PSC, and role. Results separate likely prime capacity from potential subcontractor fit."
       max-width="max-w-6xl"
     />
 
     <main class="container mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-      <section class="border-border bg-card/50 border">
-        <div class="border-border border-b px-4 py-3 sm:px-5">
-          <p
-            class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.18em] uppercase"
-          >
-            Search filters
-          </p>
-        </div>
+      <section>
+        <form @submit.prevent="handleSearch">
+          <div class="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <div class="mb-3 flex items-center justify-between gap-3">
+                <div>
+                  <p
+                    class="text-muted-foreground text-[0.65rem] font-medium tracking-[0.18em] uppercase"
+                  >
+                    Search award evidence
+                  </p>
+                  <p class="text-muted-foreground mt-1 text-sm">
+                    Start broad, then narrow with classification and role
+                    filters.
+                  </p>
+                </div>
+              </div>
 
-        <form
-          class="grid gap-4 p-4 sm:p-5 lg:grid-cols-12"
-          @submit.prevent="handleSearch"
-        >
-          <div class="lg:col-span-4">
-            <Label for="q">Keyword</Label>
-            <Input
-              id="q"
-              v-model="filters.q"
-              class="mt-2 h-10 rounded-none"
-              placeholder="cyber, ship, logistics"
-            />
-          </div>
-          <div class="sm:col-span-2 lg:col-span-2">
-            <Label for="naics">NAICS</Label>
-            <Input
-              id="naics"
-              v-model="filters.naics"
-              class="mt-2 h-10 rounded-none font-mono"
-              placeholder="541512"
-            />
-          </div>
-          <div class="sm:col-span-2 lg:col-span-2">
-            <Label for="psc">PSC</Label>
-            <Input
-              id="psc"
-              v-model="filters.psc"
-              class="mt-2 h-10 rounded-none font-mono"
-              placeholder="D399"
-            />
-          </div>
-          <div class="lg:col-span-2">
-            <Label for="agency">Agency</Label>
-            <Input
-              id="agency"
-              v-model="filters.agency"
-              class="mt-2 h-10 rounded-none"
-              placeholder="Navy"
-            />
-          </div>
-          <div class="lg:col-span-2">
-            <Label for="role">Role</Label>
-            <Select v-model="filters.role">
-              <SelectTrigger id="role" class="mt-2 h-10 w-full rounded-none">
-                <SelectValue placeholder="Any" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="any">Any fit</SelectItem>
-                <SelectItem value="prime">Likely primes</SelectItem>
-                <SelectItem value="sub">Potential subs</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div class="flex items-end lg:col-span-12">
-            <Button type="submit" class="h-10 rounded-none" :disabled="pending">
+              <Label for="q" class="sr-only">Keyword</Label>
+              <div class="relative">
+                <Icon
+                  name="mdi:magnify"
+                  class="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
+                />
+                <Input
+                  id="q"
+                  v-model="filters.q"
+                  class="h-12 rounded-none pl-10 text-base"
+                  placeholder="Search capability, contractor, award text, or keyword"
+                />
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              class="h-12 rounded-none px-5"
+              :disabled="pending"
+            >
               <Icon
                 :name="pending ? 'mdi:loading' : 'mdi:target'"
                 :class="['mr-2 h-4 w-4', { 'animate-spin': pending }]"
@@ -180,6 +152,42 @@ useHead({
               <span v-if="pending">Searching...</span>
               <span v-else>Find matches</span>
             </Button>
+          </div>
+
+          <div
+            class="border-border mt-5 grid gap-4 border-t pt-5 sm:grid-cols-2 lg:grid-cols-4"
+          >
+            <div>
+              <Label for="naics">NAICS</Label>
+              <Input
+                id="naics"
+                v-model="filters.naics"
+                class="mt-2 h-10 rounded-none font-mono"
+                placeholder="541512"
+              />
+            </div>
+            <div>
+              <Label for="psc">PSC</Label>
+              <Input
+                id="psc"
+                v-model="filters.psc"
+                class="mt-2 h-10 rounded-none font-mono"
+                placeholder="D399"
+              />
+            </div>
+            <div>
+              <Label for="role">Role</Label>
+              <Select v-model="filters.role">
+                <SelectTrigger id="role" class="mt-2 h-10 w-full rounded-none">
+                  <SelectValue placeholder="Any" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="any">Any fit</SelectItem>
+                  <SelectItem value="prime">Likely primes</SelectItem>
+                  <SelectItem value="sub">Potential subs</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </form>
       </section>
@@ -220,8 +228,8 @@ useHead({
             No matching contractors found
           </p>
           <p class="text-muted-foreground mt-2 text-sm">
-            Try removing one filter or searching by a broader agency, NAICS,
-            PSC, or keyword.
+            Try removing one filter or searching by a broader NAICS, PSC, role,
+            or keyword.
           </p>
         </div>
 
