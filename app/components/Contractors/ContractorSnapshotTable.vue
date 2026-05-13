@@ -304,16 +304,22 @@ onUnmounted(clearEnrichmentRefreshTimer);
   <section class="space-y-4">
     <form
       v-if="showFilters && !preview"
-      class="border-border bg-card grid gap-3 border p-3 lg:grid-cols-[minmax(14rem,1fr)_auto]"
+      class="grid gap-3 lg:grid-cols-[minmax(14rem,1fr)_auto]"
       @submit.prevent="applyFilters"
     >
-      <Input
-        v-model="searchInput"
-        class="h-10 rounded-none"
-        placeholder="Search contractor, alternate recipient, UEI, or code"
-      />
+      <div class="relative">
+        <Icon
+          name="mdi:magnify"
+          class="text-muted-foreground pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2"
+        />
+        <Input
+          v-model="searchInput"
+          class="h-12 rounded-none pl-10 text-base"
+          placeholder="Search contractor, alternate recipient, UEI, or code"
+        />
+      </div>
       <div class="flex gap-2">
-        <Button type="submit" class="h-10">
+        <Button type="submit" class="h-12 rounded-none px-5">
           <Icon name="mdi:magnify" class="mr-2 h-4 w-4" />
           Search
         </Button>
@@ -321,7 +327,7 @@ onUnmounted(clearEnrichmentRefreshTimer);
           v-if="hasFilters"
           type="button"
           variant="outline"
-          class="h-10"
+          class="h-12 rounded-none"
           @click="clearFilters"
         >
           Clear

@@ -68,7 +68,7 @@ useWebPageSchema({
 
     <DirectoryPageHeader
       eyebrow="Directory"
-      title="Defense contractor directory"
+      title="Defense Contractor Directory"
       description="Search one canonical profile per active DoD contractor. Raw USAspending recipient names remain preserved as alternate names on each contractor profile."
     />
 
